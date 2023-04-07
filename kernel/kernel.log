@@ -69,3 +69,111 @@
 [INFO] 02:59:41:514 Kernel/(5994:5994): que
 [INFO] 02:59:41:515 Kernel/(5994:5994): tal
 [ERROR] 02:59:41:521 Kernel/(5994:5994): el cliente se desconecto. Terminando servidor
+[INFO] 05:19:48:558 Kernel/(3056:3056): KERNEL listo para recibir a las consolas
+[INFO] 05:19:58:836 Kernel/(3056:3056): Se conecto un cliente!
+[INFO] 05:19:58:838 Kernel/(3056:3060): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 05:20:08:318 Kernel/(3056:3056): Se conecto un cliente!
+[INFO] 05:20:08:319 Kernel/(3056:3064): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 05:20:16:967 Kernel/(3056:3064): Me llegaron los siguientes valores:
+
+[INFO] 05:20:16:967 Kernel/(3056:3064): Hola mi nombre es daniel 
+[INFO] 05:20:29:472 Kernel/(3056:3060): Me llegaron los siguientes valores:
+
+[INFO] 05:20:29:472 Kernel/(3056:3060): hola mi nombre es carlos y estas aprobado
+[INFO] 05:20:33:510 Kernel/(3056:3060): Me llegaron los siguientes valores:
+
+[INFO] 05:20:33:510 Kernel/(3056:3060): hola mi nombre es carlos y estas aprobado
+[ERROR] 05:20:33:510 Kernel/(3056:3060): el cliente se desconecto. Terminando servidor
+[INFO] 05:20:39:898 Kernel/(3067:3067): KERNEL listo para recibir a las consolas
+[INFO] 05:20:50:456 Kernel/(3069:3069): KERNEL listo para recibir a las consolas
+[INFO] 05:21:40:602 Kernel/(3184:3184): KERNEL listo para recibir a las consolas
+[INFO] 05:21:42:684 Kernel/(3184:3184): Se conecto un cliente!
+[INFO] 05:21:42:687 Kernel/(3184:3186): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 05:21:44:599 Kernel/(3184:3184): Se conecto un cliente!
+[INFO] 05:21:44:601 Kernel/(3184:3188): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 05:21:51:562 Kernel/(3184:3186): Me llegaron los siguientes valores:
+
+[INFO] 05:21:51:562 Kernel/(3184:3186): AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+[INFO] 05:21:57:683 Kernel/(3184:3188): Me llegaron los siguientes valores:
+
+[INFO] 05:21:57:683 Kernel/(3184:3188): BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+[ERROR] 05:22:01:060 Kernel/(3184:3188): el cliente se desconecto. Terminando servidor
+[INFO] 05:22:07:589 Kernel/(3189:3189): KERNEL listo para recibir a las consolas
+[INFO] 05:22:44:826 Kernel/(3194:3194): KERNEL listo para recibir a las consolas
+[INFO] 05:23:42:400 Kernel/(3246:3246): KERNEL listo para recibir a las consolas
+[INFO] 05:23:44:348 Kernel/(3246:3246): Se conecto un cliente!
+[INFO] 05:23:44:430 Kernel/(3246:3248): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 05:23:46:060 Kernel/(3246:3246): Se conecto un cliente!
+[INFO] 05:23:46:118 Kernel/(3246:3250): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 05:23:50:904 Kernel/(3246:3248): Me llegaron los siguientes valores:
+
+[INFO] 05:23:50:905 Kernel/(3246:3248): AAAAAAAAAAAAAAAAAh
+[INFO] 05:23:56:435 Kernel/(3246:3250): Me llegaron los siguientes valores:
+
+[INFO] 05:23:56:436 Kernel/(3246:3250): AYUDAAAAAAAAAAAAAAAAAAAAAA
+[INFO] 05:24:02:530 Kernel/(3246:3250): Me llegaron los siguientes valores:
+
+[INFO] 05:24:02:534 Kernel/(3246:3250): AYUDAAAAAAAAAAAAAAAAAAAAAA
+[ERROR] 05:24:02:539 Kernel/(3246:3250): el cliente se desconecto. Terminando servidor
+[INFO] 05:26:15:223 Kernel/(3252:3252): KERNEL listo para recibir a las consolas
+[INFO] 05:26:16:064 Kernel/(3252:3252): Se conecto un cliente!
+[INFO] 05:26:16:148 Kernel/(3252:3254): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 05:26:17:471 Kernel/(3252:3252): Se conecto un cliente!
+[INFO] 05:26:17:524 Kernel/(3252:3256): Me llego el mensaje Hola estoy probando cosas para despues
+[ERROR] 05:26:20:356 Kernel/(3252:3254): el cliente se desconecto. Terminando servidor
+[INFO] 05:26:34:267 Kernel/(3257:3257): KERNEL listo para recibir a las consolas
+[INFO] 05:27:31:404 Kernel/(3308:3308): KERNEL listo para recibir a las consolas
+[INFO] 05:27:32:684 Kernel/(3308:3308): Se conecto un cliente!
+[INFO] 05:27:32:771 Kernel/(3308:3310): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 05:27:34:889 Kernel/(3308:3308): Se conecto un cliente!
+[INFO] 05:27:34:946 Kernel/(3308:3312): Me llego el mensaje Hola estoy probando cosas para despues
+[ERROR] 05:27:37:752 Kernel/(3308:3310): el cliente se desconecto. Terminando servidor
+[INFO] 05:27:45:557 Kernel/(3313:3313): KERNEL listo para recibir a las consolas
+[INFO] 05:31:55:033 Kernel/(3345:3345): KERNEL listo para recibir a las consolas
+[INFO] 05:31:56:626 Kernel/(3345:3345): Se conecto un cliente!
+[INFO] 05:31:56:715 Kernel/(3345:3347): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 05:31:58:593 Kernel/(3345:3345): Se conecto un cliente!
+[INFO] 05:31:58:656 Kernel/(3345:3349): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 05:32:02:076 Kernel/(3345:3349): Me llegaron los siguientes valores:
+
+[INFO] 05:32:02:078 Kernel/(3345:3349): HOLAAAAAAAAAAAAAAAAA
+[INFO] 05:32:07:558 Kernel/(3345:3347): Me llegaron los siguientes valores:
+
+[INFO] 05:32:07:560 Kernel/(3345:3347): QUE TALLLLLLLLLLLLLLL
+[ERROR] 05:32:12:929 Kernel/(3345:3347): el cliente se desconecto. Terminando servidor
+[INFO] 05:34:23:727 Kernel/(3486:3486): KERNEL listo para recibir a las consolas
+[INFO] 05:34:25:792 Kernel/(3486:3486): Se conecto un cliente!
+[INFO] 05:34:25:879 Kernel/(3486:3488): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 05:34:27:852 Kernel/(3486:3486): Se conecto un cliente!
+[INFO] 05:34:27:909 Kernel/(3486:3490): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 05:34:32:423 Kernel/(3486:3488): Me llegaron los siguientes valores:
+
+[INFO] 05:34:32:425 Kernel/(3486:3488): SSSSSSSSSSSSSSSSAAAA
+[INFO] 05:34:39:278 Kernel/(3486:3490): Me llegaron los siguientes valores:
+
+[INFO] 05:34:39:279 Kernel/(3486:3490): AGUANTE SARMIENTOOOOOOOOOOOOOO
+[ERROR] 05:34:43:636 Kernel/(3486:3488): el cliente se desconecto. Terminando servidor
+[INFO] 05:36:35:242 Kernel/(3545:3545): KERNEL listo para recibir a las consolas
+[INFO] 05:36:41:171 Kernel/(3545:3545): Se conecto un cliente!
+[INFO] 05:36:41:294 Kernel/(3545:3547): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 05:36:52:967 Kernel/(3545:3545): Se conecto un cliente!
+[INFO] 05:36:53:037 Kernel/(3545:3549): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 05:36:57:431 Kernel/(3545:3547): Me llegaron los siguientes valores:
+
+[INFO] 05:36:57:437 Kernel/(3545:3547): HOLAAAAAAAAAAAAAAAAAAAAAAA
+[ERROR] 05:36:59:739 Kernel/(3545:3547): el cliente se desconecto. Terminando servidor
+[INFO] 07:32:39:377 Kernel/(6700:6700): KERNEL listo para recibir a las consolas
+[INFO] 07:32:45:239 Kernel/(6700:6700): Se conecto un cliente!
+[INFO] 07:32:45:360 Kernel/(6700:6702): Me llego el mensaje Hola estoy probando cosas para despues
+[ERROR] 07:32:48:490 Kernel/(6700:6702): el cliente se desconecto. Terminando servidor
+[INFO] 07:38:28:064 Kernel/(6927:6927): KERNEL listo para recibir a las consolas
+[INFO] 07:38:36:830 Kernel/(6927:6927): Se conecto un cliente!
+[INFO] 07:38:36:958 Kernel/(6927:6930): Me llego el mensaje Hola estoy probando cosas para despues
+[ERROR] 07:38:40:379 Kernel/(6927:6930): el cliente se desconecto. Terminando servidor
+[INFO] 07:56:15:255 Kernel/(7384:7384): KERNEL listo para recibir a las consolas
+[INFO] 07:56:38:543 Kernel/(7384:7384): Se conecto un cliente!
+[INFO] 07:56:38:628 Kernel/(7384:7387): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 07:56:41:097 Kernel/(7384:7387): Me llegaron los siguientes valores:
+
+[INFO] 07:56:41:102 Kernel/(7384:7387): hola
+[ERROR] 07:56:45:490 Kernel/(7384:7387): el cliente se desconecto. Terminando servidor

@@ -1,13 +1,12 @@
 /*
- * memoria.h
+ * cpu.h
  *
  *  Created on: Apr 7, 2023
  *      Author: utnso
  */
 
-#ifndef MEMORIA_H_
-#define MEMORIA_H_
-
+#ifndef CPU_H_
+#define CPU_H_
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -18,16 +17,14 @@
 #include <compartido.h>
 
 typedef struct{
+	int ret_instruccion;
+	char* ip_memoria;
+	char* puerto_memoria;
 	char* puerto_escucha;
-	/*int tam_memoria;
-	int tam_segmento;
-	int cant_segmentos;
-	int ret_memoria;
-	int ret_compactacion;
-	int algoritmo;*/
+	int tam_max_maximo;
 }datos_config;
 
+void* atender_kernel(void);
+void* atender_memoria(void);
 void iterator(char* value);
-void atender_modulos(void* data);
-
-#endif /* MEMORIA_H_ */
+#endif /* CPU_H_ */

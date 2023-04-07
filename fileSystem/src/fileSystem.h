@@ -1,12 +1,12 @@
 /*
- * memoria.h
+ * fileSystem.h
  *
  *  Created on: Apr 7, 2023
  *      Author: utnso
  */
 
-#ifndef MEMORIA_H_
-#define MEMORIA_H_
+#ifndef FILESYSTEM_H_
+#define FILESYSTEM_H_
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,16 +18,18 @@
 #include <compartido.h>
 
 typedef struct{
+	char* ip_memoria;
+	char* puerto_memoria;
 	char* puerto_escucha;
-	/*int tam_memoria;
-	int tam_segmento;
-	int cant_segmentos;
-	int ret_memoria;
-	int ret_compactacion;
-	int algoritmo;*/
+	char* path_superbloque;
+	char* path_bitmap;
+	char* path_bloques;
+	char* path_fcb;
+	int ret_acceso_bloque;
 }datos_config;
 
+void* atender_kernel(void);
+void* atender_memoria(void);
 void iterator(char* value);
-void atender_modulos(void* data);
 
-#endif /* MEMORIA_H_ */
+#endif /* FILESYSTEM_H_ */

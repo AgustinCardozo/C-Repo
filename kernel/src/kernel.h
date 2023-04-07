@@ -11,17 +11,18 @@
 #include <stdlib.h>
 #include <string.h>
 #include <commons/log.h>
+#include <pthread.h>
 #include <utils.h>
 #include <sockets.h>
 #include <compartido.h>
 
 typedef struct{
-	/*char* ip_memoria;
+	char* ip_memoria;
 	char* puerto_memoria;
 	char* ip_filesystem;
 	char* puerto_filesystem;
 	char* ip_cpu;
-	char* puerto_cpu;*/
+	char* puerto_cpu;
 	char* puerto_escucha;
 	/*char* algoritmo_planificacion;
 	int est_inicial;
@@ -32,5 +33,5 @@ typedef struct{
 }datos_config;
 
 void iterator(char* value);
-
+void atender_consolas(void* data);
 #endif /* KERNEL_H_ */

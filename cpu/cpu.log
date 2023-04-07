@@ -1,0 +1,14 @@
+[INFO] 06:00:28:082 CPU/(4503:4503): KERNEL listo para recibir a las consolas
+[INFO] 06:01:03:014 CPU/(4532:4532): KERNEL listo para recibir a las consolas
+[INFO] 07:32:31:631 CPU/(6697:6698): CPU listo para recibir al kernel
+[INFO] 07:32:39:353 CPU/(6697:6698): Se conecto un cliente!
+[INFO] 07:32:39:357 CPU/(6697:6698): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 07:32:48:601 CPU/(6697:6698): el cliente se desconecto. Terminando servidor
+[INFO] 07:38:24:070 CPU/(6923:6924): CPU listo para recibir al kernel
+[INFO] 07:38:28:041 CPU/(6923:6924): Se conecto un cliente!
+[INFO] 07:38:28:045 CPU/(6923:6924): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 07:38:40:490 CPU/(6923:6925): el cliente se desconecto. Terminando servidor
+[INFO] 07:46:49:526 CPU/(7220:7221): CPU listo para recibir al kernel
+[INFO] 07:56:15:230 CPU/(7220:7221): Se conecto un cliente!
+[INFO] 07:56:15:235 CPU/(7220:7221): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 07:56:45:597 CPU/(7220:7222): el cliente se desconecto. Terminando servidor

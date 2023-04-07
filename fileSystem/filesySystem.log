@@ -1,0 +1,4 @@
+[INFO] 07:56:07:016 File_System/(7380:7381): Fyle System listo para recibir al kernel
+[INFO] 07:56:15:232 File_System/(7380:7381): Se conecto un cliente!
+[INFO] 07:56:15:236 File_System/(7380:7381): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 07:56:45:596 File_System/(7380:7381): el cliente se desconecto. Terminando servidor
