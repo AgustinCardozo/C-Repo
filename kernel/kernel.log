@@ -1,0 +1,71 @@
+[INFO] 02:37:06:568 Kernel/(5254:5254): KERNEL listo para recibir a las consolas
+[INFO] 02:37:10:438 Kernel/(5254:5254): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 02:42:35:915 Kernel/(5494:5494): KERNEL listo para recibir a las consolas
+[INFO] 02:42:38:535 Kernel/(5494:5494): Se conecto un cliente!
+[INFO] 02:42:38:535 Kernel/(5494:5494): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 02:51:51:028 Kernel/(5552:5552): KERNEL listo para recibir a las consolas
+[INFO] 02:51:53:140 Kernel/(5552:5552): Se conecto un cliente!
+[INFO] 02:51:53:141 Kernel/(5552:5552): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 02:56:50:685 Kernel/(5931:5931): KERNEL listo para recibir a las consolas
+[INFO] 02:56:53:529 Kernel/(5931:5931): Se conecto un cliente!
+[INFO] 02:56:53:529 Kernel/(5931:5931): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 02:56:56:480 Kernel/(5931:5931): Me llegaron los siguientes valores:
+
+[INFO] 02:56:56:481 Kernel/(5931:5931): hola
+[INFO] 02:56:58:750 Kernel/(5931:5931): Me llegaron los siguientes valores:
+
+[INFO] 02:56:58:751 Kernel/(5931:5931): hola
+[INFO] 02:56:58:751 Kernel/(5931:5931): que 
+[INFO] 02:57:02:657 Kernel/(5931:5931): Me llegaron los siguientes valores:
+
+[INFO] 02:57:02:658 Kernel/(5931:5931): hola
+[INFO] 02:57:02:658 Kernel/(5931:5931): que 
+[INFO] 02:57:02:658 Kernel/(5931:5931): tal
+[INFO] 02:57:08:174 Kernel/(5931:5931): Me llegaron los siguientes valores:
+
+[INFO] 02:57:08:174 Kernel/(5931:5931): hola
+[INFO] 02:57:08:174 Kernel/(5931:5931): que 
+[INFO] 02:57:08:174 Kernel/(5931:5931): tal
+[ERROR] 02:57:08:174 Kernel/(5931:5931): el cliente se desconecto. Terminando servidor
+[INFO] 02:58:59:496 Kernel/(5988:5988): KERNEL listo para recibir a las consolas
+[INFO] 02:59:00:767 Kernel/(5988:5988): Se conecto un cliente!
+[INFO] 02:59:00:768 Kernel/(5988:5988): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 02:59:03:362 Kernel/(5988:5988): Me llegaron los siguientes valores:
+
+[INFO] 02:59:03:362 Kernel/(5988:5988): hola
+[INFO] 02:59:05:217 Kernel/(5988:5988): Me llegaron los siguientes valores:
+
+[INFO] 02:59:05:217 Kernel/(5988:5988): hola
+[INFO] 02:59:05:217 Kernel/(5988:5988): q
+[INFO] 02:59:06:043 Kernel/(5988:5988): Me llegaron los siguientes valores:
+
+[INFO] 02:59:06:043 Kernel/(5988:5988): hola
+[INFO] 02:59:06:043 Kernel/(5988:5988): q
+[INFO] 02:59:06:043 Kernel/(5988:5988): w
+[INFO] 02:59:09:349 Kernel/(5988:5988): Me llegaron los siguientes valores:
+
+[INFO] 02:59:09:349 Kernel/(5988:5988): hola
+[INFO] 02:59:09:349 Kernel/(5988:5988): q
+[INFO] 02:59:09:349 Kernel/(5988:5988): w
+[ERROR] 02:59:09:350 Kernel/(5988:5988): el cliente se desconecto. Terminando servidor
+[INFO] 02:59:32:010 Kernel/(5994:5994): KERNEL listo para recibir a las consolas
+[INFO] 02:59:35:775 Kernel/(5994:5994): Se conecto un cliente!
+[INFO] 02:59:35:783 Kernel/(5994:5994): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 02:59:37:739 Kernel/(5994:5994): Me llegaron los siguientes valores:
+
+[INFO] 02:59:37:741 Kernel/(5994:5994): hola
+[INFO] 02:59:39:447 Kernel/(5994:5994): Me llegaron los siguientes valores:
+
+[INFO] 02:59:39:448 Kernel/(5994:5994): hola
+[INFO] 02:59:39:449 Kernel/(5994:5994): que
+[INFO] 02:59:40:968 Kernel/(5994:5994): Me llegaron los siguientes valores:
+
+[INFO] 02:59:40:969 Kernel/(5994:5994): hola
+[INFO] 02:59:40:970 Kernel/(5994:5994): que
+[INFO] 02:59:40:970 Kernel/(5994:5994): tal
+[INFO] 02:59:41:512 Kernel/(5994:5994): Me llegaron los siguientes valores:
+
+[INFO] 02:59:41:513 Kernel/(5994:5994): hola
+[INFO] 02:59:41:514 Kernel/(5994:5994): que
+[INFO] 02:59:41:515 Kernel/(5994:5994): tal
+[ERROR] 02:59:41:521 Kernel/(5994:5994): el cliente se desconecto. Terminando servidor
