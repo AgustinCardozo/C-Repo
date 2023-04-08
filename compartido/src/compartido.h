@@ -41,5 +41,6 @@ typedef struct
 }t_paquete;
 
 void saludo();
+void test();
 
 #endif /* SRC_COMPARTIDO_H_ */

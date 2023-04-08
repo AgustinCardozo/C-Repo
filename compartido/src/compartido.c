@@ -12,3 +12,7 @@
 void saludo(){
 	printf("Hola estoy saludando desde el compartido\n");
 }
+
+void test(){
+	printf("PRUEBA");
+}
