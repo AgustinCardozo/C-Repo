@@ -22,7 +22,7 @@ int conexion_memoria;
 int conexion_filesystem;
 t_buffer* desempaquetar(t_paquete* paquete, int cliente_fd);
 t_list* deserializar_lista_instrucciones(t_buffer* buffer);
-
+int agregar_pid(t_buffer* buffer);
 void mostrar(t_instruccion* inst);
 void mostrar_parametro(char* value);
 
@@ -86,7 +86,9 @@ void atender_consolas(void* data){
 			case INSTRUCCIONES:
 				buffer = desempaquetar(paquete,cliente_fd);
 				t_list* lista_instrucciones = deserializar_lista_instrucciones(buffer);
-				list_iterate(lista_instrucciones, (void*) mostrar);
+				int pid = agregar_pid(buffer);
+				log_info(logger,"EL PID QUE ME LLEGO ES %i",pid);
+				//list_iterate(lista_instrucciones, (void*) mostrar);
 				break;
 			case -1:
 				log_error(logger, "el cliente se desconecto. Terminando servidor");
@@ -99,6 +101,14 @@ void atender_consolas(void* data){
 				exit(1);
 			default:
 				log_warning(logger,"Operacion desconocida. No quieras meter la pata");
+				log_error(logger, "el cliente se desconecto. Terminando servidor");
+				log_destroy(logger);
+				config_destroy(config);
+				close(cliente_fd);
+				close(server_fd);
+				free(data);
+				//return EXIT_FAILURE;
+				exit(1);
 				break;
 		}
 	}
@@ -115,6 +125,15 @@ t_buffer* desempaquetar(t_paquete* paquete, int cliente_fd){
 	recv(cliente_fd, paquete->buffer->stream, paquete->buffer->size, 0);
 
 	return paquete->buffer;
+}
+
+int agregar_pid(t_buffer* buffer){
+	int id;
+	int offset = buffer->size - 4;
+	memcpy(&id, buffer->stream + offset, sizeof(int));
+	offset += sizeof(int);
+	return id;
+
 }
 
 t_list* deserializar_lista_instrucciones(t_buffer* buffer){
@@ -166,6 +185,9 @@ t_list* deserializar_lista_instrucciones(t_buffer* buffer){
 			list_add(i_list, instruccion);
 
 		}
+
+
+
 
 		return i_list;
 }

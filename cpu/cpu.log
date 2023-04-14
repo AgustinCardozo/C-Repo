@@ -33,3 +33,31 @@
 [INFO] 12:55:57:268 CPU/(113309:113310): Se conecto un cliente!
 [INFO] 12:55:57:269 CPU/(113309:113310): Me llego el mensaje Hola te estoy hablando desde el kernel
 [ERROR] 12:56:27:738 CPU/(113309:113311): el cliente se desconecto. Terminando servidor
+[INFO] 13:54:08:051 CPU/(114383:114384): CPU listo para recibir al kernel
+[INFO] 13:54:11:127 CPU/(114383:114384): Se conecto un cliente!
+[INFO] 13:54:11:135 CPU/(114383:114384): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 13:54:23:580 CPU/(114383:114385): el cliente se desconecto. Terminando servidor
+[INFO] 13:55:49:500 CPU/(114460:114461): CPU listo para recibir al kernel
+[INFO] 13:55:51:532 CPU/(114460:114461): Se conecto un cliente!
+[INFO] 13:55:51:533 CPU/(114460:114461): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 13:55:53:717 CPU/(114460:114462): el cliente se desconecto. Terminando servidor
+[INFO] 13:57:13:139 CPU/(114520:114521): CPU listo para recibir al kernel
+[INFO] 13:57:14:925 CPU/(114520:114521): Se conecto un cliente!
+[INFO] 13:57:14:926 CPU/(114520:114521): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 13:57:17:020 CPU/(114520:114522): el cliente se desconecto. Terminando servidor
+[INFO] 13:59:35:222 CPU/(114586:114587): CPU listo para recibir al kernel
+[INFO] 13:59:39:419 CPU/(114586:114587): Se conecto un cliente!
+[INFO] 13:59:39:420 CPU/(114586:114587): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 13:59:41:609 CPU/(114586:114588): el cliente se desconecto. Terminando servidor
+[INFO] 14:06:12:958 CPU/(114908:114909): CPU listo para recibir al kernel
+[INFO] 14:06:15:038 CPU/(114908:114909): Se conecto un cliente!
+[INFO] 14:06:15:039 CPU/(114908:114909): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 14:06:17:176 CPU/(114908:114910): el cliente se desconecto. Terminando servidor
+[INFO] 14:07:33:428 CPU/(114955:114956): CPU listo para recibir al kernel
+[INFO] 14:07:35:313 CPU/(114955:114956): Se conecto un cliente!
+[INFO] 14:07:35:314 CPU/(114955:114956): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 14:07:37:045 CPU/(114955:114957): el cliente se desconecto. Terminando servidor
+[INFO] 14:09:51:675 CPU/(115026:115027): CPU listo para recibir al kernel
+[INFO] 14:09:53:477 CPU/(115026:115027): Se conecto un cliente!
+[INFO] 14:09:53:478 CPU/(115026:115027): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 14:09:55:357 CPU/(115026:115028): el cliente se desconecto. Terminando servidor

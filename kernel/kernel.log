@@ -257,3 +257,318 @@
 [INFO] 12:56:27:736 Kernel/(113313:113340): Parametro ARCHIVO
 [INFO] 12:56:27:736 Kernel/(113313:113340): La instruccion es 15
 [ERROR] 12:56:27:736 Kernel/(113313:113340): el cliente se desconecto. Terminando servidor
+[INFO] 13:54:11:135 Kernel/(114387:114387): KERNEL listo para recibir a las consolas
+[INFO] 13:54:23:567 Kernel/(114387:114387): Se conecto un cliente!
+[INFO] 13:54:23:576 Kernel/(114387:114411): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 13:54:23:576 Kernel/(114387:114411): EL PID QUE ME LLEGO ES 0
+[INFO] 13:54:23:576 Kernel/(114387:114411): La instruccion es 0
+[INFO] 13:54:23:576 Kernel/(114387:114411): Parametro AX
+[INFO] 13:54:23:576 Kernel/(114387:114411): Parametro HOLA
+[INFO] 13:54:23:576 Kernel/(114387:114411): La instruccion es 2
+[INFO] 13:54:23:576 Kernel/(114387:114411): Parametro 120
+[INFO] 13:54:23:576 Kernel/(114387:114411): Parametro AX
+[INFO] 13:54:23:576 Kernel/(114387:114411): La instruccion es 10
+[INFO] 13:54:23:576 Kernel/(114387:114411): Parametro DISCO
+[INFO] 13:54:23:577 Kernel/(114387:114411): La instruccion es 3
+[INFO] 13:54:23:577 Kernel/(114387:114411): Parametro 10
+[INFO] 13:54:23:577 Kernel/(114387:114411): La instruccion es 11
+[INFO] 13:54:23:577 Kernel/(114387:114411): Parametro DISCO
+[INFO] 13:54:23:577 Kernel/(114387:114411): La instruccion es 1
+[INFO] 13:54:23:577 Kernel/(114387:114411): Parametro BX
+[INFO] 13:54:23:577 Kernel/(114387:114411): Parametro 120
+[INFO] 13:54:23:577 Kernel/(114387:114411): La instruccion es 4
+[INFO] 13:54:23:577 Kernel/(114387:114411): Parametro ARCHIVO
+[INFO] 13:54:23:577 Kernel/(114387:114411): La instruccion es 14
+[INFO] 13:54:23:578 Kernel/(114387:114411): La instruccion es 9
+[INFO] 13:54:23:578 Kernel/(114387:114411): Parametro ARCHIVO
+[INFO] 13:54:23:578 Kernel/(114387:114411): Parametro 64
+[INFO] 13:54:23:578 Kernel/(114387:114411): La instruccion es 6
+[INFO] 13:54:23:578 Kernel/(114387:114411): Parametro ARCHIVO
+[INFO] 13:54:23:578 Kernel/(114387:114411): Parametro 10
+[INFO] 13:54:23:578 Kernel/(114387:114411): La instruccion es 12
+[INFO] 13:54:23:578 Kernel/(114387:114411): Parametro 1
+[INFO] 13:54:23:578 Kernel/(114387:114411): Parametro 128
+[INFO] 13:54:23:578 Kernel/(114387:114411): La instruccion es 8
+[INFO] 13:54:23:578 Kernel/(114387:114411): Parametro ARCHIVO
+[INFO] 13:54:23:578 Kernel/(114387:114411): Parametro 4
+[INFO] 13:54:23:578 Kernel/(114387:114411): Parametro 4
+[INFO] 13:54:23:578 Kernel/(114387:114411): La instruccion es 7
+[INFO] 13:54:23:579 Kernel/(114387:114411): Parametro ARCHIVO
+[INFO] 13:54:23:579 Kernel/(114387:114411): Parametro 16
+[INFO] 13:54:23:579 Kernel/(114387:114411): Parametro 4
+[INFO] 13:54:23:579 Kernel/(114387:114411): La instruccion es 13
+[INFO] 13:54:23:579 Kernel/(114387:114411): Parametro 1
+[INFO] 13:54:23:579 Kernel/(114387:114411): La instruccion es 5
+[INFO] 13:54:23:579 Kernel/(114387:114411): Parametro ARCHIVO
+[INFO] 13:54:23:579 Kernel/(114387:114411): La instruccion es 15
+[ERROR] 13:54:23:579 Kernel/(114387:114411): el cliente se desconecto. Terminando servidor
+[INFO] 13:55:51:533 Kernel/(114464:114464): KERNEL listo para recibir a las consolas
+[INFO] 13:55:53:703 Kernel/(114464:114464): Se conecto un cliente!
+[INFO] 13:55:53:712 Kernel/(114464:114467): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 13:55:53:712 Kernel/(114464:114467): EL PID QUE ME LLEGO ES 0
+[INFO] 13:55:53:712 Kernel/(114464:114467): La instruccion es 0
+[INFO] 13:55:53:712 Kernel/(114464:114467): Parametro AX
+[INFO] 13:55:53:712 Kernel/(114464:114467): Parametro HOLA
+[INFO] 13:55:53:712 Kernel/(114464:114467): La instruccion es 2
+[INFO] 13:55:53:712 Kernel/(114464:114467): Parametro 120
+[INFO] 13:55:53:713 Kernel/(114464:114467): Parametro AX
+[INFO] 13:55:53:713 Kernel/(114464:114467): La instruccion es 10
+[INFO] 13:55:53:713 Kernel/(114464:114467): Parametro DISCO
+[INFO] 13:55:53:713 Kernel/(114464:114467): La instruccion es 3
+[INFO] 13:55:53:713 Kernel/(114464:114467): Parametro 10
+[INFO] 13:55:53:713 Kernel/(114464:114467): La instruccion es 11
+[INFO] 13:55:53:713 Kernel/(114464:114467): Parametro DISCO
+[INFO] 13:55:53:713 Kernel/(114464:114467): La instruccion es 1
+[INFO] 13:55:53:714 Kernel/(114464:114467): Parametro BX
+[INFO] 13:55:53:714 Kernel/(114464:114467): Parametro 120
+[INFO] 13:55:53:714 Kernel/(114464:114467): La instruccion es 4
+[INFO] 13:55:53:714 Kernel/(114464:114467): Parametro ARCHIVO
+[INFO] 13:55:53:714 Kernel/(114464:114467): La instruccion es 14
+[INFO] 13:55:53:714 Kernel/(114464:114467): La instruccion es 9
+[INFO] 13:55:53:714 Kernel/(114464:114467): Parametro ARCHIVO
+[INFO] 13:55:53:714 Kernel/(114464:114467): Parametro 64
+[INFO] 13:55:53:714 Kernel/(114464:114467): La instruccion es 6
+[INFO] 13:55:53:714 Kernel/(114464:114467): Parametro ARCHIVO
+[INFO] 13:55:53:714 Kernel/(114464:114467): Parametro 10
+[INFO] 13:55:53:714 Kernel/(114464:114467): La instruccion es 12
+[INFO] 13:55:53:715 Kernel/(114464:114467): Parametro 1
+[INFO] 13:55:53:715 Kernel/(114464:114467): Parametro 128
+[INFO] 13:55:53:715 Kernel/(114464:114467): La instruccion es 8
+[INFO] 13:55:53:715 Kernel/(114464:114467): Parametro ARCHIVO
+[INFO] 13:55:53:715 Kernel/(114464:114467): Parametro 4
+[INFO] 13:55:53:715 Kernel/(114464:114467): Parametro 4
+[INFO] 13:55:53:715 Kernel/(114464:114467): La instruccion es 7
+[INFO] 13:55:53:715 Kernel/(114464:114467): Parametro ARCHIVO
+[INFO] 13:55:53:715 Kernel/(114464:114467): Parametro 16
+[INFO] 13:55:53:715 Kernel/(114464:114467): Parametro 4
+[INFO] 13:55:53:715 Kernel/(114464:114467): La instruccion es 13
+[INFO] 13:55:53:715 Kernel/(114464:114467): Parametro 1
+[INFO] 13:55:53:715 Kernel/(114464:114467): La instruccion es 5
+[INFO] 13:55:53:716 Kernel/(114464:114467): Parametro ARCHIVO
+[INFO] 13:55:53:716 Kernel/(114464:114467): La instruccion es 15
+[ERROR] 13:55:53:716 Kernel/(114464:114467): el cliente se desconecto. Terminando servidor
+[INFO] 13:57:14:926 Kernel/(114524:114524): KERNEL listo para recibir a las consolas
+[INFO] 13:57:17:006 Kernel/(114524:114524): Se conecto un cliente!
+[INFO] 13:57:17:014 Kernel/(114524:114527): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 13:57:17:014 Kernel/(114524:114527): EL PID QUE ME LLEGO ES 0
+[INFO] 13:57:17:015 Kernel/(114524:114527): La instruccion es 0
+[INFO] 13:57:17:015 Kernel/(114524:114527): Parametro AX
+[INFO] 13:57:17:015 Kernel/(114524:114527): Parametro HOLA
+[INFO] 13:57:17:015 Kernel/(114524:114527): La instruccion es 2
+[INFO] 13:57:17:015 Kernel/(114524:114527): Parametro 120
+[INFO] 13:57:17:015 Kernel/(114524:114527): Parametro AX
+[INFO] 13:57:17:015 Kernel/(114524:114527): La instruccion es 10
+[INFO] 13:57:17:016 Kernel/(114524:114527): Parametro DISCO
+[INFO] 13:57:17:016 Kernel/(114524:114527): La instruccion es 3
+[INFO] 13:57:17:016 Kernel/(114524:114527): Parametro 10
+[INFO] 13:57:17:016 Kernel/(114524:114527): La instruccion es 11
+[INFO] 13:57:17:016 Kernel/(114524:114527): Parametro DISCO
+[INFO] 13:57:17:016 Kernel/(114524:114527): La instruccion es 1
+[INFO] 13:57:17:016 Kernel/(114524:114527): Parametro BX
+[INFO] 13:57:17:016 Kernel/(114524:114527): Parametro 120
+[INFO] 13:57:17:016 Kernel/(114524:114527): La instruccion es 4
+[INFO] 13:57:17:016 Kernel/(114524:114527): Parametro ARCHIVO
+[INFO] 13:57:17:017 Kernel/(114524:114527): La instruccion es 14
+[INFO] 13:57:17:017 Kernel/(114524:114527): La instruccion es 9
+[INFO] 13:57:17:017 Kernel/(114524:114527): Parametro ARCHIVO
+[INFO] 13:57:17:017 Kernel/(114524:114527): Parametro 64
+[INFO] 13:57:17:017 Kernel/(114524:114527): La instruccion es 6
+[INFO] 13:57:17:017 Kernel/(114524:114527): Parametro ARCHIVO
+[INFO] 13:57:17:017 Kernel/(114524:114527): Parametro 10
+[INFO] 13:57:17:017 Kernel/(114524:114527): La instruccion es 12
+[INFO] 13:57:17:017 Kernel/(114524:114527): Parametro 1
+[INFO] 13:57:17:017 Kernel/(114524:114527): Parametro 128
+[INFO] 13:57:17:017 Kernel/(114524:114527): La instruccion es 8
+[INFO] 13:57:17:017 Kernel/(114524:114527): Parametro ARCHIVO
+[INFO] 13:57:17:017 Kernel/(114524:114527): Parametro 4
+[INFO] 13:57:17:017 Kernel/(114524:114527): Parametro 4
+[INFO] 13:57:17:017 Kernel/(114524:114527): La instruccion es 7
+[INFO] 13:57:17:018 Kernel/(114524:114527): Parametro ARCHIVO
+[INFO] 13:57:17:018 Kernel/(114524:114527): Parametro 16
+[INFO] 13:57:17:018 Kernel/(114524:114527): Parametro 4
+[INFO] 13:57:17:019 Kernel/(114524:114527): La instruccion es 13
+[INFO] 13:57:17:019 Kernel/(114524:114527): Parametro 1
+[INFO] 13:57:17:019 Kernel/(114524:114527): La instruccion es 5
+[INFO] 13:57:17:019 Kernel/(114524:114527): Parametro ARCHIVO
+[INFO] 13:57:17:019 Kernel/(114524:114527): La instruccion es 15
+[ERROR] 13:57:17:019 Kernel/(114524:114527): el cliente se desconecto. Terminando servidor
+[INFO] 13:59:39:420 Kernel/(114591:114591): KERNEL listo para recibir a las consolas
+[INFO] 13:59:41:596 Kernel/(114591:114591): Se conecto un cliente!
+[INFO] 13:59:41:604 Kernel/(114591:114594): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 13:59:41:604 Kernel/(114591:114594): EL PID QUE ME LLEGO ES 114593
+[INFO] 13:59:41:604 Kernel/(114591:114594): La instruccion es 0
+[INFO] 13:59:41:604 Kernel/(114591:114594): Parametro AX
+[INFO] 13:59:41:605 Kernel/(114591:114594): Parametro HOLA
+[INFO] 13:59:41:605 Kernel/(114591:114594): La instruccion es 2
+[INFO] 13:59:41:605 Kernel/(114591:114594): Parametro 120
+[INFO] 13:59:41:605 Kernel/(114591:114594): Parametro AX
+[INFO] 13:59:41:605 Kernel/(114591:114594): La instruccion es 10
+[INFO] 13:59:41:605 Kernel/(114591:114594): Parametro DISCO
+[INFO] 13:59:41:606 Kernel/(114591:114594): La instruccion es 3
+[INFO] 13:59:41:606 Kernel/(114591:114594): Parametro 10
+[INFO] 13:59:41:606 Kernel/(114591:114594): La instruccion es 11
+[INFO] 13:59:41:606 Kernel/(114591:114594): Parametro DISCO
+[INFO] 13:59:41:606 Kernel/(114591:114594): La instruccion es 1
+[INFO] 13:59:41:606 Kernel/(114591:114594): Parametro BX
+[INFO] 13:59:41:606 Kernel/(114591:114594): Parametro 120
+[INFO] 13:59:41:606 Kernel/(114591:114594): La instruccion es 4
+[INFO] 13:59:41:606 Kernel/(114591:114594): Parametro ARCHIVO
+[INFO] 13:59:41:606 Kernel/(114591:114594): La instruccion es 14
+[INFO] 13:59:41:606 Kernel/(114591:114594): La instruccion es 9
+[INFO] 13:59:41:606 Kernel/(114591:114594): Parametro ARCHIVO
+[INFO] 13:59:41:607 Kernel/(114591:114594): Parametro 64
+[INFO] 13:59:41:607 Kernel/(114591:114594): La instruccion es 6
+[INFO] 13:59:41:607 Kernel/(114591:114594): Parametro ARCHIVO
+[INFO] 13:59:41:607 Kernel/(114591:114594): Parametro 10
+[INFO] 13:59:41:607 Kernel/(114591:114594): La instruccion es 12
+[INFO] 13:59:41:607 Kernel/(114591:114594): Parametro 1
+[INFO] 13:59:41:607 Kernel/(114591:114594): Parametro 128
+[INFO] 13:59:41:607 Kernel/(114591:114594): La instruccion es 8
+[INFO] 13:59:41:607 Kernel/(114591:114594): Parametro ARCHIVO
+[INFO] 13:59:41:607 Kernel/(114591:114594): Parametro 4
+[INFO] 13:59:41:607 Kernel/(114591:114594): Parametro 4
+[INFO] 13:59:41:607 Kernel/(114591:114594): La instruccion es 7
+[INFO] 13:59:41:607 Kernel/(114591:114594): Parametro ARCHIVO
+[INFO] 13:59:41:607 Kernel/(114591:114594): Parametro 16
+[INFO] 13:59:41:608 Kernel/(114591:114594): Parametro 4
+[INFO] 13:59:41:608 Kernel/(114591:114594): La instruccion es 13
+[INFO] 13:59:41:608 Kernel/(114591:114594): Parametro 1
+[INFO] 13:59:41:608 Kernel/(114591:114594): La instruccion es 5
+[INFO] 13:59:41:608 Kernel/(114591:114594): Parametro ARCHIVO
+[INFO] 13:59:41:608 Kernel/(114591:114594): La instruccion es 15
+[ERROR] 13:59:41:608 Kernel/(114591:114594): el cliente se desconecto. Terminando servidor
+[INFO] 14:06:15:040 Kernel/(114912:114912): KERNEL listo para recibir a las consolas
+[INFO] 14:06:17:138 Kernel/(114912:114912): Se conecto un cliente!
+[INFO] 14:06:17:157 Kernel/(114912:114915): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 14:06:17:157 Kernel/(114912:114915): EL PID QUE ME LLEGO ES 16
+[INFO] 14:06:17:157 Kernel/(114912:114915): La instruccion es 0
+[INFO] 14:06:17:157 Kernel/(114912:114915): Parametro AX
+[INFO] 14:06:17:157 Kernel/(114912:114915): Parametro HOLA
+[INFO] 14:06:17:157 Kernel/(114912:114915): La instruccion es 2
+[INFO] 14:06:17:157 Kernel/(114912:114915): Parametro 120
+[INFO] 14:06:17:157 Kernel/(114912:114915): Parametro AX
+[INFO] 14:06:17:157 Kernel/(114912:114915): La instruccion es 10
+[INFO] 14:06:17:158 Kernel/(114912:114915): Parametro DISCO
+[INFO] 14:06:17:158 Kernel/(114912:114915): La instruccion es 3
+[INFO] 14:06:17:158 Kernel/(114912:114915): Parametro 10
+[INFO] 14:06:17:158 Kernel/(114912:114915): La instruccion es 11
+[INFO] 14:06:17:158 Kernel/(114912:114915): Parametro DISCO
+[INFO] 14:06:17:158 Kernel/(114912:114915): La instruccion es 1
+[INFO] 14:06:17:158 Kernel/(114912:114915): Parametro BX
+[INFO] 14:06:17:158 Kernel/(114912:114915): Parametro 120
+[INFO] 14:06:17:158 Kernel/(114912:114915): La instruccion es 4
+[INFO] 14:06:17:158 Kernel/(114912:114915): Parametro ARCHIVO
+[INFO] 14:06:17:158 Kernel/(114912:114915): La instruccion es 14
+[INFO] 14:06:17:159 Kernel/(114912:114915): La instruccion es 9
+[INFO] 14:06:17:159 Kernel/(114912:114915): Parametro ARCHIVO
+[INFO] 14:06:17:161 Kernel/(114912:114915): Parametro 64
+[INFO] 14:06:17:161 Kernel/(114912:114915): La instruccion es 6
+[INFO] 14:06:17:161 Kernel/(114912:114915): Parametro ARCHIVO
+[INFO] 14:06:17:161 Kernel/(114912:114915): Parametro 10
+[INFO] 14:06:17:161 Kernel/(114912:114915): La instruccion es 12
+[INFO] 14:06:17:161 Kernel/(114912:114915): Parametro 1
+[INFO] 14:06:17:161 Kernel/(114912:114915): Parametro 128
+[INFO] 14:06:17:161 Kernel/(114912:114915): La instruccion es 8
+[INFO] 14:06:17:161 Kernel/(114912:114915): Parametro ARCHIVO
+[INFO] 14:06:17:161 Kernel/(114912:114915): Parametro 4
+[INFO] 14:06:17:162 Kernel/(114912:114915): Parametro 4
+[INFO] 14:06:17:164 Kernel/(114912:114915): La instruccion es 7
+[INFO] 14:06:17:164 Kernel/(114912:114915): Parametro ARCHIVO
+[INFO] 14:06:17:164 Kernel/(114912:114915): Parametro 16
+[INFO] 14:06:17:164 Kernel/(114912:114915): Parametro 4
+[INFO] 14:06:17:164 Kernel/(114912:114915): La instruccion es 13
+[INFO] 14:06:17:164 Kernel/(114912:114915): Parametro 1
+[INFO] 14:06:17:164 Kernel/(114912:114915): La instruccion es 5
+[INFO] 14:06:17:165 Kernel/(114912:114915): Parametro ARCHIVO
+[INFO] 14:06:17:165 Kernel/(114912:114915): La instruccion es 15
+[ERROR] 14:06:17:165 Kernel/(114912:114915): el cliente se desconecto. Terminando servidor
+[INFO] 14:07:35:314 Kernel/(114960:114960): KERNEL listo para recibir a las consolas
+[INFO] 14:07:37:032 Kernel/(114960:114960): Se conecto un cliente!
+[INFO] 14:07:37:040 Kernel/(114960:114963): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 14:07:37:040 Kernel/(114960:114963): EL PID QUE ME LLEGO ES 0
+[INFO] 14:07:37:040 Kernel/(114960:114963): La instruccion es 0
+[INFO] 14:07:37:041 Kernel/(114960:114963): Parametro AX
+[INFO] 14:07:37:041 Kernel/(114960:114963): Parametro HOLA
+[INFO] 14:07:37:041 Kernel/(114960:114963): La instruccion es 2
+[INFO] 14:07:37:041 Kernel/(114960:114963): Parametro 120
+[INFO] 14:07:37:041 Kernel/(114960:114963): Parametro AX
+[INFO] 14:07:37:041 Kernel/(114960:114963): La instruccion es 10
+[INFO] 14:07:37:041 Kernel/(114960:114963): Parametro DISCO
+[INFO] 14:07:37:041 Kernel/(114960:114963): La instruccion es 3
+[INFO] 14:07:37:041 Kernel/(114960:114963): Parametro 10
+[INFO] 14:07:37:041 Kernel/(114960:114963): La instruccion es 11
+[INFO] 14:07:37:042 Kernel/(114960:114963): Parametro DISCO
+[INFO] 14:07:37:042 Kernel/(114960:114963): La instruccion es 1
+[INFO] 14:07:37:042 Kernel/(114960:114963): Parametro BX
+[INFO] 14:07:37:042 Kernel/(114960:114963): Parametro 120
+[INFO] 14:07:37:042 Kernel/(114960:114963): La instruccion es 4
+[INFO] 14:07:37:042 Kernel/(114960:114963): Parametro ARCHIVO
+[INFO] 14:07:37:042 Kernel/(114960:114963): La instruccion es 14
+[INFO] 14:07:37:042 Kernel/(114960:114963): La instruccion es 9
+[INFO] 14:07:37:042 Kernel/(114960:114963): Parametro ARCHIVO
+[INFO] 14:07:37:042 Kernel/(114960:114963): Parametro 64
+[INFO] 14:07:37:042 Kernel/(114960:114963): La instruccion es 6
+[INFO] 14:07:37:042 Kernel/(114960:114963): Parametro ARCHIVO
+[INFO] 14:07:37:042 Kernel/(114960:114963): Parametro 10
+[INFO] 14:07:37:042 Kernel/(114960:114963): La instruccion es 12
+[INFO] 14:07:37:042 Kernel/(114960:114963): Parametro 1
+[INFO] 14:07:37:043 Kernel/(114960:114963): Parametro 128
+[INFO] 14:07:37:043 Kernel/(114960:114963): La instruccion es 8
+[INFO] 14:07:37:043 Kernel/(114960:114963): Parametro ARCHIVO
+[INFO] 14:07:37:043 Kernel/(114960:114963): Parametro 4
+[INFO] 14:07:37:043 Kernel/(114960:114963): Parametro 4
+[INFO] 14:07:37:043 Kernel/(114960:114963): La instruccion es 7
+[INFO] 14:07:37:043 Kernel/(114960:114963): Parametro ARCHIVO
+[INFO] 14:07:37:043 Kernel/(114960:114963): Parametro 16
+[INFO] 14:07:37:043 Kernel/(114960:114963): Parametro 4
+[INFO] 14:07:37:043 Kernel/(114960:114963): La instruccion es 13
+[INFO] 14:07:37:043 Kernel/(114960:114963): Parametro 1
+[INFO] 14:07:37:043 Kernel/(114960:114963): La instruccion es 5
+[INFO] 14:07:37:043 Kernel/(114960:114963): Parametro ARCHIVO
+[INFO] 14:07:37:043 Kernel/(114960:114963): La instruccion es 15
+[ERROR] 14:07:37:044 Kernel/(114960:114963): el cliente se desconecto. Terminando servidor
+[INFO] 14:09:53:478 Kernel/(115030:115030): KERNEL listo para recibir a las consolas
+[INFO] 14:09:55:343 Kernel/(115030:115030): Se conecto un cliente!
+[INFO] 14:09:55:351 Kernel/(115030:115033): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 14:09:55:351 Kernel/(115030:115033): EL PID QUE ME LLEGO ES 115032
+[INFO] 14:09:55:351 Kernel/(115030:115033): La instruccion es 0
+[INFO] 14:09:55:351 Kernel/(115030:115033): Parametro AX
+[INFO] 14:09:55:351 Kernel/(115030:115033): Parametro HOLA
+[INFO] 14:09:55:352 Kernel/(115030:115033): La instruccion es 2
+[INFO] 14:09:55:352 Kernel/(115030:115033): Parametro 120
+[INFO] 14:09:55:352 Kernel/(115030:115033): Parametro AX
+[INFO] 14:09:55:352 Kernel/(115030:115033): La instruccion es 10
+[INFO] 14:09:55:352 Kernel/(115030:115033): Parametro DISCO
+[INFO] 14:09:55:352 Kernel/(115030:115033): La instruccion es 3
+[INFO] 14:09:55:352 Kernel/(115030:115033): Parametro 10
+[INFO] 14:09:55:352 Kernel/(115030:115033): La instruccion es 11
+[INFO] 14:09:55:353 Kernel/(115030:115033): Parametro DISCO
+[INFO] 14:09:55:353 Kernel/(115030:115033): La instruccion es 1
+[INFO] 14:09:55:353 Kernel/(115030:115033): Parametro BX
+[INFO] 14:09:55:353 Kernel/(115030:115033): Parametro 120
+[INFO] 14:09:55:353 Kernel/(115030:115033): La instruccion es 4
+[INFO] 14:09:55:353 Kernel/(115030:115033): Parametro ARCHIVO
+[INFO] 14:09:55:353 Kernel/(115030:115033): La instruccion es 14
+[INFO] 14:09:55:353 Kernel/(115030:115033): La instruccion es 9
+[INFO] 14:09:55:353 Kernel/(115030:115033): Parametro ARCHIVO
+[INFO] 14:09:55:353 Kernel/(115030:115033): Parametro 64
+[INFO] 14:09:55:353 Kernel/(115030:115033): La instruccion es 6
+[INFO] 14:09:55:353 Kernel/(115030:115033): Parametro ARCHIVO
+[INFO] 14:09:55:353 Kernel/(115030:115033): Parametro 10
+[INFO] 14:09:55:353 Kernel/(115030:115033): La instruccion es 12
+[INFO] 14:09:55:354 Kernel/(115030:115033): Parametro 1
+[INFO] 14:09:55:354 Kernel/(115030:115033): Parametro 128
+[INFO] 14:09:55:354 Kernel/(115030:115033): La instruccion es 8
+[INFO] 14:09:55:354 Kernel/(115030:115033): Parametro ARCHIVO
+[INFO] 14:09:55:354 Kernel/(115030:115033): Parametro 4
+[INFO] 14:09:55:355 Kernel/(115030:115033): Parametro 4
+[INFO] 14:09:55:355 Kernel/(115030:115033): La instruccion es 7
+[INFO] 14:09:55:355 Kernel/(115030:115033): Parametro ARCHIVO
+[INFO] 14:09:55:355 Kernel/(115030:115033): Parametro 16
+[INFO] 14:09:55:355 Kernel/(115030:115033): Parametro 4
+[INFO] 14:09:55:355 Kernel/(115030:115033): La instruccion es 13
+[INFO] 14:09:55:355 Kernel/(115030:115033): Parametro 1
+[INFO] 14:09:55:355 Kernel/(115030:115033): La instruccion es 5
+[INFO] 14:09:55:355 Kernel/(115030:115033): Parametro ARCHIVO
+[INFO] 14:09:55:355 Kernel/(115030:115033): La instruccion es 15
+[ERROR] 14:09:55:355 Kernel/(115030:115033): el cliente se desconecto. Terminando servidor

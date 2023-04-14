@@ -29,6 +29,7 @@ int main(void) {
 	char* ip;
 	char* puerto;
 	//char* ruta_arch = "prueba.text";
+
 	logger = iniciar_logger("consola.log","Consola");
 	config = iniciar_config("consola.config");
 	int conexion;
@@ -178,6 +179,7 @@ t_paquete* crear_paquete_instrucciones(t_list* lista_instrucciones){
 	paquete->codigo_operacion = INSTRUCCIONES;
 	paquete->buffer = serializar_lista_de_instrucciones(lista_instrucciones);
 
+
 	return paquete;
 }
 
@@ -220,7 +222,7 @@ t_buffer* serializar_lista_de_instrucciones(t_list* lista_instrucciones){
 
 	list_iterator_destroy(i_iterator);
 
-	buffer->size = stream_size + sizeof(uint32_t);
+	buffer->size = stream_size + sizeof(uint32_t) + sizeof(int);
 	buffer->stream = malloc(buffer->size);
 
 	memcpy(buffer->stream + offset, &(i_count), sizeof(uint32_t));
@@ -259,6 +261,12 @@ t_buffer* serializar_lista_de_instrucciones(t_list* lista_instrucciones){
 				list_iterator_destroy(p_iterator);
 			}
 		}
+
+	int pid = getpid();
+	log_info(logger,"EL PID ES %i",pid);
+
+	memcpy(buffer->stream + offset, &pid, sizeof(int));
+	offset += sizeof(int);
 
 	list_iterator_destroy(i_iterator);
 	if (offset != buffer->size){
