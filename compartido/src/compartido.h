@@ -40,6 +40,31 @@ typedef struct
 	t_buffer* buffer;
 }t_paquete;
 
+typedef enum
+{
+	SET,
+	MOV_IN,
+	MOV_OUT,
+	IO,
+	F_OPEN,
+	F_CLOSE,
+	F_SEEK,
+	F_READ,
+	F_WRITE,
+	F_TRUNCATE,
+	WAIT,
+	SIGNAL,
+	CREATE_SEGMENT,
+	DELETE_SEGMENT,
+	YIELD,
+	EXIT
+}op_instruct;
+
+typedef struct{
+	op_instruct nombre;
+	t_list* parametros;
+}t_instruccion;
+
 void saludo();
 void test();
 

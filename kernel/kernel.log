@@ -177,3 +177,39 @@
 
 [INFO] 07:56:41:102 Kernel/(7384:7387): hola
 [ERROR] 07:56:45:490 Kernel/(7384:7387): el cliente se desconecto. Terminando servidor
+[INFO] 13:23:05:190 Kernel/(1768:1768): KERNEL listo para recibir a las consolas
+[INFO] 13:23:20:908 Kernel/(1768:1768): Se conecto un cliente!
+[INFO] 13:23:20:910 Kernel/(1768:1780): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 13:23:29:440 Kernel/(1768:1768): Se conecto un cliente!
+[INFO] 13:23:29:441 Kernel/(1768:1782): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 13:23:44:882 Kernel/(1768:1782): Me llegaron los siguientes valores:
+
+[INFO] 13:23:44:882 Kernel/(1768:1782): hola
+[INFO] 13:23:48:940 Kernel/(1768:1780): Me llegaron los siguientes valores:
+
+[INFO] 13:23:48:940 Kernel/(1768:1780): que 
+[INFO] 13:23:50:743 Kernel/(1768:1780): Me llegaron los siguientes valores:
+
+[INFO] 13:23:50:744 Kernel/(1768:1780): que 
+[INFO] 13:23:50:744 Kernel/(1768:1780): tak
+[INFO] 13:23:55:609 Kernel/(1768:1780): Me llegaron los siguientes valores:
+
+[INFO] 13:23:55:610 Kernel/(1768:1780): que 
+[INFO] 13:23:55:610 Kernel/(1768:1780): tak
+[INFO] 13:23:55:610 Kernel/(1768:1780): tatatatta
+[ERROR] 13:24:22:220 Kernel/(1768:1780): el cliente se desconecto. Terminando servidor
+[INFO] 13:29:43:476 Kernel/(1812:1812): KERNEL listo para recibir a las consolas
+[INFO] 13:29:46:806 Kernel/(1812:1812): Se conecto un cliente!
+[INFO] 13:29:46:808 Kernel/(1812:1816): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 13:29:50:208 Kernel/(1812:1812): Se conecto un cliente!
+[INFO] 13:29:50:210 Kernel/(1812:1818): Me llego el mensaje Hola estoy probando cosas para despues
+[ERROR] 13:29:52:835 Kernel/(1812:1818): el cliente se desconecto. Terminando servidor
+[INFO] 13:32:34:117 Kernel/(1830:1830): KERNEL listo para recibir a las consolas
+[INFO] 13:32:36:102 Kernel/(1830:1830): Se conecto un cliente!
+[INFO] 13:32:36:108 Kernel/(1830:1833): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 13:32:37:879 Kernel/(1830:1830): Se conecto un cliente!
+[INFO] 13:32:37:881 Kernel/(1830:1835): Me llego el mensaje Hola estoy probando cosas para despues
+[ERROR] 13:32:43:696 Kernel/(1830:1835): el cliente se desconecto. Terminando servidor
+[INFO] 12:00:25:863 Kernel/(110843:110843): KERNEL listo para recibir a las consolas
+[INFO] 12:00:29:083 Kernel/(110843:110843): Se conecto un cliente!
+[ERROR] 12:00:39:621 Kernel/(110843:110846): el cliente se desconecto. Terminando servidor

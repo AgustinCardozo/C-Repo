@@ -2,3 +2,24 @@
 [INFO] 07:56:15:232 File_System/(7380:7381): Se conecto un cliente!
 [INFO] 07:56:15:236 File_System/(7380:7381): Me llego el mensaje Hola te estoy hablando desde el kernel
 [ERROR] 07:56:45:596 File_System/(7380:7381): el cliente se desconecto. Terminando servidor
+[INFO] 13:19:13:096 File_System/(1748:1749): Fyle System listo para recibir al kernel
+[INFO] 13:23:05:189 File_System/(1748:1749): Se conecto un cliente!
+[INFO] 13:23:05:190 File_System/(1748:1749): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 13:24:22:221 File_System/(1748:1749): el cliente se desconecto. Terminando servidor
+[ERROR] 13:24:22:222 File_System/(1748:1750): el cliente se desconecto. Terminando servidor
+[INFO] 13:29:37:282 File_System/(1804:1805): Fyle System listo para recibir al kernel
+[INFO] 13:29:43:476 File_System/(1804:1805): Se conecto un cliente!
+[INFO] 13:29:43:476 File_System/(1804:1805): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 13:29:52:837 File_System/(1804:1805): el cliente se desconecto. Terminando servidor
+[ERROR] 13:29:52:839 File_System/(1804:1806): el cliente se desconecto. Terminando servidor
+[INFO] 13:32:29:058 File_System/(1822:1823): Fyle System listo para recibir al kernel
+[INFO] 13:32:34:117 File_System/(1822:1823): Se conecto un cliente!
+[INFO] 13:32:34:117 File_System/(1822:1823): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 13:32:43:697 File_System/(1822:1823): el cliente se desconecto. Terminando servidor
+[INFO] 13:32:54:127 File_System/(1837:1838): Fyle System listo para recibir al kernel
+[ERROR] 13:35:28:515 File_System/(1837:1839): el cliente se desconecto. Terminando servidor
+[INFO] 11:59:56:064 File_System/(110831:110832): Fyle System listo para recibir al kernel
+[INFO] 12:00:25:863 File_System/(110831:110832): Se conecto un cliente!
+[INFO] 12:00:25:863 File_System/(110831:110832): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 12:00:39:621 File_System/(110831:110832): el cliente se desconecto. Terminando servidor
+[ERROR] 12:00:39:622 File_System/(110831:110833): el cliente se desconecto. Terminando servidor
