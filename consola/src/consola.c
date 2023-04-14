@@ -52,7 +52,7 @@ int main(void) {
 
 	log_destroy(logger);
 	config_destroy(config);
-	close(conexion);
+	close(conexion); 
 
 	return EXIT_SUCCESS;
 }
