@@ -25,6 +25,7 @@ t_list* deserializar_lista_instrucciones(t_buffer* buffer);
 int agregar_pid(t_buffer* buffer);
 void mostrar(t_instruccion* inst);
 void mostrar_parametro(char* value);
+t_pcb* crear_pcb(int pid, t_list* lista_instrucciones);
 
 int main(void) {
 	pthread_t hilo_atender_consolas;
@@ -38,6 +39,8 @@ int main(void) {
 	datos.ip_cpu = config_get_string_value(config,"IP_CPU");
 	datos.puerto_cpu = config_get_string_value(config,"PUERTO_CPU");
 	datos.puerto_escucha = config_get_string_value(config,"PUERTO_ESCUCHA");
+	datos.est_inicial = config_get_int_value(config,"ESTIMACION_INICIAL");
+	datos.alfa = atof(config_get_string_value(config,"HRRN_ALFA"));
 
 	conexion_cpu = crear_conexion(datos.ip_cpu,datos.puerto_cpu);
 	conexion_memoria = crear_conexion(datos.ip_memoria,datos.puerto_memoria);
@@ -87,8 +90,13 @@ void atender_consolas(void* data){
 				buffer = desempaquetar(paquete,cliente_fd);
 				t_list* lista_instrucciones = deserializar_lista_instrucciones(buffer);
 				int pid = agregar_pid(buffer);
-				log_info(logger,"EL PID QUE ME LLEGO ES %i",pid);
-				//list_iterate(lista_instrucciones, (void*) mostrar);
+				t_pcb* pcb= crear_pcb(pid,lista_instrucciones);
+
+				log_info(logger,"EL PID QUE ME LLEGO ES %i",pcb->pid);
+
+				list_iterate(pcb->lista_instrucciones, (void*) mostrar);
+
+				log_info(logger,"El alfa es %d",pcb->estimacion);
 				break;
 			case -1:
 				log_error(logger, "el cliente se desconecto. Terminando servidor");
@@ -199,4 +207,17 @@ void mostrar(t_instruccion* inst){
 
 void mostrar_parametro(char* value){
 	log_info(logger,"Parametro %s",value);
+}
+
+t_pcb* crear_pcb(int pid, t_list* lista_instrucciones){
+	t_pcb* pcb = malloc(sizeof(t_pcb));
+	pcb->pid = pid;
+	pcb->lista_instrucciones = lista_instrucciones;
+	pcb->program_counter = 0;
+	pcb->segmentos.id = 0;
+	pcb->segmentos.direccion_base = 0;
+	pcb->segmentos.tamanio = 0;
+	pcb->estimacion = datos.est_inicial;
+	//TODO Falta lo de archivos abiertos
+	return pcb;
 }

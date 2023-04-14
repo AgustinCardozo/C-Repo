@@ -24,12 +24,12 @@ typedef struct{
 	char* ip_cpu;
 	char* puerto_cpu;
 	char* puerto_escucha;
-	/*char* algoritmo_planificacion;
+	//char* algoritmo_planificacion;
 	int est_inicial;
 	float alfa;
-	int multiprogramacion;
-	char** recursos;
-	char** instancias;*/
+	//int multiprogramacion;
+	//char** recursos;
+	//char** instancias;*/
 }datos_config;
 
 void iterator(char* value);

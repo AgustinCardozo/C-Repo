@@ -77,7 +77,7 @@ typedef struct{
 	t_list* lista_instrucciones;
 	int program_counter;
 	tabla_segmento segmentos;
-	float estimacion;
+	int estimacion;
 	//TODO Preguntar como se usa el timestap
 	char** archivos_abiertos;
 }t_pcb;
