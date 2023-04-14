@@ -66,6 +66,24 @@ typedef struct{
 	t_list* parametros;
 }t_instruccion;
 
+typedef struct{
+	int id;
+	int direccion_base;
+	int tamanio;
+}tabla_segmento; //TODO Preguntar como puede ser
+
+typedef struct{
+	int pid;
+	t_list* lista_instrucciones;
+	int program_counter;
+	tabla_segmento segmentos;
+	float estimacion;
+	//TODO Preguntar como se usa el timestap
+	char** archivos_abiertos;
+}t_pcb;
+
+
+
 void saludo();
 void test();
 
