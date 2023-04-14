@@ -21,6 +21,7 @@ typedef enum
 {
 	MENSAJE,
 	PAQUETE,
+	INSTRUCCIONES
 }op_code;
 
 typedef struct{
