@@ -623,3 +623,79 @@
 [INFO] 14:31:19:440 Kernel/(116159:116162): La instruccion es 15
 [INFO] 14:31:19:440 Kernel/(116159:116162): El alfa es 10000
 [ERROR] 14:31:19:442 Kernel/(116159:116162): el cliente se desconecto. Terminando servidor
+[INFO] 23:51:55:595 Kernel/(3471:3471): KERNEL listo para recibir a las consolas
+[INFO] 23:52:02:584 Kernel/(3471:3471): Se conecto un cliente!
+[INFO] 23:52:02:592 Kernel/(3471:3476): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 23:52:02:593 Kernel/(3471:3476): EL PID QUE ME LLEGO ES 3475
+[INFO] 23:52:02:593 Kernel/(3471:3476): La instruccion es 0
+[INFO] 23:52:02:593 Kernel/(3471:3476): Parametro AX
+[INFO] 23:52:02:593 Kernel/(3471:3476): Parametro HOLA
+[INFO] 23:52:02:593 Kernel/(3471:3476): La instruccion es 2
+[INFO] 23:52:02:593 Kernel/(3471:3476): Parametro 120
+[INFO] 23:52:02:593 Kernel/(3471:3476): Parametro AX
+[INFO] 23:52:02:593 Kernel/(3471:3476): La instruccion es 10
+[INFO] 23:52:02:593 Kernel/(3471:3476): Parametro DISCO
+[INFO] 23:52:02:593 Kernel/(3471:3476): La instruccion es 3
+[INFO] 23:52:02:593 Kernel/(3471:3476): Parametro 10
+[INFO] 23:52:02:593 Kernel/(3471:3476): La instruccion es 11
+[INFO] 23:52:02:593 Kernel/(3471:3476): Parametro DISCO
+[INFO] 23:52:02:593 Kernel/(3471:3476): La instruccion es 1
+[INFO] 23:52:02:593 Kernel/(3471:3476): Parametro BX
+[INFO] 23:52:02:593 Kernel/(3471:3476): Parametro 120
+[INFO] 23:52:02:593 Kernel/(3471:3476): La instruccion es 4
+[INFO] 23:52:02:593 Kernel/(3471:3476): Parametro ARCHIVO
+[INFO] 23:52:02:593 Kernel/(3471:3476): La instruccion es 14
+[INFO] 23:52:02:593 Kernel/(3471:3476): La instruccion es 9
+[INFO] 23:52:02:593 Kernel/(3471:3476): Parametro ARCHIVO
+[INFO] 23:52:02:593 Kernel/(3471:3476): Parametro 64
+[INFO] 23:52:02:593 Kernel/(3471:3476): La instruccion es 6
+[INFO] 23:52:02:594 Kernel/(3471:3476): Parametro ARCHIVO
+[INFO] 23:52:02:594 Kernel/(3471:3476): Parametro 10
+[INFO] 23:52:02:594 Kernel/(3471:3476): La instruccion es 12
+[INFO] 23:52:02:594 Kernel/(3471:3476): Parametro 1
+[INFO] 23:52:02:594 Kernel/(3471:3476): Parametro 128
+[INFO] 23:52:02:594 Kernel/(3471:3476): La instruccion es 8
+[INFO] 23:52:02:594 Kernel/(3471:3476): Parametro ARCHIVO
+[INFO] 23:52:02:594 Kernel/(3471:3476): Parametro 4
+[INFO] 23:52:02:594 Kernel/(3471:3476): Parametro 4
+[INFO] 23:52:02:594 Kernel/(3471:3476): La instruccion es 7
+[INFO] 23:52:02:594 Kernel/(3471:3476): Parametro ARCHIVO
+[INFO] 23:52:02:594 Kernel/(3471:3476): Parametro 16
+[INFO] 23:52:02:594 Kernel/(3471:3476): Parametro 4
+[INFO] 23:52:02:594 Kernel/(3471:3476): La instruccion es 13
+[INFO] 23:52:02:594 Kernel/(3471:3476): Parametro 1
+[INFO] 23:52:02:594 Kernel/(3471:3476): La instruccion es 5
+[INFO] 23:52:02:594 Kernel/(3471:3476): Parametro ARCHIVO
+[INFO] 23:52:02:594 Kernel/(3471:3476): La instruccion es 15
+[INFO] 23:52:02:594 Kernel/(3471:3476): El alfa es 10000
+[ERROR] 23:52:02:596 Kernel/(3471:3476): el cliente se desconecto. Terminando servidor
+[INFO] 23:53:22:095 Kernel/(3565:3565): KERNEL listo para recibir a las consolas
+[INFO] 23:53:25:420 Kernel/(3565:3565): Se conecto un cliente!
+[INFO] 23:53:25:426 Kernel/(3565:3568): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 23:53:25:426 Kernel/(3565:3568): EL PID QUE ME LLEGO ES 3567
+[INFO] 23:53:25:426 Kernel/(3565:3568): El alfa es 10000
+[ERROR] 23:53:25:426 Kernel/(3565:3568): el cliente se desconecto. Terminando servidor
+[INFO] 23:55:37:735 Kernel/(3650:3650): KERNEL listo para recibir a las consolas
+[INFO] 23:55:39:340 Kernel/(3650:3650): Se conecto un cliente!
+[INFO] 23:55:39:350 Kernel/(3650:3653): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 23:55:39:350 Kernel/(3650:3653): EL PID QUE ME LLEGO ES 3652
+[INFO] 23:55:39:350 Kernel/(3650:3653): El alfa es 10000
+[ERROR] 23:55:39:350 Kernel/(3650:3653): el cliente se desconecto. Terminando servidor
+[INFO] 00:00:09:920 Kernel/(3750:3750): KERNEL listo para recibir a las consolas
+[INFO] 00:00:13:135 Kernel/(3750:3750): Se conecto un cliente!
+[INFO] 00:00:13:144 Kernel/(3750:3753): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 00:00:13:145 Kernel/(3750:3753): EL PID QUE ME LLEGO ES 3752
+[INFO] 00:00:13:145 Kernel/(3750:3753): El alfa es 10000
+[ERROR] 00:00:13:145 Kernel/(3750:3753): el cliente se desconecto. Terminando servidor
+[INFO] 00:11:05:383 Kernel/(3937:3937): KERNEL listo para recibir a las consolas
+[INFO] 00:11:07:432 Kernel/(3937:3937): Se conecto un cliente!
+[INFO] 00:11:07:440 Kernel/(3937:3940): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 00:11:07:441 Kernel/(3937:3940): EL PID QUE ME LLEGO ES 3939
+[INFO] 00:11:07:442 Kernel/(3937:3940): El alfa es 10000
+[ERROR] 00:11:07:442 Kernel/(3937:3940): el cliente se desconecto. Terminando servidor
+[INFO] 00:13:07:562 Kernel/(4036:4036): KERNEL listo para recibir a las consolas
+[INFO] 00:13:09:416 Kernel/(4036:4036): Se conecto un cliente!
+[INFO] 00:13:09:421 Kernel/(4036:4039): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 00:13:09:421 Kernel/(4036:4039): EL PID QUE ME LLEGO ES 4038
+[INFO] 00:13:09:422 Kernel/(4036:4039): El alfa es 10000
+[ERROR] 00:13:09:422 Kernel/(4036:4039): el cliente se desconecto. Terminando servidor
