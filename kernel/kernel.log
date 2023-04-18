@@ -759,3 +759,15 @@
 [INFO] 12:13:26:430 Kernel/(3924:3927): EL PID QUE ME LLEGO ES 0
 [INFO] 12:13:26:432 Kernel/(3924:3927): El alfa es 10000
 [ERROR] 12:13:26:432 Kernel/(3924:3927): el cliente se desconecto. Terminando servidor
+[INFO] 12:27:18:031 Kernel/(4271:4271): KERNEL listo para recibir a las consolas
+[INFO] 12:27:51:654 Kernel/(4271:4271): Se conecto un cliente!
+[INFO] 12:27:51:658 Kernel/(4271:4301): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 12:27:51:659 Kernel/(4271:4301): EL PID QUE ME LLEGO ES 0
+[INFO] 12:27:51:664 Kernel/(4271:4301): El alfa es 10000
+[ERROR] 12:27:51:665 Kernel/(4271:4301): el cliente se desconecto. Terminando servidor
+[INFO] 12:30:50:451 Kernel/(4482:4482): KERNEL listo para recibir a las consolas
+[INFO] 12:30:52:474 Kernel/(4482:4482): Se conecto un cliente!
+[INFO] 12:30:52:490 Kernel/(4482:4485): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 12:30:52:490 Kernel/(4482:4485): EL PID QUE ME LLEGO ES 0
+[INFO] 12:30:52:497 Kernel/(4482:4485): El alfa es 10000
+[ERROR] 12:30:52:497 Kernel/(4482:4485): el cliente se desconecto. Terminando servidor

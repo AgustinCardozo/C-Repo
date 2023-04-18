@@ -26,8 +26,9 @@ void mostrar(t_instruccion* inst);
 void mostrar_parametro(char* value);
 void mostrar_cola(t_queue*cola);
 t_pcb* crear_pcb(int pid, t_list* lista_instrucciones);
-t_paquete* crear_paquete_pcb(t_pcb* pcb, op_code codigo);
-void enviar_pcb_a_ajecutar(t_pcb* pcb);
+//t_paquete* crear_paquete_pcb(t_pcb* pcb, op_code codigo);
+//void enviar_pcb_a_ajecutar(t_pcb* pcb);
+void enviar_pcb_a(t_pcb* pcb,int conexion, op_code codigo);
 
 /////PLANIFICACION///////
 //colas
@@ -123,9 +124,11 @@ void atender_consolas(void* data){
 
 
 				//list_iterate(pcb->lista_instrucciones, (void*) mostrar);
-				paquete = crear_paquete_pcb(pcb,EJECUTAR);
 
-				enviar_paquete_a(paquete,conexion_cpu);
+				enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
+				//paquete = crear_paquete_pcb(pcb,EJECUTAR);
+
+				//enviar_paquete_a(paquete,conexion_cpu);
 
 				log_info(logger,"El alfa es %d",pcb->estimacion);
 				break;
@@ -197,12 +200,6 @@ t_pcb* crear_pcb(int pid, t_list* lista_instrucciones){
 	return pcb;
 }
 
-void enviar_pcb_a_ajecutar(t_pcb* pcb){
-	//log_info(logger,"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-	t_paquete* paquete = crear_paquete_pcb(pcb,EJECUTAR);
-
-	enviar_paquete_a(paquete,conexion_cpu);
-}
 
 
 ///////PLANIFICACION

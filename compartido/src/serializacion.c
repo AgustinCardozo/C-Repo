@@ -54,24 +54,6 @@ t_buffer* serializar_pcb(t_pcb* pcb){
 
 }
 
-void enviar_pcb(t_paquete* paquete,int conexion){
-	void* a_enviar = malloc(paquete->buffer->size + sizeof(op_code) + sizeof(uint32_t));
-	int offset = 0;
-
-	memcpy(a_enviar + offset, &(paquete->codigo_operacion), sizeof(op_code));
-
-	offset += sizeof(op_code);
-	memcpy(a_enviar + offset, &(paquete->buffer->size), sizeof(uint32_t));
-	offset += sizeof(uint32_t);
-	memcpy(a_enviar + offset, paquete->buffer->stream, paquete->buffer->size);
-
-	send(conexion, a_enviar, paquete->buffer->size + sizeof(op_code) + sizeof(uint32_t), 0);
-
-	free(a_enviar);
-	free(paquete->buffer->stream);
-	free(paquete->buffer);
-	free(paquete);
-}
 
 
 t_buffer* serializar_lista_de_instrucciones(t_list* lista_instrucciones){
@@ -232,3 +214,11 @@ void enviar_paquete_a(t_paquete* paquete,int conexion){
 	free(paquete->buffer);
 	free(paquete);
 }
+// pcb, conexion del socket, codigo para saber que va a realizar
+void enviar_pcb_a(t_pcb* pcb,int conexion, op_code codigo){
+
+	t_paquete* paquete = crear_paquete_pcb(pcb,codigo);
+
+	enviar_paquete_a(paquete,conexion);
+}
+
