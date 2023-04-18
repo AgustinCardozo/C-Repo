@@ -22,7 +22,6 @@ void mostrar(t_instruccion* inst);
 void mostrar_parametro(char* value);
 t_paquete* crear_paquete_instrucciones(t_list* lista_instrucciones);
 t_buffer* serializar_lista_de_instrucciones(t_list* lista_instrucciones);
-void enviar_paquete_de_instrucciones(t_paquete* paquete,int conexion);
 
 int main(void) {
 
@@ -49,7 +48,7 @@ int main(void) {
 	enviar_mensaje("Hola estoy probando cosas para despues",conexion);
 	//paquete(conexion);
 	t_paquete* paquete_instrucciones = crear_paquete_instrucciones(lista_instrucciones);
-	enviar_paquete_de_instrucciones(paquete_instrucciones,conexion);
+	enviar_paquete_a(paquete_instrucciones,conexion);
 
 	log_destroy(logger);
 	config_destroy(config);
@@ -190,21 +189,3 @@ t_paquete* crear_paquete_instrucciones(t_list* lista_instrucciones){
 	return paquete;
 }
 
-void enviar_paquete_de_instrucciones(t_paquete* paquete,int conexion){
-	void* a_enviar = malloc(paquete->buffer->size + sizeof(op_code) + sizeof(uint32_t));
-	int offset = 0;
-
-	memcpy(a_enviar + offset, &(paquete->codigo_operacion), sizeof(op_code));
-
-	offset += sizeof(op_code);
-	memcpy(a_enviar + offset, &(paquete->buffer->size), sizeof(uint32_t));
-	offset += sizeof(uint32_t);
-	memcpy(a_enviar + offset, paquete->buffer->stream, paquete->buffer->size);
-
-	send(conexion, a_enviar, paquete->buffer->size + sizeof(op_code) + sizeof(uint32_t), 0);
-
-	free(a_enviar);
-	free(paquete->buffer->stream);
-	free(paquete->buffer);
-	free(paquete);
-}

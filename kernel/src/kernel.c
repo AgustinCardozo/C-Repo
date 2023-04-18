@@ -28,8 +28,6 @@ void mostrar_cola(t_queue*cola);
 t_pcb* crear_pcb(int pid, t_list* lista_instrucciones);
 t_paquete* crear_paquete_pcb(t_pcb* pcb, op_code codigo);
 void enviar_pcb_a_ajecutar(t_pcb* pcb);
-void enviar_pcb(t_paquete* paquete,int conexion);
-
 
 /////PLANIFICACION///////
 //colas
@@ -109,7 +107,6 @@ void atender_consolas(void* data){
 
 			case INSTRUCCIONES:
 				buffer = desempaquetar(paquete,cliente_fd);
-				log_warning(logger,"Aca esta el error");
 				t_list* lista_instrucciones = deserializar_lista_instrucciones(buffer);
 
 				int pid = agregar_pid(buffer);
@@ -128,7 +125,7 @@ void atender_consolas(void* data){
 				//list_iterate(pcb->lista_instrucciones, (void*) mostrar);
 				paquete = crear_paquete_pcb(pcb,EJECUTAR);
 
-				enviar_pcb(paquete,conexion_cpu);
+				enviar_paquete_a(paquete,conexion_cpu);
 
 				log_info(logger,"El alfa es %d",pcb->estimacion);
 				break;
@@ -201,10 +198,10 @@ t_pcb* crear_pcb(int pid, t_list* lista_instrucciones){
 }
 
 void enviar_pcb_a_ajecutar(t_pcb* pcb){
-	log_info(logger,"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+	//log_info(logger,"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 	t_paquete* paquete = crear_paquete_pcb(pcb,EJECUTAR);
 
-	enviar_pcb(paquete,conexion_cpu);
+	enviar_paquete_a(paquete,conexion_cpu);
 }
 
 

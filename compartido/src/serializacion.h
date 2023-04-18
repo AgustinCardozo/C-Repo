@@ -24,5 +24,6 @@ void enviar_pcb(t_paquete* paquete,int conexion);
 t_buffer* serializar_lista_de_instrucciones(t_list* lista_instrucciones);
 t_buffer* serializar_pcb(t_pcb* pcb);
 t_list* deserializar_lista_instrucciones(t_buffer* buffer);
+void enviar_paquete_a(t_paquete* paquete,int conexion);
 
 #endif /* SRC_SERIALIZACION_H_ */

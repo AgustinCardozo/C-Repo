@@ -262,3 +262,27 @@
 [INFO] 11:44:58:298 Memoria/(3328:3328): Se conecto un cliente!
 [INFO] 11:44:58:299 Memoria/(3328:3338): Me llego el mensaje Hola te estoy hablando desde el kernel
 [ERROR] 11:45:00:726 Memoria/(3328:3332): el cliente se desconecto. Terminando servidor
+[INFO] 12:00:49:190 Memoria/(3581:3581): Memoria listo para recibir a los modulos
+[INFO] 12:00:50:935 Memoria/(3581:3581): Se conecto un cliente!
+[INFO] 12:00:50:936 Memoria/(3581:3585): Me llego el mensaje Hola te saludo desde el Fyle System
+[INFO] 12:00:52:483 Memoria/(3581:3581): Se conecto un cliente!
+[INFO] 12:00:52:484 Memoria/(3581:3589): Me llego el mensaje Hola te saludo desde el cpu
+[INFO] 12:00:54:467 Memoria/(3581:3581): Se conecto un cliente!
+[INFO] 12:00:54:469 Memoria/(3581:3591): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 12:01:09:221 Memoria/(3581:3585): el cliente se desconecto. Terminando servidor
+[INFO] 12:08:06:974 Memoria/(3747:3747): Memoria listo para recibir a los modulos
+[INFO] 12:08:08:522 Memoria/(3747:3747): Se conecto un cliente!
+[INFO] 12:08:08:523 Memoria/(3747:3751): Me llego el mensaje Hola te saludo desde el Fyle System
+[INFO] 12:08:10:045 Memoria/(3747:3747): Se conecto un cliente!
+[INFO] 12:08:10:046 Memoria/(3747:3755): Me llego el mensaje Hola te saludo desde el cpu
+[INFO] 12:08:11:687 Memoria/(3747:3747): Se conecto un cliente!
+[INFO] 12:08:11:688 Memoria/(3747:3757): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 12:08:13:320 Memoria/(3747:3751): el cliente se desconecto. Terminando servidor
+[INFO] 12:13:19:615 Memoria/(3915:3915): Memoria listo para recibir a los modulos
+[INFO] 12:13:21:197 Memoria/(3915:3915): Se conecto un cliente!
+[INFO] 12:13:21:198 Memoria/(3915:3919): Me llego el mensaje Hola te saludo desde el Fyle System
+[INFO] 12:13:22:837 Memoria/(3915:3915): Se conecto un cliente!
+[INFO] 12:13:22:838 Memoria/(3915:3923): Me llego el mensaje Hola te saludo desde el cpu
+[INFO] 12:13:24:459 Memoria/(3915:3915): Se conecto un cliente!
+[INFO] 12:13:24:460 Memoria/(3915:3925): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 12:13:26:434 Memoria/(3915:3919): el cliente se desconecto. Terminando servidor

@@ -18,5 +18,6 @@
 #include <utils.h>
 #include <sockets.h>
 #include <compartido.h>
+#include <serializacion.h>
 
 #endif /* CONSOLA_H_ */
