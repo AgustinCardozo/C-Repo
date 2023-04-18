@@ -138,3 +138,245 @@
 [INFO] 00:13:09:422 CPU/(4032:4033): Parametro ARCHIVO
 [INFO] 00:13:09:422 CPU/(4032:4033): La instruccion es 15
 [ERROR] 00:13:09:424 CPU/(4032:4034): el cliente se desconecto. Terminando servidor
+[INFO] 10:50:58:064 CPU/(2270:2271): CPU listo para recibir al kernel
+[INFO] 10:51:05:754 CPU/(2270:2271): Se conecto un cliente!
+[INFO] 10:51:05:755 CPU/(2270:2271): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 10:51:13:007 CPU/(2270:2271): Paso por ejecutar
+[INFO] 10:51:13:007 CPU/(2270:2271): El PID ES 2282
+[INFO] 10:51:13:007 CPU/(2270:2271): La instruccion es 0
+[INFO] 10:51:13:007 CPU/(2270:2271): Parametro AX
+[INFO] 10:51:13:007 CPU/(2270:2271): Parametro HOLA
+[INFO] 10:51:13:007 CPU/(2270:2271): La instruccion es 2
+[INFO] 10:51:13:007 CPU/(2270:2271): Parametro 120
+[INFO] 10:51:13:007 CPU/(2270:2271): Parametro AX
+[INFO] 10:51:13:007 CPU/(2270:2271): La instruccion es 10
+[INFO] 10:51:13:007 CPU/(2270:2271): Parametro DISCO
+[INFO] 10:51:13:007 CPU/(2270:2271): La instruccion es 3
+[INFO] 10:51:13:007 CPU/(2270:2271): Parametro 10
+[INFO] 10:51:13:007 CPU/(2270:2271): La instruccion es 11
+[INFO] 10:51:13:007 CPU/(2270:2271): Parametro DISCO
+[INFO] 10:51:13:007 CPU/(2270:2271): La instruccion es 1
+[INFO] 10:51:13:007 CPU/(2270:2271): Parametro BX
+[INFO] 10:51:13:007 CPU/(2270:2271): Parametro 120
+[INFO] 10:51:13:007 CPU/(2270:2271): La instruccion es 4
+[INFO] 10:51:13:007 CPU/(2270:2271): Parametro ARCHIVO
+[INFO] 10:51:13:007 CPU/(2270:2271): La instruccion es 14
+[INFO] 10:51:13:009 CPU/(2270:2271): La instruccion es 9
+[INFO] 10:51:13:009 CPU/(2270:2271): Parametro ARCHIVO
+[INFO] 10:51:13:009 CPU/(2270:2271): Parametro 64
+[INFO] 10:51:13:009 CPU/(2270:2271): La instruccion es 6
+[INFO] 10:51:13:009 CPU/(2270:2271): Parametro ARCHIVO
+[INFO] 10:51:13:009 CPU/(2270:2271): Parametro 10
+[INFO] 10:51:13:009 CPU/(2270:2271): La instruccion es 12
+[INFO] 10:51:13:009 CPU/(2270:2271): Parametro 1
+[INFO] 10:51:13:009 CPU/(2270:2271): Parametro 128
+[INFO] 10:51:13:009 CPU/(2270:2271): La instruccion es 8
+[INFO] 10:51:13:009 CPU/(2270:2271): Parametro ARCHIVO
+[INFO] 10:51:13:009 CPU/(2270:2271): Parametro 4
+[INFO] 10:51:13:009 CPU/(2270:2271): Parametro 4
+[INFO] 10:51:13:009 CPU/(2270:2271): La instruccion es 7
+[INFO] 10:51:13:009 CPU/(2270:2271): Parametro ARCHIVO
+[INFO] 10:51:13:009 CPU/(2270:2271): Parametro 16
+[INFO] 10:51:13:009 CPU/(2270:2271): Parametro 4
+[INFO] 10:51:13:009 CPU/(2270:2271): La instruccion es 13
+[INFO] 10:51:13:009 CPU/(2270:2271): Parametro 1
+[INFO] 10:51:13:009 CPU/(2270:2271): La instruccion es 5
+[INFO] 10:51:13:009 CPU/(2270:2271): Parametro ARCHIVO
+[INFO] 10:51:13:009 CPU/(2270:2271): La instruccion es 15
+[ERROR] 10:51:13:012 CPU/(2270:2272): el cliente se desconecto. Terminando servidor
+[INFO] 10:57:14:428 CPU/(2339:2340): CPU listo para recibir al kernel
+[INFO] 10:57:16:495 CPU/(2339:2340): Se conecto un cliente!
+[INFO] 10:57:16:496 CPU/(2339:2340): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 10:57:19:229 CPU/(2339:2340): Paso por ejecutar
+[INFO] 10:57:19:229 CPU/(2339:2340): El PID ES 2345
+[INFO] 10:57:19:229 CPU/(2339:2340): La instruccion es 0
+[INFO] 10:57:19:230 CPU/(2339:2340): Parametro AX
+[INFO] 10:57:19:230 CPU/(2339:2340): Parametro HOLA
+[INFO] 10:57:19:230 CPU/(2339:2340): La instruccion es 2
+[INFO] 10:57:19:230 CPU/(2339:2340): Parametro 120
+[INFO] 10:57:19:230 CPU/(2339:2340): Parametro AX
+[INFO] 10:57:19:230 CPU/(2339:2340): La instruccion es 10
+[INFO] 10:57:19:230 CPU/(2339:2340): Parametro DISCO
+[INFO] 10:57:19:230 CPU/(2339:2340): La instruccion es 3
+[INFO] 10:57:19:230 CPU/(2339:2340): Parametro 10
+[INFO] 10:57:19:230 CPU/(2339:2340): La instruccion es 11
+[INFO] 10:57:19:230 CPU/(2339:2340): Parametro DISCO
+[INFO] 10:57:19:230 CPU/(2339:2340): La instruccion es 1
+[INFO] 10:57:19:230 CPU/(2339:2340): Parametro BX
+[INFO] 10:57:19:230 CPU/(2339:2340): Parametro 120
+[INFO] 10:57:19:230 CPU/(2339:2340): La instruccion es 4
+[INFO] 10:57:19:230 CPU/(2339:2340): Parametro ARCHIVO
+[INFO] 10:57:19:230 CPU/(2339:2340): La instruccion es 14
+[INFO] 10:57:19:230 CPU/(2339:2340): La instruccion es 9
+[INFO] 10:57:19:230 CPU/(2339:2340): Parametro ARCHIVO
+[INFO] 10:57:19:230 CPU/(2339:2340): Parametro 64
+[INFO] 10:57:19:230 CPU/(2339:2340): La instruccion es 6
+[INFO] 10:57:19:230 CPU/(2339:2340): Parametro ARCHIVO
+[INFO] 10:57:19:230 CPU/(2339:2340): Parametro 10
+[INFO] 10:57:19:230 CPU/(2339:2340): La instruccion es 12
+[INFO] 10:57:19:231 CPU/(2339:2340): Parametro 1
+[INFO] 10:57:19:231 CPU/(2339:2340): Parametro 128
+[INFO] 10:57:19:231 CPU/(2339:2340): La instruccion es 8
+[INFO] 10:57:19:231 CPU/(2339:2340): Parametro ARCHIVO
+[INFO] 10:57:19:231 CPU/(2339:2340): Parametro 4
+[INFO] 10:57:19:231 CPU/(2339:2340): Parametro 4
+[INFO] 10:57:19:231 CPU/(2339:2340): La instruccion es 7
+[INFO] 10:57:19:231 CPU/(2339:2340): Parametro ARCHIVO
+[INFO] 10:57:19:231 CPU/(2339:2340): Parametro 16
+[INFO] 10:57:19:231 CPU/(2339:2340): Parametro 4
+[INFO] 10:57:19:231 CPU/(2339:2340): La instruccion es 13
+[INFO] 10:57:19:231 CPU/(2339:2340): Parametro 1
+[INFO] 10:57:19:231 CPU/(2339:2340): La instruccion es 5
+[INFO] 10:57:19:231 CPU/(2339:2340): Parametro ARCHIVO
+[INFO] 10:57:19:231 CPU/(2339:2340): La instruccion es 15
+[ERROR] 10:57:19:233 CPU/(2339:2341): el cliente se desconecto. Terminando servidor
+[INFO] 11:25:27:992 CPU/(2713:2714): CPU listo para recibir al kernel
+[INFO] 11:25:29:742 CPU/(2713:2714): Se conecto un cliente!
+[INFO] 11:25:29:744 CPU/(2713:2714): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 11:25:32:100 CPU/(2713:2714): Paso por ejecutar
+[INFO] 11:25:32:100 CPU/(2713:2714): El PID ES 2719
+[INFO] 11:25:32:100 CPU/(2713:2714): La instruccion es 0
+[INFO] 11:25:32:100 CPU/(2713:2714): Parametro AX
+[INFO] 11:25:32:100 CPU/(2713:2714): Parametro HOLA
+[INFO] 11:25:32:100 CPU/(2713:2714): La instruccion es 2
+[INFO] 11:25:32:100 CPU/(2713:2714): Parametro 120
+[INFO] 11:25:32:100 CPU/(2713:2714): Parametro AX
+[INFO] 11:25:32:100 CPU/(2713:2714): La instruccion es 10
+[INFO] 11:25:32:100 CPU/(2713:2714): Parametro DISCO
+[INFO] 11:25:32:100 CPU/(2713:2714): La instruccion es 3
+[INFO] 11:25:32:100 CPU/(2713:2714): Parametro 10
+[INFO] 11:25:32:100 CPU/(2713:2714): La instruccion es 11
+[INFO] 11:25:32:100 CPU/(2713:2714): Parametro DISCO
+[INFO] 11:25:32:100 CPU/(2713:2714): La instruccion es 1
+[INFO] 11:25:32:100 CPU/(2713:2714): Parametro BX
+[INFO] 11:25:32:100 CPU/(2713:2714): Parametro 120
+[INFO] 11:25:32:100 CPU/(2713:2714): La instruccion es 4
+[INFO] 11:25:32:100 CPU/(2713:2714): Parametro ARCHIVO
+[INFO] 11:25:32:100 CPU/(2713:2714): La instruccion es 14
+[INFO] 11:25:32:100 CPU/(2713:2714): La instruccion es 9
+[INFO] 11:25:32:101 CPU/(2713:2714): Parametro ARCHIVO
+[INFO] 11:25:32:101 CPU/(2713:2714): Parametro 64
+[INFO] 11:25:32:101 CPU/(2713:2714): La instruccion es 6
+[INFO] 11:25:32:101 CPU/(2713:2714): Parametro ARCHIVO
+[INFO] 11:25:32:101 CPU/(2713:2714): Parametro 10
+[INFO] 11:25:32:101 CPU/(2713:2714): La instruccion es 12
+[INFO] 11:25:32:101 CPU/(2713:2714): Parametro 1
+[INFO] 11:25:32:101 CPU/(2713:2714): Parametro 128
+[INFO] 11:25:32:101 CPU/(2713:2714): La instruccion es 8
+[INFO] 11:25:32:101 CPU/(2713:2714): Parametro ARCHIVO
+[INFO] 11:25:32:101 CPU/(2713:2714): Parametro 4
+[INFO] 11:25:32:101 CPU/(2713:2714): Parametro 4
+[INFO] 11:25:32:101 CPU/(2713:2714): La instruccion es 7
+[INFO] 11:25:32:101 CPU/(2713:2714): Parametro ARCHIVO
+[INFO] 11:25:32:101 CPU/(2713:2714): Parametro 16
+[INFO] 11:25:32:101 CPU/(2713:2714): Parametro 4
+[INFO] 11:25:32:101 CPU/(2713:2714): La instruccion es 13
+[INFO] 11:25:32:101 CPU/(2713:2714): Parametro 1
+[INFO] 11:25:32:101 CPU/(2713:2714): La instruccion es 5
+[INFO] 11:25:32:102 CPU/(2713:2714): Parametro ARCHIVO
+[INFO] 11:25:32:102 CPU/(2713:2714): La instruccion es 15
+[ERROR] 11:25:32:104 CPU/(2713:2715): el cliente se desconecto. Terminando servidor
+[INFO] 11:36:10:130 CPU/(2987:2988): CPU listo para recibir al kernel
+[INFO] 11:36:12:049 CPU/(2987:2988): Se conecto un cliente!
+[INFO] 11:36:12:050 CPU/(2987:2988): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 11:36:13:979 CPU/(2987:2988): Paso por ejecutar
+[INFO] 11:36:13:979 CPU/(2987:2988): El PID ES 2993
+[INFO] 11:36:13:979 CPU/(2987:2988): La instruccion es 0
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro AX
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro HOLA
+[INFO] 11:36:13:979 CPU/(2987:2988): La instruccion es 2
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro 120
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro AX
+[INFO] 11:36:13:979 CPU/(2987:2988): La instruccion es 10
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro DISCO
+[INFO] 11:36:13:979 CPU/(2987:2988): La instruccion es 3
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro 10
+[INFO] 11:36:13:979 CPU/(2987:2988): La instruccion es 11
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro DISCO
+[INFO] 11:36:13:979 CPU/(2987:2988): La instruccion es 1
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro BX
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro 120
+[INFO] 11:36:13:979 CPU/(2987:2988): La instruccion es 4
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro ARCHIVO
+[INFO] 11:36:13:979 CPU/(2987:2988): La instruccion es 14
+[INFO] 11:36:13:979 CPU/(2987:2988): La instruccion es 9
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro ARCHIVO
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro 64
+[INFO] 11:36:13:979 CPU/(2987:2988): La instruccion es 6
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro ARCHIVO
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro 10
+[INFO] 11:36:13:979 CPU/(2987:2988): La instruccion es 12
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro 1
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro 128
+[INFO] 11:36:13:979 CPU/(2987:2988): La instruccion es 8
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro ARCHIVO
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro 4
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro 4
+[INFO] 11:36:13:979 CPU/(2987:2988): La instruccion es 7
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro ARCHIVO
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro 16
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro 4
+[INFO] 11:36:13:979 CPU/(2987:2988): La instruccion es 13
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro 1
+[INFO] 11:36:13:979 CPU/(2987:2988): La instruccion es 5
+[INFO] 11:36:13:979 CPU/(2987:2988): Parametro ARCHIVO
+[INFO] 11:36:13:979 CPU/(2987:2988): La instruccion es 15
+[ERROR] 11:36:13:981 CPU/(2987:2989): el cliente se desconecto. Terminando servidor
+[INFO] 11:38:53:883 CPU/(3031:3032): CPU listo para recibir al kernel
+[INFO] 11:38:55:715 CPU/(3031:3032): Se conecto un cliente!
+[INFO] 11:38:55:716 CPU/(3031:3032): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 11:38:57:736 CPU/(3031:3032): el cliente se desconecto. Terminando servidor
+[INFO] 11:40:54:760 CPU/(3107:3108): CPU listo para recibir al kernel
+[INFO] 11:40:56:489 CPU/(3107:3108): Se conecto un cliente!
+[INFO] 11:40:56:490 CPU/(3107:3108): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 11:40:58:693 CPU/(3107:3108): el cliente se desconecto. Terminando servidor
+[INFO] 11:43:22:852 CPU/(3290:3291): CPU listo para recibir al kernel
+[INFO] 11:43:25:220 CPU/(3290:3291): Se conecto un cliente!
+[INFO] 11:43:25:223 CPU/(3290:3291): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 11:43:27:180 CPU/(3290:3291): el cliente se desconecto. Terminando servidor
+[INFO] 11:44:56:503 CPU/(3333:3334): CPU listo para recibir al kernel
+[INFO] 11:44:58:297 CPU/(3333:3334): Se conecto un cliente!
+[INFO] 11:44:58:298 CPU/(3333:3334): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 11:45:00:723 CPU/(3333:3334): Paso por ejecutar
+[INFO] 11:45:00:723 CPU/(3333:3334): El PID ES 0
+[INFO] 11:45:00:723 CPU/(3333:3334): La instruccion es 0
+[INFO] 11:45:00:723 CPU/(3333:3334): Parametro AX
+[INFO] 11:45:00:723 CPU/(3333:3334): Parametro HOLA
+[INFO] 11:45:00:723 CPU/(3333:3334): La instruccion es 2
+[INFO] 11:45:00:723 CPU/(3333:3334): Parametro 120
+[INFO] 11:45:00:724 CPU/(3333:3334): Parametro AX
+[INFO] 11:45:00:724 CPU/(3333:3334): La instruccion es 10
+[INFO] 11:45:00:724 CPU/(3333:3334): Parametro DISCO
+[INFO] 11:45:00:724 CPU/(3333:3334): La instruccion es 3
+[INFO] 11:45:00:724 CPU/(3333:3334): Parametro 10
+[INFO] 11:45:00:724 CPU/(3333:3334): La instruccion es 11
+[INFO] 11:45:00:724 CPU/(3333:3334): Parametro DISCO
+[INFO] 11:45:00:724 CPU/(3333:3334): La instruccion es 1
+[INFO] 11:45:00:724 CPU/(3333:3334): Parametro BX
+[INFO] 11:45:00:724 CPU/(3333:3334): Parametro 120
+[INFO] 11:45:00:724 CPU/(3333:3334): La instruccion es 4
+[INFO] 11:45:00:724 CPU/(3333:3334): Parametro ARCHIVO
+[INFO] 11:45:00:724 CPU/(3333:3334): La instruccion es 14
+[INFO] 11:45:00:724 CPU/(3333:3334): La instruccion es 9
+[INFO] 11:45:00:724 CPU/(3333:3334): Parametro ARCHIVO
+[INFO] 11:45:00:724 CPU/(3333:3334): Parametro 64
+[INFO] 11:45:00:724 CPU/(3333:3334): La instruccion es 6
+[INFO] 11:45:00:724 CPU/(3333:3334): Parametro ARCHIVO
+[INFO] 11:45:00:724 CPU/(3333:3334): Parametro 10
+[INFO] 11:45:00:724 CPU/(3333:3334): La instruccion es 12
+[INFO] 11:45:00:724 CPU/(3333:3334): Parametro 1
+[INFO] 11:45:00:724 CPU/(3333:3334): Parametro 128
+[INFO] 11:45:00:724 CPU/(3333:3334): La instruccion es 8
+[INFO] 11:45:00:724 CPU/(3333:3334): Parametro ARCHIVO
+[INFO] 11:45:00:724 CPU/(3333:3334): Parametro 4
+[INFO] 11:45:00:724 CPU/(3333:3334): Parametro 4
+[INFO] 11:45:00:725 CPU/(3333:3334): La instruccion es 7
+[INFO] 11:45:00:725 CPU/(3333:3334): Parametro ARCHIVO
+[INFO] 11:45:00:725 CPU/(3333:3334): Parametro 16
+[INFO] 11:45:00:725 CPU/(3333:3334): Parametro 4
+[INFO] 11:45:00:725 CPU/(3333:3334): La instruccion es 13
+[INFO] 11:45:00:725 CPU/(3333:3334): Parametro 1
+[INFO] 11:45:00:725 CPU/(3333:3334): La instruccion es 5
+[INFO] 11:45:00:725 CPU/(3333:3334): Parametro ARCHIVO
+[INFO] 11:45:00:725 CPU/(3333:3334): La instruccion es 15
+[ERROR] 11:45:00:727 CPU/(3333:3335): el cliente se desconecto. Terminando servidor

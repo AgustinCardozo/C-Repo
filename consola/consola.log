@@ -10677,3 +10677,347 @@
 [INFO] 00:13:09:420 Consola/(4038:4038): Parametro ARCHIVO
 [INFO] 00:13:09:420 Consola/(4038:4038): La instruccion es 15
 [INFO] 00:13:09:420 Consola/(4038:4038): EL PID ES 4038
+[INFO] 10:51:12:991 Consola/(2282:2282): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 10:51:12:993 Consola/(2282:2282): La instruccion es 0
+[INFO] 10:51:12:993 Consola/(2282:2282): Parametro AX
+[INFO] 10:51:12:995 Consola/(2282:2282): Parametro HOLA
+[INFO] 10:51:12:995 Consola/(2282:2282): La instruccion es 2
+[INFO] 10:51:12:995 Consola/(2282:2282): Parametro 120
+[INFO] 10:51:12:996 Consola/(2282:2282): Parametro AX
+[INFO] 10:51:12:996 Consola/(2282:2282): La instruccion es 10
+[INFO] 10:51:12:996 Consola/(2282:2282): Parametro DISCO
+[INFO] 10:51:12:996 Consola/(2282:2282): La instruccion es 3
+[INFO] 10:51:12:997 Consola/(2282:2282): Parametro 10
+[INFO] 10:51:12:997 Consola/(2282:2282): La instruccion es 11
+[INFO] 10:51:12:997 Consola/(2282:2282): Parametro DISCO
+[INFO] 10:51:12:997 Consola/(2282:2282): La instruccion es 1
+[INFO] 10:51:12:997 Consola/(2282:2282): Parametro BX
+[INFO] 10:51:12:998 Consola/(2282:2282): Parametro 120
+[INFO] 10:51:12:998 Consola/(2282:2282): La instruccion es 4
+[INFO] 10:51:12:998 Consola/(2282:2282): Parametro ARCHIVO
+[INFO] 10:51:12:998 Consola/(2282:2282): La instruccion es 14
+[INFO] 10:51:12:998 Consola/(2282:2282): La instruccion es 9
+[INFO] 10:51:12:998 Consola/(2282:2282): Parametro ARCHIVO
+[INFO] 10:51:12:998 Consola/(2282:2282): Parametro 64
+[INFO] 10:51:12:998 Consola/(2282:2282): La instruccion es 6
+[INFO] 10:51:12:998 Consola/(2282:2282): Parametro ARCHIVO
+[INFO] 10:51:12:999 Consola/(2282:2282): Parametro 10
+[INFO] 10:51:12:999 Consola/(2282:2282): La instruccion es 12
+[INFO] 10:51:12:999 Consola/(2282:2282): Parametro 1
+[INFO] 10:51:12:999 Consola/(2282:2282): Parametro 128
+[INFO] 10:51:12:999 Consola/(2282:2282): La instruccion es 8
+[INFO] 10:51:12:999 Consola/(2282:2282): Parametro ARCHIVO
+[INFO] 10:51:12:999 Consola/(2282:2282): Parametro 4
+[INFO] 10:51:12:999 Consola/(2282:2282): Parametro 4
+[INFO] 10:51:12:999 Consola/(2282:2282): La instruccion es 7
+[INFO] 10:51:12:999 Consola/(2282:2282): Parametro ARCHIVO
+[INFO] 10:51:12:999 Consola/(2282:2282): Parametro 16
+[INFO] 10:51:13:000 Consola/(2282:2282): Parametro 4
+[INFO] 10:51:13:001 Consola/(2282:2282): La instruccion es 13
+[INFO] 10:51:13:001 Consola/(2282:2282): Parametro 1
+[INFO] 10:51:13:001 Consola/(2282:2282): La instruccion es 5
+[INFO] 10:51:13:001 Consola/(2282:2282): Parametro ARCHIVO
+[INFO] 10:51:13:001 Consola/(2282:2282): La instruccion es 15
+[INFO] 10:51:13:001 Consola/(2282:2282): EL PID ES 2282
+[INFO] 10:57:19:214 Consola/(2345:2345): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 10:57:19:215 Consola/(2345:2345): La instruccion es 0
+[INFO] 10:57:19:215 Consola/(2345:2345): Parametro AX
+[INFO] 10:57:19:215 Consola/(2345:2345): Parametro HOLA
+[INFO] 10:57:19:215 Consola/(2345:2345): La instruccion es 2
+[INFO] 10:57:19:216 Consola/(2345:2345): Parametro 120
+[INFO] 10:57:19:216 Consola/(2345:2345): Parametro AX
+[INFO] 10:57:19:216 Consola/(2345:2345): La instruccion es 10
+[INFO] 10:57:19:216 Consola/(2345:2345): Parametro DISCO
+[INFO] 10:57:19:216 Consola/(2345:2345): La instruccion es 3
+[INFO] 10:57:19:216 Consola/(2345:2345): Parametro 10
+[INFO] 10:57:19:217 Consola/(2345:2345): La instruccion es 11
+[INFO] 10:57:19:217 Consola/(2345:2345): Parametro DISCO
+[INFO] 10:57:19:217 Consola/(2345:2345): La instruccion es 1
+[INFO] 10:57:19:217 Consola/(2345:2345): Parametro BX
+[INFO] 10:57:19:218 Consola/(2345:2345): Parametro 120
+[INFO] 10:57:19:218 Consola/(2345:2345): La instruccion es 4
+[INFO] 10:57:19:218 Consola/(2345:2345): Parametro ARCHIVO
+[INFO] 10:57:19:218 Consola/(2345:2345): La instruccion es 14
+[INFO] 10:57:19:218 Consola/(2345:2345): La instruccion es 9
+[INFO] 10:57:19:219 Consola/(2345:2345): Parametro ARCHIVO
+[INFO] 10:57:19:219 Consola/(2345:2345): Parametro 64
+[INFO] 10:57:19:219 Consola/(2345:2345): La instruccion es 6
+[INFO] 10:57:19:219 Consola/(2345:2345): Parametro ARCHIVO
+[INFO] 10:57:19:219 Consola/(2345:2345): Parametro 10
+[INFO] 10:57:19:220 Consola/(2345:2345): La instruccion es 12
+[INFO] 10:57:19:220 Consola/(2345:2345): Parametro 1
+[INFO] 10:57:19:220 Consola/(2345:2345): Parametro 128
+[INFO] 10:57:19:220 Consola/(2345:2345): La instruccion es 8
+[INFO] 10:57:19:220 Consola/(2345:2345): Parametro ARCHIVO
+[INFO] 10:57:19:221 Consola/(2345:2345): Parametro 4
+[INFO] 10:57:19:228 Consola/(2345:2345): Parametro 4
+[INFO] 10:57:19:228 Consola/(2345:2345): La instruccion es 7
+[INFO] 10:57:19:228 Consola/(2345:2345): Parametro ARCHIVO
+[INFO] 10:57:19:228 Consola/(2345:2345): Parametro 16
+[INFO] 10:57:19:228 Consola/(2345:2345): Parametro 4
+[INFO] 10:57:19:228 Consola/(2345:2345): La instruccion es 13
+[INFO] 10:57:19:228 Consola/(2345:2345): Parametro 1
+[INFO] 10:57:19:228 Consola/(2345:2345): La instruccion es 5
+[INFO] 10:57:19:228 Consola/(2345:2345): Parametro ARCHIVO
+[INFO] 10:57:19:228 Consola/(2345:2345): La instruccion es 15
+[INFO] 10:57:19:228 Consola/(2345:2345): EL PID ES 2345
+[INFO] 11:25:32:086 Consola/(2719:2719): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 11:25:32:087 Consola/(2719:2719): La instruccion es 0
+[INFO] 11:25:32:088 Consola/(2719:2719): Parametro AX
+[INFO] 11:25:32:088 Consola/(2719:2719): Parametro HOLA
+[INFO] 11:25:32:088 Consola/(2719:2719): La instruccion es 2
+[INFO] 11:25:32:088 Consola/(2719:2719): Parametro 120
+[INFO] 11:25:32:089 Consola/(2719:2719): Parametro AX
+[INFO] 11:25:32:089 Consola/(2719:2719): La instruccion es 10
+[INFO] 11:25:32:089 Consola/(2719:2719): Parametro DISCO
+[INFO] 11:25:32:089 Consola/(2719:2719): La instruccion es 3
+[INFO] 11:25:32:090 Consola/(2719:2719): Parametro 10
+[INFO] 11:25:32:090 Consola/(2719:2719): La instruccion es 11
+[INFO] 11:25:32:090 Consola/(2719:2719): Parametro DISCO
+[INFO] 11:25:32:090 Consola/(2719:2719): La instruccion es 1
+[INFO] 11:25:32:091 Consola/(2719:2719): Parametro BX
+[INFO] 11:25:32:091 Consola/(2719:2719): Parametro 120
+[INFO] 11:25:32:091 Consola/(2719:2719): La instruccion es 4
+[INFO] 11:25:32:091 Consola/(2719:2719): Parametro ARCHIVO
+[INFO] 11:25:32:091 Consola/(2719:2719): La instruccion es 14
+[INFO] 11:25:32:092 Consola/(2719:2719): La instruccion es 9
+[INFO] 11:25:32:092 Consola/(2719:2719): Parametro ARCHIVO
+[INFO] 11:25:32:092 Consola/(2719:2719): Parametro 64
+[INFO] 11:25:32:092 Consola/(2719:2719): La instruccion es 6
+[INFO] 11:25:32:093 Consola/(2719:2719): Parametro ARCHIVO
+[INFO] 11:25:32:093 Consola/(2719:2719): Parametro 10
+[INFO] 11:25:32:093 Consola/(2719:2719): La instruccion es 12
+[INFO] 11:25:32:093 Consola/(2719:2719): Parametro 1
+[INFO] 11:25:32:093 Consola/(2719:2719): Parametro 128
+[INFO] 11:25:32:094 Consola/(2719:2719): La instruccion es 8
+[INFO] 11:25:32:094 Consola/(2719:2719): Parametro ARCHIVO
+[INFO] 11:25:32:098 Consola/(2719:2719): Parametro 4
+[INFO] 11:25:32:098 Consola/(2719:2719): Parametro 4
+[INFO] 11:25:32:098 Consola/(2719:2719): La instruccion es 7
+[INFO] 11:25:32:098 Consola/(2719:2719): Parametro ARCHIVO
+[INFO] 11:25:32:098 Consola/(2719:2719): Parametro 16
+[INFO] 11:25:32:098 Consola/(2719:2719): Parametro 4
+[INFO] 11:25:32:098 Consola/(2719:2719): La instruccion es 13
+[INFO] 11:25:32:098 Consola/(2719:2719): Parametro 1
+[INFO] 11:25:32:098 Consola/(2719:2719): La instruccion es 5
+[INFO] 11:25:32:098 Consola/(2719:2719): Parametro ARCHIVO
+[INFO] 11:25:32:098 Consola/(2719:2719): La instruccion es 15
+[INFO] 11:25:32:099 Consola/(2719:2719): EL PID ES 2719
+[INFO] 11:36:13:969 Consola/(2993:2993): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 11:36:13:971 Consola/(2993:2993): La instruccion es 0
+[INFO] 11:36:13:971 Consola/(2993:2993): Parametro AX
+[INFO] 11:36:13:971 Consola/(2993:2993): Parametro HOLA
+[INFO] 11:36:13:971 Consola/(2993:2993): La instruccion es 2
+[INFO] 11:36:13:972 Consola/(2993:2993): Parametro 120
+[INFO] 11:36:13:972 Consola/(2993:2993): Parametro AX
+[INFO] 11:36:13:972 Consola/(2993:2993): La instruccion es 10
+[INFO] 11:36:13:972 Consola/(2993:2993): Parametro DISCO
+[INFO] 11:36:13:973 Consola/(2993:2993): La instruccion es 3
+[INFO] 11:36:13:973 Consola/(2993:2993): Parametro 10
+[INFO] 11:36:13:973 Consola/(2993:2993): La instruccion es 11
+[INFO] 11:36:13:973 Consola/(2993:2993): Parametro DISCO
+[INFO] 11:36:13:973 Consola/(2993:2993): La instruccion es 1
+[INFO] 11:36:13:974 Consola/(2993:2993): Parametro BX
+[INFO] 11:36:13:974 Consola/(2993:2993): Parametro 120
+[INFO] 11:36:13:974 Consola/(2993:2993): La instruccion es 4
+[INFO] 11:36:13:974 Consola/(2993:2993): Parametro ARCHIVO
+[INFO] 11:36:13:975 Consola/(2993:2993): La instruccion es 14
+[INFO] 11:36:13:975 Consola/(2993:2993): La instruccion es 9
+[INFO] 11:36:13:975 Consola/(2993:2993): Parametro ARCHIVO
+[INFO] 11:36:13:975 Consola/(2993:2993): Parametro 64
+[INFO] 11:36:13:975 Consola/(2993:2993): La instruccion es 6
+[INFO] 11:36:13:976 Consola/(2993:2993): Parametro ARCHIVO
+[INFO] 11:36:13:976 Consola/(2993:2993): Parametro 10
+[INFO] 11:36:13:976 Consola/(2993:2993): La instruccion es 12
+[INFO] 11:36:13:976 Consola/(2993:2993): Parametro 1
+[INFO] 11:36:13:976 Consola/(2993:2993): Parametro 128
+[INFO] 11:36:13:977 Consola/(2993:2993): La instruccion es 8
+[INFO] 11:36:13:977 Consola/(2993:2993): Parametro ARCHIVO
+[INFO] 11:36:13:977 Consola/(2993:2993): Parametro 4
+[INFO] 11:36:13:977 Consola/(2993:2993): Parametro 4
+[INFO] 11:36:13:977 Consola/(2993:2993): La instruccion es 7
+[INFO] 11:36:13:977 Consola/(2993:2993): Parametro ARCHIVO
+[INFO] 11:36:13:977 Consola/(2993:2993): Parametro 16
+[INFO] 11:36:13:978 Consola/(2993:2993): Parametro 4
+[INFO] 11:36:13:978 Consola/(2993:2993): La instruccion es 13
+[INFO] 11:36:13:978 Consola/(2993:2993): Parametro 1
+[INFO] 11:36:13:978 Consola/(2993:2993): La instruccion es 5
+[INFO] 11:36:13:978 Consola/(2993:2993): Parametro ARCHIVO
+[INFO] 11:36:13:978 Consola/(2993:2993): La instruccion es 15
+[INFO] 11:36:13:978 Consola/(2993:2993): EL PID ES 2993
+[INFO] 11:38:57:533 Consola/(3037:3037): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 11:38:57:534 Consola/(3037:3037): La instruccion es 0
+[INFO] 11:38:57:534 Consola/(3037:3037): Parametro AX
+[INFO] 11:38:57:535 Consola/(3037:3037): Parametro HOLA
+[INFO] 11:38:57:535 Consola/(3037:3037): La instruccion es 2
+[INFO] 11:38:57:535 Consola/(3037:3037): Parametro 120
+[INFO] 11:38:57:535 Consola/(3037:3037): Parametro AX
+[INFO] 11:38:57:536 Consola/(3037:3037): La instruccion es 10
+[INFO] 11:38:57:536 Consola/(3037:3037): Parametro DISCO
+[INFO] 11:38:57:536 Consola/(3037:3037): La instruccion es 3
+[INFO] 11:38:57:536 Consola/(3037:3037): Parametro 10
+[INFO] 11:38:57:536 Consola/(3037:3037): La instruccion es 11
+[INFO] 11:38:57:537 Consola/(3037:3037): Parametro DISCO
+[INFO] 11:38:57:537 Consola/(3037:3037): La instruccion es 1
+[INFO] 11:38:57:537 Consola/(3037:3037): Parametro BX
+[INFO] 11:38:57:537 Consola/(3037:3037): Parametro 120
+[INFO] 11:38:57:538 Consola/(3037:3037): La instruccion es 4
+[INFO] 11:38:57:538 Consola/(3037:3037): Parametro ARCHIVO
+[INFO] 11:38:57:538 Consola/(3037:3037): La instruccion es 14
+[INFO] 11:38:57:538 Consola/(3037:3037): La instruccion es 9
+[INFO] 11:38:57:539 Consola/(3037:3037): Parametro ARCHIVO
+[INFO] 11:38:57:539 Consola/(3037:3037): Parametro 64
+[INFO] 11:38:57:539 Consola/(3037:3037): La instruccion es 6
+[INFO] 11:38:57:540 Consola/(3037:3037): Parametro ARCHIVO
+[INFO] 11:38:57:540 Consola/(3037:3037): Parametro 10
+[INFO] 11:38:57:541 Consola/(3037:3037): La instruccion es 12
+[INFO] 11:38:57:541 Consola/(3037:3037): Parametro 1
+[INFO] 11:38:57:542 Consola/(3037:3037): Parametro 128
+[INFO] 11:38:57:542 Consola/(3037:3037): La instruccion es 8
+[INFO] 11:38:57:542 Consola/(3037:3037): Parametro ARCHIVO
+[INFO] 11:38:57:542 Consola/(3037:3037): Parametro 4
+[INFO] 11:38:57:542 Consola/(3037:3037): Parametro 4
+[INFO] 11:38:57:542 Consola/(3037:3037): La instruccion es 7
+[INFO] 11:38:57:542 Consola/(3037:3037): Parametro ARCHIVO
+[INFO] 11:38:57:542 Consola/(3037:3037): Parametro 16
+[INFO] 11:38:57:542 Consola/(3037:3037): Parametro 4
+[INFO] 11:38:57:542 Consola/(3037:3037): La instruccion es 13
+[INFO] 11:38:57:542 Consola/(3037:3037): Parametro 1
+[INFO] 11:38:57:542 Consola/(3037:3037): La instruccion es 5
+[INFO] 11:38:57:542 Consola/(3037:3037): Parametro ARCHIVO
+[INFO] 11:38:57:542 Consola/(3037:3037): La instruccion es 15
+[INFO] 11:38:57:542 Consola/(3037:3037): EL PID ES 3037
+[INFO] 11:40:58:510 Consola/(3113:3113): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 11:40:58:511 Consola/(3113:3113): La instruccion es 0
+[INFO] 11:40:58:511 Consola/(3113:3113): Parametro AX
+[INFO] 11:40:58:512 Consola/(3113:3113): Parametro HOLA
+[INFO] 11:40:58:512 Consola/(3113:3113): La instruccion es 2
+[INFO] 11:40:58:512 Consola/(3113:3113): Parametro 120
+[INFO] 11:40:58:512 Consola/(3113:3113): Parametro AX
+[INFO] 11:40:58:512 Consola/(3113:3113): La instruccion es 10
+[INFO] 11:40:58:513 Consola/(3113:3113): Parametro DISCO
+[INFO] 11:40:58:513 Consola/(3113:3113): La instruccion es 3
+[INFO] 11:40:58:513 Consola/(3113:3113): Parametro 10
+[INFO] 11:40:58:513 Consola/(3113:3113): La instruccion es 11
+[INFO] 11:40:58:513 Consola/(3113:3113): Parametro DISCO
+[INFO] 11:40:58:514 Consola/(3113:3113): La instruccion es 1
+[INFO] 11:40:58:514 Consola/(3113:3113): Parametro BX
+[INFO] 11:40:58:514 Consola/(3113:3113): Parametro 120
+[INFO] 11:40:58:514 Consola/(3113:3113): La instruccion es 4
+[INFO] 11:40:58:514 Consola/(3113:3113): Parametro ARCHIVO
+[INFO] 11:40:58:515 Consola/(3113:3113): La instruccion es 14
+[INFO] 11:40:58:515 Consola/(3113:3113): La instruccion es 9
+[INFO] 11:40:58:515 Consola/(3113:3113): Parametro ARCHIVO
+[INFO] 11:40:58:515 Consola/(3113:3113): Parametro 64
+[INFO] 11:40:58:515 Consola/(3113:3113): La instruccion es 6
+[INFO] 11:40:58:515 Consola/(3113:3113): Parametro ARCHIVO
+[INFO] 11:40:58:516 Consola/(3113:3113): Parametro 10
+[INFO] 11:40:58:516 Consola/(3113:3113): La instruccion es 12
+[INFO] 11:40:58:516 Consola/(3113:3113): Parametro 1
+[INFO] 11:40:58:516 Consola/(3113:3113): Parametro 128
+[INFO] 11:40:58:516 Consola/(3113:3113): La instruccion es 8
+[INFO] 11:40:58:517 Consola/(3113:3113): Parametro ARCHIVO
+[INFO] 11:40:58:517 Consola/(3113:3113): Parametro 4
+[INFO] 11:40:58:517 Consola/(3113:3113): Parametro 4
+[INFO] 11:40:58:517 Consola/(3113:3113): La instruccion es 7
+[INFO] 11:40:58:521 Consola/(3113:3113): Parametro ARCHIVO
+[INFO] 11:40:58:521 Consola/(3113:3113): Parametro 16
+[INFO] 11:40:58:521 Consola/(3113:3113): Parametro 4
+[INFO] 11:40:58:521 Consola/(3113:3113): La instruccion es 13
+[INFO] 11:40:58:521 Consola/(3113:3113): Parametro 1
+[INFO] 11:40:58:521 Consola/(3113:3113): La instruccion es 5
+[INFO] 11:40:58:522 Consola/(3113:3113): Parametro ARCHIVO
+[INFO] 11:40:58:522 Consola/(3113:3113): La instruccion es 15
+[INFO] 11:40:58:522 Consola/(3113:3113): EL PID ES 3113
+[INFO] 11:43:26:977 Consola/(3296:3296): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 11:43:26:978 Consola/(3296:3296): La instruccion es 0
+[INFO] 11:43:26:978 Consola/(3296:3296): Parametro AX
+[INFO] 11:43:26:978 Consola/(3296:3296): Parametro HOLA
+[INFO] 11:43:26:978 Consola/(3296:3296): La instruccion es 2
+[INFO] 11:43:26:979 Consola/(3296:3296): Parametro 120
+[INFO] 11:43:26:979 Consola/(3296:3296): Parametro AX
+[INFO] 11:43:26:979 Consola/(3296:3296): La instruccion es 10
+[INFO] 11:43:26:979 Consola/(3296:3296): Parametro DISCO
+[INFO] 11:43:26:980 Consola/(3296:3296): La instruccion es 3
+[INFO] 11:43:26:980 Consola/(3296:3296): Parametro 10
+[INFO] 11:43:26:980 Consola/(3296:3296): La instruccion es 11
+[INFO] 11:43:26:980 Consola/(3296:3296): Parametro DISCO
+[INFO] 11:43:26:980 Consola/(3296:3296): La instruccion es 1
+[INFO] 11:43:26:981 Consola/(3296:3296): Parametro BX
+[INFO] 11:43:26:981 Consola/(3296:3296): Parametro 120
+[INFO] 11:43:26:983 Consola/(3296:3296): La instruccion es 4
+[INFO] 11:43:26:984 Consola/(3296:3296): Parametro ARCHIVO
+[INFO] 11:43:26:984 Consola/(3296:3296): La instruccion es 14
+[INFO] 11:43:26:989 Consola/(3296:3296): La instruccion es 9
+[INFO] 11:43:26:989 Consola/(3296:3296): Parametro ARCHIVO
+[INFO] 11:43:26:989 Consola/(3296:3296): Parametro 64
+[INFO] 11:43:26:989 Consola/(3296:3296): La instruccion es 6
+[INFO] 11:43:26:989 Consola/(3296:3296): Parametro ARCHIVO
+[INFO] 11:43:26:990 Consola/(3296:3296): Parametro 10
+[INFO] 11:43:26:990 Consola/(3296:3296): La instruccion es 12
+[INFO] 11:43:26:990 Consola/(3296:3296): Parametro 1
+[INFO] 11:43:26:990 Consola/(3296:3296): Parametro 128
+[INFO] 11:43:26:990 Consola/(3296:3296): La instruccion es 8
+[INFO] 11:43:26:990 Consola/(3296:3296): Parametro ARCHIVO
+[INFO] 11:43:26:990 Consola/(3296:3296): Parametro 4
+[INFO] 11:43:26:990 Consola/(3296:3296): Parametro 4
+[INFO] 11:43:26:990 Consola/(3296:3296): La instruccion es 7
+[INFO] 11:43:26:990 Consola/(3296:3296): Parametro ARCHIVO
+[INFO] 11:43:26:990 Consola/(3296:3296): Parametro 16
+[INFO] 11:43:26:990 Consola/(3296:3296): Parametro 4
+[INFO] 11:43:26:990 Consola/(3296:3296): La instruccion es 13
+[INFO] 11:43:26:990 Consola/(3296:3296): Parametro 1
+[INFO] 11:43:26:990 Consola/(3296:3296): La instruccion es 5
+[INFO] 11:43:26:990 Consola/(3296:3296): Parametro ARCHIVO
+[INFO] 11:43:26:990 Consola/(3296:3296): La instruccion es 15
+[INFO] 11:43:26:990 Consola/(3296:3296): EL PID ES 3296
+[INFO] 11:45:00:710 Consola/(3339:3339): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 11:45:00:711 Consola/(3339:3339): La instruccion es 0
+[INFO] 11:45:00:711 Consola/(3339:3339): Parametro AX
+[INFO] 11:45:00:711 Consola/(3339:3339): Parametro HOLA
+[INFO] 11:45:00:711 Consola/(3339:3339): La instruccion es 2
+[INFO] 11:45:00:712 Consola/(3339:3339): Parametro 120
+[INFO] 11:45:00:712 Consola/(3339:3339): Parametro AX
+[INFO] 11:45:00:712 Consola/(3339:3339): La instruccion es 10
+[INFO] 11:45:00:713 Consola/(3339:3339): Parametro DISCO
+[INFO] 11:45:00:713 Consola/(3339:3339): La instruccion es 3
+[INFO] 11:45:00:714 Consola/(3339:3339): Parametro 10
+[INFO] 11:45:00:714 Consola/(3339:3339): La instruccion es 11
+[INFO] 11:45:00:714 Consola/(3339:3339): Parametro DISCO
+[INFO] 11:45:00:715 Consola/(3339:3339): La instruccion es 1
+[INFO] 11:45:00:715 Consola/(3339:3339): Parametro BX
+[INFO] 11:45:00:715 Consola/(3339:3339): Parametro 120
+[INFO] 11:45:00:715 Consola/(3339:3339): La instruccion es 4
+[INFO] 11:45:00:716 Consola/(3339:3339): Parametro ARCHIVO
+[INFO] 11:45:00:716 Consola/(3339:3339): La instruccion es 14
+[INFO] 11:45:00:716 Consola/(3339:3339): La instruccion es 9
+[INFO] 11:45:00:716 Consola/(3339:3339): Parametro ARCHIVO
+[INFO] 11:45:00:716 Consola/(3339:3339): Parametro 64
+[INFO] 11:45:00:716 Consola/(3339:3339): La instruccion es 6
+[INFO] 11:45:00:717 Consola/(3339:3339): Parametro ARCHIVO
+[INFO] 11:45:00:717 Consola/(3339:3339): Parametro 10
+[INFO] 11:45:00:717 Consola/(3339:3339): La instruccion es 12
+[INFO] 11:45:00:717 Consola/(3339:3339): Parametro 1
+[INFO] 11:45:00:717 Consola/(3339:3339): Parametro 128
+[INFO] 11:45:00:721 Consola/(3339:3339): La instruccion es 8
+[INFO] 11:45:00:721 Consola/(3339:3339): Parametro ARCHIVO
+[INFO] 11:45:00:721 Consola/(3339:3339): Parametro 4
+[INFO] 11:45:00:722 Consola/(3339:3339): Parametro 4
+[INFO] 11:45:00:722 Consola/(3339:3339): La instruccion es 7
+[INFO] 11:45:00:722 Consola/(3339:3339): Parametro ARCHIVO
+[INFO] 11:45:00:722 Consola/(3339:3339): Parametro 16
+[INFO] 11:45:00:722 Consola/(3339:3339): Parametro 4
+[INFO] 11:45:00:722 Consola/(3339:3339): La instruccion es 13
+[INFO] 11:45:00:722 Consola/(3339:3339): Parametro 1
+[INFO] 11:45:00:722 Consola/(3339:3339): La instruccion es 5
+[INFO] 11:45:00:722 Consola/(3339:3339): Parametro ARCHIVO
+[INFO] 11:45:00:722 Consola/(3339:3339): La instruccion es 15
+[INFO] 11:45:00:722 Consola/(3339:3339): EL PID ES 3339

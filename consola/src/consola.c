@@ -179,101 +179,15 @@ t_paquete* crear_paquete_instrucciones(t_list* lista_instrucciones){
 	paquete->codigo_operacion = INSTRUCCIONES;
 	paquete->buffer = serializar_lista_de_instrucciones(lista_instrucciones);
 
-
-	return paquete;
-}
-
-t_buffer* serializar_lista_de_instrucciones(t_list* lista_instrucciones){
-	t_buffer* buffer = malloc(sizeof(t_buffer));
-	int i_count;
-	int	p_count;
-	int stream_size;
-	int offset = 0;
-	t_list_iterator* i_iterator;
-	t_list_iterator* p_iterator;
-	t_instruccion*	instruccion;
-	char* parametro;
-	uint32_t size_parametro;
-
-	i_iterator = list_iterator_create(lista_instrucciones);
-	stream_size = 0;
-	i_count = 0;
-
-	while (list_iterator_has_next(i_iterator)) {
-			instruccion = (t_instruccion*)list_iterator_next(i_iterator);
-
-			// codigo, cantidad de parametros
-			stream_size += (sizeof(uint32_t) * 2);
-			p_count = list_size(instruccion->parametros);
-
-			if (p_count > 0) {
-				p_iterator = list_iterator_create(instruccion->parametros);
-
-				while (list_iterator_has_next(p_iterator)) {
-					// longitud del parametro, valor del parametro
-					stream_size += sizeof(uint32_t) + strlen((char*)list_iterator_next(p_iterator)) + 1;
-				}
-
-				list_iterator_destroy(p_iterator);
-			}
-
-			i_count++;
-		}
-
-	list_iterator_destroy(i_iterator);
-
-	buffer->size = stream_size + sizeof(uint32_t) + sizeof(int);
-	buffer->stream = malloc(buffer->size);
-
-	memcpy(buffer->stream + offset, &(i_count), sizeof(uint32_t));
-	offset += sizeof(uint32_t);
-
-	i_iterator = list_iterator_create(lista_instrucciones);
-
-	while (list_iterator_has_next(i_iterator)) {
-			instruccion = (t_instruccion*)list_iterator_next(i_iterator);
-
-			// codigo de instruccion
-			memcpy(buffer->stream + offset, &(instruccion->nombre), sizeof(uint32_t));
-			offset += sizeof(uint32_t);
-
-			// cantidad de parametros
-			p_count = list_size(instruccion->parametros);
-			memcpy(buffer->stream + offset, &(p_count), sizeof(uint32_t));
-			offset += sizeof(uint32_t);
-
-			if (p_count > 0) {
-				p_iterator = list_iterator_create(instruccion->parametros);
-
-				while (list_iterator_has_next(p_iterator)) {
-					parametro = (char*)list_iterator_next(p_iterator);
-					size_parametro = strlen(parametro) + 1;
-
-					// longitud del parametro
-					memcpy(buffer->stream + offset, &(size_parametro), sizeof(uint32_t));
-					offset += sizeof(uint32_t);
-
-					// valor del parametro
-					memcpy(buffer->stream + offset, parametro, size_parametro);
-					offset += size_parametro;
-				}
-
-				list_iterator_destroy(p_iterator);
-			}
-		}
-
 	int pid = getpid();
 	log_info(logger,"EL PID ES %i",pid);
 
-	memcpy(buffer->stream + offset, &pid, sizeof(int));
+	int offset = paquete->buffer->size;
+
+	memcpy(paquete->buffer->stream + offset, &pid, sizeof(int));
 	offset += sizeof(int);
 
-	list_iterator_destroy(i_iterator);
-	if (offset != buffer->size){
-			printf("serializar_lista_instrucciones: El tamaño del buffer[%d] no coincide con el offset final[%d]\n", buffer->size, offset);
-	}
-	return buffer;
-
+	return paquete;
 }
 
 void enviar_paquete_de_instrucciones(t_paquete* paquete,int conexion){
