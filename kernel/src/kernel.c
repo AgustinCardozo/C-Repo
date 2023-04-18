@@ -20,14 +20,12 @@ int* cliente_fd;
 int conexion_cpu;
 int conexion_memoria;
 int conexion_filesystem;
-t_buffer* desempaquetar(t_paquete* paquete, int cliente_fd);
+//t_buffer* desempaquetar(t_paquete* paquete, int cliente_fd);
 int agregar_pid(t_buffer* buffer);
 void mostrar(t_instruccion* inst);
 void mostrar_parametro(char* value);
 void mostrar_cola(t_queue*cola);
 t_pcb* crear_pcb(int pid, t_list* lista_instrucciones);
-//t_paquete* crear_paquete_pcb(t_pcb* pcb, op_code codigo);
-//void enviar_pcb_a_ajecutar(t_pcb* pcb);
 void enviar_pcb_a(t_pcb* pcb,int conexion, op_code codigo);
 
 /////PLANIFICACION///////
@@ -126,9 +124,7 @@ void atender_consolas(void* data){
 				//list_iterate(pcb->lista_instrucciones, (void*) mostrar);
 
 				enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
-				//paquete = crear_paquete_pcb(pcb,EJECUTAR);
 
-				//enviar_paquete_a(paquete,conexion_cpu);
 
 				log_info(logger,"El alfa es %d",pcb->estimacion);
 				break;
@@ -161,13 +157,7 @@ void iterator(char* value) {
 	log_info(logger,"%s", value);
 }
 
-t_buffer* desempaquetar(t_paquete* paquete, int cliente_fd){
-	recv(cliente_fd, &(paquete->buffer->size), sizeof(uint32_t), 0);
-	paquete->buffer->stream = malloc(paquete->buffer->size);
-	recv(cliente_fd, paquete->buffer->stream, paquete->buffer->size, 0);
 
-	return paquete->buffer;
-}
 
 int agregar_pid(t_buffer* buffer){
 	int id;

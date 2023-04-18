@@ -15,6 +15,7 @@
 #include <utils.h>
 #include <sockets.h>
 #include <compartido.h>
+#include <serializacion.h>
 
 typedef struct{
 	int ret_instruccion;

@@ -222,3 +222,47 @@ void enviar_pcb_a(t_pcb* pcb,int conexion, op_code codigo){
 	enviar_paquete_a(paquete,conexion);
 }
 
+t_buffer* desempaquetar(t_paquete* paquete, int cliente_fd){
+	recv(cliente_fd, &(paquete->buffer->size), sizeof(uint32_t), 0);
+	paquete->buffer->stream = malloc(paquete->buffer->size);
+	recv(cliente_fd, paquete->buffer->stream, paquete->buffer->size, 0);
+
+	return paquete->buffer;
+}
+
+
+t_pcb* deserializar_pcb(t_buffer* buffer){
+	t_pcb* pcb = malloc(sizeof(t_pcb));
+
+	int offset = 0;
+
+	memcpy(&(pcb->pid),buffer->stream + offset,sizeof(int));
+	offset += sizeof(int);
+	memcpy(&(pcb->program_counter),buffer->stream + offset,sizeof(int));
+	offset += sizeof(int);
+	memcpy(&(pcb->segmentos.id),buffer->stream + offset,sizeof(int));
+	offset += sizeof(int);
+	memcpy(&(pcb->segmentos.direccion_base),buffer->stream + offset,sizeof(int));
+	offset += sizeof(int);
+	memcpy(&(pcb->segmentos.tamanio),buffer->stream + offset,sizeof(int));
+	offset += sizeof(int);
+	memcpy(&(pcb->estimacion),buffer->stream + offset,sizeof(int));
+	offset += sizeof(int);
+
+	t_buffer* buffer_i = malloc(sizeof(t_buffer));
+
+	memcpy(&(buffer_i->size), buffer->stream + offset, sizeof(uint32_t));
+	offset += sizeof(uint32_t);
+
+	buffer_i->stream = malloc(buffer_i->size);
+	memcpy(buffer_i->stream, buffer->stream + offset, buffer_i->size);
+	offset += buffer_i->size;
+
+	t_list* lista_instrucciones = deserializar_lista_instrucciones(buffer_i);
+
+	pcb->lista_instrucciones=lista_instrucciones;
+
+	return pcb;
+}
+
+

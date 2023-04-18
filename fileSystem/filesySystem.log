@@ -139,3 +139,11 @@
 [INFO] 12:30:50:451 File_System/(4474:4475): Se conecto un cliente!
 [INFO] 12:30:50:451 File_System/(4474:4475): Me llego el mensaje Hola te estoy hablando desde el kernel
 [ERROR] 12:30:52:498 File_System/(4474:4475): el cliente se desconecto. Terminando servidor
+[INFO] 12:33:48:274 File_System/(4653:4654): Fyle System listo para recibir al kernel
+[INFO] 12:33:51:306 File_System/(4653:4654): Se conecto un cliente!
+[INFO] 12:33:51:306 File_System/(4653:4654): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 12:34:01:076 File_System/(4653:4654): el cliente se desconecto. Terminando servidor
+[INFO] 12:37:59:315 File_System/(4855:4856): Fyle System listo para recibir al kernel
+[INFO] 12:38:02:446 File_System/(4855:4856): Se conecto un cliente!
+[INFO] 12:38:02:446 File_System/(4855:4856): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 12:38:04:447 File_System/(4855:4856): el cliente se desconecto. Terminando servidor

@@ -26,5 +26,7 @@ t_buffer* serializar_pcb(t_pcb* pcb);
 t_list* deserializar_lista_instrucciones(t_buffer* buffer);
 void enviar_paquete_a(t_paquete* paquete,int conexion);
 void enviar_pcb_a(t_pcb* pcb,int conexion, op_code codigo);
+t_buffer* desempaquetar(t_paquete* paquete, int cliente_fd);
+t_pcb* deserializar_pcb(t_buffer* buffer);
 
 #endif /* SRC_SERIALIZACION_H_ */

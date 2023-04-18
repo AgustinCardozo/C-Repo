@@ -19,9 +19,9 @@ int server_fd;
 int conexion_memoria;
 pthread_t hilo_conexion_kernel;
 pthread_t hilo_conexion_memoria;
-t_list* deserializar_lista_instrucciones(t_buffer* buffer);
-t_pcb* deserializar_pcb(t_buffer* buffer);
-t_buffer* desempaquetar(t_paquete* paquete, int cliente_fd);
+//t_list* deserializar_lista_instrucciones(t_buffer* buffer);
+//t_pcb* deserializar_pcb(t_buffer* buffer);
+//t_buffer* desempaquetar(t_paquete* paquete, int cliente_fd);
 void mostrar(t_instruccion* inst);
 void mostrar_parametro(char* value);
 
@@ -73,6 +73,7 @@ void* atender_kernel(void){
 					t_pcb* pcb = deserializar_pcb(buffer);
 					log_info(logger,"El PID ES %i",pcb->pid);
 					list_iterate(pcb->lista_instrucciones, (void*) mostrar);
+					//ejecutar_pcb(pcb);
 					break;
 				case -1:
 					log_error(logger, "el cliente se desconecto. Terminando servidor");
@@ -123,101 +124,6 @@ void* atender_memoria(void){
 
 void iterator(char* value) {
 	log_info(logger,"%s", value);
-}
-
-t_buffer* desempaquetar(t_paquete* paquete, int cliente_fd){
-	recv(cliente_fd, &(paquete->buffer->size), sizeof(uint32_t), 0);
-	paquete->buffer->stream = malloc(paquete->buffer->size);
-	recv(cliente_fd, paquete->buffer->stream, paquete->buffer->size, 0);
-
-	return paquete->buffer;
-}
-
-t_pcb* deserializar_pcb(t_buffer* buffer){
-	t_pcb* pcb = malloc(sizeof(t_pcb));
-
-	int offset = 0;
-
-	memcpy(&(pcb->pid),buffer->stream + offset,sizeof(int));
-	offset += sizeof(int);
-	memcpy(&(pcb->program_counter),buffer->stream + offset,sizeof(int));
-	offset += sizeof(int);
-	memcpy(&(pcb->segmentos.id),buffer->stream + offset,sizeof(int));
-	offset += sizeof(int);
-	memcpy(&(pcb->segmentos.direccion_base),buffer->stream + offset,sizeof(int));
-	offset += sizeof(int);
-	memcpy(&(pcb->segmentos.tamanio),buffer->stream + offset,sizeof(int));
-	offset += sizeof(int);
-	memcpy(&(pcb->estimacion),buffer->stream + offset,sizeof(int));
-	offset += sizeof(int);
-
-	t_buffer* buffer_i = malloc(sizeof(t_buffer));
-
-	memcpy(&(buffer_i->size), buffer->stream + offset, sizeof(uint32_t));
-	offset += sizeof(uint32_t);
-
-	buffer_i->stream = malloc(buffer_i->size);
-	memcpy(buffer_i->stream, buffer->stream + offset, buffer_i->size);
-	offset += buffer_i->size;
-
-	t_list* lista_instrucciones = deserializar_lista_instrucciones(buffer_i);
-
-	pcb->lista_instrucciones=lista_instrucciones;
-
-	return pcb;
-}
-
-t_list* deserializar_lista_instrucciones(t_buffer* buffer){
-
-	t_list*	i_list;
-	t_instruccion* instruccion;
-	uint32_t i_count;
-	uint32_t p_count;
-	int offset;
-	int	p_size;
-	char* param;
-	op_instruct	codigo;
-
-	i_list = list_create();
-	offset = 0;
-
-	memcpy(&i_count, buffer->stream + offset, sizeof(uint32_t));
-	offset += sizeof(uint32_t);
-	//log_info(logger,"Esta deserializando %i",i_count);
-
-	for(int i=0; i < i_count; i++) {
-
-			// codigo de la instruccion
-			memcpy(&(codigo), buffer->stream + offset, sizeof(uint32_t));
-			offset += sizeof(uint32_t);
-			instruccion = malloc(sizeof(t_instruccion));
-			instruccion->nombre = codigo;
-			instruccion->parametros = list_create();
-
-			// cantidad de parametros
-			memcpy(&(p_count), buffer->stream + offset, sizeof(uint32_t));
-			offset += sizeof(uint32_t);
-
-			if (p_count > 0) {
-				for (int p = 0; p < p_count; p++) {
-					// longitud del parametro
-					memcpy(&p_size, buffer->stream + offset, sizeof(uint32_t));
-					offset += sizeof(uint32_t);
-
-					// valor del parametro
-					param = malloc(p_size);
-					memcpy(param, buffer->stream + offset, p_size);
-
-					list_add(instruccion->parametros, param);
-					offset += p_size;
-				}
-			}
-
-			list_add(i_list, instruccion);
-
-		}
-
-		return i_list;
 }
 
 void mostrar(t_instruccion* inst){
