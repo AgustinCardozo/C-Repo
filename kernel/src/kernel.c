@@ -25,12 +25,24 @@ t_list* deserializar_lista_instrucciones(t_buffer* buffer);
 int agregar_pid(t_buffer* buffer);
 void mostrar(t_instruccion* inst);
 void mostrar_parametro(char* value);
+void mostrar_cola(t_queue*cola);
 t_pcb* crear_pcb(int pid, t_list* lista_instrucciones);
 t_buffer* serializar_pcb(t_pcb* pcb);
 t_paquete* crear_paquete_pcb(t_pcb* pcb, op_code codigo);
 void enviar_pcb_a_ajecutar(t_pcb* pcb);
 void enviar_pcb(t_paquete* paquete,int conexion);
 t_buffer* serializar_lista_de_instrucciones(t_list* lista_instrucciones);
+
+/////PLANIFICACION///////
+//colas
+t_cola*cola;
+////TRANSICIONES////
+void agregar_a_cola_new(t_pcb*pcb);
+void agregar_a_cola_ready(t_pcb*pcb);
+//void agregar_a_cola_hrrn(t_pcb*pcb);
+void finalizar_proceso(t_pcb*pcb);
+t_pcb*quitar_de_new_fifo();
+algoritmo devolver_algoritmo(char*nombre);
 
 int main(void) {
 	pthread_t hilo_atender_consolas;
@@ -44,8 +56,10 @@ int main(void) {
 	datos.ip_cpu = config_get_string_value(config,"IP_CPU");
 	datos.puerto_cpu = config_get_string_value(config,"PUERTO_CPU");
 	datos.puerto_escucha = config_get_string_value(config,"PUERTO_ESCUCHA");
+	datos.algoritmo_planificacion=devolver_algoritmo(config_get_string_value(config,"ALGORITMO_PLANIFICACION"));
 	datos.est_inicial = config_get_int_value(config,"ESTIMACION_INICIAL");
 	datos.alfa = atof(config_get_string_value(config,"HRRN_ALFA"));
+	datos.multiprogramacion=config_get_int_value(config,"GRADO_MAX_MULTIPROGRAMACION");
 
 	conexion_cpu = crear_conexion(datos.ip_cpu,datos.puerto_cpu);
 	conexion_memoria = crear_conexion(datos.ip_memoria,datos.puerto_memoria);
@@ -65,6 +79,10 @@ int main(void) {
 		pthread_create(&hilo_atender_consolas,NULL,(void*) atender_consolas,cliente_fd);
 		pthread_detach(hilo_atender_consolas);
 	}
+
+	cola->cola_new_fifo=queue_create();
+	cola->cola_ready_fifo=queue_create();
+	cola->cola_ready_hrrn=queue_create();
 
 	log_destroy(logger);
 	config_destroy(config);
@@ -96,8 +114,16 @@ void atender_consolas(void* data){
 				t_list* lista_instrucciones = deserializar_lista_instrucciones(buffer);
 				int pid = agregar_pid(buffer);
 				t_pcb* pcb= crear_pcb(pid,lista_instrucciones);
-
+				if(pcb->pid>0){
+					agregar_a_cola_new(pcb);
+				}
+				/*agregar_a_cola_ready(pcb);
+				mostrar_cola(cola->cola_ready_fifo);
+				mostrar_cola(cola->cola_ready_hrrn);
+*/
 				log_info(logger,"EL PID QUE ME LLEGO ES %i",pcb->pid);
+				mostrar_cola(cola->cola_new_fifo);
+
 
 				//list_iterate(pcb->lista_instrucciones, (void*) mostrar);
 				paquete = crear_paquete_pcb(pcb,EJECUTAR);
@@ -389,4 +415,67 @@ t_buffer* serializar_lista_de_instrucciones(t_list* lista_instrucciones){
 	return buffer;
 
 }
+
+///////PLANIFICACION
+void agregar_a_cola_new(t_pcb*pcb){
+	//sem_wait(&mutex_cola_new);
+	queue_push(cola->cola_new_fifo,pcb);
+	//sem_post(&mutex_cola_new);
+	//sem_post(&sem_new);
+
+}
+
+void agregar_a_cola_ready(t_pcb*pcb){
+	//switch(datos.algoritmo_planificacion){
+	//case FIFO:
+	if(queue_size(cola->cola_ready_fifo)<datos.multiprogramacion){
+		queue_push(cola->cola_ready_fifo,pcb);
+		queue_pop(cola->cola_new_fifo);} //añadir semaforos
+	//	break;
+/*	case HRRN:	if(queue_size(cola->cola_ready_fifo)<datos.multiprogramacion){
+		agregar_a_cola_hrrn(pcb);}//si no hay espacio tirar log de lleno
+		break;
+	case FEEDBACK:
+		break;
+	default: break;
+	}*/
+}
+
+algoritmo devolver_algoritmo(char*nombre){
+	algoritmo alg;
+	if(strcmp(nombre,"FIFO")==0) alg=FIFO;
+	else if(strcmp(nombre,"HRRN")==0) alg=HRRN;
+	else if(strcmp(nombre,"FEEDBACK")==0) alg=FEEDBACK;
+	else log_info(logger,"algoritmo desconocido");
+	return alg;
+}
+
+//void agregar_a_cola_hrrn(t_pcb*pcb){
+
+//}
+
+void mostrar_cola(t_queue*cola){
+	for(int i=0;i<queue_size(cola);i++){
+		int*id=list_get(cola->elements,i);
+		log_info(logger,"%d PID: %d",i+1,*id);
+	}
+	log_info(logger,"-----------------------");
+}
+
+
+t_pcb* quitar_de_new_fifo(){
+	t_pcb*pcb=malloc(sizeof(t_pcb));
+	pcb=queue_pop(cola->cola_new_fifo);
+	return pcb;
+}
+/*
+void quitar_de_ready_fifo(t_pcb*pcb){
+	queue_pop(cola->cola_new_fifo,pcb);
+}
+*/
+void finalizar_proceso(t_pcb*pcb){
+
+}
+
+
 

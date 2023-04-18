@@ -15,6 +15,14 @@
 #include <utils.h>
 #include <sockets.h>
 #include <compartido.h>
+#include <commons/collections/queue.h>
+
+typedef enum{
+	FIFO,
+	HRRN,
+	FEEDBACK
+}algoritmo;
+
 
 typedef struct{
 	char* ip_memoria;
@@ -24,13 +32,19 @@ typedef struct{
 	char* ip_cpu;
 	char* puerto_cpu;
 	char* puerto_escucha;
-	//char* algoritmo_planificacion;
+	algoritmo algoritmo_planificacion;
 	int est_inicial;
 	float alfa;
-	//int multiprogramacion;
+	int multiprogramacion;
 	//char** recursos;
 	//char** instancias;*/
 }datos_config;
+
+typedef struct{
+	t_queue*cola_new_fifo;
+	t_queue*cola_ready_fifo;
+	t_queue*cola_ready_hrrn;
+}t_cola;
 
 void iterator(char* value);
 void atender_consolas(void* data);
