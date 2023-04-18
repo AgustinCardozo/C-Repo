@@ -832,3 +832,161 @@
 [INFO] 13:58:44:548 Kernel/(7261:7261): KERNEL listo para recibir a las consolas
 [INFO] 13:58:46:676 Kernel/(7261:7261): Se conecto un cliente!
 [INFO] 13:58:46:683 Kernel/(7261:7265): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 14:08:21:808 Kernel/(7380:7380): KERNEL listo para recibir a las consolas
+[INFO] 14:08:31:502 Kernel/(7380:7380): Se conecto un cliente!
+[INFO] 14:08:31:510 Kernel/(7380:7402): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 14:15:56:604 Kernel/(7798:7798): KERNEL listo para recibir a las consolas
+[INFO] 14:15:58:732 Kernel/(7798:7798): Se conecto un cliente!
+[INFO] 14:15:58:744 Kernel/(7798:7802): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 14:15:58:744 Kernel/(7798:7802): EL PID QUE ME LLEGO ES 7801
+[INFO] 14:15:58:745 Kernel/(7798:7802): El alfa es 10000
+[ERROR] 14:15:58:745 Kernel/(7798:7802): el cliente se desconecto. Terminando servidor
+[INFO] 14:18:24:923 Kernel/(7883:7883): KERNEL listo para recibir a las consolas
+[INFO] 14:18:27:098 Kernel/(7883:7883): Se conecto un cliente!
+[INFO] 14:18:27:103 Kernel/(7883:7887): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 14:18:27:103 Kernel/(7883:7887): EL PID QUE ME LLEGO ES 7886
+[INFO] 14:18:27:103 Kernel/(7883:7887): La instruccion es 0
+[INFO] 14:18:27:103 Kernel/(7883:7887): Parametro AX
+[INFO] 14:18:27:103 Kernel/(7883:7887): Parametro HOLA
+[INFO] 14:18:27:103 Kernel/(7883:7887): La instruccion es 2
+[INFO] 14:18:27:103 Kernel/(7883:7887): Parametro 120
+[INFO] 14:18:27:103 Kernel/(7883:7887): Parametro AX
+[INFO] 14:18:27:103 Kernel/(7883:7887): La instruccion es 10
+[INFO] 14:18:27:103 Kernel/(7883:7887): Parametro DISCO
+[INFO] 14:18:27:104 Kernel/(7883:7887): La instruccion es 3
+[INFO] 14:18:27:104 Kernel/(7883:7887): Parametro 10
+[INFO] 14:18:27:104 Kernel/(7883:7887): La instruccion es 11
+[INFO] 14:18:27:104 Kernel/(7883:7887): Parametro DISCO
+[INFO] 14:18:27:104 Kernel/(7883:7887): La instruccion es 1
+[INFO] 14:18:27:104 Kernel/(7883:7887): Parametro BX
+[INFO] 14:18:27:104 Kernel/(7883:7887): Parametro 120
+[INFO] 14:18:27:104 Kernel/(7883:7887): La instruccion es 4
+[INFO] 14:18:27:104 Kernel/(7883:7887): Parametro ARCHIVO
+[INFO] 14:18:27:104 Kernel/(7883:7887): La instruccion es 14
+[INFO] 14:18:27:104 Kernel/(7883:7887): La instruccion es 9
+[INFO] 14:18:27:104 Kernel/(7883:7887): Parametro ARCHIVO
+[INFO] 14:18:27:105 Kernel/(7883:7887): Parametro 64
+[INFO] 14:18:27:105 Kernel/(7883:7887): La instruccion es 6
+[INFO] 14:18:27:105 Kernel/(7883:7887): Parametro ARCHIVO
+[INFO] 14:18:27:105 Kernel/(7883:7887): Parametro 10
+[INFO] 14:18:27:105 Kernel/(7883:7887): La instruccion es 12
+[INFO] 14:18:27:105 Kernel/(7883:7887): Parametro 1
+[INFO] 14:18:27:105 Kernel/(7883:7887): Parametro 128
+[INFO] 14:18:27:105 Kernel/(7883:7887): La instruccion es 8
+[INFO] 14:18:27:105 Kernel/(7883:7887): Parametro ARCHIVO
+[INFO] 14:18:27:105 Kernel/(7883:7887): Parametro 4
+[INFO] 14:18:27:105 Kernel/(7883:7887): Parametro 4
+[INFO] 14:18:27:106 Kernel/(7883:7887): La instruccion es 7
+[INFO] 14:18:27:106 Kernel/(7883:7887): Parametro ARCHIVO
+[INFO] 14:18:27:106 Kernel/(7883:7887): Parametro 16
+[INFO] 14:18:27:106 Kernel/(7883:7887): Parametro 4
+[INFO] 14:18:27:107 Kernel/(7883:7887): La instruccion es 13
+[INFO] 14:18:27:107 Kernel/(7883:7887): Parametro 1
+[INFO] 14:18:27:107 Kernel/(7883:7887): La instruccion es 5
+[INFO] 14:18:27:107 Kernel/(7883:7887): Parametro ARCHIVO
+[INFO] 14:18:27:107 Kernel/(7883:7887): La instruccion es 15
+[INFO] 14:18:27:107 Kernel/(7883:7887): El alfa es 10000
+[ERROR] 14:18:27:107 Kernel/(7883:7887): el cliente se desconecto. Terminando servidor
+[INFO] 14:23:20:175 Kernel/(7974:7974): KERNEL listo para recibir a las consolas
+[INFO] 14:24:17:578 Kernel/(7974:7974): Se conecto un cliente!
+[INFO] 14:24:17:582 Kernel/(7974:8018): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 14:24:17:582 Kernel/(7974:8018): EL PID QUE ME LLEGO ES 8017
+[INFO] 14:24:17:582 Kernel/(7974:8018): La instruccion es 0
+[INFO] 14:24:17:582 Kernel/(7974:8018): Parametro AX
+[INFO] 14:24:17:582 Kernel/(7974:8018): Parametro HOLA
+[INFO] 14:24:17:582 Kernel/(7974:8018): La instruccion es 2
+[INFO] 14:24:17:582 Kernel/(7974:8018): Parametro 120
+[INFO] 14:24:17:582 Kernel/(7974:8018): Parametro AX
+[INFO] 14:24:17:582 Kernel/(7974:8018): La instruccion es 10
+[INFO] 14:24:17:583 Kernel/(7974:8018): Parametro DISCO
+[INFO] 14:24:17:583 Kernel/(7974:8018): La instruccion es 3
+[INFO] 14:24:17:583 Kernel/(7974:8018): Parametro 10
+[INFO] 14:24:17:583 Kernel/(7974:8018): La instruccion es 11
+[INFO] 14:24:17:583 Kernel/(7974:8018): Parametro DISCO
+[INFO] 14:24:17:583 Kernel/(7974:8018): La instruccion es 1
+[INFO] 14:24:17:583 Kernel/(7974:8018): Parametro BX
+[INFO] 14:24:17:583 Kernel/(7974:8018): Parametro 120
+[INFO] 14:24:17:583 Kernel/(7974:8018): La instruccion es 4
+[INFO] 14:24:17:583 Kernel/(7974:8018): Parametro ARCHIVO
+[INFO] 14:24:17:584 Kernel/(7974:8018): La instruccion es 14
+[INFO] 14:24:17:584 Kernel/(7974:8018): La instruccion es 9
+[INFO] 14:24:17:584 Kernel/(7974:8018): Parametro ARCHIVO
+[INFO] 14:24:17:584 Kernel/(7974:8018): Parametro 64
+[INFO] 14:24:17:584 Kernel/(7974:8018): La instruccion es 6
+[INFO] 14:24:17:584 Kernel/(7974:8018): Parametro ARCHIVO
+[INFO] 14:24:17:584 Kernel/(7974:8018): Parametro 10
+[INFO] 14:24:17:584 Kernel/(7974:8018): La instruccion es 12
+[INFO] 14:24:17:584 Kernel/(7974:8018): Parametro 1
+[INFO] 14:24:17:584 Kernel/(7974:8018): Parametro 128
+[INFO] 14:24:17:585 Kernel/(7974:8018): La instruccion es 8
+[INFO] 14:24:17:585 Kernel/(7974:8018): Parametro ARCHIVO
+[INFO] 14:24:17:585 Kernel/(7974:8018): Parametro 4
+[INFO] 14:24:17:585 Kernel/(7974:8018): Parametro 4
+[INFO] 14:24:17:585 Kernel/(7974:8018): La instruccion es 7
+[INFO] 14:24:17:586 Kernel/(7974:8018): Parametro ARCHIVO
+[INFO] 14:24:17:586 Kernel/(7974:8018): Parametro 16
+[INFO] 14:24:17:586 Kernel/(7974:8018): Parametro 4
+[INFO] 14:24:17:586 Kernel/(7974:8018): La instruccion es 13
+[INFO] 14:24:17:586 Kernel/(7974:8018): Parametro 1
+[INFO] 14:24:17:586 Kernel/(7974:8018): La instruccion es 5
+[INFO] 14:24:17:586 Kernel/(7974:8018): Parametro ARCHIVO
+[INFO] 14:24:17:586 Kernel/(7974:8018): La instruccion es 15
+[INFO] 14:24:17:586 Kernel/(7974:8018): El alfa es 10000
+[ERROR] 14:24:18:591 Kernel/(7974:7976): el cliente se desconecto. Terminando servidor
+[INFO] 14:25:37:638 Kernel/(8058:8058): KERNEL listo para recibir a las consolas
+[INFO] 14:25:40:130 Kernel/(8058:8058): Se conecto un cliente!
+[INFO] 14:25:40:137 Kernel/(8058:8062): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 14:25:40:137 Kernel/(8058:8062): EL PID QUE ME LLEGO ES 8061
+[INFO] 14:25:40:137 Kernel/(8058:8062): La instruccion es 0
+[INFO] 14:25:40:137 Kernel/(8058:8062): Parametro AX
+[INFO] 14:25:40:138 Kernel/(8058:8062): Parametro HOLA
+[INFO] 14:25:40:138 Kernel/(8058:8062): La instruccion es 2
+[INFO] 14:25:40:138 Kernel/(8058:8062): Parametro 120
+[INFO] 14:25:40:138 Kernel/(8058:8062): Parametro AX
+[INFO] 14:25:40:138 Kernel/(8058:8062): La instruccion es 10
+[INFO] 14:25:40:138 Kernel/(8058:8062): Parametro DISCO
+[INFO] 14:25:40:138 Kernel/(8058:8062): La instruccion es 3
+[INFO] 14:25:40:138 Kernel/(8058:8062): Parametro 10
+[INFO] 14:25:40:138 Kernel/(8058:8062): La instruccion es 11
+[INFO] 14:25:40:138 Kernel/(8058:8062): Parametro DISCO
+[INFO] 14:25:40:138 Kernel/(8058:8062): La instruccion es 1
+[INFO] 14:25:40:138 Kernel/(8058:8062): Parametro BX
+[INFO] 14:25:40:138 Kernel/(8058:8062): Parametro 120
+[INFO] 14:25:40:138 Kernel/(8058:8062): La instruccion es 4
+[INFO] 14:25:40:138 Kernel/(8058:8062): Parametro ARCHIVO
+[INFO] 14:25:40:138 Kernel/(8058:8062): La instruccion es 14
+[INFO] 14:25:40:138 Kernel/(8058:8062): La instruccion es 9
+[INFO] 14:25:40:138 Kernel/(8058:8062): Parametro ARCHIVO
+[INFO] 14:25:40:138 Kernel/(8058:8062): Parametro 64
+[INFO] 14:25:40:138 Kernel/(8058:8062): La instruccion es 6
+[INFO] 14:25:40:138 Kernel/(8058:8062): Parametro ARCHIVO
+[INFO] 14:25:40:138 Kernel/(8058:8062): Parametro 10
+[INFO] 14:25:40:138 Kernel/(8058:8062): La instruccion es 12
+[INFO] 14:25:40:138 Kernel/(8058:8062): Parametro 1
+[INFO] 14:25:40:138 Kernel/(8058:8062): Parametro 128
+[INFO] 14:25:40:138 Kernel/(8058:8062): La instruccion es 8
+[INFO] 14:25:40:138 Kernel/(8058:8062): Parametro ARCHIVO
+[INFO] 14:25:40:139 Kernel/(8058:8062): Parametro 4
+[INFO] 14:25:40:139 Kernel/(8058:8062): Parametro 4
+[INFO] 14:25:40:139 Kernel/(8058:8062): La instruccion es 7
+[INFO] 14:25:40:139 Kernel/(8058:8062): Parametro ARCHIVO
+[INFO] 14:25:40:139 Kernel/(8058:8062): Parametro 16
+[INFO] 14:25:40:139 Kernel/(8058:8062): Parametro 4
+[INFO] 14:25:40:139 Kernel/(8058:8062): La instruccion es 13
+[INFO] 14:25:40:139 Kernel/(8058:8062): Parametro 1
+[INFO] 14:25:40:139 Kernel/(8058:8062): La instruccion es 5
+[INFO] 14:25:40:139 Kernel/(8058:8062): Parametro ARCHIVO
+[INFO] 14:25:40:140 Kernel/(8058:8062): La instruccion es 15
+[INFO] 14:25:40:140 Kernel/(8058:8062): El alfa es 10000
+[ERROR] 14:25:41:144 Kernel/(8058:8060): el cliente se desconecto. Terminando servidor
+[INFO] 14:27:10:791 Kernel/(8099:8099): KERNEL listo para recibir a las consolas
+[INFO] 14:27:13:704 Kernel/(8099:8099): Se conecto un cliente!
+[INFO] 14:27:13:707 Kernel/(8099:8103): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 14:27:13:707 Kernel/(8099:8103): EL PID QUE ME LLEGO ES 8102
+[INFO] 14:27:13:707 Kernel/(8099:8103): La instruccion es 0
+[INFO] 14:27:13:708 Kernel/(8099:8103): Parametro AX
+[INFO] 14:27:13:708 Kernel/(8099:8103): Parametro HOLA
+[INFO] 14:27:13:708 Kernel/(8099:8103): La instruccion es 14
+[INFO] 14:27:13:708 Kernel/(8099:8103): La instruccion es 15
+[INFO] 14:27:13:709 Kernel/(8099:8103): El alfa es 10000
+[ERROR] 14:27:23:712 Kernel/(8099:8101): el cliente se desconecto. Terminando servidor

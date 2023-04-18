@@ -796,3 +796,93 @@
 [INFO] 13:58:44:547 CPU/(7257:7258): Se conecto un cliente!
 [INFO] 13:58:44:547 CPU/(7257:7258): Me llego el mensaje Hola te estoy hablando desde el kernel
 [ERROR] 13:58:46:855 CPU/(7257:7258): el cliente se desconecto. Terminando servidor
+[INFO] 14:08:19:904 CPU/(7376:7377): CPU listo para recibir al kernel
+[INFO] 14:08:21:806 CPU/(7376:7377): Se conecto un cliente!
+[INFO] 14:08:21:807 CPU/(7376:7377): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 14:08:31:666 CPU/(7376:7377): el cliente se desconecto. Terminando servidor
+[INFO] 14:15:54:187 CPU/(7794:7795): CPU listo para recibir al kernel
+[INFO] 14:15:56:603 CPU/(7794:7795): Se conecto un cliente!
+[INFO] 14:15:56:604 CPU/(7794:7795): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 14:15:58:744 CPU/(7794:7795): Paso por ejecutar
+[INFO] 14:15:58:745 CPU/(7794:7795): El PID ES 7801
+[INFO] 14:15:58:745 CPU/(7794:7795): Instruccion set
+[ERROR] 14:15:58:747 CPU/(7794:7796): el cliente se desconecto. Terminando servidor
+[INFO] 14:18:22:702 CPU/(7879:7880): CPU listo para recibir al kernel
+[INFO] 14:18:24:923 CPU/(7879:7880): Se conecto un cliente!
+[INFO] 14:18:24:923 CPU/(7879:7880): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 14:18:27:107 CPU/(7879:7880): Paso por ejecutar
+[INFO] 14:18:27:107 CPU/(7879:7880): El PID ES 7886
+[INFO] 14:18:27:107 CPU/(7879:7880): Instruccion set
+[ERROR] 14:18:27:109 CPU/(7879:7881): el cliente se desconecto. Terminando servidor
+[INFO] 14:23:18:313 CPU/(7970:7971): CPU listo para recibir al kernel
+[INFO] 14:23:20:173 CPU/(7970:7971): Se conecto un cliente!
+[INFO] 14:23:20:174 CPU/(7970:7971): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 14:24:17:586 CPU/(7970:7971): Paso por ejecutar
+[INFO] 14:24:17:586 CPU/(7970:7971): El PID ES 8017
+[INFO] 14:24:17:586 CPU/(7970:7971): Instruccion set
+[INFO] 14:24:18:586 CPU/(7970:7971): Paso por Set
+[INFO] 14:24:18:587 CPU/(7970:7971): Otra cosa
+[INFO] 14:24:18:587 CPU/(7970:7971): Otra cosa
+[INFO] 14:24:18:587 CPU/(7970:7971): Otra cosa
+[INFO] 14:24:18:587 CPU/(7970:7971): Otra cosa
+[INFO] 14:24:18:588 CPU/(7970:7971): Otra cosa
+[INFO] 14:24:18:588 CPU/(7970:7971): Otra cosa
+[INFO] 14:24:18:588 CPU/(7970:7971): Paso por YIELD
+[INFO] 14:24:18:588 CPU/(7970:7971): Otra cosa
+[INFO] 14:24:18:588 CPU/(7970:7971): Otra cosa
+[INFO] 14:24:18:588 CPU/(7970:7971): Otra cosa
+[INFO] 14:24:18:589 CPU/(7970:7971): Otra cosa
+[INFO] 14:24:18:589 CPU/(7970:7971): Otra cosa
+[INFO] 14:24:18:589 CPU/(7970:7971): Otra cosa
+[INFO] 14:24:18:590 CPU/(7970:7971): Otra cosa
+[INFO] 14:24:18:590 CPU/(7970:7971): Paso por Exit
+[INFO] 14:25:35:418 CPU/(8054:8055): CPU listo para recibir al kernel
+[INFO] 14:25:37:637 CPU/(8054:8055): Se conecto un cliente!
+[INFO] 14:25:37:637 CPU/(8054:8055): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 14:25:40:140 CPU/(8054:8055): Paso por ejecutar
+[INFO] 14:25:40:140 CPU/(8054:8055): El PID ES 8061
+[INFO] 14:25:40:140 CPU/(8054:8055): Program COutnter: 1
+[INFO] 14:25:40:140 CPU/(8054:8055): Instruccion set
+[INFO] 14:25:41:140 CPU/(8054:8055): Paso por Set
+[INFO] 14:25:41:140 CPU/(8054:8055): Program COutnter: 2
+[INFO] 14:25:41:140 CPU/(8054:8055): Otra cosa
+[INFO] 14:25:41:140 CPU/(8054:8055): Program COutnter: 3
+[INFO] 14:25:41:141 CPU/(8054:8055): Otra cosa
+[INFO] 14:25:41:141 CPU/(8054:8055): Program COutnter: 4
+[INFO] 14:25:41:141 CPU/(8054:8055): Otra cosa
+[INFO] 14:25:41:141 CPU/(8054:8055): Program COutnter: 5
+[INFO] 14:25:41:141 CPU/(8054:8055): Otra cosa
+[INFO] 14:25:41:141 CPU/(8054:8055): Program COutnter: 6
+[INFO] 14:25:41:141 CPU/(8054:8055): Otra cosa
+[INFO] 14:25:41:141 CPU/(8054:8055): Program COutnter: 7
+[INFO] 14:25:41:141 CPU/(8054:8055): Otra cosa
+[INFO] 14:25:41:142 CPU/(8054:8055): Program COutnter: 8
+[INFO] 14:25:41:142 CPU/(8054:8055): Paso por YIELD
+[INFO] 14:25:41:142 CPU/(8054:8055): Program COutnter: 9
+[INFO] 14:25:41:142 CPU/(8054:8055): Otra cosa
+[INFO] 14:25:41:142 CPU/(8054:8055): Program COutnter: 10
+[INFO] 14:25:41:142 CPU/(8054:8055): Otra cosa
+[INFO] 14:25:41:142 CPU/(8054:8055): Program COutnter: 11
+[INFO] 14:25:41:142 CPU/(8054:8055): Otra cosa
+[INFO] 14:25:41:142 CPU/(8054:8055): Program COutnter: 12
+[INFO] 14:25:41:142 CPU/(8054:8055): Otra cosa
+[INFO] 14:25:41:143 CPU/(8054:8055): Program COutnter: 13
+[INFO] 14:25:41:143 CPU/(8054:8055): Otra cosa
+[INFO] 14:25:41:143 CPU/(8054:8055): Program COutnter: 14
+[INFO] 14:25:41:143 CPU/(8054:8055): Otra cosa
+[INFO] 14:25:41:143 CPU/(8054:8055): Program COutnter: 15
+[INFO] 14:25:41:143 CPU/(8054:8055): Otra cosa
+[INFO] 14:25:41:143 CPU/(8054:8055): Program COutnter: 16
+[INFO] 14:25:41:144 CPU/(8054:8055): Paso por Exit
+[INFO] 14:27:08:267 CPU/(8095:8096): CPU listo para recibir al kernel
+[INFO] 14:27:10:787 CPU/(8095:8096): Se conecto un cliente!
+[INFO] 14:27:10:791 CPU/(8095:8096): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 14:27:13:708 CPU/(8095:8096): Paso por ejecutar
+[INFO] 14:27:13:708 CPU/(8095:8096): El PID ES 8102
+[INFO] 14:27:13:708 CPU/(8095:8096): Program COutnter: 1
+[INFO] 14:27:13:708 CPU/(8095:8096): Instruccion set
+[INFO] 14:27:23:709 CPU/(8095:8096): Paso por Set
+[INFO] 14:27:23:710 CPU/(8095:8096): Program COutnter: 2
+[INFO] 14:27:23:710 CPU/(8095:8096): Paso por YIELD
+[INFO] 14:27:23:710 CPU/(8095:8096): Program COutnter: 3
+[INFO] 14:27:23:710 CPU/(8095:8096): Paso por Exit

@@ -159,7 +159,7 @@ t_pcb* ejecutar_pcb(t_pcb* pcb){
 		instruccion = fetch(pcb);
 			if(decode(instruccion) == 1){
 				log_info(logger,"Instruccion set");
-				usleep(datos.ret_instruccion*1000);
+				usleep(datos.ret_instruccion*10000);
 
 			}
 			execute(instruccion,pcb);
@@ -175,7 +175,7 @@ t_pcb* ejecutar_pcb(t_pcb* pcb){
 t_instruccion* fetch(t_pcb* pcb){
 	t_instruccion* instruccion = list_get(pcb->lista_instrucciones,pcb->program_counter);
 	pcb->program_counter+=1;
-	//log_info(logger,"Program COutnter: %i",pcb->program_counter);
+	log_info(logger,"Program COutnter: %i",pcb->program_counter);
 	return instruccion;
 }
 

@@ -191,3 +191,28 @@
 [INFO] 13:58:44:547 File_System/(7253:7254): Se conecto un cliente!
 [INFO] 13:58:44:548 File_System/(7253:7254): Me llego el mensaje Hola te estoy hablando desde el kernel
 [ERROR] 13:58:46:854 File_System/(7253:7254): el cliente se desconecto. Terminando servidor
+[INFO] 14:08:18:023 File_System/(7372:7373): Fyle System listo para recibir al kernel
+[INFO] 14:08:21:807 File_System/(7372:7373): Se conecto un cliente!
+[INFO] 14:08:21:807 File_System/(7372:7373): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 14:08:31:666 File_System/(7372:7373): el cliente se desconecto. Terminando servidor
+[INFO] 14:15:52:431 File_System/(7790:7791): Fyle System listo para recibir al kernel
+[INFO] 14:15:56:604 File_System/(7790:7791): Se conecto un cliente!
+[INFO] 14:15:56:604 File_System/(7790:7791): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 14:15:58:745 File_System/(7790:7791): el cliente se desconecto. Terminando servidor
+[INFO] 14:18:20:801 File_System/(7875:7876): Fyle System listo para recibir al kernel
+[INFO] 14:18:24:923 File_System/(7875:7876): Se conecto un cliente!
+[INFO] 14:18:24:923 File_System/(7875:7876): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 14:18:27:108 File_System/(7875:7876): el cliente se desconecto. Terminando servidor
+[INFO] 14:23:16:686 File_System/(7966:7967): Fyle System listo para recibir al kernel
+[INFO] 14:23:20:174 File_System/(7966:7967): Se conecto un cliente!
+[INFO] 14:23:20:174 File_System/(7966:7967): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 14:24:18:592 File_System/(7966:7967): el cliente se desconecto. Terminando servidor
+[INFO] 14:25:33:512 File_System/(8050:8051): Fyle System listo para recibir al kernel
+[INFO] 14:25:37:637 File_System/(8050:8051): Se conecto un cliente!
+[INFO] 14:25:37:638 File_System/(8050:8051): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 14:25:41:145 File_System/(8050:8051): el cliente se desconecto. Terminando servidor
+[INFO] 14:27:05:859 File_System/(8091:8092): Fyle System listo para recibir al kernel
+[INFO] 14:27:10:791 File_System/(8091:8092): Se conecto un cliente!
+[INFO] 14:27:10:791 File_System/(8091:8092): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 14:27:23:718 File_System/(8091:8092): el cliente se desconecto. Terminando servidor
+[ERROR] 14:27:23:720 File_System/(8091:8093): el cliente se desconecto. Terminando servidor

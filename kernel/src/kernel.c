@@ -25,7 +25,7 @@ int agregar_pid(t_buffer* buffer);
 void mostrar(t_instruccion* inst);
 void mostrar_parametro(char* value);
 void mostrar_cola(t_queue*cola);
-t_pcb* crear_pcb(int pid, t_list* lista_instrucciones);
+t_pcb* crear_pcb(t_buffer* buffer);
 void enviar_pcb_a(t_pcb* pcb,int conexion, op_code codigo);
 void* atender_cpu(void);
 
@@ -149,11 +149,11 @@ void atender_consolas(void* data){
 
 			case INSTRUCCIONES:
 				buffer = desempaquetar(paquete,cliente_fd);
-				t_list* lista_instrucciones = deserializar_lista_instrucciones(buffer);
+				//t_list* lista_instrucciones = deserializar_lista_instrucciones(buffer);
 
-				int pid = agregar_pid(buffer);
-				t_pcb* pcb= crear_pcb(pid,lista_instrucciones);
-
+				//int pid = agregar_pid(buffer);
+				//t_pcb* pcb= crear_pcb(pid,lista_instrucciones);
+				t_pcb* pcb= crear_pcb(buffer);
 				/*if(pcb->pid>0){
 					agregar_a_cola_new(pcb);
 				}*/
@@ -165,7 +165,7 @@ void atender_consolas(void* data){
 				//mostrar_cola(cola->cola_new_fifo);
 
 
-				//list_iterate(pcb->lista_instrucciones, (void*) mostrar);
+				list_iterate(pcb->lista_instrucciones, (void*) mostrar);
 
 				enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
 
@@ -205,7 +205,7 @@ void iterator(char* value) {
 
 int agregar_pid(t_buffer* buffer){
 	int id;
-	int offset = buffer->size-4;
+	int offset = 0;
 	memcpy(&id, buffer->stream + offset, sizeof(int));
 	offset += sizeof(int);
 	return id;
@@ -221,9 +221,26 @@ void mostrar_parametro(char* value){
 	log_info(logger,"Parametro %s",value);
 }
 
-t_pcb* crear_pcb(int pid, t_list* lista_instrucciones){
+t_pcb* crear_pcb(t_buffer* buffer){
 	t_pcb* pcb = malloc(sizeof(t_pcb));
+	int pid;
+
+	int offset = 0;
+
+	memcpy(&(pid),buffer->stream + offset,sizeof(int));
+	offset += sizeof(int);
+
 	pcb->pid = pid;
+	t_buffer* buffer_i = malloc(sizeof(t_buffer));
+
+	memcpy(&(buffer_i->size), buffer->stream + offset, sizeof(uint32_t));
+	offset += sizeof(uint32_t);
+
+	buffer_i->stream = malloc(buffer_i->size);
+	memcpy(buffer_i->stream, buffer->stream + offset, buffer_i->size);
+	offset += buffer_i->size;
+
+	t_list* lista_instrucciones = deserializar_lista_instrucciones(buffer_i);
 	pcb->lista_instrucciones = lista_instrucciones;
 	pcb->program_counter = 0;
 	pcb->segmentos.id = 0;

@@ -50,6 +50,21 @@ int main(void) {
 	t_paquete* paquete_instrucciones = crear_paquete_instrucciones(lista_instrucciones);
 	enviar_paquete_a(paquete_instrucciones,conexion);
 
+	while (1) {
+		int cod_op = recibir_operacion(conexion);
+		t_paquete* paquete = malloc(sizeof(t_paquete));
+		paquete->buffer = malloc(sizeof(t_buffer));
+		t_buffer* buffer;
+		switch (cod_op) {
+			case MENSAJE:
+				log_info(logger, "El proceso ha terminado");
+				recibir_mensaje(logger,conexion);
+				break;
+			case FINALIZAR:
+				log_info(logger,"El proceso ha finalizado");
+				break;
+		}
+	}
 	log_destroy(logger);
 	config_destroy(config);
 	close(conexion); 
@@ -188,6 +203,14 @@ t_paquete* crear_paquete_instrucciones(t_list* lista_instrucciones){
 
 	memcpy(buffer->stream + offset, &pid, sizeof(int));
 	offset += sizeof(int);
+
+	memcpy(buffer->stream + offset, &(instrucciones->size), sizeof(int));
+	offset += sizeof(int);
+
+	if (instrucciones->size > 0) {
+		memcpy(buffer->stream + offset, instrucciones->stream, instrucciones->size);
+		offset += instrucciones->size;
+	}
 
 	paquete->buffer = buffer;
 
