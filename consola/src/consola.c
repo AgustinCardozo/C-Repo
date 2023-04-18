@@ -176,15 +176,20 @@ void mostrar_parametro(char* value){
 t_paquete* crear_paquete_instrucciones(t_list* lista_instrucciones){
 	t_paquete* paquete = malloc(sizeof(t_paquete));
 	paquete->codigo_operacion = INSTRUCCIONES;
-	paquete->buffer = serializar_lista_de_instrucciones(lista_instrucciones);
+	t_buffer* instrucciones = serializar_lista_de_instrucciones(lista_instrucciones);
+	t_buffer* buffer = malloc(sizeof(t_buffer));
+	int offset = 0;
+	buffer->size = sizeof(int) + instrucciones->size;
+	log_warning(logger,"!!!!!!!!!!!!!!!!!!!");
+	buffer->stream = malloc(buffer->size);
 
 	int pid = getpid();
 	log_info(logger,"EL PID ES %i",pid);
 
-	int offset = paquete->buffer->size;
-
-	memcpy(paquete->buffer->stream + offset, &pid, sizeof(int));
+	memcpy(buffer->stream + offset, &pid, sizeof(int));
 	offset += sizeof(int);
+
+	paquete->buffer = buffer;
 
 	return paquete;
 }

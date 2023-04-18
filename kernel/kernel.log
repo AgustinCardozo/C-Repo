@@ -783,3 +783,52 @@
 [INFO] 12:38:04:445 Kernel/(4863:4866): EL PID QUE ME LLEGO ES 0
 [INFO] 12:38:04:447 Kernel/(4863:4866): El alfa es 10000
 [ERROR] 12:38:04:447 Kernel/(4863:4866): el cliente se desconecto. Terminando servidor
+[INFO] 13:31:03:268 Kernel/(6202:6202): KERNEL listo para recibir a las consolas
+[INFO] 13:31:10:558 Kernel/(6202:6202): Se conecto un cliente!
+[INFO] 13:31:10:563 Kernel/(6202:6206): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 13:31:10:563 Kernel/(6202:6206): EL PID QUE ME LLEGO ES 0
+[INFO] 13:31:10:564 Kernel/(6202:6206): El alfa es 10000
+[ERROR] 13:31:10:564 Kernel/(6202:6206): el cliente se desconecto. Terminando servidor
+[INFO] 13:32:39:869 Kernel/(6270:6270): KERNEL listo para recibir a las consolas
+[INFO] 13:32:41:835 Kernel/(6270:6270): Se conecto un cliente!
+[INFO] 13:32:41:839 Kernel/(6270:6274): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 13:32:41:839 Kernel/(6270:6274): EL PID QUE ME LLEGO ES 0
+[INFO] 13:32:41:840 Kernel/(6270:6274): El alfa es 10000
+[ERROR] 13:32:41:840 Kernel/(6270:6274): el cliente se desconecto. Terminando servidor
+[INFO] 13:37:42:910 Kernel/(6377:6377): KERNEL listo para recibir a las consolas
+[INFO] 13:37:44:675 Kernel/(6377:6377): Se conecto un cliente!
+[INFO] 13:37:44:680 Kernel/(6377:6381): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 13:37:44:680 Kernel/(6377:6381): EL PID QUE ME LLEGO ES 0
+[INFO] 13:37:44:680 Kernel/(6377:6381): El alfa es 10000
+[ERROR] 13:37:44:680 Kernel/(6377:6381): el cliente se desconecto. Terminando servidor
+[INFO] 13:45:51:493 Kernel/(6667:6667): KERNEL listo para recibir a las consolas
+[INFO] 13:45:53:793 Kernel/(6667:6667): Se conecto un cliente!
+[INFO] 13:45:53:799 Kernel/(6667:6671): Me llego el mensaje Hola estoy probando cosas para despues
+[ERROR] 13:45:53:973 Kernel/(6667:6671): el cliente se desconecto. Terminando servidor
+[INFO] 13:47:40:214 Kernel/(6743:6743): KERNEL listo para recibir a las consolas
+[INFO] 13:47:42:082 Kernel/(6743:6743): Se conecto un cliente!
+[INFO] 13:47:42:086 Kernel/(6743:6747): Me llego el mensaje Hola estoy probando cosas para despues
+[ERROR] 13:47:42:255 Kernel/(6743:6747): el cliente se desconecto. Terminando servidor
+[INFO] 13:49:53:727 Kernel/(6834:6834): KERNEL listo para recibir a las consolas
+[INFO] 13:49:55:751 Kernel/(6834:6834): Se conecto un cliente!
+[INFO] 13:49:55:755 Kernel/(6834:6838): Me llego el mensaje Hola estoy probando cosas para despues
+[ERROR] 13:49:55:930 Kernel/(6834:6838): el cliente se desconecto. Terminando servidor
+[INFO] 13:51:34:703 Kernel/(6883:6883): KERNEL listo para recibir a las consolas
+[INFO] 13:51:36:864 Kernel/(6883:6883): Se conecto un cliente!
+[INFO] 13:51:36:869 Kernel/(6883:6887): Me llego el mensaje Hola estoy probando cosas para despues
+[ERROR] 13:51:37:063 Kernel/(6883:6887): el cliente se desconecto. Terminando servidor
+[INFO] 13:52:55:363 Kernel/(6942:6942): KERNEL listo para recibir a las consolas
+[INFO] 13:52:57:462 Kernel/(6942:6942): Se conecto un cliente!
+[INFO] 13:52:57:469 Kernel/(6942:6946): Me llego el mensaje Hola estoy probando cosas para despues
+[ERROR] 13:52:57:665 Kernel/(6942:6946): el cliente se desconecto. Terminando servidor
+[INFO] 13:55:49:874 Kernel/(7058:7058): KERNEL listo para recibir a las consolas
+[INFO] 13:55:51:768 Kernel/(7058:7058): Se conecto un cliente!
+[INFO] 13:55:51:772 Kernel/(7058:7062): Me llego el mensaje Hola estoy probando cosas para despues
+[ERROR] 13:55:51:943 Kernel/(7058:7062): el cliente se desconecto. Terminando servidor
+[INFO] 13:57:21:599 Kernel/(7218:7218): KERNEL listo para recibir a las consolas
+[INFO] 13:57:23:935 Kernel/(7218:7218): Se conecto un cliente!
+[INFO] 13:57:23:939 Kernel/(7218:7222): Me llego el mensaje Hola estoy probando cosas para despues
+[ERROR] 13:57:24:112 Kernel/(7218:7222): el cliente se desconecto. Terminando servidor
+[INFO] 13:58:44:548 Kernel/(7261:7261): KERNEL listo para recibir a las consolas
+[INFO] 13:58:46:676 Kernel/(7261:7261): Se conecto un cliente!
+[INFO] 13:58:46:683 Kernel/(7261:7265): Me llego el mensaje Hola estoy probando cosas para despues

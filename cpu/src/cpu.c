@@ -19,21 +19,29 @@ int server_fd;
 int conexion_memoria;
 pthread_t hilo_conexion_kernel;
 pthread_t hilo_conexion_memoria;
+t_pcb* ejecutar_pcb(t_pcb* pcb);
+t_instruccion* fetch(t_pcb* pcb);
+int decode(t_instruccion* instruccion);
+void execute(t_instruccion* instruccion,t_pcb* pcb);
 //t_list* deserializar_lista_instrucciones(t_buffer* buffer);
 //t_pcb* deserializar_pcb(t_buffer* buffer);
 //t_buffer* desempaquetar(t_paquete* paquete, int cliente_fd);
 void mostrar(t_instruccion* inst);
 void mostrar_parametro(char* value);
 
+int band_ejecutar;
+
 int main(void) {
 	logger = iniciar_logger("cpu.log","CPU");;
 	config = iniciar_config("cpu.config");
+	band_ejecutar = 0;
 
 	datos.ip_memoria = config_get_string_value(config,"IP_MEMORIA");
 	datos.puerto_memoria = config_get_string_value(config,"PUERTO_MEMORIA");
 	datos.puerto_escucha = config_get_string_value(config,"PUERTO_ESCUCHA");
 	datos.ret_instruccion = config_get_int_value(config,"RETARDO_INSTRUCCION");
 	datos.tam_max_maximo = config_get_int_value(config,"TAM_MAX_SEGMENTO");
+
 	pthread_create(&hilo_conexion_kernel,NULL,(void*) atender_kernel,NULL);
 	pthread_create(&hilo_conexion_memoria,NULL,(void*) atender_memoria,NULL);
 
@@ -72,8 +80,10 @@ void* atender_kernel(void){
 					buffer = desempaquetar(paquete,*cliente_fd);
 					t_pcb* pcb = deserializar_pcb(buffer);
 					log_info(logger,"El PID ES %i",pcb->pid);
-					list_iterate(pcb->lista_instrucciones, (void*) mostrar);
-					//ejecutar_pcb(pcb);
+					//list_iterate(pcb->lista_instrucciones, (void*) mostrar);
+					ejecutar_pcb(pcb);
+
+
 					break;
 				case -1:
 					log_error(logger, "el cliente se desconecto. Terminando servidor");
@@ -85,6 +95,10 @@ void* atender_kernel(void){
 					exit(1);
 				default:
 					log_warning(logger,"Operacion desconocida. No quieras meter la pata");
+					log_destroy(logger);
+					config_destroy(config);
+					close(*cliente_fd);
+					close(server_fd);
 					break;
 			}
 		}
@@ -133,4 +147,64 @@ void mostrar(t_instruccion* inst){
 
 void mostrar_parametro(char* value){
 	log_info(logger,"Parametro %s",value);
+}
+
+t_pcb* ejecutar_pcb(t_pcb* pcb){
+
+
+	t_instruccion* instruccion;
+
+	do{
+
+		instruccion = fetch(pcb);
+			if(decode(instruccion) == 1){
+				log_info(logger,"Instruccion set");
+				usleep(datos.ret_instruccion*1000);
+
+			}
+			execute(instruccion,pcb);
+	}while(band_ejecutar == 0);
+
+	band_ejecutar = 0;
+
+
+	log_info(logger,"TERMINO LA EJECUCION");
+	return pcb;
+}
+
+t_instruccion* fetch(t_pcb* pcb){
+	t_instruccion* instruccion = list_get(pcb->lista_instrucciones,pcb->program_counter);
+	pcb->program_counter+=1;
+	//log_info(logger,"Program COutnter: %i",pcb->program_counter);
+	return instruccion;
+}
+
+int decode(t_instruccion* instruccion){
+	int acceso = 0;
+
+	if(instruccion->nombre == SET){
+		acceso = 1;
+	}
+
+	return acceso;
+}
+
+void execute(t_instruccion* instruccion,t_pcb* pcb){
+
+	switch(instruccion->nombre){
+		case SET:
+			log_info(logger,"Paso por Set");
+			break;
+		case YIELD:
+			log_info(logger,"Paso por YIELD");
+			break;
+		case EXIT:
+			log_info(logger,"Paso por Exit");
+			band_ejecutar = 1;
+			enviar_pcb_a(pcb,server_fd,FINALIZAR);
+			break;
+		default:
+			log_info(logger,"Otra cosa");
+			break;
+	}
 }

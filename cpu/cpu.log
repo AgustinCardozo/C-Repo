@@ -702,3 +702,97 @@
 [INFO] 12:38:04:446 CPU/(4859:4860): Parametro ARCHIVO
 [INFO] 12:38:04:447 CPU/(4859:4860): La instruccion es 15
 [ERROR] 12:38:04:449 CPU/(4859:4861): el cliente se desconecto. Terminando servidor
+[INFO] 13:31:00:935 CPU/(6198:6199): CPU listo para recibir al kernel
+[INFO] 13:31:03:268 CPU/(6198:6199): Se conecto un cliente!
+[INFO] 13:31:03:268 CPU/(6198:6199): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 13:31:10:563 CPU/(6198:6199): Paso por ejecutar
+[INFO] 13:31:10:563 CPU/(6198:6199): El PID ES 0
+[INFO] 13:31:10:563 CPU/(6198:6199): La instruccion es 0
+[INFO] 13:31:10:563 CPU/(6198:6199): Parametro AX
+[INFO] 13:31:10:563 CPU/(6198:6199): Parametro HOLA
+[INFO] 13:31:10:563 CPU/(6198:6199): La instruccion es 2
+[INFO] 13:31:10:563 CPU/(6198:6199): Parametro 120
+[INFO] 13:31:10:563 CPU/(6198:6199): Parametro AX
+[INFO] 13:31:10:563 CPU/(6198:6199): La instruccion es 10
+[INFO] 13:31:10:563 CPU/(6198:6199): Parametro DISCO
+[INFO] 13:31:10:563 CPU/(6198:6199): La instruccion es 3
+[INFO] 13:31:10:563 CPU/(6198:6199): Parametro 10
+[INFO] 13:31:10:563 CPU/(6198:6199): La instruccion es 11
+[INFO] 13:31:10:563 CPU/(6198:6199): Parametro DISCO
+[INFO] 13:31:10:563 CPU/(6198:6199): La instruccion es 1
+[INFO] 13:31:10:563 CPU/(6198:6199): Parametro BX
+[INFO] 13:31:10:563 CPU/(6198:6199): Parametro 120
+[INFO] 13:31:10:563 CPU/(6198:6199): La instruccion es 4
+[INFO] 13:31:10:563 CPU/(6198:6199): Parametro ARCHIVO
+[INFO] 13:31:10:563 CPU/(6198:6199): La instruccion es 14
+[INFO] 13:31:10:563 CPU/(6198:6199): La instruccion es 9
+[INFO] 13:31:10:563 CPU/(6198:6199): Parametro ARCHIVO
+[INFO] 13:31:10:563 CPU/(6198:6199): Parametro 64
+[INFO] 13:31:10:563 CPU/(6198:6199): La instruccion es 6
+[INFO] 13:31:10:563 CPU/(6198:6199): Parametro ARCHIVO
+[INFO] 13:31:10:563 CPU/(6198:6199): Parametro 10
+[INFO] 13:31:10:563 CPU/(6198:6199): La instruccion es 12
+[INFO] 13:31:10:563 CPU/(6198:6199): Parametro 1
+[INFO] 13:31:10:563 CPU/(6198:6199): Parametro 128
+[INFO] 13:31:10:564 CPU/(6198:6199): La instruccion es 8
+[INFO] 13:31:10:564 CPU/(6198:6199): Parametro ARCHIVO
+[INFO] 13:31:10:564 CPU/(6198:6199): Parametro 4
+[INFO] 13:31:10:564 CPU/(6198:6199): Parametro 4
+[INFO] 13:31:10:564 CPU/(6198:6199): La instruccion es 7
+[INFO] 13:31:10:564 CPU/(6198:6199): Parametro ARCHIVO
+[INFO] 13:31:10:564 CPU/(6198:6199): Parametro 16
+[INFO] 13:31:10:564 CPU/(6198:6199): Parametro 4
+[INFO] 13:31:10:564 CPU/(6198:6199): La instruccion es 13
+[INFO] 13:31:10:564 CPU/(6198:6199): Parametro 1
+[INFO] 13:31:10:564 CPU/(6198:6199): La instruccion es 5
+[INFO] 13:31:10:564 CPU/(6198:6199): Parametro ARCHIVO
+[INFO] 13:31:10:564 CPU/(6198:6199): La instruccion es 15
+[INFO] 13:31:10:564 CPU/(6198:6199): Paso por Set
+[INFO] 13:31:10:564 CPU/(6198:6199): Instruccion set
+[ERROR] 13:31:10:568 CPU/(6198:6200): el cliente se desconecto. Terminando servidor
+[INFO] 13:32:37:719 CPU/(6266:6267): CPU listo para recibir al kernel
+[INFO] 13:32:39:869 CPU/(6266:6267): Se conecto un cliente!
+[INFO] 13:32:39:869 CPU/(6266:6267): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 13:32:41:840 CPU/(6266:6267): Paso por ejecutar
+[INFO] 13:32:41:840 CPU/(6266:6267): El PID ES 0
+[INFO] 13:32:41:840 CPU/(6266:6267): Instruccion set
+[ERROR] 13:32:41:842 CPU/(6266:6268): el cliente se desconecto. Terminando servidor
+[INFO] 13:37:40:826 CPU/(6373:6374): CPU listo para recibir al kernel
+[INFO] 13:37:42:908 CPU/(6373:6374): Se conecto un cliente!
+[INFO] 13:37:42:909 CPU/(6373:6374): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 13:37:44:680 CPU/(6373:6374): Paso por ejecutar
+[INFO] 13:37:44:680 CPU/(6373:6374): El PID ES 0
+[INFO] 13:37:44:680 CPU/(6373:6374): Instruccion set
+[ERROR] 13:37:44:681 CPU/(6373:6375): el cliente se desconecto. Terminando servidor
+[INFO] 13:45:49:460 CPU/(6663:6664): CPU listo para recibir al kernel
+[INFO] 13:45:51:491 CPU/(6663:6664): Se conecto un cliente!
+[INFO] 13:45:51:493 CPU/(6663:6664): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 13:45:53:974 CPU/(6663:6664): el cliente se desconecto. Terminando servidor
+[INFO] 13:47:38:356 CPU/(6739:6740): CPU listo para recibir al kernel
+[INFO] 13:47:40:213 CPU/(6739:6740): Se conecto un cliente!
+[INFO] 13:47:40:213 CPU/(6739:6740): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 13:47:42:256 CPU/(6739:6741): el cliente se desconecto. Terminando servidor
+[INFO] 13:49:51:837 CPU/(6830:6831): CPU listo para recibir al kernel
+[INFO] 13:49:53:721 CPU/(6830:6831): Se conecto un cliente!
+[INFO] 13:49:53:723 CPU/(6830:6831): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 13:49:55:931 CPU/(6830:6832): el cliente se desconecto. Terminando servidor
+[INFO] 13:51:32:064 CPU/(6879:6880): CPU listo para recibir al kernel
+[INFO] 13:51:34:702 CPU/(6879:6880): Se conecto un cliente!
+[INFO] 13:51:34:703 CPU/(6879:6880): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 13:51:37:064 CPU/(6879:6881): el cliente se desconecto. Terminando servidor
+[INFO] 13:52:53:482 CPU/(6938:6939): CPU listo para recibir al kernel
+[INFO] 13:52:55:362 CPU/(6938:6939): Se conecto un cliente!
+[INFO] 13:52:55:363 CPU/(6938:6939): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 13:52:57:665 CPU/(6938:6939): el cliente se desconecto. Terminando servidor
+[INFO] 13:55:47:300 CPU/(7053:7054): CPU listo para recibir al kernel
+[INFO] 13:55:49:873 CPU/(7053:7054): Se conecto un cliente!
+[INFO] 13:55:49:874 CPU/(7053:7054): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 13:55:51:945 CPU/(7053:7055): el cliente se desconecto. Terminando servidor
+[INFO] 13:57:19:573 CPU/(7214:7215): CPU listo para recibir al kernel
+[INFO] 13:57:21:595 CPU/(7214:7215): Se conecto un cliente!
+[INFO] 13:57:21:599 CPU/(7214:7215): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 13:57:24:113 CPU/(7214:7215): el cliente se desconecto. Terminando servidor
+[INFO] 13:58:42:201 CPU/(7257:7258): CPU listo para recibir al kernel
+[INFO] 13:58:44:547 CPU/(7257:7258): Se conecto un cliente!
+[INFO] 13:58:44:547 CPU/(7257:7258): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 13:58:46:855 CPU/(7257:7258): el cliente se desconecto. Terminando servidor

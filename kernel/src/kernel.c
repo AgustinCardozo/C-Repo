@@ -27,6 +27,7 @@ void mostrar_parametro(char* value);
 void mostrar_cola(t_queue*cola);
 t_pcb* crear_pcb(int pid, t_list* lista_instrucciones);
 void enviar_pcb_a(t_pcb* pcb,int conexion, op_code codigo);
+void* atender_cpu(void);
 
 /////PLANIFICACION///////
 //colas
@@ -38,6 +39,8 @@ void agregar_a_cola_ready(t_pcb*pcb);
 void finalizar_proceso(t_pcb*pcb);
 t_pcb*quitar_de_new_fifo();
 algoritmo devolver_algoritmo(char*nombre);
+
+pthread_t thread_atender_cpu;
 
 int main(void) {
 	pthread_t hilo_atender_consolas;
@@ -64,6 +67,8 @@ int main(void) {
 	enviar_mensaje("Hola te estoy hablando desde el kernel",conexion_memoria);
 	enviar_mensaje("Hola te estoy hablando desde el kernel",conexion_filesystem);
 
+	pthread_create(&thread_atender_cpu,NULL,(void*) atender_cpu,NULL);
+
 	server_fd = iniciar_servidor(logger,"127.0.0.1",datos.puerto_escucha);
 	log_info(logger, "KERNEL listo para recibir a las consolas");
 
@@ -83,6 +88,44 @@ int main(void) {
 	config_destroy(config);
 	close(server_fd);
 
+}
+
+void* atender_cpu(void){
+	t_paquete* paquete = malloc(sizeof(t_paquete));
+	paquete->buffer = malloc(sizeof(t_buffer));
+	t_pcb* pcb;
+	t_buffer* buffer;
+
+	while(1){
+		int cod_op = recibir_operacion(conexion_cpu);
+			switch (cod_op) {
+				case FINALIZAR:
+					buffer = desempaquetar(paquete,conexion_cpu);
+					pcb = deserializar_pcb(buffer);
+					log_info(logger,"El pcb [%i] ha sido finalizado",pcb->pid);
+					break;
+				case -1:
+					log_error(logger, "el cliente se desconecto. Terminando servidor");
+					log_destroy(logger);
+					config_destroy(config);
+					close(conexion_cpu);
+					close(server_fd);
+
+					//return EXIT_FAILURE;
+					exit(1);
+				default:
+					log_warning(logger,"Operacion desconocida. No quieras meter la pata");
+					log_error(logger, "el cliente se desconecto. Terminando servidor");
+					log_destroy(logger);
+					config_destroy(config);
+					close(conexion_cpu);
+					close(server_fd);
+
+					//return EXIT_FAILURE;
+					exit(1);
+					break;
+			}
+	}
 }
 
 void atender_consolas(void* data){
@@ -110,6 +153,7 @@ void atender_consolas(void* data){
 
 				int pid = agregar_pid(buffer);
 				t_pcb* pcb= crear_pcb(pid,lista_instrucciones);
+
 				/*if(pcb->pid>0){
 					agregar_a_cola_new(pcb);
 				}*/
@@ -161,7 +205,7 @@ void iterator(char* value) {
 
 int agregar_pid(t_buffer* buffer){
 	int id;
-	int offset = buffer->size - 4;
+	int offset = buffer->size-4;
 	memcpy(&id, buffer->stream + offset, sizeof(int));
 	offset += sizeof(int);
 	return id;
