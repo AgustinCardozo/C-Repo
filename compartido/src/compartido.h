@@ -82,6 +82,7 @@ typedef struct{
 	int estimacion;
 	//TODO Preguntar como se usa el timestap
 	char** archivos_abiertos;
+	int conexion_consola;
 }t_pcb;
 
 

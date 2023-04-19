@@ -886,3 +886,216 @@
 [INFO] 14:27:23:710 CPU/(8095:8096): Paso por YIELD
 [INFO] 14:27:23:710 CPU/(8095:8096): Program COutnter: 3
 [INFO] 14:27:23:710 CPU/(8095:8096): Paso por Exit
+[INFO] 14:54:16:423 CPU/(8628:8629): CPU listo para recibir al kernel
+[INFO] 14:54:18:596 CPU/(8628:8629): Se conecto un cliente!
+[INFO] 14:54:18:597 CPU/(8628:8629): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 14:54:34:075 CPU/(8628:8629): Paso por ejecutar
+[INFO] 14:54:34:075 CPU/(8628:8629): El PID ES 8637
+[INFO] 14:54:34:075 CPU/(8628:8629): Program COutnter: 1
+[INFO] 14:54:34:075 CPU/(8628:8629): Instruccion set
+[INFO] 14:54:44:075 CPU/(8628:8629): Paso por Set
+[INFO] 14:56:14:312 CPU/(8695:8696): CPU listo para recibir al kernel
+[INFO] 14:56:15:923 CPU/(8695:8696): Se conecto un cliente!
+[INFO] 14:56:15:924 CPU/(8695:8696): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 14:56:17:487 CPU/(8695:8696): Paso por ejecutar
+[INFO] 14:56:17:487 CPU/(8695:8696): El PID ES 8702
+[INFO] 14:56:17:487 CPU/(8695:8696): Program COutnter: 1
+[INFO] 14:56:17:487 CPU/(8695:8696): Instruccion set
+[INFO] 14:56:27:487 CPU/(8695:8696): Paso por Set
+[WARNING] 14:56:27:488 CPU/(8695:8696): !!!!!!!!!!!1
+[INFO] 14:59:00:804 CPU/(8799:8800): CPU listo para recibir al kernel
+[INFO] 14:59:02:494 CPU/(8799:8800): Se conecto un cliente!
+[INFO] 14:59:02:495 CPU/(8799:8800): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 14:59:05:072 CPU/(8799:8800): Paso por ejecutar
+[INFO] 14:59:05:072 CPU/(8799:8800): El PID ES 8806
+[INFO] 14:59:05:072 CPU/(8799:8800): Program COutnter: 1
+[INFO] 14:59:05:072 CPU/(8799:8800): Instruccion set
+[INFO] 14:59:07:073 CPU/(8799:8800): Paso por Set
+[WARNING] 14:59:07:073 CPU/(8799:8800): !!!!!!!!!!!1 HOLA
+[INFO] 15:03:03:977 CPU/(8935:8936): CPU listo para recibir al kernel
+[INFO] 15:03:06:229 CPU/(8935:8936): Se conecto un cliente!
+[INFO] 15:03:06:230 CPU/(8935:8936): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 15:03:07:936 CPU/(8935:8936): Paso por ejecutar
+[INFO] 15:03:07:936 CPU/(8935:8936): El PID ES 8942
+[INFO] 15:03:07:936 CPU/(8935:8936): Program COutnter: 1
+[INFO] 15:03:07:952 CPU/(8935:8936): Instruccion set
+[INFO] 15:03:09:953 CPU/(8935:8936): Paso por Set
+[WARNING] 15:03:09:954 CPU/(8935:8936): !!!!!!!!!!!1 HOLA
+[INFO] 15:05:01:868 CPU/(9037:9038): CPU listo para recibir al kernel
+[INFO] 15:05:03:620 CPU/(9037:9038): Se conecto un cliente!
+[INFO] 15:05:03:621 CPU/(9037:9038): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 15:05:06:615 CPU/(9037:9038): Paso por ejecutar
+[INFO] 15:05:06:615 CPU/(9037:9038): El PID ES 9044
+[INFO] 15:05:06:615 CPU/(9037:9038): Program COutnter: 1
+[INFO] 15:05:06:615 CPU/(9037:9038): Instruccion set
+[INFO] 15:05:08:616 CPU/(9037:9038): Paso por Set
+[WARNING] 15:05:08:616 CPU/(9037:9038): !!!!!!!!!!!1 0 HOLA 
+[INFO] 15:06:53:039 CPU/(9169:9170): CPU listo para recibir al kernel
+[INFO] 15:06:54:809 CPU/(9169:9170): Se conecto un cliente!
+[INFO] 15:06:54:810 CPU/(9169:9170): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 15:06:56:962 CPU/(9169:9170): Paso por ejecutar
+[INFO] 15:06:56:962 CPU/(9169:9170): El PID ES 9176
+[INFO] 15:06:56:962 CPU/(9169:9170): Program COutnter: 1
+[INFO] 15:06:56:962 CPU/(9169:9170): Instruccion set
+[INFO] 15:06:58:962 CPU/(9169:9170): Paso por Set
+[WARNING] 15:06:58:963 CPU/(9169:9170): !!!!!!!!!!!1 0 HOLA 
+[INFO] 15:08:19:480 CPU/(9246:9247): CPU listo para recibir al kernel
+[INFO] 15:08:21:129 CPU/(9246:9247): Se conecto un cliente!
+[INFO] 15:08:21:130 CPU/(9246:9247): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 15:08:22:888 CPU/(9246:9247): Paso por ejecutar
+[INFO] 15:08:22:888 CPU/(9246:9247): El PID ES 9253
+[INFO] 15:08:22:888 CPU/(9246:9247): Program COutnter: 1
+[INFO] 15:08:22:888 CPU/(9246:9247): Instruccion set
+[INFO] 15:08:24:889 CPU/(9246:9247): Paso por Set
+[WARNING] 15:08:24:890 CPU/(9246:9247): !!!!!!!!!!!1 0 HOLA 
+[INFO] 15:08:24:890 CPU/(9246:9247): En AX esta HOLA
+[INFO] 15:08:24:890 CPU/(9246:9247): Program COutnter: 2
+[INFO] 15:08:24:890 CPU/(9246:9247): Paso por YIELD
+[INFO] 15:08:24:890 CPU/(9246:9247): Program COutnter: 3
+[INFO] 15:08:24:891 CPU/(9246:9247): Paso por Exit
+[INFO] 15:15:17:461 CPU/(9588:9589): CPU listo para recibir al kernel
+[INFO] 15:15:21:477 CPU/(9588:9589): Se conecto un cliente!
+[INFO] 15:15:21:478 CPU/(9588:9589): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 15:15:24:077 CPU/(9588:9589): Paso por ejecutar
+[INFO] 15:15:24:078 CPU/(9588:9589): El PID ES 9595
+[INFO] 15:15:24:078 CPU/(9588:9589): Program COutnter: 1
+[INFO] 15:15:24:078 CPU/(9588:9589): Instruccion set
+[INFO] 15:15:26:078 CPU/(9588:9589): Paso por Set
+[WARNING] 15:15:26:079 CPU/(9588:9589): !!!!!!!!!!!1 0 HOLA 
+[INFO] 15:18:02:070 CPU/(9731:9732): CPU listo para recibir al kernel
+[INFO] 15:18:04:127 CPU/(9731:9732): Se conecto un cliente!
+[INFO] 15:18:04:128 CPU/(9731:9732): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 15:18:05:965 CPU/(9731:9732): Paso por ejecutar
+[INFO] 15:18:05:965 CPU/(9731:9732): El PID ES 9738
+[INFO] 15:18:05:965 CPU/(9731:9732): Program COutnter: 1
+[INFO] 15:18:05:966 CPU/(9731:9732): Instruccion set
+[INFO] 15:18:07:966 CPU/(9731:9732): Paso por Set
+[WARNING] 15:18:07:966 CPU/(9731:9732): !!!!!!!!!!!1 0 HOLA 
+[INFO] 15:22:19:017 CPU/(9901:9902): CPU listo para recibir al kernel
+[INFO] 15:22:20:932 CPU/(9901:9902): Se conecto un cliente!
+[INFO] 15:22:20:934 CPU/(9901:9902): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 15:22:22:916 CPU/(9901:9902): Paso por ejecutar
+[INFO] 15:22:22:916 CPU/(9901:9902): El PID ES 9908
+[INFO] 15:22:22:916 CPU/(9901:9902): Program COutnter: 1
+[INFO] 15:22:22:917 CPU/(9901:9902): Instruccion set
+[INFO] 15:22:23:917 CPU/(9901:9902): Paso por Set
+[WARNING] 15:22:23:917 CPU/(9901:9902): !!!!!!!!!!!1 0 HOLA 
+[INFO] 15:22:23:917 CPU/(9901:9902): En AX esta HOLA
+[INFO] 15:22:23:917 CPU/(9901:9902): Program COutnter: 2
+[INFO] 15:22:23:918 CPU/(9901:9902): Paso por YIELD
+[INFO] 15:22:23:918 CPU/(9901:9902): Program COutnter: 3
+[INFO] 15:22:23:918 CPU/(9901:9902): Paso por Exit
+[INFO] 15:23:14:126 CPU/(9947:9948): CPU listo para recibir al kernel
+[ERROR] 15:23:15:901 CPU/(9947:9949): el cliente se desconecto. Terminando servidor
+[INFO] 10:34:33:609 CPU/(4345:4346): CPU listo para recibir al kernel
+[INFO] 10:34:40:763 CPU/(4345:4346): Se conecto un cliente!
+[INFO] 10:34:40:764 CPU/(4345:4346): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 10:34:51:602 CPU/(4345:4346): Paso por ejecutar
+[INFO] 10:34:51:602 CPU/(4345:4346): El PID ES 4357
+[INFO] 10:34:51:602 CPU/(4345:4346): Program COutnter: 1
+[INFO] 10:34:51:602 CPU/(4345:4346): Instruccion set
+[INFO] 10:34:52:603 CPU/(4345:4346): Paso por Set
+[WARNING] 10:34:52:604 CPU/(4345:4346): !!!!!!!!!!!1 0 HOLA 
+[INFO] 10:34:52:604 CPU/(4345:4346): En AX esta HOLA
+[INFO] 10:34:52:604 CPU/(4345:4346): Program COutnter: 2
+[INFO] 10:34:52:604 CPU/(4345:4346): Paso por YIELD
+[INFO] 10:34:52:604 CPU/(4345:4346): Program COutnter: 3
+[INFO] 10:34:52:604 CPU/(4345:4346): Paso por Exit
+[INFO] 10:37:32:242 CPU/(4428:4429): CPU listo para recibir al kernel
+[INFO] 10:37:33:995 CPU/(4428:4429): Se conecto un cliente!
+[INFO] 10:37:33:996 CPU/(4428:4429): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 10:37:36:248 CPU/(4428:4429): el cliente se desconecto. Terminando servidor
+[INFO] 10:39:08:160 CPU/(4517:4518): CPU listo para recibir al kernel
+[INFO] 10:39:09:880 CPU/(4517:4518): Se conecto un cliente!
+[INFO] 10:39:09:882 CPU/(4517:4518): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 10:39:11:932 CPU/(4517:4518): el cliente se desconecto. Terminando servidor
+[INFO] 10:40:51:562 CPU/(4601:4602): CPU listo para recibir al kernel
+[INFO] 10:40:53:151 CPU/(4601:4602): Se conecto un cliente!
+[INFO] 10:40:53:152 CPU/(4601:4602): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 10:41:23:271 CPU/(4601:4602): el cliente se desconecto. Terminando servidor
+[ERROR] 10:41:23:273 CPU/(4601:4603): el cliente se desconecto. Terminando servidor
+[INFO] 10:43:12:278 CPU/(4676:4677): CPU listo para recibir al kernel
+[INFO] 10:43:14:469 CPU/(4676:4677): Se conecto un cliente!
+[INFO] 10:43:14:470 CPU/(4676:4677): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 10:43:23:161 CPU/(4676:4677): el cliente se desconecto. Terminando servidor
+[INFO] 10:44:18:930 CPU/(4718:4719): CPU listo para recibir al kernel
+[INFO] 10:44:20:615 CPU/(4718:4719): Se conecto un cliente!
+[INFO] 10:44:20:617 CPU/(4718:4719): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 10:44:28:546 CPU/(4718:4719): el cliente se desconecto. Terminando servidor
+[INFO] 10:47:03:764 CPU/(4850:4851): CPU listo para recibir al kernel
+[INFO] 10:47:05:295 CPU/(4850:4851): Se conecto un cliente!
+[INFO] 10:47:05:297 CPU/(4850:4851): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 10:47:11:692 CPU/(4850:4851): el cliente se desconecto. Terminando servidor
+[ERROR] 10:47:11:694 CPU/(4850:4852): el cliente se desconecto. Terminando servidor
+[INFO] 10:49:23:413 CPU/(4997:4998): CPU listo para recibir al kernel
+[INFO] 10:49:24:995 CPU/(4997:4998): Se conecto un cliente!
+[INFO] 10:49:24:997 CPU/(4997:4998): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 10:49:37:259 CPU/(4997:4999): el cliente se desconecto. Terminando servidor
+[INFO] 10:51:40:877 CPU/(5027:5028): CPU listo para recibir al kernel
+[INFO] 10:51:42:553 CPU/(5027:5028): Se conecto un cliente!
+[INFO] 10:51:42:554 CPU/(5027:5028): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 10:52:10:363 CPU/(5027:5029): el cliente se desconecto. Terminando servidor
+[INFO] 10:53:50:864 CPU/(5133:5134): CPU listo para recibir al kernel
+[INFO] 10:53:52:997 CPU/(5133:5134): Se conecto un cliente!
+[INFO] 10:53:52:998 CPU/(5133:5134): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 10:53:59:236 CPU/(5133:5135): el cliente se desconecto. Terminando servidor
+[INFO] 10:56:02:401 CPU/(5200:5201): CPU listo para recibir al kernel
+[INFO] 10:56:04:098 CPU/(5200:5201): Se conecto un cliente!
+[INFO] 10:56:04:100 CPU/(5200:5201): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 10:56:07:211 CPU/(5200:5201): Paso por ejecutar
+[INFO] 10:56:07:211 CPU/(5200:5201): El PID ES 5209
+[INFO] 10:56:07:211 CPU/(5200:5201): Program COutnter: 1
+[INFO] 10:56:07:211 CPU/(5200:5201): Instruccion set
+[INFO] 10:56:08:211 CPU/(5200:5201): Paso por Set
+[WARNING] 10:56:08:212 CPU/(5200:5201): !!!!!!!!!!!1 0 HOLA 
+[INFO] 10:56:08:212 CPU/(5200:5201): En AX esta HOLA
+[INFO] 10:56:08:212 CPU/(5200:5201): Program COutnter: 2
+[INFO] 10:56:08:212 CPU/(5200:5201): Paso por YIELD
+[INFO] 10:56:08:212 CPU/(5200:5201): Program COutnter: 3
+[INFO] 10:56:08:212 CPU/(5200:5201): Paso por Exit
+[INFO] 10:59:18:160 CPU/(5284:5285): CPU listo para recibir al kernel
+[INFO] 10:59:20:724 CPU/(5284:5285): Se conecto un cliente!
+[INFO] 10:59:20:727 CPU/(5284:5285): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 10:59:22:705 CPU/(5284:5285): Paso por ejecutar
+[INFO] 10:59:22:705 CPU/(5284:5285): El PID ES 5293
+[INFO] 10:59:22:707 CPU/(5284:5285): Program COutnter: 1
+[INFO] 10:59:22:707 CPU/(5284:5285): Instruccion set
+[INFO] 10:59:23:707 CPU/(5284:5285): Paso por Set
+[WARNING] 10:59:23:707 CPU/(5284:5285): !!!!!!!!!!!1 0 HOLA 
+[INFO] 10:59:23:707 CPU/(5284:5285): En AX esta HOLA
+[INFO] 10:59:23:707 CPU/(5284:5285): Program COutnter: 2
+[INFO] 10:59:23:707 CPU/(5284:5285): Paso por YIELD
+[INFO] 10:59:23:707 CPU/(5284:5285): Program COutnter: 3
+[INFO] 10:59:23:707 CPU/(5284:5285): Paso por Exit
+[INFO] 11:01:07:022 CPU/(5356:5357): CPU listo para recibir al kernel
+[INFO] 11:01:08:905 CPU/(5356:5357): Se conecto un cliente!
+[INFO] 11:01:08:906 CPU/(5356:5357): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 11:01:10:692 CPU/(5356:5357): Paso por ejecutar
+[INFO] 11:01:10:692 CPU/(5356:5357): El PID ES 5365
+[INFO] 11:01:10:692 CPU/(5356:5357): Program COutnter: 1
+[INFO] 11:01:10:692 CPU/(5356:5357): Instruccion set
+[INFO] 11:01:11:693 CPU/(5356:5357): Paso por Set
+[WARNING] 11:01:11:693 CPU/(5356:5357): !!!!!!!!!!!1 0 HOLA 
+[INFO] 11:01:11:693 CPU/(5356:5357): En AX esta HOLA
+[INFO] 11:01:11:694 CPU/(5356:5357): Program COutnter: 2
+[INFO] 11:01:11:694 CPU/(5356:5357): Paso por YIELD
+[INFO] 11:01:11:694 CPU/(5356:5357): Program COutnter: 3
+[INFO] 11:01:11:694 CPU/(5356:5357): Paso por Exit
+[INFO] 11:11:35:826 CPU/(5972:5973): CPU listo para recibir al kernel
+[INFO] 11:11:37:844 CPU/(5972:5973): Se conecto un cliente!
+[INFO] 11:14:17:850 CPU/(6192:6193): CPU listo para recibir al kernel
+[INFO] 11:14:19:578 CPU/(6192:6193): Se conecto un cliente!
+[INFO] 11:14:19:580 CPU/(6192:6193): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 11:14:21:591 CPU/(6192:6193): Paso por ejecutar
+[INFO] 11:14:21:591 CPU/(6192:6193): El PID ES 6201
+[INFO] 11:14:21:592 CPU/(6192:6193): Program COutnter: 1
+[INFO] 11:14:21:592 CPU/(6192:6193): Instruccion set
+[INFO] 11:14:22:592 CPU/(6192:6193): Paso por Set
+[WARNING] 11:14:22:592 CPU/(6192:6193): !!!!!!!!!!!1 0 HOLA 
+[INFO] 11:14:22:592 CPU/(6192:6193): En AX esta HOLA
+[INFO] 11:14:22:592 CPU/(6192:6193): Program COutnter: 2
+[INFO] 11:14:22:592 CPU/(6192:6193): Paso por YIELD
+[INFO] 11:14:22:592 CPU/(6192:6193): Program COutnter: 3
+[INFO] 11:14:22:592 CPU/(6192:6193): Paso por Exit
+[INFO] 11:14:22:592 CPU/(6192:6193): TERMINO LA EJECUCION
+[ERROR] 11:14:26:370 CPU/(6192:6194): el cliente se desconecto. Terminando servidor

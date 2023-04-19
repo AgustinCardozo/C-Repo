@@ -25,25 +25,42 @@ int agregar_pid(t_buffer* buffer);
 void mostrar(t_instruccion* inst);
 void mostrar_parametro(char* value);
 void mostrar_cola(t_queue*cola);
-t_pcb* crear_pcb(t_buffer* buffer);
+t_pcb* crear_pcb(t_buffer* buffer, int conexion_consola);
 void enviar_pcb_a(t_pcb* pcb,int conexion, op_code codigo);
 void* atender_cpu(void);
+void* de_new_a_ready(void);
+void de_ready_a_ejecutar_fifo(void);
+void* de_ready_a_ejecutar(void);
 
 /////PLANIFICACION///////
 //colas
-t_cola*cola;
+t_cola cola;
 ////TRANSICIONES////
 void agregar_a_cola_new(t_pcb*pcb);
 void agregar_a_cola_ready(t_pcb*pcb);
 //void agregar_a_cola_hrrn(t_pcb*pcb);
 void finalizar_proceso(t_pcb*pcb);
-t_pcb*quitar_de_new_fifo();
+t_pcb* quitar_de_cola_new();
+t_pcb* quitar_de_cola_ready();
 algoritmo devolver_algoritmo(char*nombre);
 
+sem_t mutex_cola_new;
+sem_t mutex_cola_ready;
+sem_t sem_multiprogramacion;
+sem_t sem_nuevo;
+sem_t sem_habilitar_exec;
+
+pthread_t thread_nuevo_a_ready;
 pthread_t thread_atender_cpu;
+pthread_t hilo_atender_consolas;
+pthread_t thread_ejecutar;
 
 int main(void) {
-	pthread_t hilo_atender_consolas;
+
+
+	cola.cola_new = queue_create();
+	cola.cola_ready_fifo=queue_create();
+	cola.cola_ready_hrrn=queue_create();
 
 	logger = iniciar_logger("kernel.log","Kernel");;
 	config = iniciar_config("kernel.config");
@@ -59,6 +76,14 @@ int main(void) {
 	datos.alfa = atof(config_get_string_value(config,"HRRN_ALFA"));
 	datos.multiprogramacion=config_get_int_value(config,"GRADO_MAX_MULTIPROGRAMACION");
 
+
+
+	sem_init(&mutex_cola_new,0,1);
+	sem_init(&mutex_cola_ready,0,1);
+	sem_init(&sem_multiprogramacion,0,datos.multiprogramacion);
+	sem_init(&sem_nuevo,0,0);
+	sem_init(&sem_habilitar_exec,0,1);
+
 	conexion_cpu = crear_conexion(datos.ip_cpu,datos.puerto_cpu);
 	conexion_memoria = crear_conexion(datos.ip_memoria,datos.puerto_memoria);
 	conexion_filesystem = crear_conexion(datos.ip_filesystem,datos.puerto_filesystem);
@@ -68,7 +93,8 @@ int main(void) {
 	enviar_mensaje("Hola te estoy hablando desde el kernel",conexion_filesystem);
 
 	pthread_create(&thread_atender_cpu,NULL,(void*) atender_cpu,NULL);
-
+	pthread_create(&thread_nuevo_a_ready,NULL,(void*) de_new_a_ready,NULL);
+	pthread_create(&thread_ejecutar,NULL,(void*) de_ready_a_ejecutar,NULL);
 	server_fd = iniciar_servidor(logger,"127.0.0.1",datos.puerto_escucha);
 	log_info(logger, "KERNEL listo para recibir a las consolas");
 
@@ -80,9 +106,7 @@ int main(void) {
 		pthread_detach(hilo_atender_consolas);
 	}
 
-	cola->cola_new_fifo=queue_create();
-	cola->cola_ready_fifo=queue_create();
-	cola->cola_ready_hrrn=queue_create();
+
 
 	log_destroy(logger);
 	config_destroy(config);
@@ -100,9 +124,13 @@ void* atender_cpu(void){
 		int cod_op = recibir_operacion(conexion_cpu);
 			switch (cod_op) {
 				case FINALIZAR:
+					log_info(logger,"Paso por finzalizar");
+					sem_post(&sem_habilitar_exec);
 					buffer = desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 					log_info(logger,"El pcb [%i] ha sido finalizado",pcb->pid);
+					enviar_mensaje("Tu proceso ha finalizado",pcb->conexion_consola);
+
 					break;
 				case -1:
 					log_error(logger, "el cliente se desconecto. Terminando servidor");
@@ -153,7 +181,7 @@ void atender_consolas(void* data){
 
 				//int pid = agregar_pid(buffer);
 				//t_pcb* pcb= crear_pcb(pid,lista_instrucciones);
-				t_pcb* pcb= crear_pcb(buffer);
+				t_pcb* pcb= crear_pcb(buffer,cliente_fd);
 				/*if(pcb->pid>0){
 					agregar_a_cola_new(pcb);
 				}*/
@@ -162,15 +190,17 @@ void atender_consolas(void* data){
 				mostrar_cola(cola->cola_ready_hrrn);
 */
 				log_info(logger,"EL PID QUE ME LLEGO ES %i",pcb->pid);
+
+				agregar_a_cola_new(pcb);
 				//mostrar_cola(cola->cola_new_fifo);
 
 
-				list_iterate(pcb->lista_instrucciones, (void*) mostrar);
+				//list_iterate(pcb->lista_instrucciones, (void*) mostrar);
 
-				enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
+				//enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
 
 
-				log_info(logger,"El alfa es %d",pcb->estimacion);
+				//log_info(logger,"El alfa es %d",pcb->estimacion);
 				break;
 			case -1:
 				log_error(logger, "el cliente se desconecto. Terminando servidor");
@@ -221,7 +251,7 @@ void mostrar_parametro(char* value){
 	log_info(logger,"Parametro %s",value);
 }
 
-t_pcb* crear_pcb(t_buffer* buffer){
+t_pcb* crear_pcb(t_buffer* buffer,int conexion_cliente){
 	t_pcb* pcb = malloc(sizeof(t_pcb));
 	int pid;
 
@@ -247,6 +277,7 @@ t_pcb* crear_pcb(t_buffer* buffer){
 	pcb->segmentos.direccion_base = 0;
 	pcb->segmentos.tamanio = 0;
 	pcb->estimacion = datos.est_inicial;
+	pcb->conexion_consola = conexion_cliente;
 	//TODO Falta lo de archivos abiertos
 	return pcb;
 }
@@ -255,25 +286,92 @@ t_pcb* crear_pcb(t_buffer* buffer){
 
 ///////PLANIFICACION
 void agregar_a_cola_new(t_pcb*pcb){
-	//sem_wait(&mutex_cola_new);
-	queue_push(cola->cola_new_fifo,pcb);
-	//sem_post(&mutex_cola_new);
-	//sem_post(&sem_new);
+	sem_wait(&mutex_cola_new);
+	queue_push(cola.cola_new,pcb);
+	sem_post(&mutex_cola_new);
+	log_info(logger,"El proceso [%d] ingreso a la cola nuevo",pcb->pid);
+	sem_post(&sem_nuevo);
 
 }
 
-void agregar_a_cola_ready(t_pcb*pcb){
-	//switch(datos.algoritmo_planificacion){
-	//case FIFO:
-	if(queue_size(cola->cola_ready_fifo)<datos.multiprogramacion){
-		queue_push(cola->cola_ready_fifo,pcb);
-		queue_pop(cola->cola_new_fifo);} //añadir semaforos
-	//	break;
-/*	case HRRN:	if(queue_size(cola->cola_ready_fifo)<datos.multiprogramacion){
-		agregar_a_cola_hrrn(pcb);}//si no hay espacio tirar log de lleno
-		break;
-	default: break;
-	}*/
+t_pcb* quitar_de_cola_new(){
+	//t_pcb* pcb = malloc(sizeof(t_pcb));
+	sem_wait(&mutex_cola_new);
+	t_pcb* pcb = queue_pop(cola.cola_new);
+	sem_post(&mutex_cola_new);
+	log_info(logger,"El proceso [%d] fue quitado a la cola nuevo",pcb->pid);
+	return pcb;
+}
+
+
+void agregar_a_cola_ready(t_pcb* pcb){
+	log_info(logger,"El proceso [%d] fue agregado a la cola ready",pcb->pid);
+	sem_wait(&mutex_cola_ready);
+	queue_push(cola.cola_ready_fifo,pcb);
+	sem_post(&mutex_cola_ready);
+	//sem_post(&sem_exec);
+	//mostrar_cola(cola.cola_ready);
+}
+
+t_pcb* quitar_de_cola_ready(){
+	//t_pcb* pcb = malloc(sizeof(t_pcb));
+	sem_wait(&mutex_cola_ready);
+	t_pcb* pcb = queue_pop(cola.cola_ready_fifo);
+	sem_post(&mutex_cola_ready);
+	log_info(logger,"El proceso [%d] fue quitado a la cola ready",pcb->pid);
+	return pcb;
+}
+
+void* de_new_a_ready(void){
+
+	log_info(logger,"nuevo a ready");
+
+	while(1){
+		//sem_wait(&sem_avisar);
+		sem_wait(&sem_nuevo);
+		while(!queue_is_empty(cola.cola_new)){
+			sem_wait(&sem_multiprogramacion);
+			t_pcb* pcb =quitar_de_cola_new();
+
+			log_info(logger,"“PID: %d - Estado Anterior: NEW - Estado Actual: READY”",pcb->pid);
+
+			agregar_a_cola_ready(pcb);
+		}
+	}
+}
+
+
+void* de_ready_a_ejecutar(void){
+	log_info(logger,"de ready a ejecutar");
+	while(1){
+		switch(datos.algoritmo_planificacion){
+			case FIFO:
+				log_info(logger,"Paso por fifo");
+				de_ready_a_ejecutar_fifo();
+				break;
+			case HRRN:
+
+				break;
+			default:
+				log_warning(logger,"Algo esta ocurriendo en ready a ejectar");
+				break;
+		}
+	}
+
+}
+
+void de_ready_a_ejecutar_fifo(void){
+	while(1){
+		//sem_wait(&sem_habilitar_exec);
+		while(!queue_is_empty(cola.cola_ready_fifo)){
+			sem_wait(&sem_habilitar_exec);
+			t_pcb* pcb = quitar_de_cola_ready();
+			log_info(logger,"“PID: %d - Estado Anterior: READY - Estado Actual: EXEC”",pcb->pid);
+			enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
+
+			//liberar_pcb(pcb);
+		}
+	}
 }
 
 algoritmo devolver_algoritmo(char*nombre){
@@ -296,12 +394,6 @@ void mostrar_cola(t_queue*cola){
 	log_info(logger,"-----------------------");
 }
 
-
-t_pcb* quitar_de_new_fifo(){
-	t_pcb*pcb=malloc(sizeof(t_pcb));
-	pcb=queue_pop(cola->cola_new_fifo);
-	return pcb;
-}
 /*
 void quitar_de_ready_fifo(t_pcb*pcb){
 	queue_pop(cola->cola_new_fifo,pcb);

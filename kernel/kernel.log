@@ -990,3 +990,262 @@
 [INFO] 14:27:13:708 Kernel/(8099:8103): La instruccion es 15
 [INFO] 14:27:13:709 Kernel/(8099:8103): El alfa es 10000
 [ERROR] 14:27:23:712 Kernel/(8099:8101): el cliente se desconecto. Terminando servidor
+[INFO] 14:54:18:597 Kernel/(8632:8632): KERNEL listo para recibir a las consolas
+[INFO] 14:54:34:072 Kernel/(8632:8632): Se conecto un cliente!
+[INFO] 14:54:34:073 Kernel/(8632:8638): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 14:54:34:073 Kernel/(8632:8638): EL PID QUE ME LLEGO ES 8637
+[INFO] 14:54:34:074 Kernel/(8632:8638): La instruccion es 0
+[INFO] 14:54:34:074 Kernel/(8632:8638): Parametro AX
+[INFO] 14:54:34:074 Kernel/(8632:8638): Parametro HOLA
+[INFO] 14:54:34:074 Kernel/(8632:8638): La instruccion es 14
+[INFO] 14:54:34:074 Kernel/(8632:8638): La instruccion es 15
+[INFO] 14:54:34:075 Kernel/(8632:8638): El alfa es 10000
+[ERROR] 14:54:44:364 Kernel/(8632:8634): el cliente se desconecto. Terminando servidor
+[INFO] 14:56:15:924 Kernel/(8699:8699): KERNEL listo para recibir a las consolas
+[INFO] 14:56:17:483 Kernel/(8699:8699): Se conecto un cliente!
+[INFO] 14:56:17:485 Kernel/(8699:8703): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 14:56:17:485 Kernel/(8699:8703): EL PID QUE ME LLEGO ES 8702
+[INFO] 14:56:17:486 Kernel/(8699:8703): La instruccion es 0
+[INFO] 14:56:17:486 Kernel/(8699:8703): Parametro AX
+[INFO] 14:56:17:486 Kernel/(8699:8703): Parametro HOLA
+[INFO] 14:56:17:486 Kernel/(8699:8703): La instruccion es 14
+[INFO] 14:56:17:487 Kernel/(8699:8703): La instruccion es 15
+[INFO] 14:56:17:487 Kernel/(8699:8703): El alfa es 10000
+[ERROR] 14:56:27:815 Kernel/(8699:8701): el cliente se desconecto. Terminando servidor
+[INFO] 14:59:02:496 Kernel/(8803:8803): KERNEL listo para recibir a las consolas
+[INFO] 14:59:05:068 Kernel/(8803:8803): Se conecto un cliente!
+[INFO] 14:59:05:071 Kernel/(8803:8807): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 14:59:05:071 Kernel/(8803:8807): EL PID QUE ME LLEGO ES 8806
+[INFO] 14:59:05:071 Kernel/(8803:8807): La instruccion es 0
+[INFO] 14:59:05:071 Kernel/(8803:8807): Parametro AX
+[INFO] 14:59:05:071 Kernel/(8803:8807): Parametro HOLA
+[INFO] 14:59:05:072 Kernel/(8803:8807): La instruccion es 14
+[INFO] 14:59:05:072 Kernel/(8803:8807): La instruccion es 15
+[INFO] 14:59:05:072 Kernel/(8803:8807): El alfa es 10000
+[ERROR] 14:59:07:243 Kernel/(8803:8805): el cliente se desconecto. Terminando servidor
+[INFO] 15:03:06:230 Kernel/(8939:8939): KERNEL listo para recibir a las consolas
+[INFO] 15:03:07:908 Kernel/(8939:8939): Se conecto un cliente!
+[INFO] 15:03:07:936 Kernel/(8939:8943): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 15:03:07:936 Kernel/(8939:8943): EL PID QUE ME LLEGO ES 8942
+[INFO] 15:03:07:936 Kernel/(8939:8943): La instruccion es 0
+[INFO] 15:03:07:936 Kernel/(8939:8943): Parametro AX
+[INFO] 15:03:07:936 Kernel/(8939:8943): Parametro HOLA
+[INFO] 15:03:07:936 Kernel/(8939:8943): La instruccion es 14
+[INFO] 15:03:07:936 Kernel/(8939:8943): La instruccion es 15
+[INFO] 15:03:07:952 Kernel/(8939:8943): El alfa es 10000
+[ERROR] 15:03:10:121 Kernel/(8939:8941): el cliente se desconecto. Terminando servidor
+[INFO] 15:05:03:622 Kernel/(9041:9041): KERNEL listo para recibir a las consolas
+[INFO] 15:05:06:612 Kernel/(9041:9041): Se conecto un cliente!
+[INFO] 15:05:06:614 Kernel/(9041:9045): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 15:05:06:614 Kernel/(9041:9045): EL PID QUE ME LLEGO ES 9044
+[INFO] 15:05:06:614 Kernel/(9041:9045): La instruccion es 0
+[INFO] 15:05:06:614 Kernel/(9041:9045): Parametro AX
+[INFO] 15:05:06:615 Kernel/(9041:9045): Parametro HOLA
+[INFO] 15:05:06:615 Kernel/(9041:9045): La instruccion es 14
+[INFO] 15:05:06:615 Kernel/(9041:9045): La instruccion es 15
+[INFO] 15:05:06:615 Kernel/(9041:9045): El alfa es 10000
+[ERROR] 15:05:08:776 Kernel/(9041:9043): el cliente se desconecto. Terminando servidor
+[INFO] 15:06:54:810 Kernel/(9173:9173): KERNEL listo para recibir a las consolas
+[INFO] 15:06:56:959 Kernel/(9173:9173): Se conecto un cliente!
+[INFO] 15:06:56:961 Kernel/(9173:9177): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 15:06:56:961 Kernel/(9173:9177): EL PID QUE ME LLEGO ES 9176
+[INFO] 15:06:56:961 Kernel/(9173:9177): La instruccion es 0
+[INFO] 15:06:56:961 Kernel/(9173:9177): Parametro AX
+[INFO] 15:06:56:962 Kernel/(9173:9177): Parametro HOLA
+[INFO] 15:06:56:962 Kernel/(9173:9177): La instruccion es 14
+[INFO] 15:06:56:962 Kernel/(9173:9177): La instruccion es 15
+[INFO] 15:06:56:963 Kernel/(9173:9177): El alfa es 10000
+[ERROR] 15:06:59:136 Kernel/(9173:9175): el cliente se desconecto. Terminando servidor
+[INFO] 15:08:21:130 Kernel/(9250:9250): KERNEL listo para recibir a las consolas
+[INFO] 15:08:22:884 Kernel/(9250:9250): Se conecto un cliente!
+[INFO] 15:08:22:886 Kernel/(9250:9254): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 15:08:22:887 Kernel/(9250:9254): EL PID QUE ME LLEGO ES 9253
+[INFO] 15:08:22:887 Kernel/(9250:9254): La instruccion es 0
+[INFO] 15:08:22:887 Kernel/(9250:9254): Parametro AX
+[INFO] 15:08:22:887 Kernel/(9250:9254): Parametro HOLA
+[INFO] 15:08:22:888 Kernel/(9250:9254): La instruccion es 14
+[INFO] 15:08:22:888 Kernel/(9250:9254): La instruccion es 15
+[INFO] 15:08:22:888 Kernel/(9250:9254): El alfa es 10000
+[ERROR] 15:08:24:892 Kernel/(9250:9252): el cliente se desconecto. Terminando servidor
+[INFO] 15:15:21:478 Kernel/(9592:9592): KERNEL listo para recibir a las consolas
+[INFO] 15:15:24:074 Kernel/(9592:9592): Se conecto un cliente!
+[INFO] 15:15:24:076 Kernel/(9592:9596): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 15:15:24:076 Kernel/(9592:9596): EL PID QUE ME LLEGO ES 9595
+[INFO] 15:15:24:076 Kernel/(9592:9596): La instruccion es 0
+[INFO] 15:15:24:077 Kernel/(9592:9596): Parametro AX
+[INFO] 15:15:24:077 Kernel/(9592:9596): Parametro HOLA
+[INFO] 15:15:24:077 Kernel/(9592:9596): La instruccion es 14
+[INFO] 15:15:24:077 Kernel/(9592:9596): La instruccion es 15
+[INFO] 15:15:24:078 Kernel/(9592:9596): El alfa es 10000
+[ERROR] 15:15:26:251 Kernel/(9592:9594): el cliente se desconecto. Terminando servidor
+[INFO] 15:18:04:128 Kernel/(9735:9735): KERNEL listo para recibir a las consolas
+[INFO] 15:18:05:962 Kernel/(9735:9735): Se conecto un cliente!
+[INFO] 15:18:05:964 Kernel/(9735:9739): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 15:18:05:964 Kernel/(9735:9739): EL PID QUE ME LLEGO ES 9738
+[INFO] 15:18:05:965 Kernel/(9735:9739): La instruccion es 0
+[INFO] 15:18:05:965 Kernel/(9735:9739): Parametro AX
+[INFO] 15:18:05:965 Kernel/(9735:9739): Parametro HOLA
+[INFO] 15:18:05:965 Kernel/(9735:9739): La instruccion es 14
+[INFO] 15:18:05:965 Kernel/(9735:9739): La instruccion es 15
+[INFO] 15:18:05:966 Kernel/(9735:9739): El alfa es 10000
+[ERROR] 15:18:08:263 Kernel/(9735:9737): el cliente se desconecto. Terminando servidor
+[INFO] 15:22:20:934 Kernel/(9905:9905): KERNEL listo para recibir a las consolas
+[INFO] 15:22:22:913 Kernel/(9905:9905): Se conecto un cliente!
+[INFO] 15:22:22:915 Kernel/(9905:9909): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 15:22:22:915 Kernel/(9905:9909): EL PID QUE ME LLEGO ES 9908
+[INFO] 15:22:22:915 Kernel/(9905:9909): La instruccion es 0
+[INFO] 15:22:22:916 Kernel/(9905:9909): Parametro AX
+[INFO] 15:22:22:916 Kernel/(9905:9909): Parametro HOLA
+[INFO] 15:22:22:916 Kernel/(9905:9909): La instruccion es 14
+[INFO] 15:22:22:916 Kernel/(9905:9909): La instruccion es 15
+[INFO] 15:22:22:917 Kernel/(9905:9909): El alfa es 10000
+[ERROR] 15:22:23:919 Kernel/(9905:9907): el cliente se desconecto. Terminando servidor
+[INFO] 10:34:40:765 Kernel/(4351:4351): KERNEL listo para recibir a las consolas
+[INFO] 10:34:40:765 Kernel/(4351:4354): nuevo a ready
+[INFO] 10:34:51:596 Kernel/(4351:4351): Se conecto un cliente!
+[INFO] 10:34:51:602 Kernel/(4351:4358): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 10:34:51:602 Kernel/(4351:4358): EL PID QUE ME LLEGO ES 4357
+[INFO] 10:34:51:602 Kernel/(4351:4358): La instruccion es 0
+[INFO] 10:34:51:602 Kernel/(4351:4358): Parametro AX
+[INFO] 10:34:51:602 Kernel/(4351:4358): Parametro HOLA
+[INFO] 10:34:51:602 Kernel/(4351:4358): La instruccion es 14
+[INFO] 10:34:51:602 Kernel/(4351:4358): La instruccion es 15
+[INFO] 10:34:51:603 Kernel/(4351:4358): El alfa es 10000
+[ERROR] 10:34:52:605 Kernel/(4351:4353): el cliente se desconecto. Terminando servidor
+[INFO] 10:37:33:997 Kernel/(4432:4432): KERNEL listo para recibir a las consolas
+[INFO] 10:37:33:998 Kernel/(4432:4435): nuevo a ready
+[INFO] 10:37:35:926 Kernel/(4432:4432): Se conecto un cliente!
+[INFO] 10:37:35:933 Kernel/(4432:4437): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 10:37:35:933 Kernel/(4432:4437): EL PID QUE ME LLEGO ES 4436
+[INFO] 10:39:09:882 Kernel/(4521:4521): KERNEL listo para recibir a las consolas
+[INFO] 10:39:09:883 Kernel/(4521:4524): nuevo a ready
+[INFO] 10:39:11:765 Kernel/(4521:4521): Se conecto un cliente!
+[INFO] 10:39:11:767 Kernel/(4521:4526): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 10:39:11:767 Kernel/(4521:4526): EL PID QUE ME LLEGO ES 4525
+[INFO] 10:40:53:152 Kernel/(4605:4605): KERNEL listo para recibir a las consolas
+[INFO] 10:40:53:153 Kernel/(4605:4608): nuevo a ready
+[INFO] 10:40:56:436 Kernel/(4605:4605): Se conecto un cliente!
+[INFO] 10:40:56:439 Kernel/(4605:4610): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 10:40:56:439 Kernel/(4605:4610): EL PID QUE ME LLEGO ES 4609
+[INFO] 10:40:56:439 Kernel/(4605:4610): El proceso [4609] ingreso a la cola nuevo
+[INFO] 10:40:56:440 Kernel/(4605:4608): El proceso [4609] fue quitado a la cola nuevo
+[INFO] 10:40:56:440 Kernel/(4605:4608): “PID: 4609 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 10:40:56:440 Kernel/(4605:4608): El proceso [4609] fue agregado a la cola ready
+[ERROR] 10:41:23:270 Kernel/(4605:4610): el cliente se desconecto. Terminando servidor
+[INFO] 10:43:14:470 Kernel/(4680:4680): KERNEL listo para recibir a las consolas
+[INFO] 10:43:14:471 Kernel/(4680:4683): nuevo a ready
+[INFO] 10:43:16:671 Kernel/(4680:4680): Se conecto un cliente!
+[INFO] 10:43:16:673 Kernel/(4680:4685): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 10:43:16:673 Kernel/(4680:4685): EL PID QUE ME LLEGO ES 4684
+[INFO] 10:43:16:673 Kernel/(4680:4685): El proceso [4684] ingreso a la cola nuevo
+[INFO] 10:43:16:673 Kernel/(4680:4683): El proceso [4684] fue quitado a la cola nuevo
+[INFO] 10:43:16:673 Kernel/(4680:4683): “PID: 4684 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 10:43:16:674 Kernel/(4680:4683): El proceso [4684] fue agregado a la cola ready
+[ERROR] 10:43:23:160 Kernel/(4680:4685): el cliente se desconecto. Terminando servidor
+[INFO] 10:44:20:617 Kernel/(4722:4722): KERNEL listo para recibir a las consolas
+[INFO] 10:44:20:618 Kernel/(4722:4725): nuevo a ready
+[INFO] 10:44:22:190 Kernel/(4722:4722): Se conecto un cliente!
+[INFO] 10:44:22:192 Kernel/(4722:4727): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 10:44:22:192 Kernel/(4722:4727): EL PID QUE ME LLEGO ES 4726
+[INFO] 10:44:22:192 Kernel/(4722:4727): El proceso [4726] ingreso a la cola nuevo
+[INFO] 10:44:22:192 Kernel/(4722:4725): El proceso [4726] fue quitado a la cola nuevo
+[INFO] 10:44:22:192 Kernel/(4722:4725): “PID: 4726 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 10:44:22:193 Kernel/(4722:4725): El proceso [4726] fue agregado a la cola ready
+[ERROR] 10:44:28:544 Kernel/(4722:4727): el cliente se desconecto. Terminando servidor
+[INFO] 10:47:05:297 Kernel/(4854:4854): KERNEL listo para recibir a las consolas
+[INFO] 10:47:05:298 Kernel/(4854:4857): nuevo a ready
+[INFO] 10:47:07:250 Kernel/(4854:4854): Se conecto un cliente!
+[INFO] 10:47:07:252 Kernel/(4854:4859): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 10:47:07:253 Kernel/(4854:4859): EL PID QUE ME LLEGO ES 4858
+[INFO] 10:47:07:253 Kernel/(4854:4859): El proceso [4858] ingreso a la cola nuevo
+[INFO] 10:47:07:253 Kernel/(4854:4857): El proceso [4858] fue quitado a la cola nuevo
+[INFO] 10:47:07:253 Kernel/(4854:4857): “PID: 4858 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 10:47:07:253 Kernel/(4854:4857): El proceso [4858] fue agregado a la cola ready
+[ERROR] 10:47:11:689 Kernel/(4854:4859): el cliente se desconecto. Terminando servidor
+[INFO] 10:49:24:997 Kernel/(5001:5001): KERNEL listo para recibir a las consolas
+[INFO] 10:49:24:998 Kernel/(5001:5005): de ready a ejecutar
+[INFO] 10:49:24:999 Kernel/(5001:5004): nuevo a ready
+[INFO] 10:49:26:537 Kernel/(5001:5001): Se conecto un cliente!
+[INFO] 10:49:26:538 Kernel/(5001:5007): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 10:49:26:538 Kernel/(5001:5007): EL PID QUE ME LLEGO ES 5006
+[INFO] 10:49:26:538 Kernel/(5001:5007): El proceso [5006] ingreso a la cola nuevo
+[INFO] 10:49:26:538 Kernel/(5001:5004): El proceso [5006] fue quitado a la cola nuevo
+[INFO] 10:49:26:538 Kernel/(5001:5004): “PID: 5006 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 10:49:26:538 Kernel/(5001:5004): El proceso [5006] fue agregado a la cola ready
+[ERROR] 10:49:37:257 Kernel/(5001:5007): el cliente se desconecto. Terminando servidor
+[INFO] 10:51:42:555 Kernel/(5031:5031): KERNEL listo para recibir a las consolas
+[INFO] 10:51:42:555 Kernel/(5031:5035): de ready a ejecutar
+[INFO] 10:51:42:560 Kernel/(5031:5034): nuevo a ready
+[INFO] 10:53:52:999 Kernel/(5137:5137): KERNEL listo para recibir a las consolas
+[INFO] 10:53:52:999 Kernel/(5137:5141): de ready a ejecutar
+[INFO] 10:53:53:001 Kernel/(5137:5140): nuevo a ready
+[INFO] 10:53:55:717 Kernel/(5137:5137): Se conecto un cliente!
+[INFO] 10:53:55:719 Kernel/(5137:5143): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 10:53:55:720 Kernel/(5137:5143): EL PID QUE ME LLEGO ES 5142
+[INFO] 10:53:55:720 Kernel/(5137:5143): El proceso [5142] ingreso a la cola nuevo
+[INFO] 10:53:55:720 Kernel/(5137:5140): El proceso [5142] fue quitado a la cola nuevo
+[INFO] 10:53:55:720 Kernel/(5137:5140): “PID: 5142 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 10:53:55:720 Kernel/(5137:5140): El proceso [5142] fue agregado a la cola ready
+[ERROR] 10:53:59:233 Kernel/(5137:5143): el cliente se desconecto. Terminando servidor
+[INFO] 10:56:04:100 Kernel/(5204:5204): KERNEL listo para recibir a las consolas
+[INFO] 10:56:04:101 Kernel/(5204:5208): de ready a ejecutar
+[INFO] 10:56:04:101 Kernel/(5204:5208): Paso por fifo
+[INFO] 10:56:04:101 Kernel/(5204:5207): nuevo a ready
+[INFO] 10:56:07:204 Kernel/(5204:5204): Se conecto un cliente!
+[INFO] 10:56:07:210 Kernel/(5204:5210): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 10:56:07:210 Kernel/(5204:5210): EL PID QUE ME LLEGO ES 5209
+[INFO] 10:56:07:210 Kernel/(5204:5210): El proceso [5209] ingreso a la cola nuevo
+[INFO] 10:56:07:210 Kernel/(5204:5207): El proceso [5209] fue quitado a la cola nuevo
+[INFO] 10:56:07:210 Kernel/(5204:5207): “PID: 5209 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 10:56:07:210 Kernel/(5204:5207): El proceso [5209] fue agregado a la cola ready
+[INFO] 10:56:07:210 Kernel/(5204:5208): El proceso [5209] fue quitado a la cola ready
+[INFO] 10:56:07:211 Kernel/(5204:5208): “PID: 5209 - Estado Anterior: READY - Estado Actual: EXEC”
+[ERROR] 10:56:08:213 Kernel/(5204:5206): el cliente se desconecto. Terminando servidor
+[INFO] 10:59:20:727 Kernel/(5288:5288): KERNEL listo para recibir a las consolas
+[INFO] 10:59:20:729 Kernel/(5288:5292): de ready a ejecutar
+[INFO] 10:59:20:729 Kernel/(5288:5292): Paso por fifo
+[INFO] 10:59:20:729 Kernel/(5288:5291): nuevo a ready
+[INFO] 10:59:22:698 Kernel/(5288:5288): Se conecto un cliente!
+[INFO] 10:59:22:705 Kernel/(5288:5294): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 10:59:22:705 Kernel/(5288:5294): EL PID QUE ME LLEGO ES 5293
+[INFO] 10:59:22:705 Kernel/(5288:5294): El proceso [5293] ingreso a la cola nuevo
+[INFO] 10:59:22:705 Kernel/(5288:5291): El proceso [5293] fue quitado a la cola nuevo
+[INFO] 10:59:22:705 Kernel/(5288:5291): “PID: 5293 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 10:59:22:705 Kernel/(5288:5291): El proceso [5293] fue agregado a la cola ready
+[INFO] 10:59:22:705 Kernel/(5288:5292): El proceso [5293] fue quitado a la cola ready
+[INFO] 10:59:22:705 Kernel/(5288:5292): “PID: 5293 - Estado Anterior: READY - Estado Actual: EXEC”
+[ERROR] 10:59:23:709 Kernel/(5288:5290): el cliente se desconecto. Terminando servidor
+[INFO] 11:01:08:906 Kernel/(5360:5360): KERNEL listo para recibir a las consolas
+[INFO] 11:01:08:907 Kernel/(5360:5364): de ready a ejecutar
+[INFO] 11:01:08:907 Kernel/(5360:5364): Paso por fifo
+[INFO] 11:01:08:912 Kernel/(5360:5363): nuevo a ready
+[INFO] 11:01:10:682 Kernel/(5360:5360): Se conecto un cliente!
+[INFO] 11:01:10:687 Kernel/(5360:5366): Me llego el mensaje Hola estoy probando cosas para despues
+[INFO] 11:01:10:691 Kernel/(5360:5366): EL PID QUE ME LLEGO ES 5365
+[INFO] 11:01:10:691 Kernel/(5360:5366): El proceso [5365] ingreso a la cola nuevo
+[INFO] 11:01:10:691 Kernel/(5360:5363): El proceso [5365] fue quitado a la cola nuevo
+[INFO] 11:01:10:691 Kernel/(5360:5363): “PID: 5365 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 11:01:10:691 Kernel/(5360:5363): El proceso [5365] fue agregado a la cola ready
+[INFO] 11:01:10:692 Kernel/(5360:5364): El proceso [5365] fue quitado a la cola ready
+[INFO] 11:01:10:692 Kernel/(5360:5364): “PID: 5365 - Estado Anterior: READY - Estado Actual: EXEC”
+[ERROR] 11:01:11:695 Kernel/(5360:5362): el cliente se desconecto. Terminando servidor
+[INFO] 11:11:37:845 Kernel/(5976:5976): KERNEL listo para recibir a las consolas
+[INFO] 11:11:37:846 Kernel/(5976:5980): nuevo a ready
+[INFO] 11:11:37:846 Kernel/(5976:5981): de ready a ejecutar
+[INFO] 11:11:37:847 Kernel/(5976:5981): Paso por fifo
+[ERROR] 11:11:38:657 Kernel/(5976:5979): el cliente se desconecto. Terminando servidor
+[INFO] 11:14:19:580 Kernel/(6196:6196): KERNEL listo para recibir a las consolas
+[INFO] 11:14:19:581 Kernel/(6196:6200): de ready a ejecutar
+[INFO] 11:14:19:581 Kernel/(6196:6200): Paso por fifo
+[INFO] 11:14:19:584 Kernel/(6196:6199): nuevo a ready
+[INFO] 11:14:21:585 Kernel/(6196:6196): Se conecto un cliente!
+[INFO] 11:14:21:589 Kernel/(6196:6202): EL PID QUE ME LLEGO ES 6201
+[INFO] 11:14:21:590 Kernel/(6196:6202): El proceso [6201] ingreso a la cola nuevo
+[INFO] 11:14:21:591 Kernel/(6196:6199): El proceso [6201] fue quitado a la cola nuevo
+[INFO] 11:14:21:591 Kernel/(6196:6199): “PID: 6201 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 11:14:21:591 Kernel/(6196:6199): El proceso [6201] fue agregado a la cola ready
+[INFO] 11:14:21:591 Kernel/(6196:6200): El proceso [6201] fue quitado a la cola ready
+[INFO] 11:14:21:591 Kernel/(6196:6200): “PID: 6201 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 11:14:22:593 Kernel/(6196:6198): Paso por finzalizar
+[INFO] 11:14:22:593 Kernel/(6196:6198): El pcb [6201] ha sido finalizado
+[ERROR] 11:14:26:367 Kernel/(6196:6202): el cliente se desconecto. Terminando servidor

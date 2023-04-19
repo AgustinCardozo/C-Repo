@@ -16,6 +16,7 @@
 #include <utils.h>
 #include <sockets.h>
 #include <compartido.h>
+#include <semaphore.h>
 #include <commons/collections/queue.h>
 #include <serializacion.h>
 
@@ -43,9 +44,9 @@ typedef struct{
 }datos_config;
 
 typedef struct{
-	t_queue*cola_new_fifo;
-	t_queue*cola_ready_fifo;
-	t_queue*cola_ready_hrrn;
+	t_queue* cola_new;
+	t_queue* cola_ready_fifo;
+	t_queue* cola_ready_hrrn;
 }t_cola;
 
 void iterator(char* value);

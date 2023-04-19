@@ -19,17 +19,18 @@ int server_fd;
 int conexion_memoria;
 pthread_t hilo_conexion_kernel;
 pthread_t hilo_conexion_memoria;
-t_pcb* ejecutar_pcb(t_pcb* pcb);
+t_pcb* ejecutar_pcb(t_pcb* pcb,int conexion_kernel);
 t_instruccion* fetch(t_pcb* pcb);
 int decode(t_instruccion* instruccion);
-void execute(t_instruccion* instruccion,t_pcb* pcb);
+void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel);
 //t_list* deserializar_lista_instrucciones(t_buffer* buffer);
 //t_pcb* deserializar_pcb(t_buffer* buffer);
 //t_buffer* desempaquetar(t_paquete* paquete, int cliente_fd);
 void mostrar(t_instruccion* inst);
 void mostrar_parametro(char* value);
-
+int devolver_registro(char* registro);
 int band_ejecutar;
+registro registro_general;
 
 int main(void) {
 	logger = iniciar_logger("cpu.log","CPU");;
@@ -81,7 +82,7 @@ void* atender_kernel(void){
 					t_pcb* pcb = deserializar_pcb(buffer);
 					log_info(logger,"El PID ES %i",pcb->pid);
 					//list_iterate(pcb->lista_instrucciones, (void*) mostrar);
-					ejecutar_pcb(pcb);
+					ejecutar_pcb(pcb,*cliente_fd);
 
 
 					break;
@@ -149,7 +150,7 @@ void mostrar_parametro(char* value){
 	log_info(logger,"Parametro %s",value);
 }
 
-t_pcb* ejecutar_pcb(t_pcb* pcb){
+t_pcb* ejecutar_pcb(t_pcb* pcb,int conexion_kernel){
 
 
 	t_instruccion* instruccion;
@@ -159,10 +160,10 @@ t_pcb* ejecutar_pcb(t_pcb* pcb){
 		instruccion = fetch(pcb);
 			if(decode(instruccion) == 1){
 				log_info(logger,"Instruccion set");
-				usleep(datos.ret_instruccion*10000);
+				usleep(datos.ret_instruccion*1000);
 
 			}
-			execute(instruccion,pcb);
+			execute(instruccion,pcb,conexion_kernel);
 	}while(band_ejecutar == 0);
 
 	band_ejecutar = 0;
@@ -189,11 +190,19 @@ int decode(t_instruccion* instruccion){
 	return acceso;
 }
 
-void execute(t_instruccion* instruccion,t_pcb* pcb){
+void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 
 	switch(instruccion->nombre){
 		case SET:
 			log_info(logger,"Paso por Set");
+			int reg_des = devolver_registro(list_get(instruccion->parametros,0));
+			char* caracteres = list_get(instruccion->parametros,1);
+			log_warning(logger,"!!!!!!!!!!!1 %i %s ",reg_des,caracteres);
+			registro_general.bytes4[0] = string_new();
+
+			registro_general.bytes4[0] = string_duplicate(caracteres);
+			free(caracteres);
+			log_info(logger,"En AX esta %s",registro_general.bytes4[0]);
 			break;
 		case YIELD:
 			log_info(logger,"Paso por YIELD");
@@ -201,10 +210,26 @@ void execute(t_instruccion* instruccion,t_pcb* pcb){
 		case EXIT:
 			log_info(logger,"Paso por Exit");
 			band_ejecutar = 1;
-			enviar_pcb_a(pcb,server_fd,FINALIZAR);
+			enviar_pcb_a(pcb,conexion_kernel,FINALIZAR);
 			break;
 		default:
 			log_info(logger,"Otra cosa");
 			break;
 	}
+}
+
+int devolver_registro(char* registro){
+	int v;
+	if(strcmp(registro,"AX")==0){
+		v = 0;
+	} else if(strcmp(registro,"BX")==0){
+		v = 1;
+	} else if(strcmp(registro,"CX")==0){
+		v = 2;
+	} else if(strcmp(registro,"DX")==0){
+		v = 3;
+	} else {
+		exit(1);
+	}
+	return v;
 }

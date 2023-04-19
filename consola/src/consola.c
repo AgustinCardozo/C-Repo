@@ -45,7 +45,7 @@ int main(void) {
 
 	list_iterate(lista_instrucciones, (void*) mostrar);
 
-	enviar_mensaje("Hola estoy probando cosas para despues",conexion);
+	//enviar_mensaje("Hola estoy probando cosas para despues",conexion);
 	//paquete(conexion);
 	t_paquete* paquete_instrucciones = crear_paquete_instrucciones(lista_instrucciones);
 	enviar_paquete_a(paquete_instrucciones,conexion);
@@ -54,7 +54,7 @@ int main(void) {
 		int cod_op = recibir_operacion(conexion);
 		t_paquete* paquete = malloc(sizeof(t_paquete));
 		paquete->buffer = malloc(sizeof(t_buffer));
-		t_buffer* buffer;
+		//t_buffer* buffer;
 		switch (cod_op) {
 			case MENSAJE:
 				log_info(logger, "El proceso ha terminado");

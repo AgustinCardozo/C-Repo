@@ -12104,3 +12104,212 @@
 [INFO] 14:27:13:706 Consola/(8102:8102): La instruccion es 15
 [WARNING] 14:27:13:707 Consola/(8102:8102): !!!!!!!!!!!!!!!!!!!
 [INFO] 14:27:13:707 Consola/(8102:8102): EL PID ES 8102
+[INFO] 14:54:34:071 Consola/(8637:8637): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 14:54:34:072 Consola/(8637:8637): La instruccion es 0
+[INFO] 14:54:34:072 Consola/(8637:8637): Parametro AX
+[INFO] 14:54:34:072 Consola/(8637:8637): Parametro HOLA
+[INFO] 14:54:34:073 Consola/(8637:8637): La instruccion es 14
+[INFO] 14:54:34:073 Consola/(8637:8637): La instruccion es 15
+[WARNING] 14:54:34:073 Consola/(8637:8637): !!!!!!!!!!!!!!!!!!!
+[INFO] 14:54:34:073 Consola/(8637:8637): EL PID ES 8637
+[INFO] 14:56:17:481 Consola/(8702:8702): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 14:56:17:483 Consola/(8702:8702): La instruccion es 0
+[INFO] 14:56:17:484 Consola/(8702:8702): Parametro AX
+[INFO] 14:56:17:484 Consola/(8702:8702): Parametro HOLA
+[INFO] 14:56:17:484 Consola/(8702:8702): La instruccion es 14
+[INFO] 14:56:17:484 Consola/(8702:8702): La instruccion es 15
+[WARNING] 14:56:17:484 Consola/(8702:8702): !!!!!!!!!!!!!!!!!!!
+[INFO] 14:56:17:485 Consola/(8702:8702): EL PID ES 8702
+[INFO] 14:59:05:067 Consola/(8806:8806): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 14:59:05:069 Consola/(8806:8806): La instruccion es 0
+[INFO] 14:59:05:069 Consola/(8806:8806): Parametro AX
+[INFO] 14:59:05:069 Consola/(8806:8806): Parametro HOLA
+[INFO] 14:59:05:069 Consola/(8806:8806): La instruccion es 14
+[INFO] 14:59:05:070 Consola/(8806:8806): La instruccion es 15
+[WARNING] 14:59:05:070 Consola/(8806:8806): !!!!!!!!!!!!!!!!!!!
+[INFO] 14:59:05:070 Consola/(8806:8806): EL PID ES 8806
+[INFO] 15:03:07:908 Consola/(8942:8942): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:03:07:909 Consola/(8942:8942): La instruccion es 0
+[INFO] 15:03:07:909 Consola/(8942:8942): Parametro AX
+[INFO] 15:03:07:909 Consola/(8942:8942): Parametro HOLA
+[INFO] 15:03:07:909 Consola/(8942:8942): La instruccion es 14
+[INFO] 15:03:07:910 Consola/(8942:8942): La instruccion es 15
+[WARNING] 15:03:07:910 Consola/(8942:8942): !!!!!!!!!!!!!!!!!!!
+[INFO] 15:03:07:936 Consola/(8942:8942): EL PID ES 8942
+[INFO] 15:05:06:611 Consola/(9044:9044): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:05:06:612 Consola/(9044:9044): La instruccion es 0
+[INFO] 15:05:06:612 Consola/(9044:9044): Parametro AX
+[INFO] 15:05:06:612 Consola/(9044:9044): Parametro HOLA
+[INFO] 15:05:06:613 Consola/(9044:9044): La instruccion es 14
+[INFO] 15:05:06:613 Consola/(9044:9044): La instruccion es 15
+[WARNING] 15:05:06:613 Consola/(9044:9044): !!!!!!!!!!!!!!!!!!!
+[INFO] 15:05:06:613 Consola/(9044:9044): EL PID ES 9044
+[INFO] 15:06:56:958 Consola/(9176:9176): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:06:56:959 Consola/(9176:9176): La instruccion es 0
+[INFO] 15:06:56:959 Consola/(9176:9176): Parametro AX
+[INFO] 15:06:56:960 Consola/(9176:9176): Parametro HOLA
+[INFO] 15:06:56:960 Consola/(9176:9176): La instruccion es 14
+[INFO] 15:06:56:960 Consola/(9176:9176): La instruccion es 15
+[WARNING] 15:06:56:960 Consola/(9176:9176): !!!!!!!!!!!!!!!!!!!
+[INFO] 15:06:56:960 Consola/(9176:9176): EL PID ES 9176
+[INFO] 15:08:22:883 Consola/(9253:9253): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:08:22:885 Consola/(9253:9253): La instruccion es 0
+[INFO] 15:08:22:885 Consola/(9253:9253): Parametro AX
+[INFO] 15:08:22:885 Consola/(9253:9253): Parametro HOLA
+[INFO] 15:08:22:885 Consola/(9253:9253): La instruccion es 14
+[INFO] 15:08:22:886 Consola/(9253:9253): La instruccion es 15
+[WARNING] 15:08:22:886 Consola/(9253:9253): !!!!!!!!!!!!!!!!!!!
+[INFO] 15:08:22:886 Consola/(9253:9253): EL PID ES 9253
+[INFO] 15:15:24:074 Consola/(9595:9595): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:15:24:074 Consola/(9595:9595): La instruccion es 0
+[INFO] 15:15:24:075 Consola/(9595:9595): Parametro AX
+[INFO] 15:15:24:075 Consola/(9595:9595): Parametro HOLA
+[INFO] 15:15:24:075 Consola/(9595:9595): La instruccion es 14
+[INFO] 15:15:24:075 Consola/(9595:9595): La instruccion es 15
+[WARNING] 15:15:24:075 Consola/(9595:9595): !!!!!!!!!!!!!!!!!!!
+[INFO] 15:15:24:076 Consola/(9595:9595): EL PID ES 9595
+[INFO] 15:18:05:961 Consola/(9738:9738): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:18:05:963 Consola/(9738:9738): La instruccion es 0
+[INFO] 15:18:05:964 Consola/(9738:9738): Parametro AX
+[INFO] 15:18:05:964 Consola/(9738:9738): Parametro HOLA
+[INFO] 15:18:05:964 Consola/(9738:9738): La instruccion es 14
+[INFO] 15:18:05:964 Consola/(9738:9738): La instruccion es 15
+[WARNING] 15:18:05:964 Consola/(9738:9738): !!!!!!!!!!!!!!!!!!!
+[INFO] 15:18:05:964 Consola/(9738:9738): EL PID ES 9738
+[INFO] 15:22:22:912 Consola/(9908:9908): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:22:22:913 Consola/(9908:9908): La instruccion es 0
+[INFO] 15:22:22:914 Consola/(9908:9908): Parametro AX
+[INFO] 15:22:22:914 Consola/(9908:9908): Parametro HOLA
+[INFO] 15:22:22:914 Consola/(9908:9908): La instruccion es 14
+[INFO] 15:22:22:914 Consola/(9908:9908): La instruccion es 15
+[WARNING] 15:22:22:914 Consola/(9908:9908): !!!!!!!!!!!!!!!!!!!
+[INFO] 15:22:22:915 Consola/(9908:9908): EL PID ES 9908
+[INFO] 10:34:51:595 Consola/(4357:4357): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 10:34:51:597 Consola/(4357:4357): La instruccion es 0
+[INFO] 10:34:51:597 Consola/(4357:4357): Parametro AX
+[INFO] 10:34:51:597 Consola/(4357:4357): Parametro HOLA
+[INFO] 10:34:51:598 Consola/(4357:4357): La instruccion es 14
+[INFO] 10:34:51:600 Consola/(4357:4357): La instruccion es 15
+[WARNING] 10:34:51:600 Consola/(4357:4357): !!!!!!!!!!!!!!!!!!!
+[INFO] 10:34:51:600 Consola/(4357:4357): EL PID ES 4357
+[INFO] 10:37:35:926 Consola/(4436:4436): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 10:37:35:927 Consola/(4436:4436): La instruccion es 0
+[INFO] 10:37:35:927 Consola/(4436:4436): Parametro AX
+[INFO] 10:37:35:927 Consola/(4436:4436): Parametro HOLA
+[INFO] 10:37:35:930 Consola/(4436:4436): La instruccion es 14
+[INFO] 10:37:35:930 Consola/(4436:4436): La instruccion es 15
+[WARNING] 10:37:35:930 Consola/(4436:4436): !!!!!!!!!!!!!!!!!!!
+[INFO] 10:37:35:930 Consola/(4436:4436): EL PID ES 4436
+[INFO] 10:39:11:764 Consola/(4525:4525): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 10:39:11:765 Consola/(4525:4525): La instruccion es 0
+[INFO] 10:39:11:765 Consola/(4525:4525): Parametro AX
+[INFO] 10:39:11:766 Consola/(4525:4525): Parametro HOLA
+[INFO] 10:39:11:766 Consola/(4525:4525): La instruccion es 14
+[INFO] 10:39:11:766 Consola/(4525:4525): La instruccion es 15
+[WARNING] 10:39:11:766 Consola/(4525:4525): !!!!!!!!!!!!!!!!!!!
+[INFO] 10:39:11:766 Consola/(4525:4525): EL PID ES 4525
+[INFO] 10:40:56:434 Consola/(4609:4609): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 10:40:56:437 Consola/(4609:4609): La instruccion es 0
+[INFO] 10:40:56:437 Consola/(4609:4609): Parametro AX
+[INFO] 10:40:56:438 Consola/(4609:4609): Parametro HOLA
+[INFO] 10:40:56:438 Consola/(4609:4609): La instruccion es 14
+[INFO] 10:40:56:438 Consola/(4609:4609): La instruccion es 15
+[WARNING] 10:40:56:438 Consola/(4609:4609): !!!!!!!!!!!!!!!!!!!
+[INFO] 10:40:56:439 Consola/(4609:4609): EL PID ES 4609
+[INFO] 10:43:16:670 Consola/(4684:4684): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 10:43:16:671 Consola/(4684:4684): La instruccion es 0
+[INFO] 10:43:16:671 Consola/(4684:4684): Parametro AX
+[INFO] 10:43:16:671 Consola/(4684:4684): Parametro HOLA
+[INFO] 10:43:16:672 Consola/(4684:4684): La instruccion es 14
+[INFO] 10:43:16:672 Consola/(4684:4684): La instruccion es 15
+[WARNING] 10:43:16:672 Consola/(4684:4684): !!!!!!!!!!!!!!!!!!!
+[INFO] 10:43:16:672 Consola/(4684:4684): EL PID ES 4684
+[INFO] 10:44:22:189 Consola/(4726:4726): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 10:44:22:190 Consola/(4726:4726): La instruccion es 0
+[INFO] 10:44:22:190 Consola/(4726:4726): Parametro AX
+[INFO] 10:44:22:191 Consola/(4726:4726): Parametro HOLA
+[INFO] 10:44:22:191 Consola/(4726:4726): La instruccion es 14
+[INFO] 10:44:22:191 Consola/(4726:4726): La instruccion es 15
+[WARNING] 10:44:22:191 Consola/(4726:4726): !!!!!!!!!!!!!!!!!!!
+[INFO] 10:44:22:191 Consola/(4726:4726): EL PID ES 4726
+[INFO] 10:47:07:250 Consola/(4858:4858): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 10:47:07:251 Consola/(4858:4858): La instruccion es 0
+[INFO] 10:47:07:251 Consola/(4858:4858): Parametro AX
+[INFO] 10:47:07:251 Consola/(4858:4858): Parametro HOLA
+[INFO] 10:47:07:251 Consola/(4858:4858): La instruccion es 14
+[INFO] 10:47:07:252 Consola/(4858:4858): La instruccion es 15
+[WARNING] 10:47:07:252 Consola/(4858:4858): !!!!!!!!!!!!!!!!!!!
+[INFO] 10:47:07:252 Consola/(4858:4858): EL PID ES 4858
+[INFO] 10:49:26:537 Consola/(5006:5006): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 10:49:26:537 Consola/(5006:5006): La instruccion es 0
+[INFO] 10:49:26:537 Consola/(5006:5006): Parametro AX
+[INFO] 10:49:26:537 Consola/(5006:5006): Parametro HOLA
+[INFO] 10:49:26:538 Consola/(5006:5006): La instruccion es 14
+[INFO] 10:49:26:538 Consola/(5006:5006): La instruccion es 15
+[WARNING] 10:49:26:538 Consola/(5006:5006): !!!!!!!!!!!!!!!!!!!
+[INFO] 10:49:26:538 Consola/(5006:5006): EL PID ES 5006
+[INFO] 10:53:55:714 Consola/(5142:5142): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 10:53:55:718 Consola/(5142:5142): La instruccion es 0
+[INFO] 10:53:55:718 Consola/(5142:5142): Parametro AX
+[INFO] 10:53:55:718 Consola/(5142:5142): Parametro HOLA
+[INFO] 10:53:55:718 Consola/(5142:5142): La instruccion es 14
+[INFO] 10:53:55:719 Consola/(5142:5142): La instruccion es 15
+[WARNING] 10:53:55:719 Consola/(5142:5142): !!!!!!!!!!!!!!!!!!!
+[INFO] 10:53:55:719 Consola/(5142:5142): EL PID ES 5142
+[INFO] 10:56:07:203 Consola/(5209:5209): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 10:56:07:205 Consola/(5209:5209): La instruccion es 0
+[INFO] 10:56:07:206 Consola/(5209:5209): Parametro AX
+[INFO] 10:56:07:206 Consola/(5209:5209): Parametro HOLA
+[INFO] 10:56:07:207 Consola/(5209:5209): La instruccion es 14
+[INFO] 10:56:07:207 Consola/(5209:5209): La instruccion es 15
+[WARNING] 10:56:07:208 Consola/(5209:5209): !!!!!!!!!!!!!!!!!!!
+[INFO] 10:56:07:209 Consola/(5209:5209): EL PID ES 5209
+[INFO] 10:59:22:698 Consola/(5293:5293): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 10:59:22:699 Consola/(5293:5293): La instruccion es 0
+[INFO] 10:59:22:699 Consola/(5293:5293): Parametro AX
+[INFO] 10:59:22:699 Consola/(5293:5293): Parametro HOLA
+[INFO] 10:59:22:699 Consola/(5293:5293): La instruccion es 14
+[INFO] 10:59:22:700 Consola/(5293:5293): La instruccion es 15
+[WARNING] 10:59:22:700 Consola/(5293:5293): !!!!!!!!!!!!!!!!!!!
+[INFO] 10:59:22:700 Consola/(5293:5293): EL PID ES 5293
+[INFO] 11:01:10:680 Consola/(5365:5365): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 11:01:10:682 Consola/(5365:5365): La instruccion es 0
+[INFO] 11:01:10:684 Consola/(5365:5365): Parametro AX
+[INFO] 11:01:10:684 Consola/(5365:5365): Parametro HOLA
+[INFO] 11:01:10:684 Consola/(5365:5365): La instruccion es 14
+[INFO] 11:01:10:684 Consola/(5365:5365): La instruccion es 15
+[WARNING] 11:01:10:684 Consola/(5365:5365): !!!!!!!!!!!!!!!!!!!
+[INFO] 11:01:10:684 Consola/(5365:5365): EL PID ES 5365
+[INFO] 11:14:21:583 Consola/(6201:6201): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 11:14:21:584 Consola/(6201:6201): La instruccion es 0
+[INFO] 11:14:21:585 Consola/(6201:6201): Parametro AX
+[INFO] 11:14:21:585 Consola/(6201:6201): Parametro HOLA
+[INFO] 11:14:21:585 Consola/(6201:6201): La instruccion es 14
+[INFO] 11:14:21:585 Consola/(6201:6201): La instruccion es 15
+[WARNING] 11:14:21:585 Consola/(6201:6201): !!!!!!!!!!!!!!!!!!!
+[INFO] 11:14:21:585 Consola/(6201:6201): EL PID ES 6201
+[INFO] 11:14:22:593 Consola/(6201:6201): El proceso ha terminado
+[INFO] 11:14:22:593 Consola/(6201:6201): Me llego el mensaje Tu proceso ha finalizado
