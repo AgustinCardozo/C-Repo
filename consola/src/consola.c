@@ -23,8 +23,11 @@ void mostrar_parametro(char* value);
 t_paquete* crear_paquete_instrucciones(t_list* lista_instrucciones);
 t_buffer* serializar_lista_de_instrucciones(t_list* lista_instrucciones);
 
-int main(void) {
-
+int main(int argc, char** argv) {
+	if (argc < 2) {
+		printf ("se deben especificar la ruta del archivo de pseudocodigo");
+		return EXIT_FAILURE;
+	}
 	char* ip;
 	char* puerto;
 	//char* ruta_arch = "prueba.text";
@@ -41,13 +44,14 @@ int main(void) {
 
 	t_list* lista_instrucciones = list_create();
 
-	lista_instrucciones = parsear("prueba.txt");
+	lista_instrucciones = parsear(argv[1]);
 
 	list_iterate(lista_instrucciones, (void*) mostrar);
 
 	//enviar_mensaje("Hola estoy probando cosas para despues",conexion);
 	//paquete(conexion);
 	t_paquete* paquete_instrucciones = crear_paquete_instrucciones(lista_instrucciones);
+
 	enviar_paquete_a(paquete_instrucciones,conexion);
 
 	while (1) {
@@ -176,7 +180,7 @@ t_instruccion* parsear_linea(char* linea){
 	}
 
 	return inst;
-	free(inst);
+	//free(inst);
 }
 
 void mostrar(t_instruccion* inst){
@@ -192,10 +196,10 @@ t_paquete* crear_paquete_instrucciones(t_list* lista_instrucciones){
 	t_paquete* paquete = malloc(sizeof(t_paquete));
 	paquete->codigo_operacion = INSTRUCCIONES;
 	t_buffer* instrucciones = serializar_lista_de_instrucciones(lista_instrucciones);
-	t_buffer* buffer = malloc(sizeof(t_buffer));
+	/*t_buffer* buffer = malloc(sizeof(t_buffer));
 	int offset = 0;
 	buffer->size = sizeof(int) + instrucciones->size;
-	log_warning(logger,"!!!!!!!!!!!!!!!!!!!");
+
 	buffer->stream = malloc(buffer->size);
 
 	int pid = getpid();
@@ -212,7 +216,9 @@ t_paquete* crear_paquete_instrucciones(t_list* lista_instrucciones){
 		offset += instrucciones->size;
 	}
 
-	paquete->buffer = buffer;
+*/
+
+	paquete->buffer = instrucciones;
 
 	return paquete;
 }

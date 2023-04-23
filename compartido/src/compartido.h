@@ -23,6 +23,7 @@ typedef enum
 	PAQUETE,
 	INSTRUCCIONES,
 	EJECUTAR,
+	DESALOJADO,
 	FINALIZAR
 }op_code;
 

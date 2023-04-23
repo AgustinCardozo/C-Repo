@@ -23,9 +23,6 @@ t_pcb* ejecutar_pcb(t_pcb* pcb,int conexion_kernel);
 t_instruccion* fetch(t_pcb* pcb);
 int decode(t_instruccion* instruccion);
 void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel);
-//t_list* deserializar_lista_instrucciones(t_buffer* buffer);
-//t_pcb* deserializar_pcb(t_buffer* buffer);
-//t_buffer* desempaquetar(t_paquete* paquete, int cliente_fd);
 void mostrar(t_instruccion* inst);
 void mostrar_parametro(char* value);
 int devolver_registro(char* registro);
@@ -206,6 +203,8 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			break;
 		case YIELD:
 			log_info(logger,"Paso por YIELD");
+			band_ejecutar = 1;
+			enviar_pcb_a(pcb,conexion_kernel,DESALOJADO);
 			break;
 		case EXIT:
 			log_info(logger,"Paso por Exit");

@@ -1249,3 +1249,487 @@
 [INFO] 11:14:22:593 Kernel/(6196:6198): Paso por finzalizar
 [INFO] 11:14:22:593 Kernel/(6196:6198): El pcb [6201] ha sido finalizado
 [ERROR] 11:14:26:367 Kernel/(6196:6202): el cliente se desconecto. Terminando servidor
+[INFO] 11:16:32:457 Kernel/(6238:6238): KERNEL listo para recibir a las consolas
+[INFO] 11:16:32:458 Kernel/(6238:6242): de ready a ejecutar
+[INFO] 11:16:32:458 Kernel/(6238:6242): Paso por fifo
+[INFO] 11:16:32:459 Kernel/(6238:6241): nuevo a ready
+[INFO] 11:17:07:314 Kernel/(6238:6238): Se conecto un cliente!
+[INFO] 11:17:07:322 Kernel/(6238:6270): EL PID QUE ME LLEGO ES 6269
+[INFO] 11:17:07:322 Kernel/(6238:6270): El proceso [6269] ingreso a la cola nuevo
+[INFO] 11:17:07:322 Kernel/(6238:6241): El proceso [6269] fue quitado a la cola nuevo
+[INFO] 11:17:07:322 Kernel/(6238:6241): “PID: 6269 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 11:17:07:322 Kernel/(6238:6241): El proceso [6269] fue agregado a la cola ready
+[INFO] 11:17:07:323 Kernel/(6238:6242): El proceso [6269] fue quitado a la cola ready
+[INFO] 11:17:07:323 Kernel/(6238:6242): “PID: 6269 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 11:17:08:324 Kernel/(6238:6240): Paso por finzalizar
+[INFO] 11:17:08:324 Kernel/(6238:6240): El pcb [6269] ha sido finalizado
+[INFO] 11:17:11:744 Kernel/(6238:6238): Se conecto un cliente!
+[INFO] 11:17:11:752 Kernel/(6238:6272): EL PID QUE ME LLEGO ES 6271
+[INFO] 11:17:11:753 Kernel/(6238:6272): El proceso [6271] ingreso a la cola nuevo
+[INFO] 11:17:11:753 Kernel/(6238:6241): El proceso [6271] fue quitado a la cola nuevo
+[INFO] 11:17:11:753 Kernel/(6238:6241): “PID: 6271 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 11:17:11:753 Kernel/(6238:6241): El proceso [6271] fue agregado a la cola ready
+[INFO] 11:17:11:754 Kernel/(6238:6242): El proceso [6271] fue quitado a la cola ready
+[INFO] 11:17:11:754 Kernel/(6238:6242): “PID: 6271 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 11:17:12:756 Kernel/(6238:6240): Paso por finzalizar
+[INFO] 11:17:12:756 Kernel/(6238:6240): El pcb [6271] ha sido finalizado
+[ERROR] 11:17:18:550 Kernel/(6238:6272): el cliente se desconecto. Terminando servidor
+[INFO] 10:20:40:022 Kernel/(2123:2123): KERNEL listo para recibir a las consolas
+[INFO] 10:20:40:024 Kernel/(2123:2127): de ready a ejecutar
+[INFO] 10:20:40:027 Kernel/(2123:2127): Paso por fifo
+[INFO] 10:20:40:024 Kernel/(2123:2126): nuevo a ready
+[INFO] 10:20:48:714 Kernel/(2123:2123): Se conecto un cliente!
+[INFO] 10:20:48:720 Kernel/(2123:2133): EL PID QUE ME LLEGO ES 2132
+[INFO] 10:20:48:720 Kernel/(2123:2133): El proceso [2132] ingreso a la cola nuevo
+[INFO] 10:20:48:720 Kernel/(2123:2126): El proceso [2132] fue quitado a la cola nuevo
+[INFO] 10:20:48:720 Kernel/(2123:2126): “PID: 2132 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 10:20:48:720 Kernel/(2123:2126): El proceso [2132] fue agregado a la cola ready
+[INFO] 10:20:48:720 Kernel/(2123:2127): El proceso [2132] fue quitado a la cola ready
+[INFO] 10:20:48:720 Kernel/(2123:2127): “PID: 2132 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 10:20:49:721 Kernel/(2123:2125): Paso por finzalizar
+[INFO] 10:20:49:721 Kernel/(2123:2125): El proceso [2132] fue agregado a la cola ready
+[INFO] 10:20:49:721 Kernel/(2123:2127): El proceso [2132] fue quitado a la cola ready
+[INFO] 10:20:49:722 Kernel/(2123:2127): “PID: 2132 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 10:20:49:722 Kernel/(2123:2125): Paso por finzalizar
+[INFO] 10:20:49:722 Kernel/(2123:2125): El pcb [2132] ha sido finalizado
+[ERROR] 10:20:57:833 Kernel/(2123:2133): el cliente se desconecto. Terminando servidor
+[INFO] 10:22:31:200 Kernel/(2182:2182): KERNEL listo para recibir a las consolas
+[INFO] 10:22:31:200 Kernel/(2182:2186): de ready a ejecutar
+[INFO] 10:22:31:200 Kernel/(2182:2186): Paso por fifo
+[INFO] 10:22:31:202 Kernel/(2182:2185): nuevo a ready
+[INFO] 10:23:16:872 Kernel/(2182:2182): Se conecto un cliente!
+[INFO] 10:24:38:910 Kernel/(2239:2239): KERNEL listo para recibir a las consolas
+[INFO] 10:24:38:911 Kernel/(2239:2243): de ready a ejecutar
+[INFO] 10:24:38:911 Kernel/(2239:2243): Paso por fifo
+[INFO] 10:24:38:915 Kernel/(2239:2242): nuevo a ready
+[INFO] 10:24:40:420 Kernel/(2239:2239): Se conecto un cliente!
+[INFO] 10:25:51:900 Kernel/(2275:2275): KERNEL listo para recibir a las consolas
+[INFO] 10:25:51:900 Kernel/(2275:2279): de ready a ejecutar
+[INFO] 10:25:51:900 Kernel/(2275:2279): Paso por fifo
+[INFO] 10:25:51:903 Kernel/(2275:2278): nuevo a ready
+[INFO] 10:25:54:355 Kernel/(2275:2275): Se conecto un cliente!
+[INFO] 10:25:54:356 Kernel/(2275:2281): EL PID QUE ME LLEGO ES 2280
+[INFO] 10:25:54:356 Kernel/(2275:2281): El proceso [2280] ingreso a la cola nuevo
+[INFO] 10:25:54:356 Kernel/(2275:2278): El proceso [2280] fue quitado a la cola nuevo
+[INFO] 10:25:54:356 Kernel/(2275:2278): “PID: 2280 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 10:25:54:356 Kernel/(2275:2278): El proceso [2280] fue agregado a la cola ready
+[INFO] 10:25:54:356 Kernel/(2275:2279): El proceso [2280] fue quitado a la cola ready
+[INFO] 10:25:54:356 Kernel/(2275:2279): “PID: 2280 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 10:25:57:357 Kernel/(2275:2277): Paso por desalojado
+[INFO] 10:25:57:357 Kernel/(2275:2277): El proceso [2280] fue agregado a la cola ready
+[INFO] 10:25:57:357 Kernel/(2275:2279): El proceso [2280] fue quitado a la cola ready
+[INFO] 10:25:57:358 Kernel/(2275:2279): “PID: 2280 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 10:25:57:358 Kernel/(2275:2277): Paso por finzalizar
+[INFO] 10:25:57:358 Kernel/(2275:2277): El pcb [2280] ha sido finalizado
+[ERROR] 10:26:26:714 Kernel/(2275:2281): el cliente se desconecto. Terminando servidor
+[INFO] 10:28:25:901 Kernel/(2307:2307): KERNEL listo para recibir a las consolas
+[INFO] 10:28:25:902 Kernel/(2307:2311): de ready a ejecutar
+[INFO] 10:28:25:902 Kernel/(2307:2311): Paso por fifo
+[INFO] 10:28:25:903 Kernel/(2307:2310): nuevo a ready
+[INFO] 10:28:27:840 Kernel/(2307:2307): Se conecto un cliente!
+[INFO] 10:30:41:120 Kernel/(2336:2336): KERNEL listo para recibir a las consolas
+[INFO] 10:30:41:120 Kernel/(2336:2340): de ready a ejecutar
+[INFO] 10:30:41:121 Kernel/(2336:2340): Paso por fifo
+[INFO] 10:30:41:123 Kernel/(2336:2339): nuevo a ready
+[INFO] 10:30:43:047 Kernel/(2336:2336): Se conecto un cliente!
+[INFO] 10:32:40:807 Kernel/(2405:2405): KERNEL listo para recibir a las consolas
+[INFO] 10:32:40:808 Kernel/(2405:2409): de ready a ejecutar
+[INFO] 10:32:40:808 Kernel/(2405:2409): Paso por fifo
+[INFO] 10:32:40:811 Kernel/(2405:2408): nuevo a ready
+[INFO] 10:32:43:249 Kernel/(2405:2405): Se conecto un cliente!
+[INFO] 10:33:52:375 Kernel/(2486:2486): KERNEL listo para recibir a las consolas
+[INFO] 10:33:52:375 Kernel/(2486:2490): de ready a ejecutar
+[INFO] 10:33:52:376 Kernel/(2486:2490): Paso por fifo
+[INFO] 10:33:52:376 Kernel/(2486:2489): nuevo a ready
+[INFO] 10:33:54:472 Kernel/(2486:2486): Se conecto un cliente!
+[INFO] 10:35:52:155 Kernel/(2578:2578): KERNEL listo para recibir a las consolas
+[INFO] 10:35:52:155 Kernel/(2578:2582): de ready a ejecutar
+[INFO] 10:35:52:155 Kernel/(2578:2582): Paso por fifo
+[INFO] 10:35:52:158 Kernel/(2578:2581): nuevo a ready
+[INFO] 10:35:54:464 Kernel/(2578:2578): Se conecto un cliente!
+[INFO] 10:37:47:214 Kernel/(2692:2692): KERNEL listo para recibir a las consolas
+[INFO] 10:37:47:214 Kernel/(2692:2696): de ready a ejecutar
+[INFO] 10:37:47:214 Kernel/(2692:2696): Paso por fifo
+[INFO] 10:37:47:219 Kernel/(2692:2695): nuevo a ready
+[INFO] 10:37:49:024 Kernel/(2692:2692): Se conecto un cliente!
+[INFO] 10:37:49:025 Kernel/(2692:2698): EL PID QUE ME LLEGO ES 2697
+[INFO] 10:37:49:025 Kernel/(2692:2698): El proceso [2697] ingreso a la cola nuevo
+[INFO] 10:37:49:026 Kernel/(2692:2695): El proceso [2697] fue quitado a la cola nuevo
+[INFO] 10:37:49:026 Kernel/(2692:2695): “PID: 2697 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 10:37:49:026 Kernel/(2692:2695): El proceso [2697] fue agregado a la cola ready
+[INFO] 10:37:49:026 Kernel/(2692:2696): El proceso [2697] fue quitado a la cola ready
+[INFO] 10:37:49:026 Kernel/(2692:2696): “PID: 2697 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 10:37:52:027 Kernel/(2692:2694): Paso por desalojado
+[INFO] 10:37:52:027 Kernel/(2692:2694): El proceso [2697] fue agregado a la cola ready
+[INFO] 10:37:52:027 Kernel/(2692:2696): El proceso [2697] fue quitado a la cola ready
+[INFO] 10:37:52:027 Kernel/(2692:2696): “PID: 2697 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 10:37:52:028 Kernel/(2692:2694): Paso por finzalizar
+[INFO] 10:37:52:028 Kernel/(2692:2694): El pcb [2697] ha sido finalizado
+[ERROR] 10:37:54:948 Kernel/(2692:2698): el cliente se desconecto. Terminando servidor
+[INFO] 10:39:20:370 Kernel/(2716:2716): KERNEL listo para recibir a las consolas
+[INFO] 10:39:20:370 Kernel/(2716:2720): de ready a ejecutar
+[INFO] 10:39:20:371 Kernel/(2716:2720): Paso por fifo
+[INFO] 10:39:20:375 Kernel/(2716:2719): nuevo a ready
+[INFO] 10:39:22:135 Kernel/(2716:2716): Se conecto un cliente!
+[INFO] 10:43:42:144 Kernel/(2792:2792): KERNEL listo para recibir a las consolas
+[INFO] 10:43:42:144 Kernel/(2792:2796): de ready a ejecutar
+[INFO] 10:43:42:145 Kernel/(2792:2796): Paso por fifo
+[INFO] 10:43:42:147 Kernel/(2792:2795): nuevo a ready
+[INFO] 10:43:44:434 Kernel/(2792:2792): Se conecto un cliente!
+[INFO] 10:45:05:022 Kernel/(2887:2887): KERNEL listo para recibir a las consolas
+[INFO] 10:45:05:023 Kernel/(2887:2891): de ready a ejecutar
+[INFO] 10:45:05:023 Kernel/(2887:2891): Paso por fifo
+[INFO] 10:45:05:024 Kernel/(2887:2890): nuevo a ready
+[INFO] 10:45:06:624 Kernel/(2887:2887): Se conecto un cliente!
+[INFO] 10:46:25:780 Kernel/(3001:3001): KERNEL listo para recibir a las consolas
+[INFO] 10:46:25:781 Kernel/(3001:3005): de ready a ejecutar
+[INFO] 10:46:25:781 Kernel/(3001:3005): Paso por fifo
+[INFO] 10:46:25:783 Kernel/(3001:3004): nuevo a ready
+[INFO] 10:46:27:743 Kernel/(3001:3001): Se conecto un cliente!
+[INFO] 11:38:14:560 Kernel/(1883:1883): KERNEL listo para recibir a las consolas
+[INFO] 11:38:14:560 Kernel/(1883:1887): de ready a ejecutar
+[INFO] 11:38:14:565 Kernel/(1883:1887): Paso por fifo
+[INFO] 11:38:14:569 Kernel/(1883:1886): nuevo a ready
+[INFO] 11:39:26:966 Kernel/(1883:1883): Se conecto un cliente!
+[INFO] 11:42:18:232 Kernel/(1978:1978): KERNEL listo para recibir a las consolas
+[INFO] 11:42:18:233 Kernel/(1978:1982): de ready a ejecutar
+[INFO] 11:42:18:233 Kernel/(1978:1982): Paso por fifo
+[INFO] 11:42:18:236 Kernel/(1978:1981): nuevo a ready
+[INFO] 11:42:20:742 Kernel/(1978:1978): Se conecto un cliente!
+[INFO] 11:42:20:745 Kernel/(1978:1984): EL PID QUE ME LLEGO ES 1983
+[INFO] 11:42:20:746 Kernel/(1978:1984): El proceso [1983] ingreso a la cola nuevo
+[INFO] 11:42:20:746 Kernel/(1978:1981): El proceso [1983] fue quitado a la cola nuevo
+[INFO] 11:42:20:746 Kernel/(1978:1981): “PID: 1983 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 11:42:20:746 Kernel/(1978:1981): El proceso [1983] fue agregado a la cola ready
+[INFO] 11:42:20:746 Kernel/(1978:1982): El proceso [1983] fue quitado a la cola ready
+[INFO] 11:42:20:746 Kernel/(1978:1982): “PID: 1983 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 11:42:23:747 Kernel/(1978:1980): Paso por desalojado
+[INFO] 11:42:23:747 Kernel/(1978:1980): El proceso [1983] fue agregado a la cola ready
+[INFO] 11:42:23:747 Kernel/(1978:1982): El proceso [1983] fue quitado a la cola ready
+[INFO] 11:42:23:747 Kernel/(1978:1982): “PID: 1983 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 11:42:23:747 Kernel/(1978:1980): Paso por finzalizar
+[INFO] 11:42:23:748 Kernel/(1978:1980): El pcb [1983] ha sido finalizado
+[ERROR] 11:42:29:752 Kernel/(1978:1984): el cliente se desconecto. Terminando servidor
+[INFO] 11:44:33:846 Kernel/(2001:2001): KERNEL listo para recibir a las consolas
+[INFO] 11:44:33:846 Kernel/(2001:2005): de ready a ejecutar
+[INFO] 11:44:33:846 Kernel/(2001:2005): Paso por fifo
+[INFO] 11:44:33:849 Kernel/(2001:2004): nuevo a ready
+[INFO] 11:44:36:267 Kernel/(2001:2001): Se conecto un cliente!
+[INFO] 11:44:36:268 Kernel/(2001:2007): EL PID QUE ME LLEGO ES 2006
+[INFO] 11:44:36:268 Kernel/(2001:2007): El proceso [2006] ingreso a la cola nuevo
+[INFO] 11:44:36:268 Kernel/(2001:2004): El proceso [2006] fue quitado a la cola nuevo
+[INFO] 11:44:36:268 Kernel/(2001:2004): “PID: 2006 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 11:44:36:268 Kernel/(2001:2004): El proceso [2006] fue agregado a la cola ready
+[INFO] 11:44:36:268 Kernel/(2001:2005): El proceso [2006] fue quitado a la cola ready
+[INFO] 11:44:36:268 Kernel/(2001:2005): “PID: 2006 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 11:44:36:268 Kernel/(2001:2003): Paso por desalojado
+[INFO] 11:44:36:268 Kernel/(2001:2003): El proceso [2006] fue agregado a la cola ready
+[INFO] 11:44:36:268 Kernel/(2001:2005): El proceso [2006] fue quitado a la cola ready
+[INFO] 11:44:36:269 Kernel/(2001:2005): “PID: 2006 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 11:44:39:269 Kernel/(2001:2003): Paso por finzalizar
+[INFO] 11:44:39:269 Kernel/(2001:2003): El pcb [2006] ha sido finalizado
+[ERROR] 11:44:42:096 Kernel/(2001:2007): el cliente se desconecto. Terminando servidor
+[INFO] 11:47:15:688 Kernel/(2024:2024): KERNEL listo para recibir a las consolas
+[INFO] 11:47:15:688 Kernel/(2024:2028): de ready a ejecutar
+[INFO] 11:47:15:689 Kernel/(2024:2028): Paso por fifo
+[INFO] 11:47:15:690 Kernel/(2024:2027): nuevo a ready
+[INFO] 11:47:17:559 Kernel/(2024:2024): Se conecto un cliente!
+[INFO] 11:48:49:107 Kernel/(2057:2057): KERNEL listo para recibir a las consolas
+[INFO] 11:48:49:107 Kernel/(2057:2061): de ready a ejecutar
+[INFO] 11:48:49:108 Kernel/(2057:2061): Paso por fifo
+[INFO] 11:48:49:110 Kernel/(2057:2060): nuevo a ready
+[INFO] 11:48:50:995 Kernel/(2057:2057): Se conecto un cliente!
+[INFO] 11:48:51:003 Kernel/(2057:2063): EL PID QUE ME LLEGO ES 2062
+[INFO] 11:48:51:003 Kernel/(2057:2063): El proceso [2062] ingreso a la cola nuevo
+[INFO] 11:48:51:004 Kernel/(2057:2060): El proceso [2062] fue quitado a la cola nuevo
+[INFO] 11:48:51:004 Kernel/(2057:2060): “PID: 2062 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 11:48:51:004 Kernel/(2057:2060): El proceso [2062] fue agregado a la cola ready
+[INFO] 11:48:51:004 Kernel/(2057:2061): El proceso [2062] fue quitado a la cola ready
+[INFO] 11:48:51:004 Kernel/(2057:2061): “PID: 2062 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 11:48:54:005 Kernel/(2057:2059): Paso por desalojado
+[INFO] 11:48:54:005 Kernel/(2057:2059): El proceso [2062] fue agregado a la cola ready
+[INFO] 11:48:54:005 Kernel/(2057:2061): El proceso [2062] fue quitado a la cola ready
+[INFO] 11:48:54:005 Kernel/(2057:2061): “PID: 2062 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 11:48:54:006 Kernel/(2057:2059): Paso por finzalizar
+[INFO] 11:48:54:006 Kernel/(2057:2059): El pcb [2062] ha sido finalizado
+[ERROR] 11:49:13:824 Kernel/(2057:2063): el cliente se desconecto. Terminando servidor
+[INFO] 11:51:08:089 Kernel/(2085:2085): KERNEL listo para recibir a las consolas
+[INFO] 11:51:08:090 Kernel/(2085:2089): de ready a ejecutar
+[INFO] 11:51:08:090 Kernel/(2085:2089): Paso por fifo
+[INFO] 11:51:08:093 Kernel/(2085:2088): nuevo a ready
+[INFO] 11:51:18:079 Kernel/(2085:2085): Se conecto un cliente!
+[INFO] 14:15:57:128 Kernel/(1878:1878): KERNEL listo para recibir a las consolas
+[INFO] 14:15:57:129 Kernel/(1878:1882): de ready a ejecutar
+[INFO] 14:15:57:130 Kernel/(1878:1882): Paso por fifo
+[INFO] 14:15:57:129 Kernel/(1878:1881): nuevo a ready
+[INFO] 14:16:22:066 Kernel/(1878:1878): Se conecto un cliente!
+[INFO] 14:18:16:104 Kernel/(1931:1931): KERNEL listo para recibir a las consolas
+[INFO] 14:18:16:105 Kernel/(1931:1935): de ready a ejecutar
+[INFO] 14:18:16:105 Kernel/(1931:1935): Paso por fifo
+[INFO] 14:18:16:107 Kernel/(1931:1934): nuevo a ready
+[INFO] 14:18:20:467 Kernel/(1931:1931): Se conecto un cliente!
+[INFO] 14:20:49:899 Kernel/(2002:2006): de ready a ejecutar
+[INFO] 14:20:49:899 Kernel/(2002:2002): KERNEL listo para recibir a las consolas
+[INFO] 14:20:49:883 Kernel/(2002:2005): nuevo a ready
+[INFO] 14:20:49:956 Kernel/(2002:2006): Paso por fifo
+[INFO] 14:20:56:843 Kernel/(2002:2002): Se conecto un cliente!
+[INFO] 14:20:56:900 Kernel/(2002:2008): EL PID QUE ME LLEGO ES 2007
+[INFO] 14:20:56:914 Kernel/(2002:2008): El proceso [2007] ingreso a la cola nuevo
+[INFO] 14:20:56:917 Kernel/(2002:2005): El proceso [2007] fue quitado a la cola nuevo
+[INFO] 14:20:56:932 Kernel/(2002:2005): “PID: 2007 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 14:20:56:932 Kernel/(2002:2005): El proceso [2007] fue agregado a la cola ready
+[INFO] 14:20:56:933 Kernel/(2002:2006): El proceso [2007] fue quitado a la cola ready
+[INFO] 14:20:56:934 Kernel/(2002:2006): “PID: 2007 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 14:20:59:958 Kernel/(2002:2004): Paso por desalojado
+[INFO] 14:20:59:963 Kernel/(2002:2004): El proceso [2007] fue agregado a la cola ready
+[INFO] 14:20:59:975 Kernel/(2002:2006): El proceso [2007] fue quitado a la cola ready
+[INFO] 14:20:59:975 Kernel/(2002:2006): “PID: 2007 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 14:20:59:976 Kernel/(2002:2004): Paso por desalojado
+[INFO] 14:20:59:977 Kernel/(2002:2004): El proceso [2007] fue agregado a la cola ready
+[INFO] 14:20:59:977 Kernel/(2002:2006): El proceso [2007] fue quitado a la cola ready
+[INFO] 14:20:59:977 Kernel/(2002:2006): “PID: 2007 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 14:20:59:978 Kernel/(2002:2004): Paso por finzalizar
+[INFO] 14:20:59:979 Kernel/(2002:2004): El pcb [2007] ha sido finalizado
+[INFO] 14:24:33:796 Kernel/(2279:2283): de ready a ejecutar
+[INFO] 14:24:33:796 Kernel/(2279:2279): KERNEL listo para recibir a las consolas
+[INFO] 14:24:33:779 Kernel/(2279:2282): nuevo a ready
+[INFO] 14:24:33:868 Kernel/(2279:2283): Paso por fifo
+[INFO] 14:24:38:717 Kernel/(2279:2279): Se conecto un cliente!
+[INFO] 14:24:38:789 Kernel/(2279:2285): EL PID QUE ME LLEGO ES 2284
+[INFO] 14:24:38:803 Kernel/(2279:2285): El proceso [2284] ingreso a la cola nuevo
+[INFO] 14:24:38:808 Kernel/(2279:2282): El proceso [2284] fue quitado a la cola nuevo
+[INFO] 14:24:38:821 Kernel/(2279:2282): “PID: 2284 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 14:24:38:822 Kernel/(2279:2282): El proceso [2284] fue agregado a la cola ready
+[INFO] 14:24:38:823 Kernel/(2279:2283): El proceso [2284] fue quitado a la cola ready
+[INFO] 14:24:38:824 Kernel/(2279:2283): “PID: 2284 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 14:24:41:862 Kernel/(2279:2281): Paso por desalojado
+[INFO] 14:24:41:871 Kernel/(2279:2281): El proceso [2284] fue agregado a la cola ready
+[INFO] 14:24:41:884 Kernel/(2279:2283): El proceso [2284] fue quitado a la cola ready
+[INFO] 14:24:41:890 Kernel/(2279:2283): “PID: 2284 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 14:24:41:891 Kernel/(2279:2281): Paso por desalojado
+[INFO] 14:24:41:892 Kernel/(2279:2281): El proceso [2284] fue agregado a la cola ready
+[INFO] 14:24:41:892 Kernel/(2279:2283): El proceso [2284] fue quitado a la cola ready
+[INFO] 14:24:41:894 Kernel/(2279:2283): “PID: 2284 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 14:24:41:895 Kernel/(2279:2281): Paso por finzalizar
+[INFO] 14:24:41:896 Kernel/(2279:2281): El pcb [2284] ha sido finalizado
+[INFO] 14:29:30:941 Kernel/(2385:2385): KERNEL listo para recibir a las consolas
+[INFO] 14:29:30:951 Kernel/(2385:2394): de ready a ejecutar
+[INFO] 14:29:30:951 Kernel/(2385:2394): Paso por fifo
+[INFO] 14:29:30:953 Kernel/(2385:2393): nuevo a ready
+[ERROR] 14:29:30:954 Kernel/(2385:2392): el cliente se desconecto. Terminando servidor
+[INFO] 14:30:30:965 Kernel/(2431:2444): nuevo a ready
+[INFO] 14:30:30:973 Kernel/(2431:2431): KERNEL listo para recibir a las consolas
+[INFO] 14:30:30:977 Kernel/(2431:2445): de ready a ejecutar
+[INFO] 14:30:30:979 Kernel/(2431:2445): Paso por fifo
+[INFO] 14:31:33:106 Kernel/(2431:2431): Se conecto un cliente!
+[INFO] 11:57:47:723 Kernel/(1959:1959): KERNEL listo para recibir a las consolas
+[INFO] 11:57:47:723 Kernel/(1959:1963): de ready a ejecutar
+[INFO] 11:57:47:725 Kernel/(1959:1963): Paso por fifo
+[INFO] 11:57:47:724 Kernel/(1959:1962): nuevo a ready
+[INFO] 11:57:53:855 Kernel/(1959:1959): Se conecto un cliente!
+[INFO] 12:00:32:807 Kernel/(2980:2984): de ready a ejecutar
+[INFO] 12:00:32:807 Kernel/(2980:2980): KERNEL listo para recibir a las consolas
+[INFO] 12:00:32:791 Kernel/(2980:2983): nuevo a ready
+[INFO] 12:00:32:865 Kernel/(2980:2984): Paso por fifo
+[INFO] 12:00:42:898 Kernel/(2980:2980): Se conecto un cliente!
+[INFO] 12:00:43:000 Kernel/(2980:2990): EL PID QUE ME LLEGO ES 2987
+[INFO] 12:00:43:014 Kernel/(2980:2990): El proceso [2987] ingreso a la cola nuevo
+[INFO] 12:00:43:022 Kernel/(2980:2983): El proceso [2987] fue quitado a la cola nuevo
+[INFO] 12:00:43:033 Kernel/(2980:2983): “PID: 2987 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 12:00:43:033 Kernel/(2980:2983): El proceso [2987] fue agregado a la cola ready
+[INFO] 12:00:43:035 Kernel/(2980:2984): El proceso [2987] fue quitado a la cola ready
+[INFO] 12:00:43:035 Kernel/(2980:2984): “PID: 2987 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 12:00:49:054 Kernel/(2980:2982): Paso por desalojado
+[INFO] 12:00:49:057 Kernel/(2980:2982): El proceso [2987] fue agregado a la cola ready
+[INFO] 12:00:49:071 Kernel/(2980:2984): El proceso [2987] fue quitado a la cola ready
+[INFO] 12:00:49:072 Kernel/(2980:2984): “PID: 2987 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 12:00:49:073 Kernel/(2980:2982): Paso por finzalizar
+[INFO] 12:00:49:073 Kernel/(2980:2982): El pcb [2987] ha sido finalizado
+[ERROR] 12:01:00:874 Kernel/(2980:2990): el cliente se desconecto. Terminando servidor
+[INFO] 12:02:15:081 Kernel/(3008:3012): de ready a ejecutar
+[INFO] 12:02:15:080 Kernel/(3008:3008): KERNEL listo para recibir a las consolas
+[INFO] 12:02:15:065 Kernel/(3008:3011): nuevo a ready
+[INFO] 12:02:15:134 Kernel/(3008:3012): Paso por fifo
+[INFO] 12:06:53:028 Kernel/(3731:3731): KERNEL listo para recibir a las consolas
+[INFO] 12:06:53:028 Kernel/(3731:3735): de ready a ejecutar
+[INFO] 12:06:53:030 Kernel/(3731:3735): Paso por fifo
+[INFO] 12:06:53:029 Kernel/(3731:3734): nuevo a ready
+[INFO] 12:08:44:093 Kernel/(3731:3731): Se conecto un cliente!
+[INFO] 12:11:05:543 Kernel/(3824:3824): KERNEL listo para recibir a las consolas
+[INFO] 12:11:05:544 Kernel/(3824:3828): de ready a ejecutar
+[INFO] 12:11:05:544 Kernel/(3824:3828): Paso por fifo
+[INFO] 12:11:05:547 Kernel/(3824:3827): nuevo a ready
+[INFO] 12:12:12:783 Kernel/(3824:3824): Se conecto un cliente!
+[INFO] 12:15:48:570 Kernel/(3953:3953): KERNEL listo para recibir a las consolas
+[INFO] 12:15:48:570 Kernel/(3953:3957): de ready a ejecutar
+[INFO] 12:15:48:570 Kernel/(3953:3957): Paso por fifo
+[INFO] 12:15:48:572 Kernel/(3953:3956): nuevo a ready
+[ERROR] 12:18:45:600 Kernel/(3953:3955): el cliente se desconecto. Terminando servidor
+[INFO] 12:20:02:041 Kernel/(4071:4071): KERNEL listo para recibir a las consolas
+[INFO] 12:20:02:041 Kernel/(4071:4075): de ready a ejecutar
+[INFO] 12:20:02:042 Kernel/(4071:4075): Paso por fifo
+[INFO] 12:20:02:043 Kernel/(4071:4074): nuevo a ready
+[INFO] 12:20:14:069 Kernel/(4071:4071): Se conecto un cliente!
+[INFO] 12:28:38:490 Kernel/(4192:4192): KERNEL listo para recibir a las consolas
+[INFO] 12:28:38:491 Kernel/(4192:4196): de ready a ejecutar
+[INFO] 12:28:38:491 Kernel/(4192:4196): Paso por fifo
+[INFO] 12:28:38:492 Kernel/(4192:4195): nuevo a ready
+[INFO] 12:28:40:786 Kernel/(4192:4192): Se conecto un cliente!
+[INFO] 12:33:59:139 Kernel/(4265:4309): nuevo a ready
+[INFO] 12:34:01:513 Kernel/(4265:4312): de ready a ejecutar
+[INFO] 12:34:01:513 Kernel/(4265:4312): Paso por fifo
+[INFO] 12:34:06:787 Kernel/(4265:4265): KERNEL listo para recibir a las consolas
+[INFO] 12:34:28:138 Kernel/(4265:4265): Se conecto un cliente!
+[INFO] 12:38:39:457 Kernel/(4453:4453): KERNEL listo para recibir a las consolas
+[INFO] 12:38:39:457 Kernel/(4453:4457): de ready a ejecutar
+[INFO] 12:38:39:464 Kernel/(4453:4457): Paso por fifo
+[INFO] 12:38:39:458 Kernel/(4453:4456): nuevo a ready
+[INFO] 12:39:18:747 Kernel/(4499:4513): nuevo a ready
+[INFO] 12:39:18:750 Kernel/(4499:4499): KERNEL listo para recibir a las consolas
+[INFO] 12:39:18:751 Kernel/(4499:4514): de ready a ejecutar
+[INFO] 12:39:18:751 Kernel/(4499:4514): Paso por fifo
+[INFO] 12:39:34:168 Kernel/(4453:4453): Se conecto un cliente!
+[ERROR] 12:39:34:460 Kernel/(4499:4511): el cliente se desconecto. Terminando servidor
+[INFO] 12:41:34:218 Kernel/(4574:4584): nuevo a ready
+[INFO] 12:41:34:221 Kernel/(4574:4574): KERNEL listo para recibir a las consolas
+[INFO] 12:41:34:225 Kernel/(4574:4585): de ready a ejecutar
+[INFO] 12:41:34:226 Kernel/(4574:4585): Paso por fifo
+[INFO] 12:41:54:899 Kernel/(4574:4574): Se conecto un cliente!
+[INFO] 12:47:12:368 Kernel/(4621:4621): KERNEL listo para recibir a las consolas
+[INFO] 12:47:12:369 Kernel/(4621:4625): de ready a ejecutar
+[INFO] 12:47:12:369 Kernel/(4621:4625): Paso por fifo
+[INFO] 12:47:12:372 Kernel/(4621:4624): nuevo a ready
+[INFO] 12:50:50:291 Kernel/(4748:4748): KERNEL listo para recibir a las consolas
+[INFO] 12:50:50:292 Kernel/(4748:4752): de ready a ejecutar
+[INFO] 12:50:50:292 Kernel/(4748:4752): Paso por fifo
+[INFO] 12:50:50:296 Kernel/(4748:4751): nuevo a ready
+[INFO] 12:51:16:527 Kernel/(4748:4748): Se conecto un cliente!
+[INFO] 12:58:16:226 Kernel/(5062:5062): KERNEL listo para recibir a las consolas
+[INFO] 12:58:16:227 Kernel/(5062:5066): de ready a ejecutar
+[INFO] 12:58:16:227 Kernel/(5062:5066): Paso por fifo
+[INFO] 12:58:16:229 Kernel/(5062:5065): nuevo a ready
+[INFO] 12:58:18:377 Kernel/(5062:5062): Se conecto un cliente!
+[INFO] 12:58:18:383 Kernel/(5062:5068): EL PID QUE ME LLEGO ES 5067
+[INFO] 12:58:18:383 Kernel/(5062:5068): El proceso [5067] ingreso a la cola nuevo
+[INFO] 12:58:18:383 Kernel/(5062:5065): El proceso [5067] fue quitado a la cola nuevo
+[INFO] 12:58:18:383 Kernel/(5062:5065): “PID: 5067 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 12:58:18:383 Kernel/(5062:5065): El proceso [5067] fue agregado a la cola ready
+[INFO] 12:58:18:383 Kernel/(5062:5066): El proceso [5067] fue quitado a la cola ready
+[INFO] 12:58:18:384 Kernel/(5062:5066): “PID: 5067 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 12:58:21:385 Kernel/(5062:5064): Paso por desalojado
+[INFO] 12:58:21:385 Kernel/(5062:5064): El proceso [5067] fue agregado a la cola ready
+[INFO] 12:58:21:385 Kernel/(5062:5066): El proceso [5067] fue quitado a la cola ready
+[INFO] 12:58:21:385 Kernel/(5062:5066): “PID: 5067 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 12:58:21:386 Kernel/(5062:5064): Paso por finzalizar
+[INFO] 12:58:21:387 Kernel/(5062:5064): El pcb [5067] ha sido finalizado
+[ERROR] 12:58:28:293 Kernel/(5062:5068): el cliente se desconecto. Terminando servidor
+[INFO] 13:00:44:225 Kernel/(5087:5087): KERNEL listo para recibir a las consolas
+[INFO] 13:00:44:226 Kernel/(5087:5091): de ready a ejecutar
+[INFO] 13:00:44:226 Kernel/(5087:5091): Paso por fifo
+[INFO] 13:00:44:229 Kernel/(5087:5090): nuevo a ready
+[INFO] 13:00:46:128 Kernel/(5087:5087): Se conecto un cliente!
+[INFO] 13:00:46:132 Kernel/(5087:5093): EL PID QUE ME LLEGO ES 5092
+[INFO] 13:00:46:132 Kernel/(5087:5093): El proceso [5092] ingreso a la cola nuevo
+[INFO] 13:00:46:132 Kernel/(5087:5090): El proceso [5092] fue quitado a la cola nuevo
+[INFO] 13:00:46:132 Kernel/(5087:5090): “PID: 5092 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 13:00:46:132 Kernel/(5087:5090): El proceso [5092] fue agregado a la cola ready
+[INFO] 13:00:46:133 Kernel/(5087:5091): El proceso [5092] fue quitado a la cola ready
+[INFO] 13:00:46:135 Kernel/(5087:5091): “PID: 5092 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 13:00:49:136 Kernel/(5087:5089): Paso por desalojado
+[INFO] 13:00:49:136 Kernel/(5087:5089): El proceso [5092] fue agregado a la cola ready
+[INFO] 13:00:49:136 Kernel/(5087:5091): El proceso [5092] fue quitado a la cola ready
+[INFO] 13:00:49:136 Kernel/(5087:5091): “PID: 5092 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 13:00:49:137 Kernel/(5087:5089): Paso por desalojado
+[INFO] 13:00:49:137 Kernel/(5087:5089): El proceso [5092] fue agregado a la cola ready
+[INFO] 13:00:49:137 Kernel/(5087:5091): El proceso [5092] fue quitado a la cola ready
+[INFO] 13:00:49:137 Kernel/(5087:5091): “PID: 5092 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 13:00:49:137 Kernel/(5087:5089): Paso por finzalizar
+[INFO] 13:00:49:137 Kernel/(5087:5089): El pcb [5092] ha sido finalizado
+[ERROR] 13:01:03:259 Kernel/(5087:5093): el cliente se desconecto. Terminando servidor
+[INFO] 13:02:20:891 Kernel/(5123:5123): KERNEL listo para recibir a las consolas
+[INFO] 13:02:20:891 Kernel/(5123:5127): de ready a ejecutar
+[INFO] 13:02:20:892 Kernel/(5123:5127): Paso por fifo
+[INFO] 13:02:20:904 Kernel/(5123:5126): nuevo a ready
+[INFO] 13:02:22:677 Kernel/(5123:5123): Se conecto un cliente!
+[INFO] 13:02:22:684 Kernel/(5123:5129): EL PID QUE ME LLEGO ES 5128
+[INFO] 13:02:22:684 Kernel/(5123:5129): El proceso [5128] ingreso a la cola nuevo
+[INFO] 13:02:22:684 Kernel/(5123:5126): El proceso [5128] fue quitado a la cola nuevo
+[INFO] 13:02:22:684 Kernel/(5123:5126): “PID: 5128 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 13:02:22:684 Kernel/(5123:5126): El proceso [5128] fue agregado a la cola ready
+[INFO] 13:02:22:684 Kernel/(5123:5127): El proceso [5128] fue quitado a la cola ready
+[INFO] 13:02:22:684 Kernel/(5123:5127): “PID: 5128 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 13:02:25:685 Kernel/(5123:5125): Paso por desalojado
+[INFO] 13:02:25:685 Kernel/(5123:5125): El proceso [5128] fue agregado a la cola ready
+[INFO] 13:02:25:685 Kernel/(5123:5127): El proceso [5128] fue quitado a la cola ready
+[INFO] 13:02:25:686 Kernel/(5123:5127): “PID: 5128 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 13:02:28:687 Kernel/(5123:5125): Paso por finzalizar
+[INFO] 13:02:28:687 Kernel/(5123:5125): El pcb [5128] ha sido finalizado
+[ERROR] 13:02:33:214 Kernel/(5123:5129): el cliente se desconecto. Terminando servidor
+[INFO] 13:07:32:859 Kernel/(5206:5206): KERNEL listo para recibir a las consolas
+[INFO] 13:07:32:859 Kernel/(5206:5210): de ready a ejecutar
+[INFO] 13:07:32:859 Kernel/(5206:5210): Paso por fifo
+[INFO] 13:07:32:860 Kernel/(5206:5209): nuevo a ready
+[INFO] 13:07:51:524 Kernel/(5206:5206): Se conecto un cliente!
+[INFO] 13:07:51:525 Kernel/(5206:5219): EL PID QUE ME LLEGO ES 5218
+[INFO] 13:07:51:525 Kernel/(5206:5219): El proceso [5218] ingreso a la cola nuevo
+[INFO] 13:07:51:525 Kernel/(5206:5209): El proceso [5218] fue quitado a la cola nuevo
+[INFO] 13:07:51:525 Kernel/(5206:5209): “PID: 5218 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 13:07:51:525 Kernel/(5206:5209): El proceso [5218] fue agregado a la cola ready
+[INFO] 13:07:51:525 Kernel/(5206:5210): El proceso [5218] fue quitado a la cola ready
+[INFO] 13:07:51:525 Kernel/(5206:5210): “PID: 5218 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 13:07:54:527 Kernel/(5206:5208): Paso por desalojado
+[INFO] 13:07:54:527 Kernel/(5206:5208): El proceso [5218] fue agregado a la cola ready
+[INFO] 13:07:54:527 Kernel/(5206:5210): El proceso [5218] fue quitado a la cola ready
+[INFO] 13:07:54:527 Kernel/(5206:5210): “PID: 5218 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 13:07:54:527 Kernel/(5206:5208): Paso por finzalizar
+[INFO] 13:07:54:527 Kernel/(5206:5208): El pcb [5218] ha sido finalizado
+[INFO] 13:08:08:234 Kernel/(5206:5206): Se conecto un cliente!
+[INFO] 13:09:56:838 Kernel/(5248:5248): KERNEL listo para recibir a las consolas
+[INFO] 13:09:56:838 Kernel/(5248:5252): de ready a ejecutar
+[INFO] 13:09:56:839 Kernel/(5248:5252): Paso por fifo
+[INFO] 13:09:56:839 Kernel/(5248:5251): nuevo a ready
+[INFO] 13:10:00:084 Kernel/(5248:5248): Se conecto un cliente!
+[INFO] 13:18:26:762 Kernel/(5462:5462): KERNEL listo para recibir a las consolas
+[INFO] 13:18:26:763 Kernel/(5462:5466): de ready a ejecutar
+[INFO] 13:18:26:764 Kernel/(5462:5466): Paso por fifo
+[INFO] 13:18:26:763 Kernel/(5462:5465): nuevo a ready
+[INFO] 13:18:30:001 Kernel/(5462:5462): Se conecto un cliente!
+[INFO] 13:18:30:004 Kernel/(5462:5468): EL PID QUE ME LLEGO ES 1
+[INFO] 13:18:30:004 Kernel/(5462:5468): El proceso [1] ingreso a la cola nuevo
+[INFO] 13:18:30:004 Kernel/(5462:5465): El proceso [1] fue quitado a la cola nuevo
+[INFO] 13:18:30:004 Kernel/(5462:5465): “PID: 1 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 13:18:30:004 Kernel/(5462:5465): El proceso [1] fue agregado a la cola ready
+[INFO] 13:18:30:004 Kernel/(5462:5466): El proceso [1] fue quitado a la cola ready
+[INFO] 13:18:30:004 Kernel/(5462:5466): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 13:18:33:005 Kernel/(5462:5464): Paso por finzalizar
+[INFO] 13:18:33:005 Kernel/(5462:5464): El pcb [1] ha sido finalizado
+[ERROR] 13:18:38:092 Kernel/(5462:5468): el cliente se desconecto. Terminando servidor
+[INFO] 13:21:00:307 Kernel/(5541:5541): KERNEL listo para recibir a las consolas
+[INFO] 13:21:00:307 Kernel/(5541:5545): de ready a ejecutar
+[INFO] 13:21:00:308 Kernel/(5541:5545): Paso por fifo
+[INFO] 13:21:00:312 Kernel/(5541:5544): nuevo a ready
+[INFO] 13:21:06:354 Kernel/(5541:5541): Se conecto un cliente!
+[INFO] 13:21:06:358 Kernel/(5541:5547): EL PID QUE ME LLEGO ES 1
+[INFO] 13:21:06:358 Kernel/(5541:5547): El proceso [1] ingreso a la cola nuevo
+[INFO] 13:21:06:358 Kernel/(5541:5544): El proceso [1] fue quitado a la cola nuevo
+[INFO] 13:21:06:358 Kernel/(5541:5544): “PID: 1 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 13:21:06:358 Kernel/(5541:5544): El proceso [1] fue agregado a la cola ready
+[INFO] 13:21:06:358 Kernel/(5541:5545): El proceso [1] fue quitado a la cola ready
+[INFO] 13:21:06:358 Kernel/(5541:5545): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 13:21:07:817 Kernel/(5541:5541): Se conecto un cliente!
+[INFO] 13:21:07:818 Kernel/(5541:5549): EL PID QUE ME LLEGO ES 2
+[INFO] 13:21:07:818 Kernel/(5541:5549): El proceso [2] ingreso a la cola nuevo
+[INFO] 13:21:07:818 Kernel/(5541:5544): El proceso [2] fue quitado a la cola nuevo
+[INFO] 13:21:07:818 Kernel/(5541:5544): “PID: 2 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 13:21:07:818 Kernel/(5541:5544): El proceso [2] fue agregado a la cola ready
+[INFO] 13:21:09:361 Kernel/(5541:5543): Paso por desalojado
+[INFO] 13:21:09:361 Kernel/(5541:5543): El proceso [1] fue agregado a la cola ready
+[INFO] 13:21:09:361 Kernel/(5541:5545): El proceso [2] fue quitado a la cola ready
+[INFO] 13:21:09:361 Kernel/(5541:5545): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 13:21:12:365 Kernel/(5541:5543): Paso por finzalizar
+[INFO] 13:21:12:365 Kernel/(5541:5543): El pcb [2] ha sido finalizado
+[INFO] 13:21:12:365 Kernel/(5541:5545): El proceso [1] fue quitado a la cola ready
+[INFO] 13:21:12:366 Kernel/(5541:5545): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 13:21:12:369 Kernel/(5541:5543): Paso por finzalizar
+[INFO] 13:21:12:369 Kernel/(5541:5543): El pcb [1] ha sido finalizado
+[ERROR] 13:22:04:157 Kernel/(5541:5549): el cliente se desconecto. Terminando servidor

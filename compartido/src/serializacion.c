@@ -209,7 +209,7 @@ void enviar_paquete_a(t_paquete* paquete,int conexion){
 	memcpy(a_enviar + offset, &(paquete->buffer->size), sizeof(uint32_t));
 	offset += sizeof(uint32_t);
 	memcpy(a_enviar + offset, paquete->buffer->stream, paquete->buffer->size);
-
+	offset += paquete->buffer->size;
 	send(conexion, a_enviar, paquete->buffer->size + sizeof(op_code) + sizeof(uint32_t), 0);
 
 	free(a_enviar);

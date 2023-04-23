@@ -54,9 +54,10 @@ pthread_t thread_nuevo_a_ready;
 pthread_t thread_atender_cpu;
 pthread_t hilo_atender_consolas;
 pthread_t thread_ejecutar;
+int pid;
 
 int main(void) {
-
+	pid=0;
 
 	cola.cola_new = queue_create();
 	cola.cola_ready_fifo=queue_create();
@@ -123,6 +124,13 @@ void* atender_cpu(void){
 	while(1){
 		int cod_op = recibir_operacion(conexion_cpu);
 			switch (cod_op) {
+				case DESALOJADO:
+					log_info(logger,"Paso por desalojado");
+					sem_post(&sem_habilitar_exec);
+					buffer = desempaquetar(paquete,conexion_cpu);
+					pcb = deserializar_pcb(buffer);
+					agregar_a_cola_ready(pcb);
+					break;
 				case FINALIZAR:
 					log_info(logger,"Paso por finzalizar");
 					sem_post(&sem_habilitar_exec);
@@ -253,24 +261,11 @@ void mostrar_parametro(char* value){
 
 t_pcb* crear_pcb(t_buffer* buffer,int conexion_cliente){
 	t_pcb* pcb = malloc(sizeof(t_pcb));
-	int pid;
 
-	int offset = 0;
-
-	memcpy(&(pid),buffer->stream + offset,sizeof(int));
-	offset += sizeof(int);
-
+	pid++;
 	pcb->pid = pid;
-	t_buffer* buffer_i = malloc(sizeof(t_buffer));
 
-	memcpy(&(buffer_i->size), buffer->stream + offset, sizeof(uint32_t));
-	offset += sizeof(uint32_t);
-
-	buffer_i->stream = malloc(buffer_i->size);
-	memcpy(buffer_i->stream, buffer->stream + offset, buffer_i->size);
-	offset += buffer_i->size;
-
-	t_list* lista_instrucciones = deserializar_lista_instrucciones(buffer_i);
+	t_list* lista_instrucciones = deserializar_lista_instrucciones(buffer);
 	pcb->lista_instrucciones = lista_instrucciones;
 	pcb->program_counter = 0;
 	pcb->segmentos.id = 0;
