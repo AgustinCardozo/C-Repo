@@ -1667,3 +1667,118 @@
 [INFO] 13:21:12:369 CPU/(5537:5538): Paso por Exit
 [INFO] 13:21:12:370 CPU/(5537:5538): TERMINO LA EJECUCION
 [ERROR] 13:22:04:165 CPU/(5537:5539): el cliente se desconecto. Terminando servidor
+[INFO] 13:27:52:940 CPU/(13657:13658): CPU listo para recibir al kernel
+[INFO] 13:27:58:692 CPU/(13657:13658): Se conecto un cliente!
+[INFO] 13:27:58:693 CPU/(13657:13658): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 13:28:00:435 CPU/(13657:13659): el cliente se desconecto. Terminando servidor
+[INFO] 14:11:38:907 CPU/(14487:14488): CPU listo para recibir al kernel
+[INFO] 14:11:40:754 CPU/(14487:14488): Se conecto un cliente!
+[INFO] 14:11:40:755 CPU/(14487:14488): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 14:11:59:875 CPU/(14487:14488): Paso por ejecutar
+[INFO] 14:11:59:875 CPU/(14487:14488): El PID ES 1
+[INFO] 14:11:59:875 CPU/(14487:14488): Program COutnter: 1
+[INFO] 14:11:59:875 CPU/(14487:14488): Otra cosa
+[INFO] 14:11:59:875 CPU/(14487:14488): Program COutnter: 2
+[INFO] 14:11:59:875 CPU/(14487:14488): Paso por Exit
+[INFO] 14:11:59:875 CPU/(14487:14488): TERMINO LA EJECUCION
+[ERROR] 14:11:59:875 CPU/(14487:14488): el cliente se desconecto. Terminando servidor
+[INFO] 14:13:24:882 CPU/(14531:14532): CPU listo para recibir al kernel
+[INFO] 14:13:28:115 CPU/(14531:14532): Se conecto un cliente!
+[INFO] 14:13:28:116 CPU/(14531:14532): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 14:13:35:822 CPU/(14531:14532): Paso por ejecutar
+[INFO] 14:13:35:822 CPU/(14531:14532): El PID ES 1
+[INFO] 14:13:35:822 CPU/(14531:14532): Program COutnter: 1
+[INFO] 14:13:35:822 CPU/(14531:14532): Pasa por Wait
+[INFO] 14:13:35:823 CPU/(14531:14532): Program COutnter: 2
+[INFO] 14:13:35:823 CPU/(14531:14532): Paso por Exit
+[INFO] 14:13:35:823 CPU/(14531:14532): TERMINO LA EJECUCION
+[ERROR] 14:13:56:622 CPU/(14531:14533): el cliente se desconecto. Terminando servidor
+[INFO] 14:41:56:791 CPU/(15029:15030): CPU listo para recibir al kernel
+[INFO] 14:41:59:100 CPU/(15029:15030): Se conecto un cliente!
+[INFO] 14:41:59:101 CPU/(15029:15030): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 14:42:05:582 CPU/(15029:15030): Paso por ejecutar
+[INFO] 14:42:05:582 CPU/(15029:15030): El PID ES 1
+[INFO] 14:42:05:582 CPU/(15029:15030): Program COutnter: 1
+[INFO] 14:42:05:582 CPU/(15029:15030): Pasa por Wait
+[ERROR] 14:42:45:576 CPU/(15029:15031): el cliente se desconecto. Terminando servidor
+[INFO] 14:47:12:317 CPU/(15238:15239): CPU listo para recibir al kernel
+[INFO] 14:47:14:208 CPU/(15238:15239): Se conecto un cliente!
+[INFO] 14:47:14:209 CPU/(15238:15239): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 14:47:37:859 CPU/(15238:15239): Paso por ejecutar
+[INFO] 14:47:37:859 CPU/(15238:15239): El PID ES 1
+[INFO] 14:47:37:859 CPU/(15238:15239): Program COutnter: 1
+[INFO] 14:47:37:859 CPU/(15238:15239): Pasa por Wait
+[ERROR] 14:49:30:204 CPU/(15238:15240): el cliente se desconecto. Terminando servidor
+[INFO] 14:51:09:592 CPU/(15372:15373): CPU listo para recibir al kernel
+[INFO] 14:51:11:571 CPU/(15372:15373): Se conecto un cliente!
+[INFO] 14:51:11:572 CPU/(15372:15373): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 14:51:15:556 CPU/(15372:15373): Paso por ejecutar
+[INFO] 14:51:15:556 CPU/(15372:15373): El PID ES 1
+[INFO] 14:51:15:556 CPU/(15372:15373): Program COutnter: 1
+[INFO] 14:51:15:556 CPU/(15372:15373): Pasa por Wait
+[ERROR] 14:51:48:223 CPU/(15372:15374): el cliente se desconecto. Terminando servidor
+[INFO] 14:53:10:544 CPU/(15502:15503): CPU listo para recibir al kernel
+[INFO] 14:53:15:985 CPU/(15502:15503): Se conecto un cliente!
+[INFO] 14:53:15:985 CPU/(15502:15503): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 14:53:20:965 CPU/(15502:15503): Paso por ejecutar
+[INFO] 14:53:20:966 CPU/(15502:15503): El PID ES 1
+[INFO] 14:53:20:966 CPU/(15502:15503): Program COutnter: 1
+[INFO] 14:53:20:966 CPU/(15502:15503): Pasa por Wait
+[ERROR] 14:54:55:988 CPU/(15502:15504): el cliente se desconecto. Terminando servidor
+[INFO] 14:57:00:097 CPU/(15584:15585): CPU listo para recibir al kernel
+[INFO] 14:58:01:581 CPU/(15584:15585): Se conecto un cliente!
+[INFO] 14:58:01:581 CPU/(15584:15585): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 14:58:16:885 CPU/(15584:15585): Paso por ejecutar
+[INFO] 14:58:16:885 CPU/(15584:15585): El PID ES 1
+[INFO] 14:58:16:885 CPU/(15584:15585): Program COutnter: 1
+[INFO] 14:58:16:885 CPU/(15584:15585): Pasa por Wait
+[ERROR] 14:58:27:945 CPU/(15584:15586): el cliente se desconecto. Terminando servidor
+[INFO] 14:59:39:292 CPU/(15683:15684): CPU listo para recibir al kernel
+[INFO] 15:00:13:536 CPU/(15683:15684): Se conecto un cliente!
+[INFO] 15:00:13:536 CPU/(15683:15684): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 15:00:41:566 CPU/(15683:15684): Paso por ejecutar
+[INFO] 15:00:41:566 CPU/(15683:15684): El PID ES 1
+[INFO] 15:00:41:566 CPU/(15683:15684): Program COutnter: 1
+[INFO] 15:00:41:566 CPU/(15683:15684): Pasa por Wait
+[ERROR] 15:05:03:111 CPU/(15683:15685): el cliente se desconecto. Terminando servidor
+[INFO] 15:08:40:613 CPU/(15841:15842): CPU listo para recibir al kernel
+[INFO] 15:08:57:456 CPU/(15841:15842): Se conecto un cliente!
+[INFO] 15:08:57:456 CPU/(15841:15842): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 15:09:06:414 CPU/(15841:15842): Paso por ejecutar
+[INFO] 15:09:06:414 CPU/(15841:15842): El PID ES 1
+[INFO] 15:09:06:414 CPU/(15841:15842): Program COutnter: 1
+[INFO] 15:09:06:414 CPU/(15841:15842): Pasa por Wait
+[INFO] 15:09:52:975 CPU/(15841:15842): Program COutnter: 2
+[INFO] 15:09:52:976 CPU/(15841:15842): Paso por Exit
+[ERROR] 15:09:52:977 CPU/(15841:15843): el cliente se desconecto. Terminando servidor
+[INFO] 15:09:52:977 CPU/(15841:15842): TERMINO LA EJECUCION
+[ERROR] 15:09:52:977 CPU/(15841:15842): el cliente se desconecto. Terminando servidor
+[INFO] 15:11:19:441 CPU/(15920:15921): CPU listo para recibir al kernel
+[INFO] 15:11:22:331 CPU/(15920:15921): Se conecto un cliente!
+[INFO] 15:11:22:332 CPU/(15920:15921): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 15:11:37:145 CPU/(15920:15921): Paso por ejecutar
+[INFO] 15:11:37:145 CPU/(15920:15921): El PID ES 1
+[INFO] 15:11:37:145 CPU/(15920:15921): Program COutnter: 1
+[INFO] 15:11:37:145 CPU/(15920:15921): Pasa por Wait
+[ERROR] 15:12:02:631 CPU/(15920:15922): el cliente se desconecto. Terminando servidor
+[INFO] 15:13:19:195 CPU/(15969:15970): CPU listo para recibir al kernel
+[INFO] 15:13:20:985 CPU/(15969:15970): Se conecto un cliente!
+[INFO] 15:13:20:987 CPU/(15969:15970): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 15:13:25:385 CPU/(15969:15970): Paso por ejecutar
+[INFO] 15:13:25:385 CPU/(15969:15970): El PID ES 1
+[INFO] 15:13:25:385 CPU/(15969:15970): Program COutnter: 1
+[INFO] 15:13:25:385 CPU/(15969:15970): Pasa por Wait
+[INFO] 15:13:25:385 CPU/(15969:15970): El proceso se bloqueo
+[INFO] 15:13:25:385 CPU/(15969:15970): TERMINO LA EJECUCION
+[ERROR] 15:13:46:280 CPU/(15969:15971): el cliente se desconecto. Terminando servidor
+[INFO] 15:17:28:265 CPU/(16113:16114): CPU listo para recibir al kernel
+[INFO] 15:17:30:486 CPU/(16113:16114): Se conecto un cliente!
+[INFO] 15:17:30:487 CPU/(16113:16114): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 15:17:35:535 CPU/(16113:16114): Paso por ejecutar
+[INFO] 15:17:35:535 CPU/(16113:16114): El PID ES 1
+[INFO] 15:17:35:535 CPU/(16113:16114): Program COutnter: 1
+[INFO] 15:17:35:535 CPU/(16113:16114): Pasa por Wait
+[INFO] 15:17:35:535 CPU/(16113:16114): El programa sigue
+[INFO] 15:17:35:536 CPU/(16113:16114): Program COutnter: 2
+[INFO] 15:17:35:536 CPU/(16113:16114): Paso por Exit
+[INFO] 15:17:35:536 CPU/(16113:16114): TERMINO LA EJECUCION

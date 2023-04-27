@@ -188,7 +188,7 @@ int decode(t_instruccion* instruccion){
 }
 
 void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
-
+	uint32_t result;
 	switch(instruccion->nombre){
 		case SET:
 			log_info(logger,"Paso por Set");
@@ -200,6 +200,23 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			registro_general.bytes4[0] = string_duplicate(caracteres);
 			free(caracteres);
 			log_info(logger,"En AX esta %s",registro_general.bytes4[0]);
+			break;
+		case IO:
+			log_info(logger,"Pasa por I/O");
+			break;
+		case WAIT:
+			log_info(logger,"Pasa por Wait");
+			enviar_pcb_a(pcb,conexion_kernel,EJECUTAR_WAIT);
+			recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
+			if(result == 0){
+				log_info(logger,"El proceso se bloqueo");
+				band_ejecutar = 1;
+			} else {
+				log_info(logger,"El programa sigue");
+			}
+			break;
+		case SIGNAL:
+			log_info(logger,"Pasa por Signal");
 			break;
 		case YIELD:
 			log_info(logger,"Paso por YIELD");

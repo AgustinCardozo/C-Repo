@@ -1068,3 +1068,110 @@
 [INFO] 13:21:00:305 Memoria/(5532:5532): Se conecto un cliente!
 [INFO] 13:21:00:307 Memoria/(5532:5542): Me llego el mensaje Hola te estoy hablando desde el kernel
 [ERROR] 13:22:04:164 Memoria/(5532:5536): el cliente se desconecto. Terminando servidor
+[INFO] 13:27:36:243 Memoria/(13648:13648): Memoria listo para recibir a los modulos
+[INFO] 13:27:44:928 Memoria/(13648:13648): Se conecto un cliente!
+[INFO] 13:27:44:928 Memoria/(13648:13654): Me llego el mensaje Hola te saludo desde el Fyle System
+[INFO] 13:27:52:939 Memoria/(13648:13648): Se conecto un cliente!
+[INFO] 13:27:52:940 Memoria/(13648:13660): Me llego el mensaje Hola te saludo desde el cpu
+[INFO] 13:27:58:693 Memoria/(13648:13648): Se conecto un cliente!
+[INFO] 13:27:58:694 Memoria/(13648:13666): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 13:28:00:435 Memoria/(13648:13654): el cliente se desconecto. Terminando servidor
+[INFO] 14:11:34:659 Memoria/(14482:14482): Memoria listo para recibir a los modulos
+[INFO] 14:11:37:033 Memoria/(14482:14482): Se conecto un cliente!
+[INFO] 14:11:37:034 Memoria/(14482:14486): Me llego el mensaje Hola te saludo desde el Fyle System
+[INFO] 14:11:38:906 Memoria/(14482:14482): Se conecto un cliente!
+[INFO] 14:11:38:907 Memoria/(14482:14490): Me llego el mensaje Hola te saludo desde el cpu
+[INFO] 14:11:40:754 Memoria/(14482:14482): Se conecto un cliente!
+[INFO] 14:11:40:755 Memoria/(14482:14494): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 14:11:59:876 Memoria/(14482:14490): el cliente se desconecto. Terminando servidor
+[INFO] 14:13:20:601 Memoria/(14526:14526): Memoria listo para recibir a los modulos
+[INFO] 14:13:22:668 Memoria/(14526:14526): Se conecto un cliente!
+[INFO] 14:13:22:669 Memoria/(14526:14530): Me llego el mensaje Hola te saludo desde el Fyle System
+[INFO] 14:13:24:882 Memoria/(14526:14526): Se conecto un cliente!
+[INFO] 14:13:24:883 Memoria/(14526:14534): Me llego el mensaje Hola te saludo desde el cpu
+[INFO] 14:13:28:115 Memoria/(14526:14526): Se conecto un cliente!
+[INFO] 14:13:28:122 Memoria/(14526:14538): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 14:13:56:622 Memoria/(14526:14530): el cliente se desconecto. Terminando servidor
+[INFO] 14:40:55:711 Memoria/(15020:15020): Memoria listo para recibir a los modulos
+[INFO] 14:40:57:824 Memoria/(15020:15020): Se conecto un cliente!
+[INFO] 14:40:57:825 Memoria/(15020:15024): Me llego el mensaje Hola te saludo desde el Fyle System
+[INFO] 14:41:56:790 Memoria/(15020:15020): Se conecto un cliente!
+[INFO] 14:41:56:791 Memoria/(15020:15032): Me llego el mensaje Hola te saludo desde el cpu
+[INFO] 14:41:59:100 Memoria/(15020:15020): Se conecto un cliente!
+[INFO] 14:41:59:101 Memoria/(15020:15036): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 14:42:45:576 Memoria/(15020:15024): el cliente se desconecto. Terminando servidor
+[INFO] 14:47:06:930 Memoria/(15233:15233): Memoria listo para recibir a los modulos
+[INFO] 14:47:09:458 Memoria/(15233:15233): Se conecto un cliente!
+[INFO] 14:47:09:464 Memoria/(15233:15237): Me llego el mensaje Hola te saludo desde el Fyle System
+[INFO] 14:47:12:316 Memoria/(15233:15233): Se conecto un cliente!
+[INFO] 14:47:12:318 Memoria/(15233:15241): Me llego el mensaje Hola te saludo desde el cpu
+[INFO] 14:47:14:209 Memoria/(15233:15233): Se conecto un cliente!
+[INFO] 14:47:14:210 Memoria/(15233:15245): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 14:49:30:203 Memoria/(15233:15237): el cliente se desconecto. Terminando servidor
+[INFO] 14:50:21:167 Memoria/(15363:15363): Memoria listo para recibir a los modulos
+[INFO] 14:51:05:313 Memoria/(15367:15367): Memoria listo para recibir a los modulos
+[INFO] 14:51:07:072 Memoria/(15367:15367): Se conecto un cliente!
+[INFO] 14:51:07:072 Memoria/(15367:15371): Me llego el mensaje Hola te saludo desde el Fyle System
+[INFO] 14:51:09:591 Memoria/(15367:15367): Se conecto un cliente!
+[INFO] 14:51:09:592 Memoria/(15367:15375): Me llego el mensaje Hola te saludo desde el cpu
+[INFO] 14:51:11:571 Memoria/(15367:15367): Se conecto un cliente!
+[INFO] 14:51:11:573 Memoria/(15367:15379): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 14:51:48:222 Memoria/(15367:15371): el cliente se desconecto. Terminando servidor
+[INFO] 14:53:07:014 Memoria/(15497:15497): Memoria listo para recibir a los modulos
+[INFO] 14:53:08:751 Memoria/(15497:15497): Se conecto un cliente!
+[INFO] 14:53:08:752 Memoria/(15497:15501): Me llego el mensaje Hola te saludo desde el Fyle System
+[INFO] 14:53:10:544 Memoria/(15497:15497): Se conecto un cliente!
+[INFO] 14:53:10:544 Memoria/(15497:15505): Me llego el mensaje Hola te saludo desde el cpu
+[INFO] 14:53:15:985 Memoria/(15497:15497): Se conecto un cliente!
+[INFO] 14:53:15:986 Memoria/(15497:15509): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 14:54:55:988 Memoria/(15497:15501): el cliente se desconecto. Terminando servidor
+[INFO] 14:55:39:392 Memoria/(15563:15563): Memoria listo para recibir a los modulos
+[INFO] 14:56:56:760 Memoria/(15579:15579): Memoria listo para recibir a los modulos
+[INFO] 14:56:58:411 Memoria/(15579:15579): Se conecto un cliente!
+[INFO] 14:56:58:412 Memoria/(15579:15583): Me llego el mensaje Hola te saludo desde el Fyle System
+[INFO] 14:57:00:097 Memoria/(15579:15579): Se conecto un cliente!
+[INFO] 14:57:00:097 Memoria/(15579:15587): Me llego el mensaje Hola te saludo desde el cpu
+[INFO] 14:58:01:581 Memoria/(15579:15579): Se conecto un cliente!
+[INFO] 14:58:01:589 Memoria/(15579:15633): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 14:58:27:944 Memoria/(15579:15583): el cliente se desconecto. Terminando servidor
+[INFO] 14:59:35:401 Memoria/(15678:15678): Memoria listo para recibir a los modulos
+[INFO] 14:59:37:105 Memoria/(15678:15678): Se conecto un cliente!
+[INFO] 14:59:37:106 Memoria/(15678:15682): Me llego el mensaje Hola te saludo desde el Fyle System
+[INFO] 14:59:39:291 Memoria/(15678:15678): Se conecto un cliente!
+[INFO] 14:59:39:292 Memoria/(15678:15686): Me llego el mensaje Hola te saludo desde el cpu
+[INFO] 15:00:13:536 Memoria/(15678:15678): Se conecto un cliente!
+[INFO] 15:00:13:541 Memoria/(15678:15726): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 15:05:03:111 Memoria/(15678:15682): el cliente se desconecto. Terminando servidor
+[INFO] 15:08:36:391 Memoria/(15836:15836): Memoria listo para recibir a los modulos
+[INFO] 15:08:38:618 Memoria/(15836:15836): Se conecto un cliente!
+[INFO] 15:08:38:619 Memoria/(15836:15840): Me llego el mensaje Hola te saludo desde el Fyle System
+[INFO] 15:08:40:613 Memoria/(15836:15836): Se conecto un cliente!
+[INFO] 15:08:40:613 Memoria/(15836:15844): Me llego el mensaje Hola te saludo desde el cpu
+[INFO] 15:08:57:456 Memoria/(15836:15836): Se conecto un cliente!
+[INFO] 15:08:57:463 Memoria/(15836:15883): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 15:09:52:975 Memoria/(15836:15883): el cliente se desconecto. Terminando servidor
+[INFO] 15:10:26:696 Memoria/(15910:15910): Memoria listo para recibir a los modulos
+[INFO] 15:11:15:688 Memoria/(15915:15915): Memoria listo para recibir a los modulos
+[INFO] 15:11:17:768 Memoria/(15915:15915): Se conecto un cliente!
+[INFO] 15:11:17:769 Memoria/(15915:15919): Me llego el mensaje Hola te saludo desde el Fyle System
+[INFO] 15:11:19:440 Memoria/(15915:15915): Se conecto un cliente!
+[INFO] 15:11:19:441 Memoria/(15915:15923): Me llego el mensaje Hola te saludo desde el cpu
+[INFO] 15:11:22:331 Memoria/(15915:15915): Se conecto un cliente!
+[INFO] 15:11:22:332 Memoria/(15915:15927): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 15:12:02:630 Memoria/(15915:15919): el cliente se desconecto. Terminando servidor
+[INFO] 15:13:07:680 Memoria/(15964:15964): Memoria listo para recibir a los modulos
+[INFO] 15:13:17:019 Memoria/(15964:15964): Se conecto un cliente!
+[INFO] 15:13:17:020 Memoria/(15964:15968): Me llego el mensaje Hola te saludo desde el Fyle System
+[INFO] 15:13:19:194 Memoria/(15964:15964): Se conecto un cliente!
+[INFO] 15:13:19:195 Memoria/(15964:15972): Me llego el mensaje Hola te saludo desde el cpu
+[INFO] 15:13:20:986 Memoria/(15964:15964): Se conecto un cliente!
+[INFO] 15:13:20:988 Memoria/(15964:15976): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 15:13:46:280 Memoria/(15964:15968): el cliente se desconecto. Terminando servidor
+[INFO] 15:17:24:836 Memoria/(16108:16108): Memoria listo para recibir a los modulos
+[INFO] 15:17:26:571 Memoria/(16108:16108): Se conecto un cliente!
+[INFO] 15:17:26:572 Memoria/(16108:16112): Me llego el mensaje Hola te saludo desde el Fyle System
+[INFO] 15:17:28:265 Memoria/(16108:16108): Se conecto un cliente!
+[INFO] 15:17:28:266 Memoria/(16108:16116): Me llego el mensaje Hola te saludo desde el cpu
+[INFO] 15:17:30:486 Memoria/(16108:16108): Se conecto un cliente!
+[INFO] 15:17:30:488 Memoria/(16108:16120): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 15:17:48:271 Memoria/(16108:16116): el cliente se desconecto. Terminando servidor

@@ -12990,3 +12990,67 @@
 [INFO] 13:21:12:366 Consola/(5548:5548): Me llego el mensaje Tu proceso ha finalizado
 [INFO] 13:21:12:370 Consola/(5546:5546): El proceso ha terminado
 [INFO] 13:21:12:370 Consola/(5546:5546): Me llego el mensaje Tu proceso ha finalizado
+[INFO] 14:11:59:870 Consola/(14498:14498): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 14:11:59:871 Consola/(14498:14498): La instruccion es 10
+[INFO] 14:11:59:871 Consola/(14498:14498): Parametro DISCO
+[INFO] 14:11:59:871 Consola/(14498:14498): La instruccion es 15
+[INFO] 14:13:35:818 Consola/(14542:14542): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 14:13:35:819 Consola/(14542:14542): La instruccion es 10
+[INFO] 14:13:35:819 Consola/(14542:14542): Parametro DISCO
+[INFO] 14:13:35:819 Consola/(14542:14542): La instruccion es 15
+[INFO] 14:13:35:823 Consola/(14542:14542): El proceso ha terminado
+[INFO] 14:13:35:823 Consola/(14542:14542): Me llego el mensaje Tu proceso ha finalizado
+[INFO] 14:42:05:577 Consola/(15040:15040): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 14:42:05:581 Consola/(15040:15040): La instruccion es 10
+[INFO] 14:42:05:581 Consola/(15040:15040): Parametro DISCO
+[INFO] 14:42:05:581 Consola/(15040:15040): La instruccion es 15
+[INFO] 14:47:37:855 Consola/(15250:15250): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 14:47:37:858 Consola/(15250:15250): La instruccion es 10
+[INFO] 14:47:37:858 Consola/(15250:15250): Parametro DISCO
+[INFO] 14:47:37:858 Consola/(15250:15250): La instruccion es 15
+[INFO] 14:51:15:555 Consola/(15383:15383): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 14:51:15:555 Consola/(15383:15383): La instruccion es 10
+[INFO] 14:51:15:556 Consola/(15383:15383): Parametro DISCO
+[INFO] 14:51:15:556 Consola/(15383:15383): La instruccion es 15
+[INFO] 14:53:20:962 Consola/(15513:15513): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 14:53:20:962 Consola/(15513:15513): La instruccion es 10
+[INFO] 14:53:20:962 Consola/(15513:15513): Parametro DISCO
+[INFO] 14:53:20:963 Consola/(15513:15513): La instruccion es 15
+[INFO] 14:58:16:867 Consola/(15638:15638): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 14:58:16:869 Consola/(15638:15638): La instruccion es 10
+[INFO] 14:58:16:869 Consola/(15638:15638): Parametro DISCO
+[INFO] 14:58:16:870 Consola/(15638:15638): La instruccion es 15
+[INFO] 15:00:41:527 Consola/(15731:15731): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:00:41:534 Consola/(15731:15731): La instruccion es 10
+[INFO] 15:00:41:535 Consola/(15731:15731): Parametro DISCO
+[INFO] 15:00:41:535 Consola/(15731:15731): La instruccion es 15
+[INFO] 15:09:06:395 Consola/(15887:15887): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:09:06:401 Consola/(15887:15887): La instruccion es 10
+[INFO] 15:09:06:402 Consola/(15887:15887): Parametro DISCO
+[INFO] 15:09:06:402 Consola/(15887:15887): La instruccion es 15
+[INFO] 15:11:37:140 Consola/(15931:15931): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:11:37:143 Consola/(15931:15931): La instruccion es 10
+[INFO] 15:11:37:143 Consola/(15931:15931): Parametro DISCO
+[INFO] 15:11:37:143 Consola/(15931:15931): La instruccion es 15
+[INFO] 15:13:25:383 Consola/(15980:15980): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:13:25:383 Consola/(15980:15980): La instruccion es 10
+[INFO] 15:13:25:384 Consola/(15980:15980): Parametro DISCO
+[INFO] 15:13:25:384 Consola/(15980:15980): La instruccion es 15
+[INFO] 15:17:35:530 Consola/(16124:16124): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:17:35:531 Consola/(16124:16124): La instruccion es 10
+[INFO] 15:17:35:531 Consola/(16124:16124): Parametro DISCO
+[INFO] 15:17:35:531 Consola/(16124:16124): La instruccion es 15
+[INFO] 15:17:35:536 Consola/(16124:16124): El proceso ha terminado
+[INFO] 15:17:35:536 Consola/(16124:16124): Me llego el mensaje Tu proceso ha finalizado

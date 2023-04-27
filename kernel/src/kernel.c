@@ -45,6 +45,9 @@ t_pcb* quitar_de_cola_new();
 t_pcb* quitar_de_cola_ready();
 algoritmo devolver_algoritmo(char*nombre);
 
+//Recursos
+void ejecutar_wait(t_pcb* pcb);
+
 sem_t mutex_cola_new;
 sem_t mutex_cola_ready;
 sem_t sem_multiprogramacion;
@@ -131,7 +134,9 @@ int main(void) {
 		pthread_detach(hilo_atender_consolas);
 	}
 	pthread_detach(thread_recurso);
-
+	pthread_join(thread_atender_cpu,NULL);
+	pthread_join(thread_nuevo_a_ready,NULL);
+	pthread_join(thread_ejecutar,NULL);
 
 	log_destroy(logger);
 	config_destroy(config);
@@ -154,6 +159,12 @@ void* atender_cpu(void){
 					buffer = desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 					agregar_a_cola_ready(pcb);
+					break;
+				case EJECUTAR_WAIT:
+					log_info(logger,"Paso por WAIT");
+					buffer = desempaquetar(paquete,conexion_cpu);
+					pcb = deserializar_pcb(buffer);
+					ejecutar_wait(pcb);
 					break;
 				case FINALIZAR:
 					log_info(logger,"Paso por finzalizar");
@@ -426,9 +437,44 @@ void finalizar_proceso(t_pcb*pcb){
 
 void* iniciar_recurso(void* data){
 	t_recurso* recurso = ((t_recurso*) data);
-	log_info(logger,"INICIANDO EL RECURSO [%s]",recurso->nombre);
+	log_info(logger,"INICIANDO EL RECURSO [%s] con [%i] instancias",recurso->nombre,recurso->instancias);
 	while(1){
 		sem_wait(&recurso->sem_recurso);
+	}
+}
+
+void ejecutar_wait(t_pcb* pcb){
+	t_list_iterator* iterador = list_iterator_create(lista_recursos);
+	int index = pcb->program_counter-1;
+	t_instruccion* instruccion = list_get(pcb->lista_instrucciones,index);
+	char* nombre = list_get(instruccion->parametros,0);
+	int j = 0;
+	while(list_iterator_has_next(iterador)){
+		t_recurso* recu = (t_recurso*)list_iterator_next(iterador);
+		log_info(logger,"Pasa por [%s] con [%i] instancias",recu->nombre,recu->instancias);
+		if(strcmp(nombre,recu->nombre) == 0){
+			recu->instancias--;
+			log_warning(logger,"[%i]!!!!!!!!!!!!!!!!!!",recu->instancias);
+			list_replace(lista_recursos,j,recu);
+			uint32_t resultOk;
+			if(recu->instancias < 0){
+
+				queue_push(recu->cola_recurso,pcb);
+				resultOk = 0;
+				send(conexion_cpu, &resultOk, sizeof(uint32_t), 0);
+				log_info(logger,"El recurso [%s] se bloqueo",recu->nombre);
+				break;
+			} else {
+				uint32_t resultOk = 1;
+				send(conexion_cpu, &resultOk, sizeof(uint32_t), 0);
+				log_info(logger,"El recurso [%s] sigue",recu->nombre);
+				break;
+
+			}
+		} else {
+			log_info(logger,"El recurso no existe, el proceso finaliza");
+			//Liberar datso en memoria
+		}
 	}
 }
 
