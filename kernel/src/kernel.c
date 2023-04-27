@@ -35,6 +35,7 @@ void* de_ready_a_ejecutar(void);
 /////PLANIFICACION///////
 //colas
 t_cola cola;
+
 ////TRANSICIONES////
 void agregar_a_cola_new(t_pcb*pcb);
 void agregar_a_cola_ready(t_pcb*pcb);
@@ -54,10 +55,17 @@ pthread_t thread_nuevo_a_ready;
 pthread_t thread_atender_cpu;
 pthread_t hilo_atender_consolas;
 pthread_t thread_ejecutar;
+pthread_t thread_recurso;
+
+t_list* lista_recursos;
+
+void* iniciar_recurso(void* data);
 int pid;
 
 int main(void) {
 	pid=0;
+
+	lista_recursos = list_create();
 
 	cola.cola_new = queue_create();
 	cola.cola_ready_fifo=queue_create();
@@ -76,14 +84,30 @@ int main(void) {
 	datos.est_inicial = config_get_int_value(config,"ESTIMACION_INICIAL");
 	datos.alfa = atof(config_get_string_value(config,"HRRN_ALFA"));
 	datos.multiprogramacion=config_get_int_value(config,"GRADO_MAX_MULTIPROGRAMACION");
-
-
+	datos.recursos = string_get_string_as_array(config_get_string_value(config,"RECURSOS"));
+	datos.instancias = string_get_string_as_array(config_get_string_value(config,"INSTANCIAS_RECURSOS"));
 
 	sem_init(&mutex_cola_new,0,1);
 	sem_init(&mutex_cola_ready,0,1);
 	sem_init(&sem_multiprogramacion,0,datos.multiprogramacion);
 	sem_init(&sem_nuevo,0,0);
 	sem_init(&sem_habilitar_exec,0,1);
+
+	int i = 0;
+	while(datos.recursos[i] != NULL){
+		t_recurso* recurso = malloc(sizeof(t_recurso));
+
+		recurso->nombre = datos.recursos[i];
+		recurso->instancias = atoi(datos.instancias[i]);
+		recurso->cola_recurso = queue_create();
+		sem_init(&recurso->sem_recurso,0,0);
+
+		pthread_create(&thread_recurso,NULL,(void*) iniciar_recurso,recurso);
+		list_add(lista_recursos,recurso);
+
+		i++;
+
+	}
 
 	conexion_cpu = crear_conexion(datos.ip_cpu,datos.puerto_cpu);
 	conexion_memoria = crear_conexion(datos.ip_memoria,datos.puerto_memoria);
@@ -106,7 +130,7 @@ int main(void) {
 		pthread_create(&hilo_atender_consolas,NULL,(void*) atender_consolas,cliente_fd);
 		pthread_detach(hilo_atender_consolas);
 	}
-
+	pthread_detach(thread_recurso);
 
 
 	log_destroy(logger);
@@ -398,5 +422,14 @@ void finalizar_proceso(t_pcb*pcb){
 
 }
 
+//------------------Encarse de los recursos compartidos-------
+
+void* iniciar_recurso(void* data){
+	t_recurso* recurso = ((t_recurso*) data);
+	log_info(logger,"INICIANDO EL RECURSO [%s]",recurso->nombre);
+	while(1){
+		sem_wait(&recurso->sem_recurso);
+	}
+}
 
 

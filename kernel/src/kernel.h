@@ -39,8 +39,8 @@ typedef struct{
 	int est_inicial;
 	float alfa;
 	int multiprogramacion;
-	//char** recursos;
-	//char** instancias;*/
+	char** recursos;
+	char** instancias;
 }datos_config;
 
 typedef struct{
@@ -48,6 +48,13 @@ typedef struct{
 	t_queue* cola_ready_fifo;
 	t_queue* cola_ready_hrrn;
 }t_cola;
+
+typedef struct{
+	char* nombre;
+	int instancias;
+	t_queue* cola_recurso;
+	sem_t sem_recurso;
+}t_recurso;
 
 void iterator(char* value);
 void atender_consolas(void* data);
