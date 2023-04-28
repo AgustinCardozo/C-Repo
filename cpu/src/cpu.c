@@ -203,6 +203,8 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			break;
 		case IO:
 			log_info(logger,"Pasa por I/O");
+			enviar_pcb_a(pcb,conexion_kernel,EJECUTAR_IO);
+			band_ejecutar = 1;
 			break;
 		case WAIT:
 			log_info(logger,"Pasa por Wait");

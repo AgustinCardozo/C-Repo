@@ -17,6 +17,7 @@
 #include <sockets.h>
 #include <compartido.h>
 #include <semaphore.h>
+#include <time.h>
 #include <commons/collections/queue.h>
 #include <serializacion.h>
 

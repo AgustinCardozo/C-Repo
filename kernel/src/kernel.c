@@ -33,7 +33,7 @@ void de_ready_a_ejecutar_fifo(void);
 void* de_ready_a_ejecutar(void);
 void mostrar_recurso(t_recurso* value);
 void ejecutar_signal(t_pcb* pcb);
-
+void* ejecutar_IO(void* dato);
 /////PLANIFICACION///////
 //colas
 t_cola cola;
@@ -46,7 +46,8 @@ void finalizar_proceso(t_pcb*pcb);
 t_pcb* quitar_de_cola_new();
 t_pcb* quitar_de_cola_ready();
 algoritmo devolver_algoritmo(char*nombre);
-
+void de_ready_a_ejecutar_hrrn(void);
+void replanificar(void);
 //Recursos
 void ejecutar_wait(t_pcb* pcb);
 
@@ -61,6 +62,7 @@ pthread_t thread_atender_cpu;
 pthread_t hilo_atender_consolas;
 pthread_t thread_ejecutar;
 pthread_t thread_recurso;
+pthread_t thread_bloqueo_IO;
 
 t_list* lista_recursos;
 
@@ -97,6 +99,18 @@ int main(void) {
 	sem_init(&sem_multiprogramacion,0,datos.multiprogramacion);
 	sem_init(&sem_nuevo,0,0);
 	sem_init(&sem_habilitar_exec,0,1);
+
+	clock_t ant = clock();
+
+
+	log_info(logger,"El tiempo es %ld",ant);
+
+	sleep(2);
+	clock_t end = clock();
+	log_info(logger,"El tiempo es %ld",end);
+	int a = end - ant;
+
+	log_info(logger,"El timepo que estuvo en ready fue %i",a);
 
 	int i = 0;
 	while(datos.recursos[i] != NULL){
@@ -173,6 +187,15 @@ void* atender_cpu(void){
 					buffer = desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 					ejecutar_signal(pcb);
+					break;
+				case EJECUTAR_IO:
+					log_info(logger,"Paso por signal");
+					sem_post(&sem_habilitar_exec);
+					buffer = desempaquetar(paquete,conexion_cpu);
+					pcb = deserializar_pcb(buffer);
+
+					pthread_create(&thread_bloqueo_IO,NULL,(void*) ejecutar_IO,pcb);
+					pthread_detach(thread_bloqueo_IO);
 					break;
 				case FINALIZAR:
 					log_info(logger,"Paso por finzalizar");
@@ -392,7 +415,8 @@ void* de_ready_a_ejecutar(void){
 				de_ready_a_ejecutar_fifo();
 				break;
 			case HRRN:
-
+				log_info(logger,"Paso por hrrn");
+				de_ready_a_ejecutar_hrrn();
 				break;
 			default:
 				log_warning(logger,"Algo esta ocurriendo en ready a ejectar");
@@ -414,6 +438,26 @@ void de_ready_a_ejecutar_fifo(void){
 			//liberar_pcb(pcb);
 		}
 	}
+}
+
+void de_ready_a_ejecutar_hrrn(void){
+	while(1){
+		while(!queue_is_empty(cola.cola_ready_fifo)){
+			sem_wait(&sem_habilitar_exec);
+			replanificar();
+			t_pcb* pcb = quitar_de_cola_ready();
+			log_info(logger,"“PID: %d - Estado Anterior: READY - Estado Actual: EXEC”",pcb->pid);
+			enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
+		}
+	}
+}
+
+void replanificar(void){
+	t_pcb* pcb = malloc(sizeof(t_pcb));
+	int est = pcb->estimacion*(1-datos.alfa) + pcb->real_ant*datos.alfa;
+
+	int tiempoEspera = clock() - pcb->llegadaReady;
+	int est_hrrn = (est+tiempoEspera)/est;
 }
 
 algoritmo devolver_algoritmo(char*nombre){
@@ -478,6 +522,7 @@ void ejecutar_wait(t_pcb* pcb){
 				queue_push(recu->cola_recurso,pcb);
 				resultOk = 0;
 				send(conexion_cpu, &resultOk, sizeof(uint32_t), 0);
+				sem_post(&sem_habilitar_exec);
 				log_info(logger,"El recurso [%s] se bloqueo",recu->nombre);
 				break;
 			} else {
@@ -537,5 +582,23 @@ void ejecutar_signal(t_pcb* pcb){
 		enviar_mensaje("Tu proceso ha finalizado",pcb->conexion_consola);
 	}
 
+}
+
+void* ejecutar_IO(void* dato){
+	t_pcb* pcb = ((t_pcb*) dato);
+	int index = pcb->program_counter-1;
+	//pcb->program_counter--;
+	t_instruccion* instruccion = list_get(pcb->lista_instrucciones,index);
+
+	int tiempoBloqueado = atoi(list_get(instruccion->parametros,0));
+	log_info(logger,"El proceso [%i] se bloqueo por [%i]",pcb->pid,tiempoBloqueado);
+
+	sleep(tiempoBloqueado);
+	agregar_a_cola_ready(pcb);
+	pthread_cancel(pthread_self());
+
+
+
+	return NULL;
 }
 

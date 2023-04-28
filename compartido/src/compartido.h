@@ -14,6 +14,7 @@
 #include<commons/string.h>
 #include<commons/config.h>
 #include<commons/collections/list.h>
+#include<time.h>
 #include<unistd.h>
 #include<netdb.h>
 
@@ -84,7 +85,8 @@ typedef struct{
 	int program_counter;
 	tabla_segmento segmentos;
 	int estimacion;
-	//TODO Preguntar como se usa el timestap
+	int real_ant;
+	clock_t llegadaReady;
 	char** archivos_abiertos;
 	int conexion_consola;
 }t_pcb;
