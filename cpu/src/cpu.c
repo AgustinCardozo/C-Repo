@@ -209,7 +209,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			enviar_pcb_a(pcb,conexion_kernel,EJECUTAR_WAIT);
 			recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
 			if(result == 0){
-				log_info(logger,"El proceso se bloqueo");
+				log_info(logger,"El proceso se bloqueo o no existe");
 				band_ejecutar = 1;
 			} else {
 				log_info(logger,"El programa sigue");
@@ -217,6 +217,14 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			break;
 		case SIGNAL:
 			log_info(logger,"Pasa por Signal");
+			enviar_pcb_a(pcb,conexion_kernel,EJECUTAR_SIGNAL);
+			recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
+			if(result == 0){
+				log_info(logger,"El proceso se bloqueo o no existe");
+				band_ejecutar = 1;
+			} else {
+				log_info(logger,"El programa sigue");
+			}
 			break;
 		case YIELD:
 			log_info(logger,"Paso por YIELD");

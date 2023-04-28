@@ -31,6 +31,8 @@ void* atender_cpu(void);
 void* de_new_a_ready(void);
 void de_ready_a_ejecutar_fifo(void);
 void* de_ready_a_ejecutar(void);
+void mostrar_recurso(t_recurso* value);
+void ejecutar_signal(t_pcb* pcb);
 
 /////PLANIFICACION///////
 //colas
@@ -166,6 +168,12 @@ void* atender_cpu(void){
 					pcb = deserializar_pcb(buffer);
 					ejecutar_wait(pcb);
 					break;
+				case EJECUTAR_SIGNAL:
+					log_info(logger,"Paso por signal");
+					buffer = desempaquetar(paquete,conexion_cpu);
+					pcb = deserializar_pcb(buffer);
+					ejecutar_signal(pcb);
+					break;
 				case FINALIZAR:
 					log_info(logger,"Paso por finzalizar");
 					sem_post(&sem_habilitar_exec);
@@ -292,6 +300,10 @@ void mostrar(t_instruccion* inst){
 
 void mostrar_parametro(char* value){
 	log_info(logger,"Parametro %s",value);
+}
+
+void mostrar_recurso(t_recurso* value){
+	log_info(logger,"El recurso [%s] tiene [%i] instancias AHORA",value->nombre,value->instancias);
 }
 
 t_pcb* crear_pcb(t_buffer* buffer,int conexion_cliente){
@@ -440,6 +452,9 @@ void* iniciar_recurso(void* data){
 	log_info(logger,"INICIANDO EL RECURSO [%s] con [%i] instancias",recurso->nombre,recurso->instancias);
 	while(1){
 		sem_wait(&recurso->sem_recurso);
+		t_pcb* pcb = queue_pop(recurso->cola_recurso);
+		agregar_a_cola_ready(pcb);
+
 	}
 }
 
@@ -449,12 +464,13 @@ void ejecutar_wait(t_pcb* pcb){
 	t_instruccion* instruccion = list_get(pcb->lista_instrucciones,index);
 	char* nombre = list_get(instruccion->parametros,0);
 	int j = 0;
+	int encontroResultado = 1;
 	while(list_iterator_has_next(iterador)){
 		t_recurso* recu = (t_recurso*)list_iterator_next(iterador);
 		log_info(logger,"Pasa por [%s] con [%i] instancias",recu->nombre,recu->instancias);
 		if(strcmp(nombre,recu->nombre) == 0){
 			recu->instancias--;
-			log_warning(logger,"[%i]!!!!!!!!!!!!!!!!!!",recu->instancias);
+			encontroResultado = 0;
 			list_replace(lista_recursos,j,recu);
 			uint32_t resultOk;
 			if(recu->instancias < 0){
@@ -471,11 +487,55 @@ void ejecutar_wait(t_pcb* pcb){
 				break;
 
 			}
-		} else {
-			log_info(logger,"El recurso no existe, el proceso finaliza");
-			//Liberar datso en memoria
 		}
+		j++;
+	}
+
+	list_iterate(lista_recursos, (void*) mostrar_recurso);
+
+	if(encontroResultado == 1){
+		log_info(logger,"El recurso no existe, el proceso finaliza");
+		//Liberar datso en memoria
+		uint32_t resultOk = 0;
+		send(conexion_cpu, &resultOk, sizeof(uint32_t), 0);
 	}
 }
 
+void ejecutar_signal(t_pcb* pcb){
+	t_list_iterator* iterador = list_iterator_create(lista_recursos);
+	int index = pcb->program_counter-1;
+	t_instruccion* instruccion = list_get(pcb->lista_instrucciones,index);
+	char* nombre = list_get(instruccion->parametros,0);
+	int j = 0;
+	int encontroResultado = 1;
+
+	while(list_iterator_has_next(iterador)){
+		t_recurso* recu = (t_recurso*)list_iterator_next(iterador);
+		log_info(logger,"Pasa por [%s] con [%i] instancias",recu->nombre,recu->instancias);
+		if(strcmp(nombre,recu->nombre) == 0){
+			recu->instancias++;
+			encontroResultado = 0;
+			list_replace(lista_recursos,j,recu);
+			if(!queue_is_empty(recu->cola_recurso)){
+				sem_post(&recu->sem_recurso);
+				break;
+			}
+			uint32_t resultOk = 1;
+			send(conexion_cpu, &resultOk, sizeof(uint32_t), 0);
+			log_info(logger,"El recurso [%s] sigue",recu->nombre);
+		}
+		j++;
+	}
+
+	list_iterate(lista_recursos, (void*) mostrar_recurso);
+	if(encontroResultado == 1){
+		log_info(logger,"El recurso no existe, el proceso finaliza");
+		//Liberar datso en memoria
+		uint32_t resultOk = 0;
+		send(conexion_cpu, &resultOk, sizeof(uint32_t), 0);
+		log_info(logger,"El pcb [%i] ha sido finalizado",pcb->pid);
+		enviar_mensaje("Tu proceso ha finalizado",pcb->conexion_consola);
+	}
+
+}
 

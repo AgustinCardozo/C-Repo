@@ -13054,3 +13054,42 @@
 [INFO] 15:17:35:531 Consola/(16124:16124): La instruccion es 15
 [INFO] 15:17:35:536 Consola/(16124:16124): El proceso ha terminado
 [INFO] 15:17:35:536 Consola/(16124:16124): Me llego el mensaje Tu proceso ha finalizado
+[INFO] 11:14:03:231 Consola/(1987:1987): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 11:14:03:232 Consola/(1987:1987): La instruccion es 10
+[INFO] 11:14:03:232 Consola/(1987:1987): Parametro DISCO
+[INFO] 11:14:03:232 Consola/(1987:1987): La instruccion es 15
+[INFO] 11:23:43:763 Consola/(2266:2266): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 11:23:43:763 Consola/(2266:2266): La instruccion es 10
+[INFO] 11:23:43:763 Consola/(2266:2266): Parametro DISCO
+[INFO] 11:23:43:763 Consola/(2266:2266): La instruccion es 15
+[INFO] 11:26:27:159 Consola/(2289:2289): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 11:26:27:159 Consola/(2289:2289): La instruccion es 10
+[INFO] 11:26:27:159 Consola/(2289:2289): Parametro IMPRESORA
+[INFO] 11:26:27:159 Consola/(2289:2289): La instruccion es 15
+[INFO] 12:09:43:478 Consola/(2985:2985): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 12:09:43:479 Consola/(2985:2985): La instruccion es 11
+[INFO] 12:09:43:479 Consola/(2985:2985): Parametro DISCO
+[INFO] 12:09:43:479 Consola/(2985:2985): La instruccion es 15
+[INFO] 12:12:17:202 Consola/(3044:3044): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 12:12:17:203 Consola/(3044:3044): La instruccion es 11
+[INFO] 12:12:17:203 Consola/(3044:3044): Parametro DISCO
+[INFO] 12:12:17:203 Consola/(3044:3044): La instruccion es 15
+[INFO] 12:12:17:204 Consola/(3044:3044): El proceso ha terminado
+[INFO] 12:12:17:205 Consola/(3044:3044): Me llego el mensaje Tu proceso ha finalizado
+[INFO] 12:14:52:295 Consola/(3070:3070): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 12:14:52:295 Consola/(3070:3070): La instruccion es 11
+[INFO] 12:14:52:295 Consola/(3070:3070): Parametro RECURSO_1
+[INFO] 12:14:52:295 Consola/(3070:3070): La instruccion es 15
+[INFO] 12:14:52:297 Consola/(3070:3070): El proceso ha terminado
+[INFO] 12:14:52:297 Consola/(3070:3070): Me llego el mensaje Tu proceso ha finalizado
+[INFO] 12:16:20:997 Consola/(3125:3125): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 12:16:20:997 Consola/(3125:3125): La instruccion es 10
+[INFO] 12:16:20:997 Consola/(3125:3125): Parametro DISCO
+[INFO] 12:16:20:998 Consola/(3125:3125): La instruccion es 15

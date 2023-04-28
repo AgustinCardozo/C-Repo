@@ -1782,3 +1782,75 @@
 [INFO] 15:17:35:536 CPU/(16113:16114): Program COutnter: 2
 [INFO] 15:17:35:536 CPU/(16113:16114): Paso por Exit
 [INFO] 15:17:35:536 CPU/(16113:16114): TERMINO LA EJECUCION
+[INFO] 11:13:30:752 CPU/(1972:1973): CPU listo para recibir al kernel
+[INFO] 11:13:42:235 CPU/(1972:1973): Se conecto un cliente!
+[INFO] 11:13:42:236 CPU/(1972:1973): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 11:14:03:238 CPU/(1972:1973): Paso por ejecutar
+[INFO] 11:14:03:238 CPU/(1972:1973): El PID ES 1
+[INFO] 11:14:03:238 CPU/(1972:1973): Program COutnter: 1
+[INFO] 11:14:03:238 CPU/(1972:1973): Pasa por Wait
+[INFO] 11:14:03:239 CPU/(1972:1973): El proceso se bloqueo
+[INFO] 11:14:03:239 CPU/(1972:1973): TERMINO LA EJECUCION
+[ERROR] 11:14:20:753 CPU/(1972:1974): el cliente se desconecto. Terminando servidor
+[INFO] 11:23:39:614 CPU/(2255:2256): CPU listo para recibir al kernel
+[INFO] 11:23:41:444 CPU/(2255:2256): Se conecto un cliente!
+[INFO] 11:23:41:445 CPU/(2255:2256): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 11:23:43:764 CPU/(2255:2256): Paso por ejecutar
+[INFO] 11:23:43:764 CPU/(2255:2256): El PID ES 1
+[INFO] 11:23:43:764 CPU/(2255:2256): Program COutnter: 1
+[INFO] 11:23:43:764 CPU/(2255:2256): Pasa por Wait
+[INFO] 11:23:43:764 CPU/(2255:2256): El proceso se bloqueo o no existe
+[INFO] 11:23:43:764 CPU/(2255:2256): TERMINO LA EJECUCION
+[ERROR] 11:23:52:974 CPU/(2255:2257): el cliente se desconecto. Terminando servidor
+[INFO] 11:26:19:293 CPU/(2277:2278): CPU listo para recibir al kernel
+[INFO] 11:26:22:102 CPU/(2277:2278): Se conecto un cliente!
+[INFO] 11:26:22:103 CPU/(2277:2278): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 11:26:27:163 CPU/(2277:2278): Paso por ejecutar
+[INFO] 11:26:27:163 CPU/(2277:2278): El PID ES 1
+[INFO] 11:26:27:163 CPU/(2277:2278): Program COutnter: 1
+[INFO] 11:26:27:163 CPU/(2277:2278): Pasa por Wait
+[INFO] 11:26:27:163 CPU/(2277:2278): El proceso se bloqueo o no existe
+[INFO] 11:26:27:163 CPU/(2277:2278): TERMINO LA EJECUCION
+[ERROR] 11:26:35:524 CPU/(2277:2279): el cliente se desconecto. Terminando servidor
+[INFO] 12:09:32:103 CPU/(2974:2975): CPU listo para recibir al kernel
+[INFO] 12:09:34:865 CPU/(2974:2975): Se conecto un cliente!
+[INFO] 12:09:34:866 CPU/(2974:2975): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 12:09:43:482 CPU/(2974:2975): Paso por ejecutar
+[INFO] 12:09:43:482 CPU/(2974:2975): El PID ES 1
+[INFO] 12:09:43:482 CPU/(2974:2975): Program COutnter: 1
+[INFO] 12:09:43:482 CPU/(2974:2975): Pasa por Signal
+[ERROR] 12:09:58:858 CPU/(2974:2976): el cliente se desconecto. Terminando servidor
+[INFO] 12:12:12:019 CPU/(3033:3034): CPU listo para recibir al kernel
+[INFO] 12:12:14:054 CPU/(3033:3034): Se conecto un cliente!
+[INFO] 12:12:14:055 CPU/(3033:3034): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 12:12:17:204 CPU/(3033:3034): Paso por ejecutar
+[INFO] 12:12:17:204 CPU/(3033:3034): El PID ES 1
+[INFO] 12:12:17:204 CPU/(3033:3034): Program COutnter: 1
+[INFO] 12:12:17:204 CPU/(3033:3034): Pasa por Signal
+[INFO] 12:12:17:204 CPU/(3033:3034): El programa sigue
+[INFO] 12:12:17:204 CPU/(3033:3034): Program COutnter: 2
+[INFO] 12:12:17:204 CPU/(3033:3034): Paso por Exit
+[INFO] 12:12:17:204 CPU/(3033:3034): TERMINO LA EJECUCION
+[ERROR] 12:12:30:946 CPU/(3033:3035): el cliente se desconecto. Terminando servidor
+[INFO] 12:14:47:382 CPU/(3059:3060): CPU listo para recibir al kernel
+[INFO] 12:14:49:210 CPU/(3059:3060): Se conecto un cliente!
+[INFO] 12:14:49:211 CPU/(3059:3060): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 12:14:52:296 CPU/(3059:3060): Paso por ejecutar
+[INFO] 12:14:52:296 CPU/(3059:3060): El PID ES 1
+[INFO] 12:14:52:296 CPU/(3059:3060): Program COutnter: 1
+[INFO] 12:14:52:296 CPU/(3059:3060): Pasa por Signal
+[INFO] 12:14:52:296 CPU/(3059:3060): El programa sigue
+[INFO] 12:14:52:296 CPU/(3059:3060): Program COutnter: 2
+[INFO] 12:14:52:296 CPU/(3059:3060): Paso por Exit
+[INFO] 12:14:52:296 CPU/(3059:3060): TERMINO LA EJECUCION
+[ERROR] 12:14:56:368 CPU/(3059:3061): el cliente se desconecto. Terminando servidor
+[INFO] 12:16:01:835 CPU/(3094:3095): CPU listo para recibir al kernel
+[INFO] 12:16:18:386 CPU/(3094:3095): Se conecto un cliente!
+[INFO] 12:16:18:387 CPU/(3094:3095): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 12:16:20:998 CPU/(3094:3095): Paso por ejecutar
+[INFO] 12:16:20:998 CPU/(3094:3095): El PID ES 1
+[INFO] 12:16:20:998 CPU/(3094:3095): Program COutnter: 1
+[INFO] 12:16:20:998 CPU/(3094:3095): Pasa por Wait
+[INFO] 12:16:20:998 CPU/(3094:3095): El proceso se bloqueo o no existe
+[INFO] 12:16:20:999 CPU/(3094:3095): TERMINO LA EJECUCION
+[ERROR] 12:16:30:219 CPU/(3094:3096): el cliente se desconecto. Terminando servidor
