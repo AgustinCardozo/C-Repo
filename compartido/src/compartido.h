@@ -91,6 +91,10 @@ typedef struct{
 	int conexion_consola;
 }t_pcb;
 
+typedef struct{
+	t_pcb* pcb;
+	int est;
+}t_est; //TODO Ver si es necesario
 
 
 void saludo();

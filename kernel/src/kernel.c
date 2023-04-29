@@ -228,6 +228,8 @@ void* atender_cpu(void){
 					break;
 			}
 	}
+	free(paquete);
+	free(paquete->buffer);
 }
 
 void atender_consolas(void* data){
@@ -453,12 +455,51 @@ void de_ready_a_ejecutar_hrrn(void){
 }
 
 void replanificar(void){
-	t_pcb* pcb = malloc(sizeof(t_pcb));
-	int est = pcb->estimacion*(1-datos.alfa) + pcb->real_ant*datos.alfa;
+    t_list* lista_desordenada = malloc(sizeof(t_list));
 
-	int tiempoEspera = clock() - pcb->llegadaReady;
-	int est_hrrn = (est+tiempoEspera)/est;
+	while(!queue_is_empty(cola.cola_ready_hrrn)){
+		t_pcb* pcb = malloc(sizeof(t_pcb));
+
+		int est = pcb->estimacion*(1-datos.alfa) + pcb->real_ant*datos.alfa;
+		int tiempoEspera = clock() - pcb->llegadaReady;
+		int est_hrrn = (est+tiempoEspera)/est;
+
+		t_est est_proc = malloc(sizeof(t_est));
+		est_proc->pcb = pcb;
+		est_proc->est = est_hrrn;
+
+		list_add(lista_desordenada, est_proc);
+	}
+
+	reorganizar_lista_hrrn(lista_desordenada);
+
+	while(!list_is_empty(lista_desordenada)){
+		//Saco el pcb de la lista y ordeno la cola
+	}
+
+	free(lista_desordenada);
 }
+
+/*
+void reorganizar_lista_hrrn(t_list* lista_desorganizado){
+    //Obtener de la lista la estimacion y convertirlo en un vector de enteros
+
+    // Utilizo el algoritmo 'INSERTION SORT'
+
+    for(int i = 1; i < v_est.length; i++){
+    	int j = i;
+    	int marcado = v_est[i];
+
+		while(j>0 && v_est[j-1] > marcado){
+			v_est[j] = v_est[j-1];
+			j--;
+		}
+		v_est[j] = marcado;
+    }
+
+    //Transformar el vector en
+}
+*/
 
 algoritmo devolver_algoritmo(char*nombre){
 	algoritmo alg;
