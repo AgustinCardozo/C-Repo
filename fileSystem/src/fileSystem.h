@@ -49,7 +49,7 @@ void* atender_memoria(void);
 
 void inicializar_config();
 void iniciar_estructura_fs();
-t_config* iniciar_superbloque(char*); 
+t_config* iniciar_config_fs(char*); 
 void iterator(char*);
 
 #endif /* FILESYSTEM_H_ */

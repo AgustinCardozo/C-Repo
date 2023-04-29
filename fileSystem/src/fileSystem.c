@@ -48,20 +48,20 @@ void inicializar_config(){
 }
 
 void iniciar_estructura_fs(){
-	config_superbloque = iniciar_superbloque(datos.path_superbloque);
-	config_bitmap = iniciar_superbloque(datos.path_bitmap);
-	config_bloques = iniciar_superbloque(datos.path_bloques);
-	config_fcb = iniciar_superbloque(datos.path_fcb);
+	config_superbloque = iniciar_config_fs(datos.path_superbloque);
+	config_bitmap = iniciar_config_fs(datos.path_bitmap);
+	config_bloques = iniciar_config_fs(datos.path_bloques);
+	config_fcb = iniciar_config_fs(datos.path_fcb);
 }
 
-t_config* iniciar_superbloque(char * path) {
-	t_config* config_superbloque = iniciar_config(path);
+t_config* iniciar_config_fs(char * path) {
+	t_config* config = iniciar_config(path);
 	
-	if(config_superbloque == NULL) {
+	if(config == NULL) {
 		log_error(logger, "No se pudo leer el path (%s)", path);
 	}
 
-	return config_superbloque;
+	return config;
 }
 
 void* atender_kernel(void){
