@@ -2705,3 +2705,29 @@
 [INFO] 16:03:08:790 Kernel/(6434:6444): Paso por hrrn
 [INFO] 16:03:08:790 Kernel/(6434:6443): nuevo a ready
 [ERROR] 16:03:08:791 Kernel/(6434:6442): el cliente se desconecto. Terminando servidor
+[INFO] 16:38:29:562 Kernel/(6605:6605): c es 0.833333
+[INFO] 16:38:29:567 Kernel/(6605:6614): INICIANDO EL RECURSO [DISCO] con [0] instancias
+[INFO] 16:38:29:571 Kernel/(6605:6615): INICIANDO EL RECURSO [RECURSO_1] con [2] instancias
+[INFO] 16:38:29:582 Kernel/(6605:6618): nuevo a ready
+[INFO] 16:38:29:586 Kernel/(6605:6605): KERNEL listo para recibir a las consolas
+[INFO] 16:38:29:587 Kernel/(6605:6619): de ready a ejecutar
+[INFO] 16:38:29:587 Kernel/(6605:6619): Paso por hrrn
+[INFO] 16:38:44:859 Kernel/(6605:6605): Se conecto un cliente!
+[INFO] 16:38:44:869 Kernel/(6605:6624): EL PID QUE ME LLEGO ES 1
+[INFO] 16:38:44:869 Kernel/(6605:6624): El proceso [1] ingreso a la cola nuevo
+[INFO] 16:38:44:870 Kernel/(6605:6618): El proceso [1] fue quitado a la cola nuevo
+[INFO] 16:38:44:870 Kernel/(6605:6618): “PID: 1 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 16:38:44:870 Kernel/(6605:6618): El proceso [1] fue agregado a la cola ready
+[INFO] 16:38:44:873 Kernel/(6605:6619): El proceso [1] fue quitado a la cola ready
+[INFO] 16:38:44:873 Kernel/(6605:6619): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 16:38:44:873 Kernel/(6605:6619): La hora en el clock es 13719248
+[INFO] 16:38:46:406 Kernel/(6605:6605): Se conecto un cliente!
+[INFO] 16:38:46:420 Kernel/(6605:6626): EL PID QUE ME LLEGO ES 2
+[INFO] 16:38:46:420 Kernel/(6605:6626): El proceso [2] ingreso a la cola nuevo
+[INFO] 16:38:46:420 Kernel/(6605:6618): El proceso [2] fue quitado a la cola nuevo
+[INFO] 16:38:46:420 Kernel/(6605:6618): “PID: 2 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 16:38:46:420 Kernel/(6605:6618): El proceso [2] fue agregado a la cola ready
+[INFO] 16:38:52:877 Kernel/(6605:6616): Paso por desalojado
+[INFO] 16:38:52:879 Kernel/(6605:6616): La estimacion del pcb [1]  es de 668694 en la hora 15046651
+[INFO] 16:38:52:879 Kernel/(6605:6616): El proceso [1] fue agregado a la cola ready
+[INFO] 16:39:22:371 Kernel/(6605:6619): El pcb1 tiene [1.105800] y el pcb 2 tiene [1.000751]

@@ -723,3 +723,7 @@
 [INFO] 15:57:36:844 File_System/(6175:6176): Me llego el mensaje Hola te estoy hablando desde el kernel
 [ERROR] 16:01:00:563 File_System/(6175:6176): el cliente se desconecto. Terminando servidor
 [ERROR] 16:01:00:566 File_System/(6175:6177): el cliente se desconecto. Terminando servidor
+[INFO] 16:38:12:542 File_System/(6572:6573): Fyle System listo para recibir al kernel
+[INFO] 16:38:29:570 File_System/(6572:6573): Se conecto un cliente!
+[INFO] 16:38:29:571 File_System/(6572:6573): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 16:39:31:866 File_System/(6572:6574): el cliente se desconecto. Terminando servidor

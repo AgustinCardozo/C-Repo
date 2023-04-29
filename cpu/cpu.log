@@ -2215,3 +2215,15 @@
 [INFO] 15:57:53:135 CPU/(6179:6180): TERMINO LA EJECUCION
 [ERROR] 16:01:00:563 CPU/(6179:6180): el cliente se desconecto. Terminando servidor
 [ERROR] 16:01:00:566 CPU/(6179:6181): el cliente se desconecto. Terminando servidor
+[INFO] 16:38:14:242 CPU/(6576:6577): CPU listo para recibir al kernel
+[INFO] 16:38:29:570 CPU/(6576:6577): Se conecto un cliente!
+[INFO] 16:38:29:571 CPU/(6576:6577): Me llego el mensaje Hola te estoy hablando desde el kernel
+[INFO] 16:38:44:873 CPU/(6576:6577): Paso por ejecutar
+[INFO] 16:38:44:873 CPU/(6576:6577): El PID ES 1
+[INFO] 16:38:44:873 CPU/(6576:6577): Program COutnter: 1
+[INFO] 16:38:44:873 CPU/(6576:6577): Instruccion set
+[INFO] 16:38:47:874 CPU/(6576:6577): Paso por Set
+[INFO] 16:38:52:876 CPU/(6576:6577): En AX esta HOLA
+[INFO] 16:38:52:877 CPU/(6576:6577): Program COutnter: 2
+[INFO] 16:38:52:877 CPU/(6576:6577): Paso por YIELD
+[INFO] 16:38:52:877 CPU/(6576:6577): TERMINO LA EJECUCION
