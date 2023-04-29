@@ -86,7 +86,8 @@ typedef struct{
 	tabla_segmento segmentos;
 	int estimacion;
 	int real_ant;
-	clock_t llegadaReady;
+	int llegadaReady;
+	int llegadaExec;
 	char** archivos_abiertos;
 	int conexion_consola;
 }t_pcb;

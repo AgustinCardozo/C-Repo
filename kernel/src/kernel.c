@@ -47,9 +47,10 @@ t_pcb* quitar_de_cola_new();
 t_pcb* quitar_de_cola_ready();
 algoritmo devolver_algoritmo(char*nombre);
 void de_ready_a_ejecutar_hrrn(void);
-void replanificar(void);
+//void replanificar(void);
 //Recursos
 void ejecutar_wait(t_pcb* pcb);
+bool comparador_hrrn(void* data1,void* data2);
 
 sem_t mutex_cola_new;
 sem_t mutex_cola_ready;
@@ -100,17 +101,10 @@ int main(void) {
 	sem_init(&sem_nuevo,0,0);
 	sem_init(&sem_habilitar_exec,0,1);
 
-	clock_t ant = clock();
-
-
-	log_info(logger,"El tiempo es %ld",ant);
-
-	sleep(2);
-	clock_t end = clock();
-	log_info(logger,"El tiempo es %ld",end);
-	int a = end - ant;
-
-	log_info(logger,"El timepo que estuvo en ready fue %i",a);
+	float a = 5;
+	float b = 6;
+	float c = a/b;
+	log_info(logger,"c es %f",c);
 
 	int i = 0;
 	while(datos.recursos[i] != NULL){
@@ -171,10 +165,16 @@ void* atender_cpu(void){
 			switch (cod_op) {
 				case DESALOJADO:
 					log_info(logger,"Paso por desalojado");
-					sem_post(&sem_habilitar_exec);
+
 					buffer = desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
+					int hora = clock();
+
+					pcb->real_ant = clock() - pcb->llegadaExec;
+					pcb->estimacion = datos.alfa*pcb->real_ant + (1 - datos.alfa)*pcb->estimacion;
+					log_info(logger,"La estimacion del pcb [%i]  es de %i en la hora %i",pcb->pid,pcb->estimacion,hora);
 					agregar_a_cola_ready(pcb);
+					sem_post(&sem_habilitar_exec);
 					break;
 				case EJECUTAR_WAIT:
 					log_info(logger,"Paso por WAIT");
@@ -190,10 +190,12 @@ void* atender_cpu(void){
 					break;
 				case EJECUTAR_IO:
 					log_info(logger,"Paso por signal");
-					sem_post(&sem_habilitar_exec);
+
 					buffer = desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
-
+					sem_post(&sem_habilitar_exec);
+					pcb->real_ant = clock() - pcb->llegadaExec;
+					pcb->estimacion = datos.alfa*pcb->real_ant + (1 - datos.alfa)*pcb->estimacion;
 					pthread_create(&thread_bloqueo_IO,NULL,(void*) ejecutar_IO,pcb);
 					pthread_detach(thread_bloqueo_IO);
 					break;
@@ -343,6 +345,8 @@ t_pcb* crear_pcb(t_buffer* buffer,int conexion_cliente){
 	pcb->segmentos.id = 0;
 	pcb->segmentos.direccion_base = 0;
 	pcb->segmentos.tamanio = 0;
+	pcb->llegadaReady = 0;
+	pcb->llegadaExec = 0;
 	pcb->estimacion = datos.est_inicial;
 	pcb->conexion_consola = conexion_cliente;
 	//TODO Falta lo de archivos abiertos
@@ -374,6 +378,7 @@ t_pcb* quitar_de_cola_new(){
 void agregar_a_cola_ready(t_pcb* pcb){
 	log_info(logger,"El proceso [%d] fue agregado a la cola ready",pcb->pid);
 	sem_wait(&mutex_cola_ready);
+	pcb->llegadaReady = clock();
 	queue_push(cola.cola_ready_fifo,pcb);
 	sem_post(&mutex_cola_ready);
 	//sem_post(&sem_exec);
@@ -435,6 +440,7 @@ void de_ready_a_ejecutar_fifo(void){
 			sem_wait(&sem_habilitar_exec);
 			t_pcb* pcb = quitar_de_cola_ready();
 			log_info(logger,"“PID: %d - Estado Anterior: READY - Estado Actual: EXEC”",pcb->pid);
+			pcb->llegadaExec = clock();
 			enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
 
 			//liberar_pcb(pcb);
@@ -446,18 +452,22 @@ void de_ready_a_ejecutar_hrrn(void){
 	while(1){
 		while(!queue_is_empty(cola.cola_ready_fifo)){
 			sem_wait(&sem_habilitar_exec);
-			replanificar();
+			//replanificar();
+			list_sort(cola.cola_ready_fifo->elements,comparador_hrrn);
 			t_pcb* pcb = quitar_de_cola_ready();
 			log_info(logger,"“PID: %d - Estado Anterior: READY - Estado Actual: EXEC”",pcb->pid);
+			clock_t hora = clock();
+			log_info(logger,"La hora en el clock es %ld",hora);
+			pcb->llegadaExec = clock();
 			enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
 		}
 	}
 }
-
+/*
 void replanificar(void){
     t_list* lista_desordenada = malloc(sizeof(t_list));
 
-	while(!queue_is_empty(cola.cola_ready_hrrn)){
+
 		t_pcb* pcb = malloc(sizeof(t_pcb));
 
 		int est = pcb->estimacion*(1-datos.alfa) + pcb->real_ant*datos.alfa;
@@ -469,7 +479,6 @@ void replanificar(void){
 		est_proc->est = est_hrrn;
 
 		list_add(lista_desordenada, est_proc);
-	}
 
 	reorganizar_lista_hrrn(lista_desordenada);
 
@@ -478,6 +487,25 @@ void replanificar(void){
 	}
 
 	free(lista_desordenada);
+}
+*/
+bool comparador_hrrn(void* data1,void* data2){
+	t_pcb* pcb1 = ((t_pcb*) data1);
+	t_pcb* pcb2 = ((t_pcb*) data2);
+	//bool flag = malloc(sizeof(bool));
+	bool flag = true;
+	int t_ahora = clock();
+	int t1 = t_ahora - pcb1->llegadaReady;
+	int t2 = t_ahora - pcb2->llegadaReady;
+	float v1 = (pcb1->estimacion+t1)/pcb1->estimacion;
+	float v2 = (pcb2->estimacion+t2)/pcb2->estimacion;
+	log_info(logger,"El pcb1 tiene [%f] y el pcb 2 tiene [%f]",v1,v2);
+	if(v1 >= v2){
+		flag = true;
+	} else {
+		flag = false;
+	}
+	return flag;
 }
 
 /*
@@ -538,10 +566,13 @@ void* iniciar_recurso(void* data){
 	while(1){
 		sem_wait(&recurso->sem_recurso);
 		t_pcb* pcb = queue_pop(recurso->cola_recurso);
+		pcb->llegadaReady = clock();
 		agregar_a_cola_ready(pcb);
 
 	}
 }
+
+
 
 void ejecutar_wait(t_pcb* pcb){
 	t_list_iterator* iterador = list_iterator_create(lista_recursos);
@@ -559,7 +590,8 @@ void ejecutar_wait(t_pcb* pcb){
 			list_replace(lista_recursos,j,recu);
 			uint32_t resultOk;
 			if(recu->instancias < 0){
-
+				pcb->real_ant = clock() - pcb->llegadaExec;
+				pcb->estimacion = datos.alfa*pcb->real_ant + (1 - datos.alfa)*pcb->estimacion;
 				queue_push(recu->cola_recurso,pcb);
 				resultOk = 0;
 				send(conexion_cpu, &resultOk, sizeof(uint32_t), 0);

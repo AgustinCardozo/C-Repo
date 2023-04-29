@@ -2383,3 +2383,325 @@
 [INFO] 13:44:52:951 Kernel/(5933:5933): El tiempo es 2260
 [INFO] 13:44:54:951 Kernel/(5933:5933): El tiempo es 2464
 [INFO] 13:44:54:952 Kernel/(5933:5933): El timepo que estuvo en ready fue 204
+[INFO] 14:52:19:197 Kernel/(4444:4444): KERNEL listo para recibir a las consolas
+[INFO] 14:52:19:198 Kernel/(4444:4450): de ready a ejecutar
+[INFO] 14:52:19:203 Kernel/(4444:4450): Paso por hrrn
+[INFO] 14:52:19:198 Kernel/(4444:4449): nuevo a ready
+[INFO] 14:52:19:198 Kernel/(4444:4446): INICIANDO EL RECURSO [RECURSO_1] con [2] instancias
+[INFO] 14:52:19:198 Kernel/(4444:4445): INICIANDO EL RECURSO [DISCO] con [0] instancias
+[INFO] 14:52:33:604 Kernel/(4444:4444): Se conecto un cliente!
+[INFO] 14:52:33:608 Kernel/(4444:4452): EL PID QUE ME LLEGO ES 1
+[INFO] 14:52:33:609 Kernel/(4444:4452): El proceso [1] ingreso a la cola nuevo
+[INFO] 14:52:33:609 Kernel/(4444:4449): El proceso [1] fue quitado a la cola nuevo
+[INFO] 14:52:33:609 Kernel/(4444:4449): “PID: 1 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 14:52:33:609 Kernel/(4444:4449): El proceso [1] fue agregado a la cola ready
+[INFO] 14:52:33:609 Kernel/(4444:4450): El proceso [1] fue quitado a la cola ready
+[INFO] 14:52:33:609 Kernel/(4444:4450): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 14:52:41:610 Kernel/(4444:4448): Paso por desalojado
+[INFO] 14:52:41:610 Kernel/(4444:4448): El proceso [1] fue agregado a la cola ready
+[INFO] 14:52:41:610 Kernel/(4444:4450): El proceso [1] fue quitado a la cola ready
+[INFO] 14:52:41:610 Kernel/(4444:4450): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 14:52:49:614 Kernel/(4444:4448): Paso por finzalizar
+[INFO] 14:52:49:614 Kernel/(4444:4448): El pcb [1] ha sido finalizado
+[ERROR] 14:53:44:958 Kernel/(4444:4452): el cliente se desconecto. Terminando servidor
+[INFO] 14:59:11:960 Kernel/(4662:4662): KERNEL listo para recibir a las consolas
+[INFO] 14:59:11:961 Kernel/(4662:4668): de ready a ejecutar
+[INFO] 14:59:11:961 Kernel/(4662:4668): Paso por hrrn
+[INFO] 14:59:11:961 Kernel/(4662:4667): nuevo a ready
+[INFO] 14:59:11:963 Kernel/(4662:4664): INICIANDO EL RECURSO [RECURSO_1] con [2] instancias
+[INFO] 14:59:11:963 Kernel/(4662:4663): INICIANDO EL RECURSO [DISCO] con [0] instancias
+[INFO] 14:59:14:566 Kernel/(4662:4662): Se conecto un cliente!
+[INFO] 14:59:14:572 Kernel/(4662:4670): EL PID QUE ME LLEGO ES 1
+[INFO] 14:59:14:572 Kernel/(4662:4670): El proceso [1] ingreso a la cola nuevo
+[INFO] 14:59:14:572 Kernel/(4662:4667): El proceso [1] fue quitado a la cola nuevo
+[INFO] 14:59:14:572 Kernel/(4662:4667): “PID: 1 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 14:59:14:572 Kernel/(4662:4667): El proceso [1] fue agregado a la cola ready
+[INFO] 14:59:14:572 Kernel/(4662:4668): El proceso [1] fue quitado a la cola ready
+[INFO] 14:59:14:572 Kernel/(4662:4668): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[ERROR] 14:59:14:956 Kernel/(4662:4666): el cliente se desconecto. Terminando servidor
+[INFO] 15:01:29:152 Kernel/(4758:4758): KERNEL listo para recibir a las consolas
+[INFO] 15:01:29:152 Kernel/(4758:4764): de ready a ejecutar
+[INFO] 15:01:29:152 Kernel/(4758:4764): Paso por hrrn
+[INFO] 15:01:29:152 Kernel/(4758:4763): nuevo a ready
+[INFO] 15:01:29:152 Kernel/(4758:4760): INICIANDO EL RECURSO [RECURSO_1] con [2] instancias
+[INFO] 15:01:29:156 Kernel/(4758:4759): INICIANDO EL RECURSO [DISCO] con [0] instancias
+[INFO] 15:01:32:833 Kernel/(4758:4758): Se conecto un cliente!
+[INFO] 15:01:32:838 Kernel/(4758:4766): EL PID QUE ME LLEGO ES 1
+[INFO] 15:01:32:838 Kernel/(4758:4766): El proceso [1] ingreso a la cola nuevo
+[INFO] 15:01:32:838 Kernel/(4758:4763): El proceso [1] fue quitado a la cola nuevo
+[INFO] 15:01:32:838 Kernel/(4758:4763): “PID: 1 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:01:32:838 Kernel/(4758:4763): El proceso [1] fue agregado a la cola ready
+[INFO] 15:01:32:838 Kernel/(4758:4764): El proceso [1] fue quitado a la cola ready
+[INFO] 15:01:32:838 Kernel/(4758:4764): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 15:01:40:839 Kernel/(4758:4762): Paso por desalojado
+[INFO] 15:01:40:839 Kernel/(4758:4762): El proceso [1] fue agregado a la cola ready
+[INFO] 15:01:40:839 Kernel/(4758:4764): El proceso [1] fue quitado a la cola ready
+[INFO] 15:01:40:840 Kernel/(4758:4764): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 15:01:48:841 Kernel/(4758:4762): Paso por finzalizar
+[INFO] 15:01:48:841 Kernel/(4758:4762): El pcb [1] ha sido finalizado
+[ERROR] 15:02:27:890 Kernel/(4758:4766): el cliente se desconecto. Terminando servidor
+[INFO] 15:04:44:445 Kernel/(4864:4864): KERNEL listo para recibir a las consolas
+[INFO] 15:04:44:445 Kernel/(4864:4870): de ready a ejecutar
+[INFO] 15:04:44:445 Kernel/(4864:4870): Paso por hrrn
+[INFO] 15:04:44:447 Kernel/(4864:4869): nuevo a ready
+[INFO] 15:04:44:447 Kernel/(4864:4866): INICIANDO EL RECURSO [RECURSO_1] con [2] instancias
+[INFO] 15:04:44:448 Kernel/(4864:4865): INICIANDO EL RECURSO [DISCO] con [0] instancias
+[INFO] 15:05:09:589 Kernel/(4864:4864): Se conecto un cliente!
+[INFO] 15:05:09:590 Kernel/(4864:4872): EL PID QUE ME LLEGO ES 1
+[INFO] 15:05:09:590 Kernel/(4864:4872): El proceso [1] ingreso a la cola nuevo
+[INFO] 15:05:09:590 Kernel/(4864:4869): El proceso [1] fue quitado a la cola nuevo
+[INFO] 15:05:09:590 Kernel/(4864:4869): “PID: 1 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:05:09:590 Kernel/(4864:4869): El proceso [1] fue agregado a la cola ready
+[INFO] 15:05:09:590 Kernel/(4864:4870): El proceso [1] fue quitado a la cola ready
+[INFO] 15:05:09:590 Kernel/(4864:4870): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 15:05:10:932 Kernel/(4864:4864): Se conecto un cliente!
+[INFO] 15:05:10:937 Kernel/(4864:4874): EL PID QUE ME LLEGO ES 2
+[INFO] 15:05:10:938 Kernel/(4864:4874): El proceso [2] ingreso a la cola nuevo
+[INFO] 15:05:10:938 Kernel/(4864:4869): El proceso [2] fue quitado a la cola nuevo
+[INFO] 15:05:10:938 Kernel/(4864:4869): “PID: 2 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:05:10:938 Kernel/(4864:4869): El proceso [2] fue agregado a la cola ready
+[INFO] 15:05:17:592 Kernel/(4864:4868): Paso por desalojado
+[INFO] 15:05:17:592 Kernel/(4864:4868): El proceso [1] fue agregado a la cola ready
+[INFO] 15:05:17:592 Kernel/(4864:4870): El pcb1 tiene [130] y el pcb 2 tiene [13]
+[INFO] 15:05:17:592 Kernel/(4864:4870): El proceso [2] fue quitado a la cola ready
+[INFO] 15:05:17:592 Kernel/(4864:4870): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 15:05:25:596 Kernel/(4864:4868): Paso por finzalizar
+[INFO] 15:05:25:596 Kernel/(4864:4868): El pcb [2] ha sido finalizado
+[INFO] 15:05:25:596 Kernel/(4864:4870): El proceso [1] fue quitado a la cola ready
+[INFO] 15:05:25:596 Kernel/(4864:4870): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 15:05:33:601 Kernel/(4864:4868): Paso por finzalizar
+[INFO] 15:05:33:601 Kernel/(4864:4868): El pcb [1] ha sido finalizado
+[ERROR] 15:09:33:042 Kernel/(4864:4872): el cliente se desconecto. Terminando servidor
+[INFO] 15:12:27:443 Kernel/(5038:5038): KERNEL listo para recibir a las consolas
+[INFO] 15:12:27:444 Kernel/(5038:5044): de ready a ejecutar
+[INFO] 15:12:27:444 Kernel/(5038:5044): Paso por hrrn
+[INFO] 15:12:27:445 Kernel/(5038:5043): nuevo a ready
+[INFO] 15:12:27:445 Kernel/(5038:5040): INICIANDO EL RECURSO [RECURSO_1] con [2] instancias
+[INFO] 15:12:27:447 Kernel/(5038:5039): INICIANDO EL RECURSO [DISCO] con [0] instancias
+[INFO] 15:12:32:557 Kernel/(5038:5038): Se conecto un cliente!
+[INFO] 15:12:32:558 Kernel/(5038:5046): EL PID QUE ME LLEGO ES 1
+[INFO] 15:12:32:558 Kernel/(5038:5046): El proceso [1] ingreso a la cola nuevo
+[INFO] 15:12:32:558 Kernel/(5038:5043): El proceso [1] fue quitado a la cola nuevo
+[INFO] 15:12:32:558 Kernel/(5038:5043): “PID: 1 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:12:32:558 Kernel/(5038:5043): El proceso [1] fue agregado a la cola ready
+[INFO] 15:12:32:558 Kernel/(5038:5044): El proceso [1] fue quitado a la cola ready
+[INFO] 15:12:32:558 Kernel/(5038:5044): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 15:12:34:163 Kernel/(5038:5038): Se conecto un cliente!
+[INFO] 15:12:34:163 Kernel/(5038:5048): EL PID QUE ME LLEGO ES 2
+[INFO] 15:12:34:164 Kernel/(5038:5048): El proceso [2] ingreso a la cola nuevo
+[INFO] 15:12:34:164 Kernel/(5038:5043): El proceso [2] fue quitado a la cola nuevo
+[INFO] 15:12:34:164 Kernel/(5038:5043): “PID: 2 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:12:34:164 Kernel/(5038:5043): El proceso [2] fue agregado a la cola ready
+[INFO] 15:12:40:560 Kernel/(5038:5042): Paso por desalojado
+[INFO] 15:12:40:560 Kernel/(5038:5042): El proceso [1] fue agregado a la cola ready
+[INFO] 15:12:40:560 Kernel/(5038:5044): El pcb1 tiene [1.000000] y el pcb 2 tiene [0.000000]
+[INFO] 15:12:40:560 Kernel/(5038:5044): El proceso [2] fue quitado a la cola ready
+[INFO] 15:12:40:560 Kernel/(5038:5044): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 15:12:48:562 Kernel/(5038:5042): Paso por finzalizar
+[INFO] 15:12:48:562 Kernel/(5038:5042): El pcb [2] ha sido finalizado
+[INFO] 15:12:48:562 Kernel/(5038:5044): El proceso [1] fue quitado a la cola ready
+[INFO] 15:12:48:562 Kernel/(5038:5044): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 15:12:56:569 Kernel/(5038:5042): Paso por finzalizar
+[INFO] 15:12:56:569 Kernel/(5038:5042): El pcb [1] ha sido finalizado
+[ERROR] 15:13:56:120 Kernel/(5038:5046): el cliente se desconecto. Terminando servidor
+[INFO] 15:15:44:779 Kernel/(5165:5175): INICIANDO EL RECURSO [DISCO] con [0] instancias
+[INFO] 15:15:44:800 Kernel/(5165:5176): INICIANDO EL RECURSO [RECURSO_1] con [2] instancias
+[INFO] 15:15:44:820 Kernel/(5165:5179): nuevo a ready
+[INFO] 15:15:44:821 Kernel/(5165:5165): KERNEL listo para recibir a las consolas
+[INFO] 15:15:44:821 Kernel/(5165:5180): de ready a ejecutar
+[INFO] 15:15:44:822 Kernel/(5165:5180): Paso por hrrn
+[INFO] 15:16:05:579 Kernel/(5165:5165): Se conecto un cliente!
+[INFO] 15:16:05:593 Kernel/(5165:5183): EL PID QUE ME LLEGO ES 1
+[INFO] 15:16:05:595 Kernel/(5165:5183): El proceso [1] ingreso a la cola nuevo
+[INFO] 15:16:05:595 Kernel/(5165:5179): El proceso [1] fue quitado a la cola nuevo
+[INFO] 15:16:05:595 Kernel/(5165:5179): “PID: 1 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:16:05:595 Kernel/(5165:5179): El proceso [1] fue agregado a la cola ready
+[INFO] 15:16:05:599 Kernel/(5165:5180): El proceso [1] fue quitado a la cola ready
+[INFO] 15:16:05:599 Kernel/(5165:5180): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 15:16:07:124 Kernel/(5165:5165): Se conecto un cliente!
+[INFO] 15:16:07:136 Kernel/(5165:5185): EL PID QUE ME LLEGO ES 2
+[INFO] 15:16:07:141 Kernel/(5165:5185): El proceso [2] ingreso a la cola nuevo
+[INFO] 15:16:07:141 Kernel/(5165:5179): El proceso [2] fue quitado a la cola nuevo
+[INFO] 15:16:07:141 Kernel/(5165:5179): “PID: 2 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:16:07:141 Kernel/(5165:5179): El proceso [2] fue agregado a la cola ready
+[INFO] 15:16:13:601 Kernel/(5165:5177): Paso por desalojado
+[INFO] 15:16:13:602 Kernel/(5165:5177): El proceso [1] fue agregado a la cola ready
+[INFO] 15:21:51:128 Kernel/(5165:5180): El pcb1 tiene [1.000000] y el pcb 2 tiene [0.000000]
+[INFO] 15:23:17:758 Kernel/(5230:5230): KERNEL listo para recibir a las consolas
+[INFO] 15:23:17:758 Kernel/(5230:5236): de ready a ejecutar
+[INFO] 15:23:17:758 Kernel/(5230:5236): Paso por hrrn
+[INFO] 15:23:17:759 Kernel/(5230:5235): nuevo a ready
+[INFO] 15:23:17:760 Kernel/(5230:5232): INICIANDO EL RECURSO [RECURSO_1] con [2] instancias
+[INFO] 15:23:17:762 Kernel/(5230:5231): INICIANDO EL RECURSO [DISCO] con [0] instancias
+[INFO] 15:25:03:080 Kernel/(5342:5349): INICIANDO EL RECURSO [DISCO] con [0] instancias
+[INFO] 15:25:03:091 Kernel/(5342:5350): INICIANDO EL RECURSO [RECURSO_1] con [2] instancias
+[INFO] 15:25:03:100 Kernel/(5342:5353): nuevo a ready
+[INFO] 15:25:03:111 Kernel/(5342:5342): KERNEL listo para recibir a las consolas
+[INFO] 15:25:03:112 Kernel/(5342:5354): de ready a ejecutar
+[INFO] 15:25:03:112 Kernel/(5342:5354): Paso por hrrn
+[INFO] 15:25:11:108 Kernel/(5342:5342): Se conecto un cliente!
+[INFO] 15:25:11:119 Kernel/(5342:5357): EL PID QUE ME LLEGO ES 1
+[INFO] 15:25:11:119 Kernel/(5342:5357): El proceso [1] ingreso a la cola nuevo
+[INFO] 15:25:11:119 Kernel/(5342:5353): El proceso [1] fue quitado a la cola nuevo
+[INFO] 15:25:11:119 Kernel/(5342:5353): “PID: 1 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:25:11:119 Kernel/(5342:5353): El proceso [1] fue agregado a la cola ready
+[INFO] 15:25:11:119 Kernel/(5342:5354): El proceso [1] fue quitado a la cola ready
+[INFO] 15:25:11:119 Kernel/(5342:5354): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 15:25:12:633 Kernel/(5342:5342): Se conecto un cliente!
+[INFO] 15:25:12:650 Kernel/(5342:5360): EL PID QUE ME LLEGO ES 2
+[INFO] 15:25:12:650 Kernel/(5342:5360): El proceso [2] ingreso a la cola nuevo
+[INFO] 15:25:12:654 Kernel/(5342:5353): El proceso [2] fue quitado a la cola nuevo
+[INFO] 15:25:12:654 Kernel/(5342:5353): “PID: 2 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:25:12:654 Kernel/(5342:5353): El proceso [2] fue agregado a la cola ready
+[INFO] 15:25:19:120 Kernel/(5342:5351): Paso por desalojado
+[INFO] 15:30:07:916 Kernel/(5506:5513): INICIANDO EL RECURSO [DISCO] con [0] instancias
+[INFO] 15:30:07:923 Kernel/(5506:5514): INICIANDO EL RECURSO [RECURSO_1] con [2] instancias
+[INFO] 15:30:07:936 Kernel/(5506:5517): nuevo a ready
+[INFO] 15:30:07:941 Kernel/(5506:5506): KERNEL listo para recibir a las consolas
+[INFO] 15:30:07:942 Kernel/(5506:5518): de ready a ejecutar
+[INFO] 15:30:07:942 Kernel/(5506:5518): Paso por hrrn
+[INFO] 15:30:15:295 Kernel/(5506:5506): Se conecto un cliente!
+[INFO] 15:30:15:313 Kernel/(5506:5522): EL PID QUE ME LLEGO ES 1
+[INFO] 15:30:15:313 Kernel/(5506:5522): El proceso [1] ingreso a la cola nuevo
+[INFO] 15:30:15:313 Kernel/(5506:5517): El proceso [1] fue quitado a la cola nuevo
+[INFO] 15:30:15:313 Kernel/(5506:5517): “PID: 1 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:30:15:313 Kernel/(5506:5517): El proceso [1] fue agregado a la cola ready
+[INFO] 15:30:15:323 Kernel/(5506:5518): El proceso [1] fue quitado a la cola ready
+[INFO] 15:30:15:323 Kernel/(5506:5518): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 15:30:16:607 Kernel/(5506:5506): Se conecto un cliente!
+[INFO] 15:30:16:621 Kernel/(5506:5524): EL PID QUE ME LLEGO ES 2
+[INFO] 15:30:16:621 Kernel/(5506:5524): El proceso [2] ingreso a la cola nuevo
+[INFO] 15:30:16:621 Kernel/(5506:5517): El proceso [2] fue quitado a la cola nuevo
+[INFO] 15:30:16:621 Kernel/(5506:5517): “PID: 2 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:30:16:621 Kernel/(5506:5517): El proceso [2] fue agregado a la cola ready
+[INFO] 15:30:23:324 Kernel/(5506:5515): Paso por desalojado
+[INFO] 15:31:32:946 Kernel/(5506:5515): La estimacion del pcb [1]  es de -956557632 en la hora 6780467
+[INFO] 15:32:37:727 Kernel/(5546:5546): KERNEL listo para recibir a las consolas
+[INFO] 15:32:37:727 Kernel/(5546:5552): de ready a ejecutar
+[INFO] 15:32:37:728 Kernel/(5546:5552): Paso por hrrn
+[INFO] 15:32:37:727 Kernel/(5546:5551): nuevo a ready
+[INFO] 15:32:37:727 Kernel/(5546:5548): INICIANDO EL RECURSO [RECURSO_1] con [2] instancias
+[INFO] 15:32:37:727 Kernel/(5546:5547): INICIANDO EL RECURSO [DISCO] con [0] instancias
+[INFO] 15:34:51:274 Kernel/(5602:5611): INICIANDO EL RECURSO [DISCO] con [0] instancias
+[INFO] 15:34:51:283 Kernel/(5602:5612): INICIANDO EL RECURSO [RECURSO_1] con [2] instancias
+[INFO] 15:34:51:290 Kernel/(5602:5615): nuevo a ready
+[INFO] 15:34:51:297 Kernel/(5602:5602): KERNEL listo para recibir a las consolas
+[INFO] 15:34:51:297 Kernel/(5602:5616): de ready a ejecutar
+[INFO] 15:34:51:297 Kernel/(5602:5616): Paso por hrrn
+[INFO] 15:34:56:859 Kernel/(5602:5602): Se conecto un cliente!
+[INFO] 15:34:56:881 Kernel/(5602:5619): EL PID QUE ME LLEGO ES 1
+[INFO] 15:34:56:882 Kernel/(5602:5619): El proceso [1] ingreso a la cola nuevo
+[INFO] 15:34:56:883 Kernel/(5602:5615): El proceso [1] fue quitado a la cola nuevo
+[INFO] 15:34:56:883 Kernel/(5602:5615): “PID: 1 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:34:56:883 Kernel/(5602:5615): El proceso [1] fue agregado a la cola ready
+[INFO] 15:34:56:883 Kernel/(5602:5616): El proceso [1] fue quitado a la cola ready
+[INFO] 15:35:06:520 Kernel/(5602:5616): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 15:39:21:356 Kernel/(5741:5749): INICIANDO EL RECURSO [DISCO] con [0] instancias
+[INFO] 15:39:21:360 Kernel/(5741:5750): INICIANDO EL RECURSO [RECURSO_1] con [2] instancias
+[INFO] 15:39:21:366 Kernel/(5741:5753): nuevo a ready
+[INFO] 15:39:21:372 Kernel/(5741:5741): KERNEL listo para recibir a las consolas
+[INFO] 15:39:21:375 Kernel/(5741:5754): de ready a ejecutar
+[INFO] 15:39:21:375 Kernel/(5741:5754): Paso por hrrn
+[INFO] 15:39:36:453 Kernel/(5741:5741): Se conecto un cliente!
+[INFO] 15:39:36:464 Kernel/(5741:5757): EL PID QUE ME LLEGO ES 1
+[INFO] 15:39:36:465 Kernel/(5741:5757): El proceso [1] ingreso a la cola nuevo
+[INFO] 15:39:36:465 Kernel/(5741:5753): El proceso [1] fue quitado a la cola nuevo
+[INFO] 15:39:36:466 Kernel/(5741:5753): “PID: 1 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:39:36:466 Kernel/(5741:5753): El proceso [1] fue agregado a la cola ready
+[INFO] 15:39:36:476 Kernel/(5741:5754): El proceso [1] fue quitado a la cola ready
+[INFO] 15:39:45:661 Kernel/(5741:5754): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 15:41:37:332 Kernel/(5880:5887): INICIANDO EL RECURSO [DISCO] con [0] instancias
+[INFO] 15:41:37:336 Kernel/(5880:5888): INICIANDO EL RECURSO [RECURSO_1] con [2] instancias
+[INFO] 15:41:37:345 Kernel/(5880:5891): nuevo a ready
+[INFO] 15:41:37:352 Kernel/(5880:5880): KERNEL listo para recibir a las consolas
+[INFO] 15:41:37:353 Kernel/(5880:5892): de ready a ejecutar
+[INFO] 15:41:37:353 Kernel/(5880:5892): Paso por hrrn
+[INFO] 15:41:42:747 Kernel/(5880:5880): Se conecto un cliente!
+[INFO] 15:41:42:761 Kernel/(5880:5895): EL PID QUE ME LLEGO ES 1
+[INFO] 15:41:42:761 Kernel/(5880:5895): El proceso [1] ingreso a la cola nuevo
+[INFO] 15:41:42:762 Kernel/(5880:5891): El proceso [1] fue quitado a la cola nuevo
+[INFO] 15:41:42:762 Kernel/(5880:5891): “PID: 1 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:41:42:762 Kernel/(5880:5891): El proceso [1] fue agregado a la cola ready
+[INFO] 15:41:42:767 Kernel/(5880:5892): El proceso [1] fue quitado a la cola ready
+[INFO] 15:41:46:579 Kernel/(5880:5892): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 15:41:50:968 Kernel/(5880:5892): La hora en el clock es 4246568
+[INFO] 15:48:47:664 Kernel/(5975:5985): INICIANDO EL RECURSO [DISCO] con [0] instancias
+[INFO] 15:48:47:669 Kernel/(5975:5986): INICIANDO EL RECURSO [RECURSO_1] con [2] instancias
+[INFO] 15:48:47:682 Kernel/(5975:5989): nuevo a ready
+[INFO] 15:48:47:685 Kernel/(5975:5975): KERNEL listo para recibir a las consolas
+[INFO] 15:48:47:685 Kernel/(5975:5990): de ready a ejecutar
+[INFO] 15:48:47:685 Kernel/(5975:5990): Paso por hrrn
+[INFO] 15:48:51:648 Kernel/(5975:5975): Se conecto un cliente!
+[INFO] 15:48:51:655 Kernel/(5975:5993): EL PID QUE ME LLEGO ES 1
+[INFO] 15:48:51:655 Kernel/(5975:5993): El proceso [1] ingreso a la cola nuevo
+[INFO] 15:48:51:656 Kernel/(5975:5989): El proceso [1] fue quitado a la cola nuevo
+[INFO] 15:48:51:656 Kernel/(5975:5989): “PID: 1 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:48:51:656 Kernel/(5975:5989): El proceso [1] fue agregado a la cola ready
+[INFO] 15:48:51:656 Kernel/(5975:5990): El proceso [1] fue quitado a la cola ready
+[INFO] 15:48:51:656 Kernel/(5975:5990): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 15:48:51:656 Kernel/(5975:5990): La hora en el clock es 2478071
+[INFO] 15:48:58:194 Kernel/(5975:5975): Se conecto un cliente!
+[INFO] 15:48:58:212 Kernel/(5975:5995): EL PID QUE ME LLEGO ES 2
+[INFO] 15:48:58:213 Kernel/(5975:5995): El proceso [2] ingreso a la cola nuevo
+[INFO] 15:48:58:213 Kernel/(5975:5989): El proceso [2] fue quitado a la cola nuevo
+[INFO] 15:48:58:213 Kernel/(5975:5989): “PID: 2 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:48:58:213 Kernel/(5975:5989): El proceso [2] fue agregado a la cola ready
+[INFO] 15:48:59:657 Kernel/(5975:5987): Paso por desalojado
+[INFO] 15:54:50:073 Kernel/(6138:6149): INICIANDO EL RECURSO [DISCO] con [0] instancias
+[INFO] 15:54:50:080 Kernel/(6138:6150): INICIANDO EL RECURSO [RECURSO_1] con [2] instancias
+[INFO] 15:54:50:092 Kernel/(6138:6153): nuevo a ready
+[INFO] 15:54:50:098 Kernel/(6138:6138): KERNEL listo para recibir a las consolas
+[INFO] 15:54:50:099 Kernel/(6138:6154): de ready a ejecutar
+[INFO] 15:54:50:101 Kernel/(6138:6154): Paso por hrrn
+[INFO] 15:55:05:742 Kernel/(6138:6138): Se conecto un cliente!
+[INFO] 15:55:05:758 Kernel/(6138:6159): EL PID QUE ME LLEGO ES 1
+[INFO] 15:55:05:759 Kernel/(6138:6159): El proceso [1] ingreso a la cola nuevo
+[INFO] 15:55:05:759 Kernel/(6138:6153): El proceso [1] fue quitado a la cola nuevo
+[INFO] 15:55:05:759 Kernel/(6138:6153): “PID: 1 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:55:05:759 Kernel/(6138:6153): El proceso [1] fue agregado a la cola ready
+[INFO] 15:55:05:761 Kernel/(6138:6154): El proceso [1] fue quitado a la cola ready
+[INFO] 15:55:05:762 Kernel/(6138:6154): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 15:55:05:762 Kernel/(6138:6154): La hora en el clock es 11657437
+[INFO] 15:55:07:346 Kernel/(6138:6138): Se conecto un cliente!
+[INFO] 15:55:07:359 Kernel/(6138:6161): EL PID QUE ME LLEGO ES 2
+[INFO] 15:55:07:360 Kernel/(6138:6161): El proceso [2] ingreso a la cola nuevo
+[INFO] 15:55:07:360 Kernel/(6138:6153): El proceso [2] fue quitado a la cola nuevo
+[INFO] 15:55:07:360 Kernel/(6138:6153): “PID: 2 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:55:07:360 Kernel/(6138:6153): El proceso [2] fue agregado a la cola ready
+[INFO] 15:55:13:764 Kernel/(6138:6151): Paso por desalojado
+[INFO] 15:57:36:842 Kernel/(6209:6219): INICIANDO EL RECURSO [DISCO] con [0] instancias
+[INFO] 15:57:36:844 Kernel/(6209:6220): INICIANDO EL RECURSO [RECURSO_1] con [2] instancias
+[INFO] 15:57:36:852 Kernel/(6209:6223): nuevo a ready
+[INFO] 15:57:36:874 Kernel/(6209:6209): KERNEL listo para recibir a las consolas
+[INFO] 15:57:36:874 Kernel/(6209:6224): de ready a ejecutar
+[INFO] 15:57:36:874 Kernel/(6209:6224): Paso por hrrn
+[INFO] 15:57:45:119 Kernel/(6209:6209): Se conecto un cliente!
+[INFO] 15:57:45:130 Kernel/(6209:6227): EL PID QUE ME LLEGO ES 1
+[INFO] 15:57:45:133 Kernel/(6209:6227): El proceso [1] ingreso a la cola nuevo
+[INFO] 15:57:45:133 Kernel/(6209:6223): El proceso [1] fue quitado a la cola nuevo
+[INFO] 15:57:45:133 Kernel/(6209:6223): “PID: 1 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:57:45:133 Kernel/(6209:6223): El proceso [1] fue agregado a la cola ready
+[INFO] 15:57:45:134 Kernel/(6209:6224): El proceso [1] fue quitado a la cola ready
+[INFO] 15:57:45:134 Kernel/(6209:6224): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 15:57:45:134 Kernel/(6209:6224): La hora en el clock es 6415126
+[INFO] 15:57:46:757 Kernel/(6209:6209): Se conecto un cliente!
+[INFO] 15:57:46:767 Kernel/(6209:6229): EL PID QUE ME LLEGO ES 2
+[INFO] 15:57:46:767 Kernel/(6209:6229): El proceso [2] ingreso a la cola nuevo
+[INFO] 15:57:46:767 Kernel/(6209:6223): El proceso [2] fue quitado a la cola nuevo
+[INFO] 15:57:46:767 Kernel/(6209:6223): “PID: 2 - Estado Anterior: NEW - Estado Actual: READY”
+[INFO] 15:57:46:767 Kernel/(6209:6223): El proceso [2] fue agregado a la cola ready
+[INFO] 15:57:53:135 Kernel/(6209:6222): Paso por desalojado
+[INFO] 15:57:53:135 Kernel/(6209:6222): La estimacion del pcb [1]  es de 676905 en la hora 7758954
+[INFO] 15:57:53:135 Kernel/(6209:6222): El proceso [1] fue agregado a la cola ready
+[INFO] 16:02:43:900 Kernel/(6376:6376): c es 0.000000
+[INFO] 16:02:43:907 Kernel/(6376:6376): KERNEL listo para recibir a las consolas
+[INFO] 16:02:43:908 Kernel/(6376:6386): de ready a ejecutar
+[INFO] 16:02:43:908 Kernel/(6376:6386): Paso por hrrn
+[INFO] 16:02:43:909 Kernel/(6376:6385): nuevo a ready
+[ERROR] 16:02:43:909 Kernel/(6376:6384): el cliente se desconecto. Terminando servidor
+[INFO] 16:03:08:782 Kernel/(6434:6434): c es 0.833333
+[INFO] 16:03:08:788 Kernel/(6434:6434): KERNEL listo para recibir a las consolas
+[INFO] 16:03:08:789 Kernel/(6434:6444): de ready a ejecutar
+[INFO] 16:03:08:790 Kernel/(6434:6444): Paso por hrrn
+[INFO] 16:03:08:790 Kernel/(6434:6443): nuevo a ready
+[ERROR] 16:03:08:791 Kernel/(6434:6442): el cliente se desconecto. Terminando servidor

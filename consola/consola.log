@@ -13185,3 +13185,201 @@
 [INFO] 13:15:45:447 Consola/(5172:5172): La instruccion es 15
 [INFO] 13:15:46:455 Consola/(5172:5172): El proceso ha terminado
 [INFO] 13:15:46:455 Consola/(5172:5172): Me llego el mensaje Tu proceso ha finalizado
+[INFO] 14:52:33:603 Consola/(4451:4451): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 14:52:33:604 Consola/(4451:4451): La instruccion es 0
+[INFO] 14:52:33:604 Consola/(4451:4451): Parametro AX
+[INFO] 14:52:33:605 Consola/(4451:4451): Parametro HOLA
+[INFO] 14:52:33:605 Consola/(4451:4451): La instruccion es 14
+[INFO] 14:52:33:605 Consola/(4451:4451): La instruccion es 0
+[INFO] 14:52:33:605 Consola/(4451:4451): Parametro AX
+[INFO] 14:52:33:605 Consola/(4451:4451): Parametro HOLA
+[INFO] 14:52:33:605 Consola/(4451:4451): La instruccion es 15
+[INFO] 14:59:14:565 Consola/(4669:4669): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 14:59:14:566 Consola/(4669:4669): La instruccion es 0
+[INFO] 14:59:14:566 Consola/(4669:4669): Parametro AX
+[INFO] 14:59:14:567 Consola/(4669:4669): Parametro HOLA
+[INFO] 14:59:14:567 Consola/(4669:4669): La instruccion es 14
+[INFO] 14:59:14:567 Consola/(4669:4669): La instruccion es 0
+[INFO] 14:59:14:567 Consola/(4669:4669): Parametro AX
+[INFO] 14:59:14:567 Consola/(4669:4669): Parametro HOLA
+[INFO] 14:59:14:567 Consola/(4669:4669): La instruccion es 15
+[INFO] 15:01:32:833 Consola/(4765:4765): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:01:32:834 Consola/(4765:4765): La instruccion es 0
+[INFO] 15:01:32:834 Consola/(4765:4765): Parametro AX
+[INFO] 15:01:32:834 Consola/(4765:4765): Parametro HOLA
+[INFO] 15:01:32:835 Consola/(4765:4765): La instruccion es 14
+[INFO] 15:01:32:835 Consola/(4765:4765): La instruccion es 0
+[INFO] 15:01:32:835 Consola/(4765:4765): Parametro AX
+[INFO] 15:01:32:835 Consola/(4765:4765): Parametro HOLA
+[INFO] 15:01:32:835 Consola/(4765:4765): La instruccion es 15
+[INFO] 15:01:48:841 Consola/(4765:4765): El proceso ha terminado
+[INFO] 15:01:48:841 Consola/(4765:4765): Me llego el mensaje Tu proceso ha finalizado
+[INFO] 15:05:09:588 Consola/(4871:4871): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:05:09:589 Consola/(4871:4871): La instruccion es 0
+[INFO] 15:05:09:589 Consola/(4871:4871): Parametro AX
+[INFO] 15:05:09:589 Consola/(4871:4871): Parametro HOLA
+[INFO] 15:05:09:589 Consola/(4871:4871): La instruccion es 14
+[INFO] 15:05:09:589 Consola/(4871:4871): La instruccion es 0
+[INFO] 15:05:09:589 Consola/(4871:4871): Parametro AX
+[INFO] 15:05:09:589 Consola/(4871:4871): Parametro HOLA
+[INFO] 15:05:09:590 Consola/(4871:4871): La instruccion es 15
+[INFO] 15:05:10:932 Consola/(4873:4873): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:05:10:937 Consola/(4873:4873): La instruccion es 0
+[INFO] 15:05:10:937 Consola/(4873:4873): Parametro AX
+[INFO] 15:05:10:937 Consola/(4873:4873): Parametro HOLA
+[INFO] 15:05:10:937 Consola/(4873:4873): La instruccion es 15
+[INFO] 15:05:25:596 Consola/(4873:4873): El proceso ha terminado
+[INFO] 15:05:25:596 Consola/(4873:4873): Me llego el mensaje Tu proceso ha finalizado
+[INFO] 15:05:33:601 Consola/(4871:4871): El proceso ha terminado
+[INFO] 15:05:33:601 Consola/(4871:4871): Me llego el mensaje Tu proceso ha finalizado
+[INFO] 15:12:32:556 Consola/(5045:5045): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:12:32:557 Consola/(5045:5045): La instruccion es 0
+[INFO] 15:12:32:557 Consola/(5045:5045): Parametro AX
+[INFO] 15:12:32:557 Consola/(5045:5045): Parametro HOLA
+[INFO] 15:12:32:557 Consola/(5045:5045): La instruccion es 14
+[INFO] 15:12:32:557 Consola/(5045:5045): La instruccion es 0
+[INFO] 15:12:32:558 Consola/(5045:5045): Parametro AX
+[INFO] 15:12:32:558 Consola/(5045:5045): Parametro HOLA
+[INFO] 15:12:32:558 Consola/(5045:5045): La instruccion es 15
+[INFO] 15:12:34:159 Consola/(5047:5047): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:12:34:163 Consola/(5047:5047): La instruccion es 0
+[INFO] 15:12:34:163 Consola/(5047:5047): Parametro AX
+[INFO] 15:12:34:163 Consola/(5047:5047): Parametro HOLA
+[INFO] 15:12:34:163 Consola/(5047:5047): La instruccion es 15
+[INFO] 15:12:48:562 Consola/(5047:5047): El proceso ha terminado
+[INFO] 15:12:48:562 Consola/(5047:5047): Me llego el mensaje Tu proceso ha finalizado
+[INFO] 15:12:56:569 Consola/(5045:5045): El proceso ha terminado
+[INFO] 15:12:56:569 Consola/(5045:5045): Me llego el mensaje Tu proceso ha finalizado
+[INFO] 15:16:05:579 Consola/(5182:5182): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:16:05:584 Consola/(5182:5182): La instruccion es 0
+[INFO] 15:16:05:584 Consola/(5182:5182): Parametro AX
+[INFO] 15:16:05:584 Consola/(5182:5182): Parametro HOLA
+[INFO] 15:16:05:584 Consola/(5182:5182): La instruccion es 14
+[INFO] 15:16:05:585 Consola/(5182:5182): La instruccion es 0
+[INFO] 15:16:05:585 Consola/(5182:5182): Parametro AX
+[INFO] 15:16:05:585 Consola/(5182:5182): Parametro HOLA
+[INFO] 15:16:05:585 Consola/(5182:5182): La instruccion es 15
+[INFO] 15:16:07:124 Consola/(5184:5184): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:16:07:126 Consola/(5184:5184): La instruccion es 0
+[INFO] 15:16:07:126 Consola/(5184:5184): Parametro AX
+[INFO] 15:16:07:126 Consola/(5184:5184): Parametro HOLA
+[INFO] 15:16:07:126 Consola/(5184:5184): La instruccion es 15
+[INFO] 15:25:11:108 Consola/(5356:5356): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:25:11:109 Consola/(5356:5356): La instruccion es 0
+[INFO] 15:25:11:110 Consola/(5356:5356): Parametro AX
+[INFO] 15:25:11:110 Consola/(5356:5356): Parametro HOLA
+[INFO] 15:25:11:110 Consola/(5356:5356): La instruccion es 14
+[INFO] 15:25:11:110 Consola/(5356:5356): La instruccion es 0
+[INFO] 15:25:11:110 Consola/(5356:5356): Parametro AX
+[INFO] 15:25:11:110 Consola/(5356:5356): Parametro HOLA
+[INFO] 15:25:11:110 Consola/(5356:5356): La instruccion es 15
+[INFO] 15:25:12:632 Consola/(5359:5359): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:25:12:646 Consola/(5359:5359): La instruccion es 0
+[INFO] 15:25:12:646 Consola/(5359:5359): Parametro AX
+[INFO] 15:25:12:647 Consola/(5359:5359): Parametro HOLA
+[INFO] 15:25:12:647 Consola/(5359:5359): La instruccion es 15
+[INFO] 15:30:15:290 Consola/(5521:5521): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:30:15:298 Consola/(5521:5521): La instruccion es 0
+[INFO] 15:30:15:300 Consola/(5521:5521): Parametro AX
+[INFO] 15:30:15:300 Consola/(5521:5521): Parametro HOLA
+[INFO] 15:30:15:300 Consola/(5521:5521): La instruccion es 14
+[INFO] 15:30:15:300 Consola/(5521:5521): La instruccion es 0
+[INFO] 15:30:15:300 Consola/(5521:5521): Parametro AX
+[INFO] 15:30:15:300 Consola/(5521:5521): Parametro HOLA
+[INFO] 15:30:15:300 Consola/(5521:5521): La instruccion es 15
+[INFO] 15:30:16:606 Consola/(5523:5523): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:30:16:610 Consola/(5523:5523): La instruccion es 0
+[INFO] 15:30:16:612 Consola/(5523:5523): Parametro AX
+[INFO] 15:30:16:612 Consola/(5523:5523): Parametro HOLA
+[INFO] 15:30:16:612 Consola/(5523:5523): La instruccion es 15
+[INFO] 15:34:56:858 Consola/(5618:5618): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:34:56:862 Consola/(5618:5618): La instruccion es 0
+[INFO] 15:34:56:862 Consola/(5618:5618): Parametro AX
+[INFO] 15:34:56:862 Consola/(5618:5618): Parametro HOLA
+[INFO] 15:34:56:862 Consola/(5618:5618): La instruccion es 14
+[INFO] 15:34:56:862 Consola/(5618:5618): La instruccion es 0
+[INFO] 15:34:56:862 Consola/(5618:5618): Parametro AX
+[INFO] 15:34:56:862 Consola/(5618:5618): Parametro HOLA
+[INFO] 15:34:56:863 Consola/(5618:5618): La instruccion es 15
+[INFO] 15:39:36:452 Consola/(5756:5756): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:39:36:455 Consola/(5756:5756): La instruccion es 0
+[INFO] 15:39:36:455 Consola/(5756:5756): Parametro AX
+[INFO] 15:39:36:455 Consola/(5756:5756): Parametro HOLA
+[INFO] 15:39:36:456 Consola/(5756:5756): La instruccion es 14
+[INFO] 15:39:36:456 Consola/(5756:5756): La instruccion es 0
+[INFO] 15:39:36:456 Consola/(5756:5756): Parametro AX
+[INFO] 15:39:36:456 Consola/(5756:5756): Parametro HOLA
+[INFO] 15:39:36:456 Consola/(5756:5756): La instruccion es 15
+[INFO] 15:41:42:746 Consola/(5894:5894): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:41:42:751 Consola/(5894:5894): La instruccion es 0
+[INFO] 15:41:42:751 Consola/(5894:5894): Parametro AX
+[INFO] 15:41:42:751 Consola/(5894:5894): Parametro HOLA
+[INFO] 15:41:42:752 Consola/(5894:5894): La instruccion es 14
+[INFO] 15:41:42:752 Consola/(5894:5894): La instruccion es 0
+[INFO] 15:41:42:752 Consola/(5894:5894): Parametro AX
+[INFO] 15:41:42:752 Consola/(5894:5894): Parametro HOLA
+[INFO] 15:41:42:752 Consola/(5894:5894): La instruccion es 15
+[INFO] 15:48:51:638 Consola/(5992:5992): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:48:51:650 Consola/(5992:5992): La instruccion es 0
+[INFO] 15:48:51:651 Consola/(5992:5992): Parametro AX
+[INFO] 15:48:51:651 Consola/(5992:5992): Parametro HOLA
+[INFO] 15:48:51:651 Consola/(5992:5992): La instruccion es 14
+[INFO] 15:48:51:651 Consola/(5992:5992): La instruccion es 0
+[INFO] 15:48:51:651 Consola/(5992:5992): Parametro AX
+[INFO] 15:48:51:652 Consola/(5992:5992): Parametro HOLA
+[INFO] 15:48:51:652 Consola/(5992:5992): La instruccion es 15
+[INFO] 15:48:58:194 Consola/(5994:5994): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:48:58:198 Consola/(5994:5994): La instruccion es 0
+[INFO] 15:48:58:202 Consola/(5994:5994): Parametro AX
+[INFO] 15:48:58:202 Consola/(5994:5994): Parametro HOLA
+[INFO] 15:48:58:202 Consola/(5994:5994): La instruccion es 15
+[INFO] 15:55:05:742 Consola/(6158:6158): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:55:05:743 Consola/(6158:6158): La instruccion es 0
+[INFO] 15:55:05:743 Consola/(6158:6158): Parametro AX
+[INFO] 15:55:05:744 Consola/(6158:6158): Parametro HOLA
+[INFO] 15:55:05:744 Consola/(6158:6158): La instruccion es 14
+[INFO] 15:55:05:744 Consola/(6158:6158): La instruccion es 0
+[INFO] 15:55:05:745 Consola/(6158:6158): Parametro AX
+[INFO] 15:55:05:745 Consola/(6158:6158): Parametro HOLA
+[INFO] 15:55:05:745 Consola/(6158:6158): La instruccion es 15
+[INFO] 15:55:07:345 Consola/(6160:6160): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:55:07:351 Consola/(6160:6160): La instruccion es 0
+[INFO] 15:55:07:351 Consola/(6160:6160): Parametro AX
+[INFO] 15:55:07:352 Consola/(6160:6160): Parametro HOLA
+[INFO] 15:55:07:352 Consola/(6160:6160): La instruccion es 15
+[INFO] 15:57:45:117 Consola/(6226:6226): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:57:45:122 Consola/(6226:6226): La instruccion es 0
+[INFO] 15:57:45:122 Consola/(6226:6226): Parametro AX
+[INFO] 15:57:45:122 Consola/(6226:6226): Parametro HOLA
+[INFO] 15:57:45:122 Consola/(6226:6226): La instruccion es 14
+[INFO] 15:57:45:123 Consola/(6226:6226): La instruccion es 0
+[INFO] 15:57:45:123 Consola/(6226:6226): Parametro AX
+[INFO] 15:57:45:123 Consola/(6226:6226): Parametro HOLA
+[INFO] 15:57:45:123 Consola/(6226:6226): La instruccion es 15
+[INFO] 15:57:46:756 Consola/(6228:6228): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 15:57:46:759 Consola/(6228:6228): La instruccion es 0
+[INFO] 15:57:46:759 Consola/(6228:6228): Parametro AX
+[INFO] 15:57:46:760 Consola/(6228:6228): Parametro HOLA
+[INFO] 15:57:46:760 Consola/(6228:6228): La instruccion es 15
