@@ -17,6 +17,10 @@
 #include <sockets.h>
 #include <compartido.h>
 
+#define FS_LOG "filesySystem.log"
+#define FS_CONFIG "fileSystem.config"
+#define FS_NAME "File_System"
+
 typedef struct{
 	char* ip_memoria;
 	char* puerto_memoria;
@@ -28,8 +32,24 @@ typedef struct{
 	int ret_acceso_bloque;
 }datos_config;
 
+t_log* logger;
+t_config* config;
+t_config* config_superbloque;
+t_config* config_bitmap; 
+t_config* config_bloques;
+t_config* config_fcb;
+datos_config datos;
+int server_fd;
+int conexion_memoria;
+pthread_t hilo_conexion_kernel;
+pthread_t hilo_conexion_memoria;
+
 void* atender_kernel(void);
 void* atender_memoria(void);
-void iterator(char* value);
+
+void inicializar_config();
+void iniciar_estructura_fs();
+t_config* iniciar_superbloque(char*); 
+void iterator(char*);
 
 #endif /* FILESYSTEM_H_ */

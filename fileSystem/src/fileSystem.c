@@ -7,38 +7,61 @@
  Description : Hello World in C, Ansi-style
  ============================================================================
  */
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "fileSystem.h"
 
-t_log* logger;
-t_config* config;
-datos_config datos;
-int server_fd;
-int conexion_memoria;
-pthread_t hilo_conexion_kernel;
-pthread_t hilo_conexion_memoria;
-
 int main(void) {
-	logger = iniciar_logger("filesySystem.log","File_System");;
-	config = iniciar_config("fileSystem.config");
+	logger = iniciar_logger(FS_LOG, FS_NAME);;
+	config = iniciar_config(FS_CONFIG);
 
-	datos.ip_memoria = config_get_string_value(config,"IP_MEMORIA");
-	datos.puerto_memoria = config_get_string_value(config,"PUERTO_MEMORIA");
-	datos.puerto_escucha = config_get_string_value(config,"PUERTO_ESCUCHA");
+	inicializar_config();
+	iniciar_estructura_fs();
+	
+	int block_size = config_get_int_value(config_superbloque, "BLOCK_SIZE");
+	int block_count = config_get_int_value(config_superbloque, "BLOCK_COUNT");
+
+	log_info(logger,"block_size: %i \tblock_count: %i", block_size, block_count);
 
 	pthread_create(&hilo_conexion_kernel,NULL,(void*) atender_kernel,NULL);
 	pthread_create(&hilo_conexion_memoria,NULL,(void*) atender_memoria,NULL);
 
 	pthread_join(hilo_conexion_kernel,NULL);
 	pthread_join(hilo_conexion_memoria,NULL);
+
 	log_destroy(logger);
 	config_destroy(config);
 	close(server_fd);
 	close(conexion_memoria);
 	return EXIT_SUCCESS;
+}
+
+void inicializar_config(){
+	datos.ip_memoria = config_get_string_value(config,"IP_MEMORIA");
+	datos.puerto_memoria = config_get_string_value(config,"PUERTO_MEMORIA");
+	datos.puerto_escucha = config_get_string_value(config,"PUERTO_ESCUCHA");
+	datos.path_superbloque = config_get_string_value(config,"PATH_SUPERBLOQUE");
+	datos.path_bitmap = config_get_string_value(config,"PATH_BITMAP");
+	datos.path_bloques = config_get_string_value(config,"PATH_BLOQUES");
+	datos.path_fcb = config_get_string_value(config,"PATH_FCB");
+	datos.ret_acceso_bloque = config_get_int_value(config,"RETARDO_ACCESO_BLOQUE");
+}
+
+void iniciar_estructura_fs(){
+	config_superbloque = iniciar_superbloque(datos.path_superbloque);
+	config_bitmap = iniciar_superbloque(datos.path_bitmap);
+	config_bloques = iniciar_superbloque(datos.path_bloques);
+	config_fcb = iniciar_superbloque(datos.path_fcb);
+}
+
+t_config* iniciar_superbloque(char * path) {
+	t_config* config_superbloque = iniciar_config(path);
+	
+	if(config_superbloque == NULL) {
+		log_error(logger, "No se pudo leer el path (%s)", path);
+	}
+
+	return config_superbloque;
 }
 
 void* atender_kernel(void){
