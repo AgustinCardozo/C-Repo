@@ -17,7 +17,7 @@ int main(void) {
 
 	inicializar_config();
 	iniciar_estructura_fs();
-	
+
 	int block_size = config_get_int_value(config_superbloque, "BLOCK_SIZE");
 	int block_count = config_get_int_value(config_superbloque, "BLOCK_COUNT");
 
@@ -29,10 +29,7 @@ int main(void) {
 	pthread_join(hilo_conexion_kernel,NULL);
 	pthread_join(hilo_conexion_memoria,NULL);
 
-	log_destroy(logger);
-	config_destroy(config);
-	close(server_fd);
-	close(conexion_memoria);
+	finalizar_fs();
 	return EXIT_SUCCESS;
 }
 
@@ -49,9 +46,17 @@ void inicializar_config(){
 
 void iniciar_estructura_fs(){
 	config_superbloque = iniciar_config_fs(datos.path_superbloque);
-	config_bitmap = iniciar_config_fs(datos.path_bitmap);
-	config_bloques = iniciar_config_fs(datos.path_bloques);
-	config_fcb = iniciar_config_fs(datos.path_fcb);
+	// config_bitmap = iniciar_config_fs(datos.path_bitmap);
+	// config_bloques = iniciar_config_fs(datos.path_bloques);
+	// config_fcb = iniciar_config_fs(datos.path_fcb);
+	int valor = mkdir(PATH, 0777); //TODO: preguntar si existe la carpeta o si lo tenemos q crear
+	if(valor < 0){
+		log_warning(logger, "Ya existe el directo(%s)", PATH);
+	}
+	//Si existe la carpeta crea los archivos
+	bitmap = fopen(datos.path_bitmap,"a");
+	bloques = fopen(datos.path_bloques,"a");
+	fcb = fopen(datos.path_fcb,"a");
 }
 
 t_config* iniciar_config_fs(char * path) {
@@ -62,6 +67,21 @@ t_config* iniciar_config_fs(char * path) {
 	}
 
 	return config;
+}
+
+FILE* crear_estructuras(char* path){
+	FILE* file =fopen(path,"a");
+	return file; 
+}
+
+void finalizar_fs(){
+	log_destroy(logger);
+	config_destroy(config);
+	close(server_fd);
+	close(conexion_memoria);
+	fclose(bitmap);
+	fclose(bloques);
+	fclose(fcb);
 }
 
 void* atender_kernel(void){
