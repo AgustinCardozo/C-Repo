@@ -11,33 +11,26 @@
 #include <stdlib.h>
 #include "memoria.h"
 
-t_log* logger;
-t_config* config;
-datos_config datos;
-int server_fd;
-int* cliente_fd;
 int main(void) {
 	pthread_t hilo_atender_modulos;
 
-	logger = iniciar_logger("memoria.log","Memoria");;
-	config = iniciar_config("memoria.config");
+	logger = iniciar_logger(MEMORIA_LOG, MEMORIA_NAME);
+	config = iniciar_config(MEMORIA_CONFIG);
 
-	datos.puerto_escucha = config_get_string_value(config,"PUERTO_ESCUCHA");
+	iniciar_config_memoria();
 
-	int server_fd = iniciar_servidor(logger,"127.0.0.1",datos.puerto_escucha);
+	int server_fd = iniciar_servidor(logger,IP,datos.puerto_escucha);
 	log_info(logger, "Memoria listo para recibir a los modulos");
 
 	cliente_fd = malloc(sizeof(int));
-//
+
 	while(1){
 		cliente_fd = esperar_cliente(logger,server_fd);
 		pthread_create(&hilo_atender_modulos,NULL,(void*) atender_modulos,cliente_fd);
 		pthread_detach(hilo_atender_modulos);
 	}
-
-	log_destroy(logger);
-	config_destroy(config);
-	close(server_fd);
+	
+	finalizar_memoria();
 }
 
 void atender_modulos(void* data){
@@ -72,6 +65,23 @@ void atender_modulos(void* data){
 
 }
 
+void iniciar_config_memoria(){
+	datos.puerto_escucha = config_get_string_value(config,"PUERTO_ESCUCHA");
+	datos.tam_memoria = config_get_int_value(config, "TAM_MEMORIA");
+	datos.tam_segmento = config_get_int_value(config, "TAM_SEGMENTO_0");
+	datos.cant_segmentos = config_get_int_value(config, "CANT_SEGMENTOS");
+	datos.ret_memoria = config_get_int_value(config, "RETARDO_MEMORIA");
+	datos.ret_compactacion = config_get_int_value(config, "RETARDO_COMPACTACION");
+	datos.algoritmo = config_get_string_value(config, "ALGORITMO_ASIGNACION");
+}
+
+void finalizar_memoria(){
+	log_destroy(logger);
+	free(datos.algoritmo);
+	config_destroy(config);
+	close(server_fd);
+	free(cliente_fd);
+}
 
 void iterator(char* value) {
 	log_info(logger,"%s", value);
