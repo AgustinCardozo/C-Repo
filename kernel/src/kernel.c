@@ -173,6 +173,7 @@ void* atender_cpu(void){
 					pcb->real_ant = clock() - pcb->llegadaExec;
 					pcb->estimacion = datos.alfa*pcb->real_ant + (1 - datos.alfa)*pcb->estimacion;
 					log_info(logger,"La estimacion del pcb [%i]  es de %i en la hora %i",pcb->pid,pcb->estimacion,hora);
+					log_info(logger,"PID: <%d> - Estado Anterior: <EXEC> - Estado Actual: <READY>",pcb->pid);
 					agregar_a_cola_ready(pcb);
 					sem_post(&sem_habilitar_exec);
 					break;
@@ -196,6 +197,7 @@ void* atender_cpu(void){
 					sem_post(&sem_habilitar_exec);
 					pcb->real_ant = clock() - pcb->llegadaExec;
 					pcb->estimacion = datos.alfa*pcb->real_ant + (1 - datos.alfa)*pcb->estimacion;
+					log_info(logger,"PID: <%d> - Estado Anterior: <EXEC> - Estado Actual: <BLOCK>",pcb->pid);
 					pthread_create(&thread_bloqueo_IO,NULL,(void*) ejecutar_IO,pcb);
 					pthread_detach(thread_bloqueo_IO);
 					break;
@@ -204,7 +206,9 @@ void* atender_cpu(void){
 					sem_post(&sem_habilitar_exec);
 					buffer = desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
-					log_info(logger,"El pcb [%i] ha sido finalizado",pcb->pid);
+					log_info(logger,"PID: <%d> - Estado Anterior: <EXEC> - Estado Actual: <EXIT>",pcb->pid);
+					//log_info(logger,"El pcb [%i] ha sido finalizado",pcb->pid);
+					log_info(logger,"Finaliza el proceso <%d> - Motivo: <SUCCESS>",pcb->pid);
 					enviar_mensaje("Tu proceso ha finalizado",pcb->conexion_consola);
 
 					break;
@@ -360,7 +364,8 @@ void agregar_a_cola_new(t_pcb*pcb){
 	sem_wait(&mutex_cola_new);
 	queue_push(cola.cola_new,pcb);
 	sem_post(&mutex_cola_new);
-	log_info(logger,"El proceso [%d] ingreso a la cola nuevo",pcb->pid);
+	//log_info(logger,"El proceso [%d] ingreso a la cola nuevo",pcb->pid);
+	log_info(logger,"Se crea el proceso <%d> en NEW",pcb->pid);
 	sem_post(&sem_nuevo);
 
 }
@@ -405,7 +410,7 @@ void* de_new_a_ready(void){
 			sem_wait(&sem_multiprogramacion);
 			t_pcb* pcb =quitar_de_cola_new();
 
-			log_info(logger,"“PID: %d - Estado Anterior: NEW - Estado Actual: READY”",pcb->pid);
+			log_info(logger,"PID: %d - Estado Anterior: <NEW> - Estado Actual: <READY>",pcb->pid);
 
 			agregar_a_cola_ready(pcb);
 		}
@@ -592,6 +597,7 @@ void ejecutar_wait(t_pcb* pcb){
 			if(recu->instancias < 0){
 				pcb->real_ant = clock() - pcb->llegadaExec;
 				pcb->estimacion = datos.alfa*pcb->real_ant + (1 - datos.alfa)*pcb->estimacion;
+				log_info(logger,"PID: <%d> - Estado Anterior: <EXEC> - Estado Actual: <BLOCK>",pcb->pid);
 				queue_push(recu->cola_recurso,pcb);
 				resultOk = 0;
 				send(conexion_cpu, &resultOk, sizeof(uint32_t), 0);
@@ -664,7 +670,8 @@ void* ejecutar_IO(void* dato){
 	t_instruccion* instruccion = list_get(pcb->lista_instrucciones,index);
 
 	int tiempoBloqueado = atoi(list_get(instruccion->parametros,0));
-	log_info(logger,"El proceso [%i] se bloqueo por [%i]",pcb->pid,tiempoBloqueado);
+	log_info(logger,"PID: <%d> - Bloqueado por: <IO>",pcb->pid);
+	log_info(logger,"PID: <%d> - Ejecuta IO: <%d>",pcb->pid,tiempoBloqueado);
 
 	sleep(tiempoBloqueado);
 	agregar_a_cola_ready(pcb);

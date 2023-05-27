@@ -2227,3 +2227,7 @@
 [INFO] 16:38:52:877 CPU/(6576:6577): Program COutnter: 2
 [INFO] 16:38:52:877 CPU/(6576:6577): Paso por YIELD
 [INFO] 16:38:52:877 CPU/(6576:6577): TERMINO LA EJECUCION
+[INFO] 13:44:52:717 CPU/(2398:2399): CPU listo para recibir al kernel
+[INFO] 13:45:21:206 CPU/(2398:2399): Se conecto un cliente!
+[INFO] 13:45:21:208 CPU/(2398:2399): Me llego el mensaje Hola te estoy hablando desde el kernel
+[ERROR] 13:45:28:209 CPU/(2398:2400): el cliente se desconecto. Terminando servidor

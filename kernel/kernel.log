@@ -2731,3 +2731,10 @@
 [INFO] 16:38:52:879 Kernel/(6605:6616): La estimacion del pcb [1]  es de 668694 en la hora 15046651
 [INFO] 16:38:52:879 Kernel/(6605:6616): El proceso [1] fue agregado a la cola ready
 [INFO] 16:39:22:371 Kernel/(6605:6619): El pcb1 tiene [1.105800] y el pcb 2 tiene [1.000751]
+[INFO] 13:45:21:200 Kernel/(2411:2411): c es 0.833333
+[INFO] 13:45:21:208 Kernel/(2411:2411): KERNEL listo para recibir a las consolas
+[INFO] 13:45:21:209 Kernel/(2411:2417): de ready a ejecutar
+[INFO] 13:45:21:209 Kernel/(2411:2417): Paso por hrrn
+[INFO] 13:45:21:209 Kernel/(2411:2416): nuevo a ready
+[INFO] 13:45:21:213 Kernel/(2411:2413): INICIANDO EL RECURSO [RECURSO_1] con [2] instancias
+[INFO] 13:45:21:213 Kernel/(2411:2412): INICIANDO EL RECURSO [DISCO] con [0] instancias
