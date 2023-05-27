@@ -657,7 +657,7 @@ void ejecutar_signal(t_pcb* pcb){
 		//Liberar datso en memoria
 		uint32_t resultOk = 0;
 		send(conexion_cpu, &resultOk, sizeof(uint32_t), 0);
-		log_info(logger,"El pcb [%i] ha sido finalizado",pcb->pid);
+		//log_info(logger,"El pcb [%i] ha sido finalizado",pcb->pid);
 		enviar_mensaje("Tu proceso ha finalizado",pcb->conexion_consola);
 	}
 
