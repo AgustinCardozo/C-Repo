@@ -20,7 +20,7 @@
 #include "compartido.h"
 
 t_paquete* crear_paquete_pcb(t_pcb* pcb, op_code codigo);
-void enviar_pcb(t_paquete* paquete,int conexion);
+
 t_buffer* serializar_lista_de_instrucciones(t_list* lista_instrucciones);
 t_buffer* serializar_pcb(t_pcb* pcb);
 t_list* deserializar_lista_instrucciones(t_buffer* buffer);

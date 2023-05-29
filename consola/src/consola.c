@@ -21,7 +21,7 @@ t_instruccion* parsear_linea(char* linea);
 void mostrar(t_instruccion* inst);
 void mostrar_parametro(char* value);
 t_paquete* crear_paquete_instrucciones(t_list* lista_instrucciones);
-t_buffer* serializar_lista_de_instrucciones(t_list* lista_instrucciones);
+
 
 int main(int argc, char** argv) {
 	if (argc < 2) {

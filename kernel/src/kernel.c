@@ -26,7 +26,7 @@ void mostrar(t_instruccion* inst);
 void mostrar_parametro(char* value);
 void mostrar_cola(t_queue*cola);
 t_pcb* crear_pcb(t_buffer* buffer, int conexion_consola);
-void enviar_pcb_a(t_pcb* pcb,int conexion, op_code codigo);
+
 void* atender_cpu(void);
 void* de_new_a_ready(void);
 void de_ready_a_ejecutar_fifo(void);
