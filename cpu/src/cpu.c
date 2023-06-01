@@ -192,14 +192,13 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 	switch(instruccion->nombre){
 		case SET:
 			log_info(logger,"Paso por Set");
-			//int reg_des = devolver_registro(list_get(instruccion->parametros,0));
+			char* reg_des = list_get(instruccion->parametros,0);
 			char* caracteres = list_get(instruccion->parametros,1);
 			//log_warning(logger,"!!!!!!!!!!!1 %i %s ",reg_des,caracteres);
-			registro_general.bytes4[0] = string_new();
-			sleep(5);
-			registro_general.bytes4[0] = string_duplicate(caracteres);
-			free(caracteres);
-			log_info(logger,"En AX esta %s",registro_general.bytes4[0]);
+			//registro_general.bytes4[0] = string_new();
+			//sleep(5);
+			//registro_general.bytes4[0] = string_duplicate(caracteres);
+			log_info(logger,"En %s esta %s",reg_des,caracteres);
 			break;
 		case IO:
 			log_info(logger,"Pasa por I/O");
@@ -248,6 +247,18 @@ int devolver_registro(char* registro){
 	int v;
 	if(strcmp(registro,"AX")==0){
 		v = 0;
+	} else if(strcmp(registro,"BX")==0){
+		v = 1;
+	} else if(strcmp(registro,"CX")==0){
+		v = 2;
+	} else if(strcmp(registro,"DX")==0){
+		v = 3;
+	} else if(strcmp(registro,"BX")==0){
+		v = 1;
+	} else if(strcmp(registro,"CX")==0){
+		v = 2;
+	} else if(strcmp(registro,"DX")==0){
+		v = 3;
 	} else if(strcmp(registro,"BX")==0){
 		v = 1;
 	} else if(strcmp(registro,"CX")==0){

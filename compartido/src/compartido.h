@@ -84,7 +84,7 @@ typedef struct{
 	t_list* lista_instrucciones;
 	int program_counter;
 	tabla_segmento segmentos;
-	int estimacion;
+	float estimacion;
 	int real_ant;
 	int llegadaReady;
 	int llegadaExec;

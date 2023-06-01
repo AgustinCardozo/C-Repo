@@ -67,6 +67,8 @@ pthread_t thread_bloqueo_IO;
 
 t_list* lista_recursos;
 
+int t_ahora;
+
 void* iniciar_recurso(void* data);
 int pid;
 
@@ -100,11 +102,10 @@ int main(void) {
 	sem_init(&sem_multiprogramacion,0,datos.multiprogramacion);
 	sem_init(&sem_nuevo,0,0);
 	sem_init(&sem_habilitar_exec,0,1);
-
-	float a = 5;
-	float b = 6;
-	float c = a/b;
-	log_info(logger,"c es %f",c);
+	int a = 3;
+	float b = 0.5;
+	float c = a*b;
+	printf("El resultado es %f\n",c);
 
 	int i = 0;
 	while(datos.recursos[i] != NULL){
@@ -170,9 +171,9 @@ void* atender_cpu(void){
 					pcb = deserializar_pcb(buffer);
 					int hora = clock();
 
-					pcb->real_ant = clock() - pcb->llegadaExec;
+					pcb->real_ant = hora - pcb->llegadaExec;
 					pcb->estimacion = datos.alfa*pcb->real_ant + (1 - datos.alfa)*pcb->estimacion;
-					log_info(logger,"La estimacion del pcb [%i]  es de %i en la hora %i",pcb->pid,pcb->estimacion,hora);
+					log_info(logger,"La estimacion del pcb [%i]  es de %f en la hora %i",pcb->pid,pcb->estimacion,hora);
 					log_info(logger,"PID: <%d> - Estado Anterior: <EXEC> - Estado Actual: <READY>",pcb->pid);
 					agregar_a_cola_ready(pcb);
 					sem_post(&sem_habilitar_exec);
@@ -204,6 +205,7 @@ void* atender_cpu(void){
 				case FINALIZAR:
 					log_info(logger,"Paso por finzalizar");
 					sem_post(&sem_habilitar_exec);
+					sem_wait(&sem_multiprogramacion);
 					buffer = desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 					log_info(logger,"PID: <%d> - Estado Anterior: <EXEC> - Estado Actual: <EXIT>",pcb->pid);
@@ -458,6 +460,7 @@ void de_ready_a_ejecutar_hrrn(void){
 		while(!queue_is_empty(cola.cola_ready_fifo)){
 			sem_wait(&sem_habilitar_exec);
 			//replanificar();
+			t_ahora = clock();
 			list_sort(cola.cola_ready_fifo->elements,comparador_hrrn);
 			t_pcb* pcb = quitar_de_cola_ready();
 			log_info(logger,"“PID: %d - Estado Anterior: READY - Estado Actual: EXEC”",pcb->pid);
@@ -499,12 +502,12 @@ bool comparador_hrrn(void* data1,void* data2){
 	t_pcb* pcb2 = ((t_pcb*) data2);
 	//bool flag = malloc(sizeof(bool));
 	bool flag = true;
-	int t_ahora = clock();
+	//int t_ahora = clock();
 	float t1 = t_ahora - pcb1->llegadaReady;
 	float t2 = t_ahora - pcb2->llegadaReady;
 	float v1 = (pcb1->estimacion+t1)/pcb1->estimacion;
 	float v2 = (pcb2->estimacion+t2)/pcb2->estimacion;
-	log_info(logger,"El pcb1 tiene [%f] y el pcb 2 tiene [%f]",v1,v2);
+	log_info(logger,"El pcb[%i] tiene [%f] y el pcb[%i] tiene [%f]",pcb1->pid,v1,pcb2->pid,v2);
 	if(v1 >= v2){
 		flag = true;
 	} else {
@@ -588,7 +591,8 @@ void ejecutar_wait(t_pcb* pcb){
 	int encontroResultado = 1;
 	while(list_iterator_has_next(iterador)){
 		t_recurso* recu = (t_recurso*)list_iterator_next(iterador);
-		log_info(logger,"Pasa por [%s] con [%i] instancias",recu->nombre,recu->instancias);
+		log_info(logger,"Pasa por [%s] con [%i] instancias y el recurso del pcb es %s",recu->nombre,recu->instancias,nombre);
+
 		if(strcmp(nombre,recu->nombre) == 0){
 			recu->instancias--;
 			encontroResultado = 0;
@@ -622,6 +626,9 @@ void ejecutar_wait(t_pcb* pcb){
 		//Liberar datso en memoria
 		uint32_t resultOk = 0;
 		send(conexion_cpu, &resultOk, sizeof(uint32_t), 0);
+		log_info(logger,"Finaliza el proceso <%d> - Motivo: <SUCCESS>",pcb->pid);
+		enviar_mensaje("Tu proceso ha finalizado por que no existe el recurso",pcb->conexion_consola);
+		sem_post(&sem_habilitar_exec);
 	}
 }
 
@@ -658,7 +665,8 @@ void ejecutar_signal(t_pcb* pcb){
 		uint32_t resultOk = 0;
 		send(conexion_cpu, &resultOk, sizeof(uint32_t), 0);
 		log_info(logger,"El pcb [%i] ha sido finalizado",pcb->pid);
-		enviar_mensaje("Tu proceso ha finalizado",pcb->conexion_consola);
+		enviar_mensaje("Tu proceso ha finalizado por que no existe el recurso",pcb->conexion_consola);
+		sem_post(&sem_habilitar_exec);
 	}
 
 }
