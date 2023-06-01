@@ -1,7 +1,7 @@
 /*
  ============================================================================
  Name        : fileSystem.c
- Author      : 
+ Author      : EstaEsLaVencida
  Version     :
  Copyright   : Your copyright notice
  Description : Hello World in C, Ansi-style
@@ -17,6 +17,11 @@ int main(void) {
 
 	inicializar_config();
 	iniciar_estructura_fs();
+
+	log_info(logger,"PATH_SUPERBLOQUE: %s", datos.path_superbloque);
+	log_info(logger,"PATH_BITMAP: %s", datos.path_bitmap);
+	log_info(logger,"PATH_BLOQUES: %s", datos.path_bloques);
+	log_info(logger,"PATH_FCB: %s", datos.path_fcb);
 
 	int block_size = config_get_int_value(config_superbloque, "BLOCK_SIZE");
 	int block_count = config_get_int_value(config_superbloque, "BLOCK_COUNT");
@@ -42,6 +47,12 @@ void inicializar_config(){
 	datos.path_bloques = config_get_string_value(config,"PATH_BLOQUES");
 	datos.path_fcb = config_get_string_value(config,"PATH_FCB");
 	datos.ret_acceso_bloque = config_get_int_value(config,"RETARDO_ACCESO_BLOQUE");
+
+	reemplazarYConcatenarPalabra(datos.path_superbloque, "~/fs", "/home/utnso/fs/", "superbloque.dat");
+	reemplazarYConcatenarPalabra(datos.path_bitmap, "~/fs", "/home/utnso/fs/", "bitmap.dat");
+	reemplazarYConcatenarPalabra(datos.path_bloques, "~/fs", "/home/utnso/fs/", "bloques.dat");
+	reemplazarYConcatenarPalabra(datos.path_fcb, "~/fs", "/home/utnso/fs/", "fcb");
+
 }
 
 void iniciar_estructura_fs(){
@@ -150,4 +161,23 @@ void* atender_memoria(void){
 
 void iterator(char* value) {
 	log_info(logger,"%s", value);
+}
+
+void reemplazarYConcatenarPalabra(char *texto, const char *palabraBuscada, const char *palabraReemplazo, const char *palabraConcatenar) {
+    char *posicion;
+    int longitudPalabraConcatenar = strlen(palabraConcatenar);
+
+    // Buscar la primera aparición de la palabra buscada
+    posicion = strstr(texto, palabraBuscada);
+
+    while (posicion != NULL) {
+        // Copiar la palabra de reemplazo en lugar de la palabra buscada
+        strcpy(posicion, palabraReemplazo);
+
+        // Concatenar la palabra adicional después de la palabra de reemplazo
+        strcat(posicion, palabraConcatenar);
+
+        // Buscar la siguiente aparición de la palabra buscada
+        posicion = strstr(posicion + strlen(palabraReemplazo) + longitudPalabraConcatenar, palabraBuscada);
+    }
 }

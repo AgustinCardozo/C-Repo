@@ -57,7 +57,8 @@ void* atender_memoria(void);
 void finalizar_fs();
 void inicializar_config();
 void iniciar_estructura_fs();
-t_config* iniciar_config_fs(char*); 
+t_config* iniciar_config_fs(char*);
+void reemplazarYConcatenarPalabra(char*, const char*, const char*, const char*);
 void iterator(char*);
 
 #endif /* FILESYSTEM_H_ */
