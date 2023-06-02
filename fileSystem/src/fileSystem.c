@@ -16,7 +16,7 @@ int main(void) {
 	config = iniciar_config(FS_CONFIG);
 
 	inicializar_config();
-	iniciar_estructura_fs();
+	iniciar_estructura_fs(contenido_superbloque);
 
 	log_info(logger,"PATH_SUPERBLOQUE: %s", datos.path_superbloque);
 	log_info(logger,"PATH_BITMAP: %s", datos.path_bitmap);
@@ -48,22 +48,26 @@ void inicializar_config(){
 	datos.path_fcb = config_get_string_value(config,"PATH_FCB");
 	datos.ret_acceso_bloque = config_get_int_value(config,"RETARDO_ACCESO_BLOQUE");
 
-	reemplazarYConcatenarPalabra(datos.path_superbloque, "~/fs", "/home/utnso/fs/", "superbloque.dat");
-	reemplazarYConcatenarPalabra(datos.path_bitmap, "~/fs", "/home/utnso/fs/", "bitmap.dat");
-	reemplazarYConcatenarPalabra(datos.path_bloques, "~/fs", "/home/utnso/fs/", "bloques.dat");
-	reemplazarYConcatenarPalabra(datos.path_fcb, "~/fs", "/home/utnso/fs/", "fcb");
+	reemplazar_y_concatenar_palabra(datos.path_superbloque, "~/fs/sbloque.dat", "/home/utnso/fs/", "superbloque.dat");
+	reemplazar_y_concatenar_palabra(datos.path_bitmap, "~/fs", "/home/utnso/fs/", "bitmap.dat");
+	reemplazar_y_concatenar_palabra(datos.path_bloques, "~/fs", "/home/utnso/fs/", "bloques.dat");
+	reemplazar_y_concatenar_palabra(datos.path_fcb, "~/fs", "/home/utnso/fs/", "fcb");
 
 }
 
-void iniciar_estructura_fs(){
-	config_superbloque = iniciar_config_fs(datos.path_superbloque);
-	// config_bitmap = iniciar_config_fs(datos.path_bitmap);
-	// config_bloques = iniciar_config_fs(datos.path_bloques);
-	// config_fcb = iniciar_config_fs(datos.path_fcb);
+void iniciar_estructura_fs(const char *contenidos[]){
 	int valor = mkdir(PATH, 0777); //TODO: preguntar si existe la carpeta o si lo tenemos q crear
 	if(valor < 0){
 		log_warning(logger, "Ya existe el directo(%s)", PATH);
 	}
+
+	int num_contenidos = sizeof(contenido_superbloque) / sizeof(contenido_superbloque[0]);
+	crear_archivo(datos.path_superbloque, contenido_superbloque, num_contenidos);
+	config_superbloque = iniciar_config_fs(datos.path_superbloque);
+	// config_bitmap = iniciar_config_fs(datos.path_bitmap);
+	// config_bloques = iniciar_config_fs(datos.path_bloques);
+	// config_fcb = iniciar_config_fs(datos.path_fcb);
+	
 	//Si existe la carpeta crea los archivos
 	bitmap = fopen(datos.path_bitmap,"a");
 	bloques = fopen(datos.path_bloques,"a");
@@ -163,21 +167,43 @@ void iterator(char* value) {
 	log_info(logger,"%s", value);
 }
 
-void reemplazarYConcatenarPalabra(char *texto, const char *palabraBuscada, const char *palabraReemplazo, const char *palabraConcatenar) {
+void reemplazar_y_concatenar_palabra(char *texto, const char *palabra_buscada, const char *palabra_reemplazo, const char *palabra_concatenar) {
     char *posicion;
-    int longitudPalabraConcatenar = strlen(palabraConcatenar);
+    int longitud_palabra_concatenar = strlen(palabra_concatenar);
 
     // Buscar la primera aparición de la palabra buscada
-    posicion = strstr(texto, palabraBuscada);
+    posicion = strstr(texto, palabra_buscada);
 
     while (posicion != NULL) {
         // Copiar la palabra de reemplazo en lugar de la palabra buscada
-        strcpy(posicion, palabraReemplazo);
+        strcpy(posicion, palabra_reemplazo);
 
         // Concatenar la palabra adicional después de la palabra de reemplazo
-        strcat(posicion, palabraConcatenar);
+        strcat(posicion, palabra_concatenar);
 
         // Buscar la siguiente aparición de la palabra buscada
-        posicion = strstr(posicion + strlen(palabraReemplazo) + longitudPalabraConcatenar, palabraBuscada);
+        posicion = strstr(posicion + strlen(palabra_reemplazo) + longitud_palabra_concatenar, palabra_buscada);
+    }
+}
+
+void crear_archivo(const char *nombre_archivo, const char *contenidos[], int num_contenidos) {
+    FILE *archivo;
+
+    archivo = fopen(nombre_archivo, "r");
+
+    if (archivo == NULL) {
+        archivo = fopen(nombre_archivo, "w");
+        if (archivo != NULL) {
+            for (int i = 0; i < num_contenidos; i++) {
+                fprintf(archivo, "%s\n", contenidos[i]);
+            }
+            fclose(archivo);
+            log_info(logger, "Archivo creado exitosamente.");
+        } else {
+            log_error(logger,"No se pudo crear el archivo.");
+        }
+    } else {
+        log_warning(logger, "El archivo ya existe.");
+        fclose(archivo);
     }
 }

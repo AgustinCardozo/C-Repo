@@ -22,6 +22,11 @@
 #define FS_NAME "File_System"
 #define PATH "/home/utnso/fs"
 
+const char *contenido_superbloque[] = {
+	"BLOCK_SIZE=64",
+	"BLOCK_COUNT=65536"
+};
+
 typedef struct{
 	char* ip_memoria;
 	char* puerto_memoria;
@@ -56,9 +61,10 @@ void* atender_memoria(void);
 
 void finalizar_fs();
 void inicializar_config();
-void iniciar_estructura_fs();
+void iniciar_estructura_fs(const char *contenidos[]);
 t_config* iniciar_config_fs(char*);
-void reemplazarYConcatenarPalabra(char*, const char*, const char*, const char*);
+void reemplazar_y_concatenar_palabra(char*, const char*, const char*, const char*);
+void crear_archivo(const char*, const char *contenidos[], int);
 void iterator(char*);
 
 #endif /* FILESYSTEM_H_ */
