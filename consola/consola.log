@@ -15368,3 +15368,169 @@
 [INFO] 17:33:49:245 Consola/(13671:13671): La instruccion es 15
 [INFO] 17:33:50:260 Consola/(13671:13671): El proceso ha terminado
 [INFO] 17:33:50:260 Consola/(13671:13671): Me llego el mensaje Tu proceso ha finalizado por que no existe el recurso
+[INFO] 18:54:36:827 Consola/(3160:3160): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 18:54:36:828 Consola/(3160:3160): La instruccion es 0
+[INFO] 18:54:36:829 Consola/(3160:3160): Parametro AX
+[INFO] 18:54:36:829 Consola/(3160:3160): Parametro AAAA
+[INFO] 18:54:36:829 Consola/(3160:3160): La instruccion es 0
+[INFO] 18:54:36:829 Consola/(3160:3160): Parametro BX
+[INFO] 18:54:36:829 Consola/(3160:3160): Parametro BBBB
+[INFO] 18:54:36:829 Consola/(3160:3160): La instruccion es 0
+[INFO] 18:54:36:829 Consola/(3160:3160): Parametro CX
+[INFO] 18:54:36:829 Consola/(3160:3160): Parametro CCCC
+[INFO] 18:54:36:829 Consola/(3160:3160): La instruccion es 0
+[INFO] 18:54:36:830 Consola/(3160:3160): Parametro DX
+[INFO] 18:54:36:830 Consola/(3160:3160): Parametro DDDD
+[INFO] 18:54:36:830 Consola/(3160:3160): La instruccion es 0
+[INFO] 18:54:36:830 Consola/(3160:3160): Parametro EAX
+[INFO] 18:54:36:830 Consola/(3160:3160): Parametro AAAAAAAA
+[INFO] 18:54:36:830 Consola/(3160:3160): La instruccion es 0
+[INFO] 18:54:36:830 Consola/(3160:3160): Parametro EBX
+[INFO] 18:54:36:830 Consola/(3160:3160): Parametro BBBBBBBB
+[INFO] 18:54:36:830 Consola/(3160:3160): La instruccion es 0
+[INFO] 18:54:36:830 Consola/(3160:3160): Parametro ECX
+[INFO] 18:54:36:830 Consola/(3160:3160): Parametro CCCCCCCC
+[INFO] 18:54:36:830 Consola/(3160:3160): La instruccion es 0
+[INFO] 18:54:36:830 Consola/(3160:3160): Parametro EDX
+[INFO] 18:54:36:830 Consola/(3160:3160): Parametro DDDDDDDD
+[INFO] 18:54:36:830 Consola/(3160:3160): La instruccion es 0
+[INFO] 18:54:36:830 Consola/(3160:3160): Parametro RAX
+[INFO] 18:54:36:830 Consola/(3160:3160): Parametro AAAAAAAAAAAAAAAA
+[INFO] 18:54:36:831 Consola/(3160:3160): La instruccion es 0
+[INFO] 18:54:36:831 Consola/(3160:3160): Parametro RBX
+[INFO] 18:54:36:831 Consola/(3160:3160): Parametro BBBBBBBBBBBBBBBB
+[INFO] 18:54:36:831 Consola/(3160:3160): La instruccion es 0
+[INFO] 18:54:36:831 Consola/(3160:3160): Parametro RCX
+[INFO] 18:54:36:831 Consola/(3160:3160): Parametro CCCCCCCCCCCCCCCC
+[INFO] 18:54:36:831 Consola/(3160:3160): La instruccion es 0
+[INFO] 18:54:36:831 Consola/(3160:3160): Parametro RDX
+[INFO] 18:54:36:831 Consola/(3160:3160): Parametro DDDDDDDDDDDDDDDD
+[INFO] 18:54:36:831 Consola/(3160:3160): La instruccion es 14
+[INFO] 18:54:36:831 Consola/(3160:3160): La instruccion es 0
+[INFO] 18:54:36:831 Consola/(3160:3160): Parametro RAX
+[INFO] 18:54:36:831 Consola/(3160:3160): Parametro TCHOUAMENIAFUERA
+[INFO] 18:54:36:831 Consola/(3160:3160): La instruccion es 0
+[INFO] 18:54:36:831 Consola/(3160:3160): Parametro RBX
+[INFO] 18:54:36:831 Consola/(3160:3160): Parametro SEGUNDO_FRANCIA_
+[INFO] 18:54:36:831 Consola/(3160:3160): La instruccion es 15
+[INFO] 18:54:39:531 Consola/(3162:3162): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 18:54:39:551 Consola/(3162:3162): La instruccion es 0
+[INFO] 18:54:39:551 Consola/(3162:3162): Parametro AX
+[INFO] 18:54:39:551 Consola/(3162:3162): Parametro ARG0
+[INFO] 18:54:39:551 Consola/(3162:3162): La instruccion es 0
+[INFO] 18:54:39:551 Consola/(3162:3162): Parametro BX
+[INFO] 18:54:39:551 Consola/(3162:3162): Parametro FRA0
+[INFO] 18:54:39:551 Consola/(3162:3162): La instruccion es 14
+[INFO] 18:54:39:551 Consola/(3162:3162): La instruccion es 0
+[INFO] 18:54:39:551 Consola/(3162:3162): Parametro AX
+[INFO] 18:54:39:551 Consola/(3162:3162): Parametro ARG1
+[INFO] 18:54:39:551 Consola/(3162:3162): La instruccion es 0
+[INFO] 18:54:39:551 Consola/(3162:3162): Parametro BX
+[INFO] 18:54:39:551 Consola/(3162:3162): Parametro FRA0
+[INFO] 18:54:39:551 Consola/(3162:3162): La instruccion es 14
+[INFO] 18:54:39:552 Consola/(3162:3162): La instruccion es 0
+[INFO] 18:54:39:552 Consola/(3162:3162): Parametro AX
+[INFO] 18:54:39:552 Consola/(3162:3162): Parametro ARG2
+[INFO] 18:54:39:552 Consola/(3162:3162): La instruccion es 0
+[INFO] 18:54:39:552 Consola/(3162:3162): Parametro BX
+[INFO] 18:54:39:552 Consola/(3162:3162): Parametro FRA0
+[INFO] 18:54:39:552 Consola/(3162:3162): La instruccion es 14
+[INFO] 18:54:39:552 Consola/(3162:3162): La instruccion es 0
+[INFO] 18:54:39:552 Consola/(3162:3162): Parametro AX
+[INFO] 18:54:39:552 Consola/(3162:3162): Parametro ARG2
+[INFO] 18:54:39:552 Consola/(3162:3162): La instruccion es 0
+[INFO] 18:54:39:552 Consola/(3162:3162): Parametro BX
+[INFO] 18:54:39:552 Consola/(3162:3162): Parametro FRA1
+[INFO] 18:54:39:552 Consola/(3162:3162): La instruccion es 14
+[INFO] 18:54:39:552 Consola/(3162:3162): La instruccion es 0
+[INFO] 18:54:39:552 Consola/(3162:3162): Parametro AX
+[INFO] 18:54:39:552 Consola/(3162:3162): Parametro ARG2
+[INFO] 18:54:39:552 Consola/(3162:3162): La instruccion es 0
+[INFO] 18:54:39:552 Consola/(3162:3162): Parametro BX
+[INFO] 18:54:39:552 Consola/(3162:3162): Parametro FRA2
+[INFO] 18:54:39:552 Consola/(3162:3162): La instruccion es 14
+[INFO] 18:54:39:552 Consola/(3162:3162): La instruccion es 0
+[INFO] 18:54:39:552 Consola/(3162:3162): Parametro AX
+[INFO] 18:54:39:552 Consola/(3162:3162): Parametro ARG3
+[INFO] 18:54:39:552 Consola/(3162:3162): La instruccion es 0
+[INFO] 18:54:39:552 Consola/(3162:3162): Parametro BX
+[INFO] 18:54:39:553 Consola/(3162:3162): Parametro FRA2
+[INFO] 18:54:39:553 Consola/(3162:3162): La instruccion es 14
+[INFO] 18:54:39:553 Consola/(3162:3162): La instruccion es 0
+[INFO] 18:54:39:553 Consola/(3162:3162): Parametro AX
+[INFO] 18:54:39:553 Consola/(3162:3162): Parametro ARG3
+[INFO] 18:54:39:553 Consola/(3162:3162): La instruccion es 0
+[INFO] 18:54:39:553 Consola/(3162:3162): Parametro BX
+[INFO] 18:54:39:553 Consola/(3162:3162): Parametro FRA3
+[INFO] 18:54:39:553 Consola/(3162:3162): La instruccion es 14
+[INFO] 18:54:39:553 Consola/(3162:3162): La instruccion es 0
+[INFO] 18:54:39:553 Consola/(3162:3162): Parametro RDX
+[INFO] 18:54:39:553 Consola/(3162:3162): Parametro VAMOSALOSPENALES
+[INFO] 18:54:39:553 Consola/(3162:3162): La instruccion es 14
+[INFO] 18:54:39:553 Consola/(3162:3162): La instruccion es 0
+[INFO] 18:54:39:553 Consola/(3162:3162): Parametro RAX
+[INFO] 18:54:39:553 Consola/(3162:3162): Parametro ARGENTINACAMPEON
+[INFO] 18:54:39:553 Consola/(3162:3162): La instruccion es 15
+[INFO] 18:54:41:503 Consola/(3164:3164): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 18:54:41:504 Consola/(3164:3164): La instruccion es 0
+[INFO] 18:54:41:504 Consola/(3164:3164): Parametro AX
+[INFO] 18:54:41:504 Consola/(3164:3164): Parametro ARG0
+[INFO] 18:54:41:504 Consola/(3164:3164): La instruccion es 0
+[INFO] 18:54:41:504 Consola/(3164:3164): Parametro BX
+[INFO] 18:54:41:504 Consola/(3164:3164): Parametro FRA0
+[INFO] 18:54:41:504 Consola/(3164:3164): La instruccion es 14
+[INFO] 18:54:41:504 Consola/(3164:3164): La instruccion es 0
+[INFO] 18:54:41:504 Consola/(3164:3164): Parametro AX
+[INFO] 18:54:41:504 Consola/(3164:3164): Parametro ARG1
+[INFO] 18:54:41:504 Consola/(3164:3164): La instruccion es 0
+[INFO] 18:54:41:505 Consola/(3164:3164): Parametro BX
+[INFO] 18:54:41:505 Consola/(3164:3164): Parametro FRA0
+[INFO] 18:54:41:505 Consola/(3164:3164): La instruccion es 14
+[INFO] 18:54:41:505 Consola/(3164:3164): La instruccion es 0
+[INFO] 18:54:41:505 Consola/(3164:3164): Parametro AX
+[INFO] 18:54:41:505 Consola/(3164:3164): Parametro ARG2
+[INFO] 18:54:41:505 Consola/(3164:3164): La instruccion es 0
+[INFO] 18:54:41:505 Consola/(3164:3164): Parametro BX
+[INFO] 18:54:41:505 Consola/(3164:3164): Parametro FRA0
+[INFO] 18:54:41:505 Consola/(3164:3164): La instruccion es 14
+[INFO] 18:54:41:505 Consola/(3164:3164): La instruccion es 0
+[INFO] 18:54:41:505 Consola/(3164:3164): Parametro AX
+[INFO] 18:54:41:505 Consola/(3164:3164): Parametro ARG2
+[INFO] 18:54:41:505 Consola/(3164:3164): La instruccion es 0
+[INFO] 18:54:41:505 Consola/(3164:3164): Parametro BX
+[INFO] 18:54:41:505 Consola/(3164:3164): Parametro FRA1
+[INFO] 18:54:41:506 Consola/(3164:3164): La instruccion es 14
+[INFO] 18:54:41:506 Consola/(3164:3164): La instruccion es 0
+[INFO] 18:54:41:506 Consola/(3164:3164): Parametro AX
+[INFO] 18:54:41:506 Consola/(3164:3164): Parametro ARG2
+[INFO] 18:54:41:506 Consola/(3164:3164): La instruccion es 0
+[INFO] 18:54:41:506 Consola/(3164:3164): Parametro BX
+[INFO] 18:54:41:506 Consola/(3164:3164): Parametro FRA2
+[INFO] 18:54:41:506 Consola/(3164:3164): La instruccion es 14
+[INFO] 18:54:41:506 Consola/(3164:3164): La instruccion es 0
+[INFO] 18:54:41:506 Consola/(3164:3164): Parametro AX
+[INFO] 18:54:41:506 Consola/(3164:3164): Parametro ARG3
+[INFO] 18:54:41:506 Consola/(3164:3164): La instruccion es 0
+[INFO] 18:54:41:506 Consola/(3164:3164): Parametro BX
+[INFO] 18:54:41:506 Consola/(3164:3164): Parametro FRA2
+[INFO] 18:54:41:506 Consola/(3164:3164): La instruccion es 14
+[INFO] 18:54:41:506 Consola/(3164:3164): La instruccion es 0
+[INFO] 18:54:41:506 Consola/(3164:3164): Parametro AX
+[INFO] 18:54:41:506 Consola/(3164:3164): Parametro ARG3
+[INFO] 18:54:41:506 Consola/(3164:3164): La instruccion es 0
+[INFO] 18:54:41:506 Consola/(3164:3164): Parametro BX
+[INFO] 18:54:41:506 Consola/(3164:3164): Parametro FRA3
+[INFO] 18:54:41:506 Consola/(3164:3164): La instruccion es 14
+[INFO] 18:54:41:506 Consola/(3164:3164): La instruccion es 0
+[INFO] 18:54:41:506 Consola/(3164:3164): Parametro RDX
+[INFO] 18:54:41:506 Consola/(3164:3164): Parametro VAMOSALOSPENALES
+[INFO] 18:54:41:506 Consola/(3164:3164): La instruccion es 14
+[INFO] 18:54:41:506 Consola/(3164:3164): La instruccion es 0
+[INFO] 18:54:41:506 Consola/(3164:3164): Parametro RAX
+[INFO] 18:54:41:506 Consola/(3164:3164): Parametro ARGENTINACAMPEON
+[INFO] 18:54:41:506 Consola/(3164:3164): La instruccion es 15
+[INFO] 18:54:54:852 Consola/(3160:3160): El proceso ha terminado
+[INFO] 18:54:54:852 Consola/(3160:3160): Me llego el mensaje Tu proceso ha finalizado

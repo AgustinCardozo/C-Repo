@@ -58,7 +58,7 @@ dkms.conf
 # VSCode Files
 **.vscode
 **/obj/
-Makefile 
+#Makefile 
 exec
 hexec
 vexec
