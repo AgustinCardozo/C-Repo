@@ -23,9 +23,9 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := kernel
-BUILD_ARTIFACT_EXTENSION :=
-BUILD_ARTIFACT_PREFIX :=
+BUILD_ARTIFACT_NAME := compartido
+BUILD_ARTIFACT_EXTENSION := so
+BUILD_ARTIFACT_PREFIX := lib
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
@@ -34,19 +34,19 @@ BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ART
 all: main-build
 
 # Main-build Target
-main-build: kernel
+main-build: libcompartido.so
 
 # Tool invocations
-kernel: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
+libcompartido.so: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc -L"/home/utnso/tp-2023-1c-EstaEsLaVencida/compartido/Debug" -o "kernel" $(OBJS) $(USER_OBJS) $(LIBS) -lcommons -lcompartido -lreadline
+	gcc -shared -o "libcompartido.so" $(OBJS) $(USER_OBJS) $(LIBS) -lcommons -lreadline
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) kernel
+	-$(RM) libcompartido.so
 	-@echo ' '
 
 .PHONY: all clean dependents main-build
