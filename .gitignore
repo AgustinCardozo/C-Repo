@@ -37,10 +37,10 @@
 #*.hex
 
 # Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+#*.dSYM/
+#*.su
+#*.idb
+#*.pdb
 
 # Kernel Module Compile Results
 *.mod*
