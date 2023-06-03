@@ -1,40 +1,39 @@
-################################################################################
-# Automatically-generated file. Do not edit!
-################################################################################
+PROCESS_NAME=kernel
+IDIR =./src
+SHARED_IDIR = ../compartido/src
+CC=gcc
+CFLAGS=-I$(IDIR) -I$(SHARED_IDIR) -g -Wall
 
--include ../makefile.init
+ODIR=./obj
+SRCDIR =./src
+LIBS=-lcommons -lpthread -lreadline -lcunit -lrt
 
-RM := rm -rf
+SHARED_SRCDIR = ../compartido/src
+SHARED_ODIR = ../compartido/obj
 
-# All of the sources participating in the build are defined here
--include sources.mk
--include src/subdir.mk
-ifneq ($(MAKECMDGOALS),clean)
-ifneq ($(strip $(C_DEPS)),)
--include $(C_DEPS)
-endif
-endif
+DEPS = $(wildcard $(IDIR)/*.h)
 
--include ../makefile.defs
+SRC = $(wildcard $(SRCDIR)/*.c)
+OBJ = $(patsubst $(SRCDIR)/%.c,$(ODIR)/%.o,$(SRC))
 
-OPTIONAL_TOOL_DEPS := \
-$(wildcard ../makefile.defs) \
-$(wildcard ../makefile.init) \
-$(wildcard ../makefile.targets) \
+$(ODIR)/%.o: $(SRCDIR)/%.c $(DEPS) $(SHARED_DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
 
+$(SHARED_ODIR)/%.o: $(SHARED_SRCDIR)/%.c $(SHARED_DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
 
-BUILD_ARTIFACT_NAME := kernel
-BUILD_ARTIFACT_EXTENSION :=
-BUILD_ARTIFACT_PREFIX :=
-BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
+SHARED_DEPS = $(wildcard $(SHARED_IDIR)/*.h)
 
-# Add inputs and outputs from these tool invocations to the build variables 
+SHARED_SRC = $(wildcard $(SHARED_SRCDIR)/*.c)
+SHARED_OBJ = $(patsubst $(SHARED_SRCDIR)/%.c,$(SHARED_ODIR)/%.o,$(SHARED_SRC))
 
-# All Target
-all: main-build
+$(PROCESS_NAME): $(OBJ) $(SHARED_OBJ)
+	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
-# Main-build Target
-main-build: kernel
+.PHONY: clean
+
+clean:
+	rm -f $(ODIR)/*.o *~ core $(INCDIR)/*~ $(PROCESS_NAME) $(SHARED_ODIR)/*.o
 
 # Tool invocations
 kernel: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
