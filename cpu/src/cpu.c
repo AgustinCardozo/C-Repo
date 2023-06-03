@@ -53,7 +53,7 @@ int main(void) {
 }
 
 void* atender_kernel(void){
-	server_fd = iniciar_servidor(logger,"127.0.0.1",datos.puerto_escucha);
+	server_fd = iniciar_servidor(logger,"192.168.1.102",datos.puerto_escucha);
 	log_info(logger, "CPU listo para recibir al kernel");
 	t_paquete* paquete = malloc(sizeof(t_paquete));
 	paquete->buffer = malloc(sizeof(t_buffer));

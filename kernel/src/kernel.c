@@ -134,7 +134,7 @@ int main(void) {
 	pthread_create(&thread_atender_cpu,NULL,(void*) atender_cpu,NULL);
 	pthread_create(&thread_nuevo_a_ready,NULL,(void*) de_new_a_ready,NULL);
 	pthread_create(&thread_ejecutar,NULL,(void*) de_ready_a_ejecutar,NULL);
-	server_fd = iniciar_servidor(logger,"127.0.0.1",datos.puerto_escucha);
+	server_fd = iniciar_servidor(logger,"192.168.1.89",datos.puerto_escucha);
 	log_info(logger, "KERNEL listo para recibir a las consolas");
 
 	cliente_fd = malloc(sizeof(int));//
