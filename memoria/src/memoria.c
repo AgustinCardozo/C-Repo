@@ -19,7 +19,7 @@ int main(void) {
 
 	iniciar_config_memoria();
 
-	int server_fd = iniciar_servidor(logger,IP,datos.puerto_escucha);
+	int server_fd = iniciar_servidor(logger,datos.puerto_escucha);
 	log_info(logger, "Memoria listo para recibir a los modulos");
 
 	cliente_fd = malloc(sizeof(int));

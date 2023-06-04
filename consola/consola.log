@@ -15598,3 +15598,179 @@
 [INFO] 16:52:31:261 Consola/(16133:16133): La instruccion es 11
 [INFO] 16:52:31:261 Consola/(16133:16133): Parametro DISCO
 [INFO] 16:52:31:261 Consola/(16133:16133): La instruccion es 15
+[INFO] 19:03:58:361 Consola/(2566:2566): Esto es la consola y los IP del kernel son 192.168.1.130 y el Puerto es 8000 
+
+[INFO] 19:04:01:254 Consola/(2567:2567): Esto es la consola y los IP del kernel son 192.168.1.130 y el Puerto es 8000 
+
+[INFO] 19:04:02:720 Consola/(2568:2568): Esto es la consola y los IP del kernel son 192.168.1.130 y el Puerto es 8000 
+
+[INFO] 19:06:22:233 Consola/(2613:2613): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 19:06:22:234 Consola/(2613:2613): La instruccion es 0
+[INFO] 19:06:22:234 Consola/(2613:2613): Parametro AX
+[INFO] 19:06:22:234 Consola/(2613:2613): Parametro AAAA
+[INFO] 19:06:22:234 Consola/(2613:2613): La instruccion es 0
+[INFO] 19:06:22:234 Consola/(2613:2613): Parametro BX
+[INFO] 19:06:22:234 Consola/(2613:2613): Parametro BBBB
+[INFO] 19:06:22:234 Consola/(2613:2613): La instruccion es 0
+[INFO] 19:06:22:237 Consola/(2613:2613): Parametro CX
+[INFO] 19:06:22:237 Consola/(2613:2613): Parametro CCCC
+[INFO] 19:06:22:237 Consola/(2613:2613): La instruccion es 0
+[INFO] 19:06:22:238 Consola/(2613:2613): Parametro DX
+[INFO] 19:06:22:238 Consola/(2613:2613): Parametro DDDD
+[INFO] 19:06:22:238 Consola/(2613:2613): La instruccion es 0
+[INFO] 19:06:22:238 Consola/(2613:2613): Parametro EAX
+[INFO] 19:06:22:238 Consola/(2613:2613): Parametro AAAAAAAA
+[INFO] 19:06:22:238 Consola/(2613:2613): La instruccion es 0
+[INFO] 19:06:22:238 Consola/(2613:2613): Parametro EBX
+[INFO] 19:06:22:238 Consola/(2613:2613): Parametro BBBBBBBB
+[INFO] 19:06:22:238 Consola/(2613:2613): La instruccion es 0
+[INFO] 19:06:22:238 Consola/(2613:2613): Parametro ECX
+[INFO] 19:06:22:238 Consola/(2613:2613): Parametro CCCCCCCC
+[INFO] 19:06:22:238 Consola/(2613:2613): La instruccion es 0
+[INFO] 19:06:22:238 Consola/(2613:2613): Parametro EDX
+[INFO] 19:06:22:238 Consola/(2613:2613): Parametro DDDDDDDD
+[INFO] 19:06:22:238 Consola/(2613:2613): La instruccion es 0
+[INFO] 19:06:22:238 Consola/(2613:2613): Parametro RAX
+[INFO] 19:06:22:238 Consola/(2613:2613): Parametro AAAAAAAAAAAAAAAA
+[INFO] 19:06:22:239 Consola/(2613:2613): La instruccion es 0
+[INFO] 19:06:22:239 Consola/(2613:2613): Parametro RBX
+[INFO] 19:06:22:239 Consola/(2613:2613): Parametro BBBBBBBBBBBBBBBB
+[INFO] 19:06:22:239 Consola/(2613:2613): La instruccion es 0
+[INFO] 19:06:22:239 Consola/(2613:2613): Parametro RCX
+[INFO] 19:06:22:239 Consola/(2613:2613): Parametro CCCCCCCCCCCCCCCC
+[INFO] 19:06:22:239 Consola/(2613:2613): La instruccion es 0
+[INFO] 19:06:22:239 Consola/(2613:2613): Parametro RDX
+[INFO] 19:06:22:239 Consola/(2613:2613): Parametro DDDDDDDDDDDDDDDD
+[INFO] 19:06:22:239 Consola/(2613:2613): La instruccion es 14
+[INFO] 19:06:22:239 Consola/(2613:2613): La instruccion es 0
+[INFO] 19:06:22:239 Consola/(2613:2613): Parametro RAX
+[INFO] 19:06:22:239 Consola/(2613:2613): Parametro TCHOUAMENIAFUERA
+[INFO] 19:06:22:239 Consola/(2613:2613): La instruccion es 0
+[INFO] 19:06:22:239 Consola/(2613:2613): Parametro RBX
+[INFO] 19:06:22:239 Consola/(2613:2613): Parametro SEGUNDO_FRANCIA_
+[INFO] 19:06:22:239 Consola/(2613:2613): La instruccion es 15
+[INFO] 19:06:23:845 Consola/(2615:2615): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 19:06:23:846 Consola/(2615:2615): La instruccion es 0
+[INFO] 19:06:23:846 Consola/(2615:2615): Parametro AX
+[INFO] 19:06:23:846 Consola/(2615:2615): Parametro ARG0
+[INFO] 19:06:23:846 Consola/(2615:2615): La instruccion es 0
+[INFO] 19:06:23:846 Consola/(2615:2615): Parametro BX
+[INFO] 19:06:23:846 Consola/(2615:2615): Parametro FRA0
+[INFO] 19:06:23:846 Consola/(2615:2615): La instruccion es 14
+[INFO] 19:06:23:846 Consola/(2615:2615): La instruccion es 0
+[INFO] 19:06:23:847 Consola/(2615:2615): Parametro AX
+[INFO] 19:06:23:847 Consola/(2615:2615): Parametro ARG1
+[INFO] 19:06:23:847 Consola/(2615:2615): La instruccion es 0
+[INFO] 19:06:23:847 Consola/(2615:2615): Parametro BX
+[INFO] 19:06:23:847 Consola/(2615:2615): Parametro FRA0
+[INFO] 19:06:23:847 Consola/(2615:2615): La instruccion es 14
+[INFO] 19:06:23:847 Consola/(2615:2615): La instruccion es 0
+[INFO] 19:06:23:850 Consola/(2615:2615): Parametro AX
+[INFO] 19:06:23:850 Consola/(2615:2615): Parametro ARG2
+[INFO] 19:06:23:850 Consola/(2615:2615): La instruccion es 0
+[INFO] 19:06:23:850 Consola/(2615:2615): Parametro BX
+[INFO] 19:06:23:850 Consola/(2615:2615): Parametro FRA0
+[INFO] 19:06:23:850 Consola/(2615:2615): La instruccion es 14
+[INFO] 19:06:23:850 Consola/(2615:2615): La instruccion es 0
+[INFO] 19:06:23:850 Consola/(2615:2615): Parametro AX
+[INFO] 19:06:23:850 Consola/(2615:2615): Parametro ARG2
+[INFO] 19:06:23:851 Consola/(2615:2615): La instruccion es 0
+[INFO] 19:06:23:851 Consola/(2615:2615): Parametro BX
+[INFO] 19:06:23:851 Consola/(2615:2615): Parametro FRA1
+[INFO] 19:06:23:851 Consola/(2615:2615): La instruccion es 14
+[INFO] 19:06:23:851 Consola/(2615:2615): La instruccion es 0
+[INFO] 19:06:23:851 Consola/(2615:2615): Parametro AX
+[INFO] 19:06:23:851 Consola/(2615:2615): Parametro ARG2
+[INFO] 19:06:23:851 Consola/(2615:2615): La instruccion es 0
+[INFO] 19:06:23:851 Consola/(2615:2615): Parametro BX
+[INFO] 19:06:23:851 Consola/(2615:2615): Parametro FRA2
+[INFO] 19:06:23:851 Consola/(2615:2615): La instruccion es 14
+[INFO] 19:06:23:853 Consola/(2615:2615): La instruccion es 0
+[INFO] 19:06:23:853 Consola/(2615:2615): Parametro AX
+[INFO] 19:06:23:853 Consola/(2615:2615): Parametro ARG3
+[INFO] 19:06:23:853 Consola/(2615:2615): La instruccion es 0
+[INFO] 19:06:23:853 Consola/(2615:2615): Parametro BX
+[INFO] 19:06:23:853 Consola/(2615:2615): Parametro FRA2
+[INFO] 19:06:23:853 Consola/(2615:2615): La instruccion es 14
+[INFO] 19:06:23:853 Consola/(2615:2615): La instruccion es 0
+[INFO] 19:06:23:853 Consola/(2615:2615): Parametro AX
+[INFO] 19:06:23:853 Consola/(2615:2615): Parametro ARG3
+[INFO] 19:06:23:853 Consola/(2615:2615): La instruccion es 0
+[INFO] 19:06:23:853 Consola/(2615:2615): Parametro BX
+[INFO] 19:06:23:853 Consola/(2615:2615): Parametro FRA3
+[INFO] 19:06:23:854 Consola/(2615:2615): La instruccion es 14
+[INFO] 19:06:23:854 Consola/(2615:2615): La instruccion es 0
+[INFO] 19:06:23:854 Consola/(2615:2615): Parametro RDX
+[INFO] 19:06:23:854 Consola/(2615:2615): Parametro VAMOSALOSPENALES
+[INFO] 19:06:23:854 Consola/(2615:2615): La instruccion es 14
+[INFO] 19:06:23:854 Consola/(2615:2615): La instruccion es 0
+[INFO] 19:06:23:854 Consola/(2615:2615): Parametro RAX
+[INFO] 19:06:23:854 Consola/(2615:2615): Parametro ARGENTINACAMPEON
+[INFO] 19:06:23:854 Consola/(2615:2615): La instruccion es 15
+[INFO] 19:06:25:483 Consola/(2617:2617): Esto es la consola y los IP del kernel son 127.0.0.1 y el Puerto es 8000 
+
+[INFO] 19:06:25:486 Consola/(2617:2617): La instruccion es 0
+[INFO] 19:06:25:486 Consola/(2617:2617): Parametro AX
+[INFO] 19:06:25:487 Consola/(2617:2617): Parametro ARG0
+[INFO] 19:06:25:487 Consola/(2617:2617): La instruccion es 0
+[INFO] 19:06:25:487 Consola/(2617:2617): Parametro BX
+[INFO] 19:06:25:487 Consola/(2617:2617): Parametro FRA0
+[INFO] 19:06:25:487 Consola/(2617:2617): La instruccion es 14
+[INFO] 19:06:25:488 Consola/(2617:2617): La instruccion es 0
+[INFO] 19:06:25:488 Consola/(2617:2617): Parametro AX
+[INFO] 19:06:25:488 Consola/(2617:2617): Parametro ARG1
+[INFO] 19:06:25:488 Consola/(2617:2617): La instruccion es 0
+[INFO] 19:06:25:489 Consola/(2617:2617): Parametro BX
+[INFO] 19:06:25:489 Consola/(2617:2617): Parametro FRA0
+[INFO] 19:06:25:489 Consola/(2617:2617): La instruccion es 14
+[INFO] 19:06:25:490 Consola/(2617:2617): La instruccion es 0
+[INFO] 19:06:25:490 Consola/(2617:2617): Parametro AX
+[INFO] 19:06:25:490 Consola/(2617:2617): Parametro ARG2
+[INFO] 19:06:25:490 Consola/(2617:2617): La instruccion es 0
+[INFO] 19:06:25:491 Consola/(2617:2617): Parametro BX
+[INFO] 19:06:25:491 Consola/(2617:2617): Parametro FRA0
+[INFO] 19:06:25:491 Consola/(2617:2617): La instruccion es 14
+[INFO] 19:06:25:491 Consola/(2617:2617): La instruccion es 0
+[INFO] 19:06:25:491 Consola/(2617:2617): Parametro AX
+[INFO] 19:06:25:491 Consola/(2617:2617): Parametro ARG2
+[INFO] 19:06:25:491 Consola/(2617:2617): La instruccion es 0
+[INFO] 19:06:25:491 Consola/(2617:2617): Parametro BX
+[INFO] 19:06:25:491 Consola/(2617:2617): Parametro FRA1
+[INFO] 19:06:25:491 Consola/(2617:2617): La instruccion es 14
+[INFO] 19:06:25:491 Consola/(2617:2617): La instruccion es 0
+[INFO] 19:06:25:491 Consola/(2617:2617): Parametro AX
+[INFO] 19:06:25:491 Consola/(2617:2617): Parametro ARG2
+[INFO] 19:06:25:491 Consola/(2617:2617): La instruccion es 0
+[INFO] 19:06:25:492 Consola/(2617:2617): Parametro BX
+[INFO] 19:06:25:492 Consola/(2617:2617): Parametro FRA2
+[INFO] 19:06:25:492 Consola/(2617:2617): La instruccion es 14
+[INFO] 19:06:25:492 Consola/(2617:2617): La instruccion es 0
+[INFO] 19:06:25:492 Consola/(2617:2617): Parametro AX
+[INFO] 19:06:25:492 Consola/(2617:2617): Parametro ARG3
+[INFO] 19:06:25:496 Consola/(2617:2617): La instruccion es 0
+[INFO] 19:06:25:496 Consola/(2617:2617): Parametro BX
+[INFO] 19:06:25:496 Consola/(2617:2617): Parametro FRA2
+[INFO] 19:06:25:496 Consola/(2617:2617): La instruccion es 14
+[INFO] 19:06:25:496 Consola/(2617:2617): La instruccion es 0
+[INFO] 19:06:25:496 Consola/(2617:2617): Parametro AX
+[INFO] 19:06:25:496 Consola/(2617:2617): Parametro ARG3
+[INFO] 19:06:25:496 Consola/(2617:2617): La instruccion es 0
+[INFO] 19:06:25:496 Consola/(2617:2617): Parametro BX
+[INFO] 19:06:25:496 Consola/(2617:2617): Parametro FRA3
+[INFO] 19:06:25:496 Consola/(2617:2617): La instruccion es 14
+[INFO] 19:06:25:496 Consola/(2617:2617): La instruccion es 0
+[INFO] 19:06:25:497 Consola/(2617:2617): Parametro RDX
+[INFO] 19:06:25:497 Consola/(2617:2617): Parametro VAMOSALOSPENALES
+[INFO] 19:06:25:497 Consola/(2617:2617): La instruccion es 14
+[INFO] 19:06:25:497 Consola/(2617:2617): La instruccion es 0
+[INFO] 19:06:25:497 Consola/(2617:2617): Parametro RAX
+[INFO] 19:06:25:497 Consola/(2617:2617): Parametro ARGENTINACAMPEON
+[INFO] 19:06:25:497 Consola/(2617:2617): La instruccion es 15
+[INFO] 19:06:44:262 Consola/(2613:2613): El proceso ha terminado
+[INFO] 19:06:44:262 Consola/(2613:2613): Me llego el mensaje Tu proceso ha finalizado
+[INFO] 19:07:07:291 Consola/(2615:2615): El proceso ha terminado
+[INFO] 19:07:07:296 Consola/(2615:2615): Me llego el mensaje Tu proceso ha finalizado
+[INFO] 19:07:08:297 Consola/(2617:2617): El proceso ha terminado
+[INFO] 19:07:08:297 Consola/(2617:2617): Me llego el mensaje Tu proceso ha finalizado

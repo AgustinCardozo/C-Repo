@@ -97,16 +97,13 @@ int main(void) {
 	datos.recursos = string_get_string_as_array(config_get_string_value(config,"RECURSOS"));
 	datos.instancias = string_get_string_as_array(config_get_string_value(config,"INSTANCIAS_RECURSOS"));
 
+
 	sem_init(&mutex_cola_new,0,1);
 	sem_init(&mutex_cola_ready,0,1);
 	sem_init(&sem_multiprogramacion,0,datos.multiprogramacion);
 	sem_init(&sem_nuevo,0,0);
 	sem_init(&sem_habilitar_exec,0,1);
-	int a = 3;
-	float b = 0.5;
-	float c = a*b;
-	printf("El resultado es %f\n",c);
-
+	log_info(logger,"El alfa es %f ",datos.alfa);
 	int i = 0;
 	while(datos.recursos[i] != NULL){
 		t_recurso* recurso = malloc(sizeof(t_recurso));
@@ -134,7 +131,7 @@ int main(void) {
 	pthread_create(&thread_atender_cpu,NULL,(void*) atender_cpu,NULL);
 	pthread_create(&thread_nuevo_a_ready,NULL,(void*) de_new_a_ready,NULL);
 	pthread_create(&thread_ejecutar,NULL,(void*) de_ready_a_ejecutar,NULL);
-	server_fd = iniciar_servidor(logger,"192.168.1.130",datos.puerto_escucha);
+	server_fd = iniciar_servidor(logger,datos.puerto_escucha);
 	log_info(logger, "KERNEL listo para recibir a las consolas");
 
 	cliente_fd = malloc(sizeof(int));//
@@ -169,9 +166,10 @@ void* atender_cpu(void){
 
 					buffer = desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
-					int hora = clock();
+					int hora = time(NULL);
 
-					pcb->real_ant = hora - pcb->llegadaExec;
+					pcb->real_ant = (hora - pcb->llegadaExec)*1000;
+					log_info(logger,"El pcb [%i] tardo en exec %i",pcb->pid,pcb->real_ant);
 					pcb->estimacion = datos.alfa*pcb->real_ant + (1 - datos.alfa)*pcb->estimacion;
 					log_info(logger,"La estimacion del pcb [%i]  es de %f en la hora %i",pcb->pid,pcb->estimacion,hora);
 					log_info(logger,"PID: <%d> - Estado Anterior: <EXEC> - Estado Actual: <READY>",pcb->pid);
@@ -191,12 +189,12 @@ void* atender_cpu(void){
 					ejecutar_signal(pcb);
 					break;
 				case EJECUTAR_IO:
-					log_info(logger,"Paso por signal");
+					log_info(logger,"Paso por IO");
 
 					buffer = desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 					sem_post(&sem_habilitar_exec);
-					pcb->real_ant = clock() - pcb->llegadaExec;
+					pcb->real_ant = time(NULL) - pcb->llegadaExec;
 					pcb->estimacion = datos.alfa*pcb->real_ant + (1 - datos.alfa)*pcb->estimacion;
 					log_info(logger,"PID: <%d> - Estado Anterior: <EXEC> - Estado Actual: <BLOCK>",pcb->pid);
 					pthread_create(&thread_bloqueo_IO,NULL,(void*) ejecutar_IO,pcb);
@@ -205,7 +203,7 @@ void* atender_cpu(void){
 				case FINALIZAR:
 					log_info(logger,"Paso por finzalizar");
 					sem_post(&sem_habilitar_exec);
-					sem_wait(&sem_multiprogramacion);
+					sem_post(&sem_multiprogramacion);
 					buffer = desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 					log_info(logger,"PID: <%d> - Estado Anterior: <EXEC> - Estado Actual: <EXIT>",pcb->pid);
@@ -353,6 +351,7 @@ t_pcb* crear_pcb(t_buffer* buffer,int conexion_cliente){
 	pcb->segmentos.tamanio = 0;
 	pcb->llegadaReady = 0;
 	pcb->llegadaExec = 0;
+	pcb->real_ant = 0;
 	pcb->estimacion = datos.est_inicial;
 	pcb->conexion_consola = conexion_cliente;
 	//TODO Falta lo de archivos abiertos
@@ -385,7 +384,8 @@ t_pcb* quitar_de_cola_new(){
 void agregar_a_cola_ready(t_pcb* pcb){
 	log_info(logger,"El proceso [%d] fue agregado a la cola ready",pcb->pid);
 	sem_wait(&mutex_cola_ready);
-	pcb->llegadaReady = clock();
+	pcb->llegadaReady = time(NULL);
+	log_info(logger,"Llego en ready en %i",pcb->llegadaReady);
 	queue_push(cola.cola_ready_fifo,pcb);
 	sem_post(&mutex_cola_ready);
 	//sem_post(&sem_exec);
@@ -447,7 +447,7 @@ void de_ready_a_ejecutar_fifo(void){
 			sem_wait(&sem_habilitar_exec);
 			t_pcb* pcb = quitar_de_cola_ready();
 			log_info(logger,"“PID: %d - Estado Anterior: READY - Estado Actual: EXEC”",pcb->pid);
-			pcb->llegadaExec = clock();
+			pcb->llegadaExec = time(NULL);
 			enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
 
 			//liberar_pcb(pcb);
@@ -460,13 +460,12 @@ void de_ready_a_ejecutar_hrrn(void){
 		while(!queue_is_empty(cola.cola_ready_fifo)){
 			sem_wait(&sem_habilitar_exec);
 			//replanificar();
-			t_ahora = clock();
+			t_ahora = time(NULL);
 			list_sort(cola.cola_ready_fifo->elements,comparador_hrrn);
 			t_pcb* pcb = quitar_de_cola_ready();
 			log_info(logger,"“PID: %d - Estado Anterior: READY - Estado Actual: EXEC”",pcb->pid);
-			clock_t hora = clock();
-			log_info(logger,"La hora en el clock es %ld",hora);
-			pcb->llegadaExec = clock();
+			//log_info(logger,"La hora en el clock es %ld",hora);
+			pcb->llegadaExec = time(NULL);
 			enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
 		}
 	}
@@ -574,7 +573,7 @@ void* iniciar_recurso(void* data){
 	while(1){
 		sem_wait(&recurso->sem_recurso);
 		t_pcb* pcb = queue_pop(recurso->cola_recurso);
-		pcb->llegadaReady = clock();
+		pcb->llegadaReady = time(NULL);
 		agregar_a_cola_ready(pcb);
 
 	}
@@ -599,7 +598,7 @@ void ejecutar_wait(t_pcb* pcb){
 			list_replace(lista_recursos,j,recu);
 			uint32_t resultOk;
 			if(recu->instancias < 0){
-				pcb->real_ant = clock() - pcb->llegadaExec;
+				pcb->real_ant = time(NULL) - pcb->llegadaExec;
 				pcb->estimacion = datos.alfa*pcb->real_ant + (1 - datos.alfa)*pcb->estimacion;
 				log_info(logger,"PID: <%d> - Estado Anterior: <EXEC> - Estado Actual: <BLOCK>",pcb->pid);
 				queue_push(recu->cola_recurso,pcb);

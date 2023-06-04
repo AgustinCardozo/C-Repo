@@ -67,6 +67,7 @@ void iniciar_estructura_fs(const char *contenidos[]){
 	// config_bitmap = iniciar_config_fs(datos.path_bitmap);
 	// config_bloques = iniciar_config_fs(datos.path_bloques);
 	// config_fcb = iniciar_config_fs(datos.path_fcb);
+	
 	//Si existe la carpeta crea los archivos
 	bitmap = fopen(datos.path_bitmap,"a");
 	bloques = fopen(datos.path_bloques,"a");
@@ -99,7 +100,7 @@ void finalizar_fs(){
 }
 
 void* atender_kernel(void){
-	server_fd = iniciar_servidor(logger,"127.0.0.1",datos.puerto_escucha);
+	server_fd = iniciar_servidor(logger,datos.puerto_escucha);
 	log_info(logger, "Fyle System listo para recibir al kernel");
 	int *cliente_fd = esperar_cliente(logger,server_fd);
 	while(1){
