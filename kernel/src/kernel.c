@@ -502,8 +502,8 @@ bool comparador_hrrn(void* data1,void* data2){
 	//bool flag = malloc(sizeof(bool));
 	bool flag = true;
 	//int t_ahora = clock();
-	float t1 = t_ahora - pcb1->llegadaReady;
-	float t2 = t_ahora - pcb2->llegadaReady;
+	float t1 = (t_ahora - pcb1->llegadaReady)*1000;
+	float t2 = (t_ahora - pcb2->llegadaReady)*1000;
 	float v1 = (pcb1->estimacion+t1)/pcb1->estimacion;
 	float v2 = (pcb2->estimacion+t2)/pcb2->estimacion;
 	log_info(logger,"El pcb[%i] tiene [%f] y el pcb[%i] tiene [%f]",pcb1->pid,v1,pcb2->pid,v2);

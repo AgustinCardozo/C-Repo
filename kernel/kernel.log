@@ -5623,3 +5623,417 @@
 [INFO] 19:07:08:297 Kernel/(2607:2610): PID: <3> - Estado Anterior: <EXEC> - Estado Actual: <EXIT>
 [INFO] 19:07:08:297 Kernel/(2607:2610): Finaliza el proceso <3> - Motivo: <SUCCESS>
 [ERROR] 19:08:51:050 Kernel/(2607:2614): el cliente se desconecto. Terminando servidor
+[INFO] 19:28:01:549 Kernel/(3102:3102): El alfa es 0.500000 
+[INFO] 19:28:01:551 Kernel/(3102:3102): KERNEL listo para recibir a las consolas
+[INFO] 19:28:01:551 Kernel/(3102:3107): de ready a ejecutar
+[INFO] 19:28:01:552 Kernel/(3102:3107): Paso por hrrn
+[INFO] 19:28:01:552 Kernel/(3102:3106): nuevo a ready
+[INFO] 19:28:01:556 Kernel/(3102:3103): INICIANDO EL RECURSO [DISCO] con [1] instancias
+[INFO] 19:28:50:109 Kernel/(3102:3102): Se conecto un cliente!
+[INFO] 19:28:50:116 Kernel/(3102:3125): EL PID QUE ME LLEGO ES 1
+[INFO] 19:28:50:116 Kernel/(3102:3125): Se crea el proceso <1> en NEW
+[INFO] 19:28:50:116 Kernel/(3102:3106): El proceso [1] fue quitado a la cola nuevo
+[INFO] 19:28:50:116 Kernel/(3102:3106): PID: 1 - Estado Anterior: <NEW> - Estado Actual: <READY>
+[INFO] 19:28:50:116 Kernel/(3102:3106): El proceso [1] fue agregado a la cola ready
+[INFO] 19:28:50:116 Kernel/(3102:3106): Llego en ready en 1685906930
+[INFO] 19:28:50:116 Kernel/(3102:3107): El proceso [1] fue quitado a la cola ready
+[INFO] 19:28:50:116 Kernel/(3102:3107): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:28:52:766 Kernel/(3102:3102): Se conecto un cliente!
+[INFO] 19:28:52:773 Kernel/(3102:3127): EL PID QUE ME LLEGO ES 2
+[INFO] 19:28:52:773 Kernel/(3102:3127): Se crea el proceso <2> en NEW
+[INFO] 19:28:52:773 Kernel/(3102:3106): El proceso [2] fue quitado a la cola nuevo
+[INFO] 19:28:52:773 Kernel/(3102:3106): PID: 2 - Estado Anterior: <NEW> - Estado Actual: <READY>
+[INFO] 19:28:52:773 Kernel/(3102:3106): El proceso [2] fue agregado a la cola ready
+[INFO] 19:28:52:773 Kernel/(3102:3106): Llego en ready en 1685906932
+[INFO] 19:28:54:556 Kernel/(3102:3102): Se conecto un cliente!
+[INFO] 19:28:54:561 Kernel/(3102:3129): EL PID QUE ME LLEGO ES 3
+[INFO] 19:28:54:562 Kernel/(3102:3129): Se crea el proceso <3> en NEW
+[INFO] 19:28:54:562 Kernel/(3102:3106): El proceso [3] fue quitado a la cola nuevo
+[INFO] 19:28:54:562 Kernel/(3102:3106): PID: 3 - Estado Anterior: <NEW> - Estado Actual: <READY>
+[INFO] 19:28:54:562 Kernel/(3102:3106): El proceso [3] fue agregado a la cola ready
+[INFO] 19:28:54:562 Kernel/(3102:3106): Llego en ready en 1685906934
+[INFO] 19:29:02:126 Kernel/(3102:3105): Paso por desalojado
+[INFO] 19:29:02:127 Kernel/(3102:3105): El pcb [1] tardo en exec 12000
+[INFO] 19:29:02:127 Kernel/(3102:3105): La estimacion del pcb [1]  es de 7000.000000 en la hora 1685906942
+[INFO] 19:29:02:127 Kernel/(3102:3105): PID: <1> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:29:02:127 Kernel/(3102:3105): El proceso [1] fue agregado a la cola ready
+[INFO] 19:29:02:127 Kernel/(3102:3105): Llego en ready en 1685906942
+[INFO] 19:29:02:127 Kernel/(3102:3107): El pcb[2] tiene [1.005000] y el pcb[3] tiene [1.004000]
+[INFO] 19:29:02:127 Kernel/(3102:3107): El pcb[2] tiene [1.005000] y el pcb[1] tiene [1.000000]
+[INFO] 19:29:02:127 Kernel/(3102:3107): El pcb[3] tiene [1.004000] y el pcb[1] tiene [1.000000]
+[INFO] 19:29:02:127 Kernel/(3102:3107): El proceso [2] fue quitado a la cola ready
+[INFO] 19:29:02:127 Kernel/(3102:3107): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:29:04:130 Kernel/(3102:3105): Paso por desalojado
+[INFO] 19:29:04:130 Kernel/(3102:3105): El pcb [2] tardo en exec 2000
+[INFO] 19:29:04:131 Kernel/(3102:3105): La estimacion del pcb [2]  es de 2000.000000 en la hora 1685906944
+[INFO] 19:29:04:131 Kernel/(3102:3105): PID: <2> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:29:04:131 Kernel/(3102:3105): El proceso [2] fue agregado a la cola ready
+[INFO] 19:29:04:131 Kernel/(3102:3105): Llego en ready en 1685906944
+[INFO] 19:29:04:131 Kernel/(3102:3107): El pcb[3] tiene [1.005000] y el pcb[1] tiene [1.000286]
+[INFO] 19:29:04:131 Kernel/(3102:3107): El pcb[3] tiene [1.005000] y el pcb[2] tiene [1.000000]
+[INFO] 19:29:04:131 Kernel/(3102:3107): El pcb[1] tiene [1.000286] y el pcb[2] tiene [1.000000]
+[INFO] 19:29:04:131 Kernel/(3102:3107): El proceso [3] fue quitado a la cola ready
+[INFO] 19:29:04:131 Kernel/(3102:3107): “PID: 3 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:29:06:134 Kernel/(3102:3105): Paso por desalojado
+[INFO] 19:29:06:134 Kernel/(3102:3105): El pcb [3] tardo en exec 2000
+[INFO] 19:29:06:135 Kernel/(3102:3105): La estimacion del pcb [3]  es de 2000.000000 en la hora 1685906946
+[INFO] 19:29:06:135 Kernel/(3102:3105): PID: <3> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:29:06:135 Kernel/(3102:3105): El proceso [3] fue agregado a la cola ready
+[INFO] 19:29:06:135 Kernel/(3102:3105): Llego en ready en 1685906946
+[INFO] 19:29:06:135 Kernel/(3102:3107): El pcb[1] tiene [1.000571] y el pcb[2] tiene [1.001000]
+[INFO] 19:29:06:135 Kernel/(3102:3107): El pcb[2] tiene [1.001000] y el pcb[3] tiene [1.000000]
+[INFO] 19:29:06:135 Kernel/(3102:3107): El pcb[1] tiene [1.000571] y el pcb[3] tiene [1.000000]
+[INFO] 19:29:06:135 Kernel/(3102:3107): El proceso [2] fue quitado a la cola ready
+[INFO] 19:29:06:135 Kernel/(3102:3107): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:29:08:138 Kernel/(3102:3105): Paso por desalojado
+[INFO] 19:29:08:138 Kernel/(3102:3105): El pcb [2] tardo en exec 2000
+[INFO] 19:29:08:138 Kernel/(3102:3105): La estimacion del pcb [2]  es de 2000.000000 en la hora 1685906948
+[INFO] 19:29:08:138 Kernel/(3102:3105): PID: <2> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:29:08:138 Kernel/(3102:3105): El proceso [2] fue agregado a la cola ready
+[INFO] 19:29:08:138 Kernel/(3102:3105): Llego en ready en 1685906948
+[INFO] 19:29:08:138 Kernel/(3102:3107): El pcb[1] tiene [1.000857] y el pcb[3] tiene [1.001000]
+[INFO] 19:29:08:138 Kernel/(3102:3107): El pcb[3] tiene [1.001000] y el pcb[2] tiene [1.000000]
+[INFO] 19:29:08:138 Kernel/(3102:3107): El pcb[1] tiene [1.000857] y el pcb[2] tiene [1.000000]
+[INFO] 19:29:08:138 Kernel/(3102:3107): El proceso [3] fue quitado a la cola ready
+[INFO] 19:29:08:138 Kernel/(3102:3107): “PID: 3 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:29:10:141 Kernel/(3102:3105): Paso por desalojado
+[INFO] 19:29:10:141 Kernel/(3102:3105): El pcb [3] tardo en exec 2000
+[INFO] 19:29:10:141 Kernel/(3102:3105): La estimacion del pcb [3]  es de 2000.000000 en la hora 1685906950
+[INFO] 19:29:10:141 Kernel/(3102:3105): PID: <3> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:29:10:141 Kernel/(3102:3105): El proceso [3] fue agregado a la cola ready
+[INFO] 19:29:10:141 Kernel/(3102:3105): Llego en ready en 1685906950
+[INFO] 19:29:10:141 Kernel/(3102:3107): El pcb[1] tiene [1.001143] y el pcb[2] tiene [1.001000]
+[INFO] 19:29:10:141 Kernel/(3102:3107): El pcb[1] tiene [1.001143] y el pcb[3] tiene [1.000000]
+[INFO] 19:29:10:141 Kernel/(3102:3107): El pcb[2] tiene [1.001000] y el pcb[3] tiene [1.000000]
+[INFO] 19:29:10:141 Kernel/(3102:3107): El proceso [1] fue quitado a la cola ready
+[INFO] 19:29:10:141 Kernel/(3102:3107): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:29:12:143 Kernel/(3102:3105): Paso por finzalizar
+[INFO] 19:29:12:143 Kernel/(3102:3105): PID: <1> - Estado Anterior: <EXEC> - Estado Actual: <EXIT>
+[INFO] 19:29:12:143 Kernel/(3102:3107): El pcb[2] tiene [1.002000] y el pcb[3] tiene [1.001000]
+[INFO] 19:29:12:144 Kernel/(3102:3105): Finaliza el proceso <1> - Motivo: <SUCCESS>
+[INFO] 19:29:12:144 Kernel/(3102:3107): El proceso [2] fue quitado a la cola ready
+[INFO] 19:29:12:144 Kernel/(3102:3107): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:29:14:146 Kernel/(3102:3105): Paso por desalojado
+[INFO] 19:29:14:146 Kernel/(3102:3105): El pcb [2] tardo en exec 2000
+[INFO] 19:29:14:146 Kernel/(3102:3105): La estimacion del pcb [2]  es de 2000.000000 en la hora 1685906954
+[INFO] 19:29:14:146 Kernel/(3102:3105): PID: <2> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:29:14:146 Kernel/(3102:3105): El proceso [2] fue agregado a la cola ready
+[INFO] 19:29:14:147 Kernel/(3102:3105): Llego en ready en 1685906954
+[INFO] 19:29:14:147 Kernel/(3102:3107): El pcb[3] tiene [1.002000] y el pcb[2] tiene [1.000000]
+[INFO] 19:29:14:147 Kernel/(3102:3107): El proceso [3] fue quitado a la cola ready
+[INFO] 19:29:14:147 Kernel/(3102:3107): “PID: 3 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:29:16:150 Kernel/(3102:3105): Paso por desalojado
+[INFO] 19:29:16:150 Kernel/(3102:3105): El pcb [3] tardo en exec 2000
+[INFO] 19:29:16:150 Kernel/(3102:3105): La estimacion del pcb [3]  es de 2000.000000 en la hora 1685906956
+[INFO] 19:29:16:150 Kernel/(3102:3105): PID: <3> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:29:16:150 Kernel/(3102:3105): El proceso [3] fue agregado a la cola ready
+[INFO] 19:29:16:150 Kernel/(3102:3105): Llego en ready en 1685906956
+[INFO] 19:29:16:151 Kernel/(3102:3107): El pcb[2] tiene [1.001000] y el pcb[3] tiene [1.000000]
+[INFO] 19:29:16:151 Kernel/(3102:3107): El proceso [2] fue quitado a la cola ready
+[INFO] 19:29:16:151 Kernel/(3102:3107): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:29:18:153 Kernel/(3102:3105): Paso por desalojado
+[INFO] 19:29:18:153 Kernel/(3102:3105): El pcb [2] tardo en exec 2000
+[INFO] 19:29:18:153 Kernel/(3102:3105): La estimacion del pcb [2]  es de 2000.000000 en la hora 1685906958
+[INFO] 19:29:18:153 Kernel/(3102:3105): PID: <2> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:29:18:154 Kernel/(3102:3105): El proceso [2] fue agregado a la cola ready
+[INFO] 19:29:18:154 Kernel/(3102:3105): Llego en ready en 1685906958
+[INFO] 19:29:18:154 Kernel/(3102:3107): El pcb[3] tiene [1.001000] y el pcb[2] tiene [1.000000]
+[INFO] 19:29:18:154 Kernel/(3102:3107): El proceso [3] fue quitado a la cola ready
+[INFO] 19:29:18:154 Kernel/(3102:3107): “PID: 3 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:29:20:157 Kernel/(3102:3105): Paso por desalojado
+[INFO] 19:29:20:157 Kernel/(3102:3105): El pcb [3] tardo en exec 2000
+[INFO] 19:29:20:157 Kernel/(3102:3105): La estimacion del pcb [3]  es de 2000.000000 en la hora 1685906960
+[INFO] 19:29:20:157 Kernel/(3102:3105): PID: <3> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:29:20:157 Kernel/(3102:3105): El proceso [3] fue agregado a la cola ready
+[INFO] 19:29:20:157 Kernel/(3102:3105): Llego en ready en 1685906960
+[INFO] 19:29:20:157 Kernel/(3102:3107): El pcb[2] tiene [1.001000] y el pcb[3] tiene [1.000000]
+[INFO] 19:29:20:157 Kernel/(3102:3107): El proceso [2] fue quitado a la cola ready
+[INFO] 19:29:20:158 Kernel/(3102:3107): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:29:22:164 Kernel/(3102:3105): Paso por desalojado
+[INFO] 19:29:22:164 Kernel/(3102:3105): El pcb [2] tardo en exec 2000
+[INFO] 19:29:22:164 Kernel/(3102:3105): La estimacion del pcb [2]  es de 2000.000000 en la hora 1685906962
+[INFO] 19:29:22:164 Kernel/(3102:3105): PID: <2> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:29:22:164 Kernel/(3102:3105): El proceso [2] fue agregado a la cola ready
+[INFO] 19:29:22:165 Kernel/(3102:3105): Llego en ready en 1685906962
+[INFO] 19:29:22:165 Kernel/(3102:3107): El pcb[3] tiene [1.001000] y el pcb[2] tiene [1.000000]
+[INFO] 19:29:22:165 Kernel/(3102:3107): El proceso [3] fue quitado a la cola ready
+[INFO] 19:29:22:165 Kernel/(3102:3107): “PID: 3 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:29:24:168 Kernel/(3102:3105): Paso por desalojado
+[INFO] 19:29:24:168 Kernel/(3102:3105): El pcb [3] tardo en exec 2000
+[INFO] 19:29:24:168 Kernel/(3102:3105): La estimacion del pcb [3]  es de 2000.000000 en la hora 1685906964
+[INFO] 19:29:24:168 Kernel/(3102:3105): PID: <3> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:29:24:169 Kernel/(3102:3105): El proceso [3] fue agregado a la cola ready
+[INFO] 19:29:24:169 Kernel/(3102:3105): Llego en ready en 1685906964
+[INFO] 19:29:24:169 Kernel/(3102:3107): El pcb[2] tiene [1.001000] y el pcb[3] tiene [1.000000]
+[INFO] 19:29:24:169 Kernel/(3102:3107): El proceso [2] fue quitado a la cola ready
+[INFO] 19:29:24:169 Kernel/(3102:3107): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:29:26:172 Kernel/(3102:3105): Paso por desalojado
+[INFO] 19:29:26:172 Kernel/(3102:3105): El pcb [2] tardo en exec 2000
+[INFO] 19:29:26:172 Kernel/(3102:3105): La estimacion del pcb [2]  es de 2000.000000 en la hora 1685906966
+[INFO] 19:29:26:172 Kernel/(3102:3105): PID: <2> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:29:26:172 Kernel/(3102:3105): El proceso [2] fue agregado a la cola ready
+[INFO] 19:29:26:172 Kernel/(3102:3105): Llego en ready en 1685906966
+[INFO] 19:29:26:173 Kernel/(3102:3107): El pcb[3] tiene [1.001000] y el pcb[2] tiene [1.000000]
+[INFO] 19:29:26:173 Kernel/(3102:3107): El proceso [3] fue quitado a la cola ready
+[INFO] 19:29:26:173 Kernel/(3102:3107): “PID: 3 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:29:28:175 Kernel/(3102:3105): Paso por desalojado
+[INFO] 19:29:28:175 Kernel/(3102:3105): El pcb [3] tardo en exec 2000
+[INFO] 19:29:28:175 Kernel/(3102:3105): La estimacion del pcb [3]  es de 2000.000000 en la hora 1685906968
+[INFO] 19:29:28:175 Kernel/(3102:3105): PID: <3> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:29:28:175 Kernel/(3102:3105): El proceso [3] fue agregado a la cola ready
+[INFO] 19:29:28:175 Kernel/(3102:3105): Llego en ready en 1685906968
+[INFO] 19:29:28:175 Kernel/(3102:3107): El pcb[2] tiene [1.001000] y el pcb[3] tiene [1.000000]
+[INFO] 19:29:28:175 Kernel/(3102:3107): El proceso [2] fue quitado a la cola ready
+[INFO] 19:29:28:176 Kernel/(3102:3107): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:29:30:179 Kernel/(3102:3105): Paso por desalojado
+[INFO] 19:29:30:179 Kernel/(3102:3105): El pcb [2] tardo en exec 2000
+[INFO] 19:29:30:179 Kernel/(3102:3105): La estimacion del pcb [2]  es de 2000.000000 en la hora 1685906970
+[INFO] 19:29:30:179 Kernel/(3102:3105): PID: <2> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:29:30:179 Kernel/(3102:3105): El proceso [2] fue agregado a la cola ready
+[INFO] 19:29:30:179 Kernel/(3102:3105): Llego en ready en 1685906970
+[INFO] 19:29:30:179 Kernel/(3102:3107): El pcb[3] tiene [1.001000] y el pcb[2] tiene [1.000000]
+[INFO] 19:29:30:179 Kernel/(3102:3107): El proceso [3] fue quitado a la cola ready
+[INFO] 19:29:30:179 Kernel/(3102:3107): “PID: 3 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:29:32:182 Kernel/(3102:3105): Paso por desalojado
+[INFO] 19:29:32:182 Kernel/(3102:3105): El pcb [3] tardo en exec 2000
+[INFO] 19:29:32:182 Kernel/(3102:3105): La estimacion del pcb [3]  es de 2000.000000 en la hora 1685906972
+[INFO] 19:29:32:182 Kernel/(3102:3105): PID: <3> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:29:32:182 Kernel/(3102:3105): El proceso [3] fue agregado a la cola ready
+[INFO] 19:29:32:182 Kernel/(3102:3105): Llego en ready en 1685906972
+[INFO] 19:29:32:182 Kernel/(3102:3107): El pcb[2] tiene [1.001000] y el pcb[3] tiene [1.000000]
+[INFO] 19:29:32:182 Kernel/(3102:3107): El proceso [2] fue quitado a la cola ready
+[INFO] 19:29:32:183 Kernel/(3102:3107): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:29:33:184 Kernel/(3102:3105): Paso por desalojado
+[INFO] 19:29:33:184 Kernel/(3102:3105): El pcb [2] tardo en exec 1000
+[INFO] 19:29:33:184 Kernel/(3102:3105): La estimacion del pcb [2]  es de 1500.000000 en la hora 1685906973
+[INFO] 19:29:33:184 Kernel/(3102:3105): PID: <2> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:29:33:184 Kernel/(3102:3105): El proceso [2] fue agregado a la cola ready
+[INFO] 19:29:33:184 Kernel/(3102:3105): Llego en ready en 1685906973
+[INFO] 19:29:33:184 Kernel/(3102:3107): El pcb[3] tiene [1.000500] y el pcb[2] tiene [1.000000]
+[INFO] 19:29:33:184 Kernel/(3102:3107): El proceso [3] fue quitado a la cola ready
+[INFO] 19:29:33:184 Kernel/(3102:3107): “PID: 3 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:29:34:186 Kernel/(3102:3105): Paso por desalojado
+[INFO] 19:29:34:186 Kernel/(3102:3105): El pcb [3] tardo en exec 1000
+[INFO] 19:29:34:186 Kernel/(3102:3105): La estimacion del pcb [3]  es de 1500.000000 en la hora 1685906974
+[INFO] 19:29:34:186 Kernel/(3102:3105): PID: <3> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:29:34:186 Kernel/(3102:3105): El proceso [3] fue agregado a la cola ready
+[INFO] 19:29:34:186 Kernel/(3102:3105): Llego en ready en 1685906974
+[INFO] 19:29:34:186 Kernel/(3102:3107): El pcb[2] tiene [1.000667] y el pcb[3] tiene [1.000000]
+[INFO] 19:29:34:187 Kernel/(3102:3107): El proceso [2] fue quitado a la cola ready
+[INFO] 19:29:34:187 Kernel/(3102:3107): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:29:35:189 Kernel/(3102:3105): Paso por finzalizar
+[INFO] 19:29:35:189 Kernel/(3102:3105): PID: <2> - Estado Anterior: <EXEC> - Estado Actual: <EXIT>
+[INFO] 19:29:35:189 Kernel/(3102:3107): El proceso [3] fue quitado a la cola ready
+[INFO] 19:29:35:189 Kernel/(3102:3105): Finaliza el proceso <2> - Motivo: <SUCCESS>
+[INFO] 19:29:35:189 Kernel/(3102:3107): “PID: 3 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:29:36:193 Kernel/(3102:3105): Paso por finzalizar
+[INFO] 19:29:36:193 Kernel/(3102:3105): PID: <3> - Estado Anterior: <EXEC> - Estado Actual: <EXIT>
+[INFO] 19:29:36:194 Kernel/(3102:3105): Finaliza el proceso <3> - Motivo: <SUCCESS>
+[ERROR] 19:30:12:673 Kernel/(3102:3127): el cliente se desconecto. Terminando servidor
+[INFO] 19:32:43:844 Kernel/(3190:3190): El alfa es 0.500000 
+[INFO] 19:32:43:845 Kernel/(3190:3190): KERNEL listo para recibir a las consolas
+[INFO] 19:32:43:845 Kernel/(3190:3195): de ready a ejecutar
+[INFO] 19:32:43:845 Kernel/(3190:3195): Paso por hrrn
+[INFO] 19:32:43:846 Kernel/(3190:3194): nuevo a ready
+[INFO] 19:32:43:848 Kernel/(3190:3191): INICIANDO EL RECURSO [DISCO] con [1] instancias
+[INFO] 19:32:49:578 Kernel/(3190:3190): Se conecto un cliente!
+[INFO] 19:32:49:586 Kernel/(3190:3197): EL PID QUE ME LLEGO ES 1
+[INFO] 19:32:49:586 Kernel/(3190:3197): Se crea el proceso <1> en NEW
+[INFO] 19:32:49:586 Kernel/(3190:3194): El proceso [1] fue quitado a la cola nuevo
+[INFO] 19:32:49:586 Kernel/(3190:3194): PID: 1 - Estado Anterior: <NEW> - Estado Actual: <READY>
+[INFO] 19:32:49:586 Kernel/(3190:3194): El proceso [1] fue agregado a la cola ready
+[INFO] 19:32:49:586 Kernel/(3190:3194): Llego en ready en 1685907169
+[INFO] 19:32:49:586 Kernel/(3190:3195): El proceso [1] fue quitado a la cola ready
+[INFO] 19:32:49:586 Kernel/(3190:3195): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:32:51:261 Kernel/(3190:3190): Se conecto un cliente!
+[INFO] 19:32:51:272 Kernel/(3190:3199): EL PID QUE ME LLEGO ES 2
+[INFO] 19:32:51:272 Kernel/(3190:3199): Se crea el proceso <2> en NEW
+[INFO] 19:32:51:273 Kernel/(3190:3194): El proceso [2] fue quitado a la cola nuevo
+[INFO] 19:32:51:273 Kernel/(3190:3194): PID: 2 - Estado Anterior: <NEW> - Estado Actual: <READY>
+[INFO] 19:32:51:273 Kernel/(3190:3194): El proceso [2] fue agregado a la cola ready
+[INFO] 19:32:51:273 Kernel/(3190:3194): Llego en ready en 1685907171
+[INFO] 19:32:52:970 Kernel/(3190:3190): Se conecto un cliente!
+[INFO] 19:32:52:981 Kernel/(3190:3201): EL PID QUE ME LLEGO ES 3
+[INFO] 19:32:52:981 Kernel/(3190:3201): Se crea el proceso <3> en NEW
+[INFO] 19:32:52:981 Kernel/(3190:3194): El proceso [3] fue quitado a la cola nuevo
+[INFO] 19:32:52:981 Kernel/(3190:3194): PID: 3 - Estado Anterior: <NEW> - Estado Actual: <READY>
+[INFO] 19:32:52:981 Kernel/(3190:3194): El proceso [3] fue agregado a la cola ready
+[INFO] 19:32:52:981 Kernel/(3190:3194): Llego en ready en 1685907172
+[INFO] 19:33:01:594 Kernel/(3190:3193): Paso por desalojado
+[INFO] 19:33:01:594 Kernel/(3190:3193): El pcb [1] tardo en exec 12000
+[INFO] 19:33:01:594 Kernel/(3190:3193): La estimacion del pcb [1]  es de 7000.000000 en la hora 1685907181
+[INFO] 19:33:01:594 Kernel/(3190:3193): PID: <1> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:33:01:594 Kernel/(3190:3193): El proceso [1] fue agregado a la cola ready
+[INFO] 19:33:01:595 Kernel/(3190:3193): Llego en ready en 1685907181
+[INFO] 19:33:01:595 Kernel/(3190:3195): El pcb[2] tiene [6.000000] y el pcb[3] tiene [5.500000]
+[INFO] 19:33:01:595 Kernel/(3190:3195): El pcb[2] tiene [6.000000] y el pcb[1] tiene [1.000000]
+[INFO] 19:33:01:595 Kernel/(3190:3195): El pcb[3] tiene [5.500000] y el pcb[1] tiene [1.000000]
+[INFO] 19:33:01:595 Kernel/(3190:3195): El proceso [2] fue quitado a la cola ready
+[INFO] 19:33:01:595 Kernel/(3190:3195): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:33:03:602 Kernel/(3190:3193): Paso por desalojado
+[INFO] 19:33:03:602 Kernel/(3190:3193): El pcb [2] tardo en exec 2000
+[INFO] 19:33:03:602 Kernel/(3190:3193): La estimacion del pcb [2]  es de 2000.000000 en la hora 1685907183
+[INFO] 19:33:03:602 Kernel/(3190:3193): PID: <2> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:33:03:603 Kernel/(3190:3193): El proceso [2] fue agregado a la cola ready
+[INFO] 19:33:03:603 Kernel/(3190:3193): Llego en ready en 1685907183
+[INFO] 19:33:03:603 Kernel/(3190:3195): El pcb[3] tiene [6.500000] y el pcb[1] tiene [1.285714]
+[INFO] 19:33:03:603 Kernel/(3190:3195): El pcb[3] tiene [6.500000] y el pcb[2] tiene [1.000000]
+[INFO] 19:33:03:603 Kernel/(3190:3195): El pcb[1] tiene [1.285714] y el pcb[2] tiene [1.000000]
+[INFO] 19:33:03:603 Kernel/(3190:3195): El proceso [3] fue quitado a la cola ready
+[INFO] 19:33:03:603 Kernel/(3190:3195): “PID: 3 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:33:05:606 Kernel/(3190:3193): Paso por desalojado
+[INFO] 19:33:05:606 Kernel/(3190:3193): El pcb [3] tardo en exec 2000
+[INFO] 19:33:05:607 Kernel/(3190:3193): La estimacion del pcb [3]  es de 2000.000000 en la hora 1685907185
+[INFO] 19:33:05:607 Kernel/(3190:3193): PID: <3> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:33:05:607 Kernel/(3190:3193): El proceso [3] fue agregado a la cola ready
+[INFO] 19:33:05:607 Kernel/(3190:3193): Llego en ready en 1685907185
+[INFO] 19:33:05:607 Kernel/(3190:3195): El pcb[1] tiene [1.571429] y el pcb[2] tiene [2.000000]
+[INFO] 19:33:05:607 Kernel/(3190:3195): El pcb[2] tiene [2.000000] y el pcb[3] tiene [1.000000]
+[INFO] 19:33:05:607 Kernel/(3190:3195): El pcb[1] tiene [1.571429] y el pcb[3] tiene [1.000000]
+[INFO] 19:33:05:607 Kernel/(3190:3195): El proceso [2] fue quitado a la cola ready
+[INFO] 19:33:05:607 Kernel/(3190:3195): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:33:07:611 Kernel/(3190:3193): Paso por desalojado
+[INFO] 19:33:07:611 Kernel/(3190:3193): El pcb [2] tardo en exec 2000
+[INFO] 19:33:07:611 Kernel/(3190:3193): La estimacion del pcb [2]  es de 2000.000000 en la hora 1685907187
+[INFO] 19:33:07:612 Kernel/(3190:3193): PID: <2> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:33:07:612 Kernel/(3190:3193): El proceso [2] fue agregado a la cola ready
+[INFO] 19:33:07:612 Kernel/(3190:3193): Llego en ready en 1685907187
+[INFO] 19:33:07:612 Kernel/(3190:3195): El pcb[1] tiene [1.857143] y el pcb[3] tiene [2.000000]
+[INFO] 19:33:07:612 Kernel/(3190:3195): El pcb[3] tiene [2.000000] y el pcb[2] tiene [1.000000]
+[INFO] 19:33:07:612 Kernel/(3190:3195): El pcb[1] tiene [1.857143] y el pcb[2] tiene [1.000000]
+[INFO] 19:33:07:612 Kernel/(3190:3195): El proceso [3] fue quitado a la cola ready
+[INFO] 19:33:07:612 Kernel/(3190:3195): “PID: 3 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:33:09:614 Kernel/(3190:3193): Paso por desalojado
+[INFO] 19:33:09:614 Kernel/(3190:3193): El pcb [3] tardo en exec 2000
+[INFO] 19:33:09:614 Kernel/(3190:3193): La estimacion del pcb [3]  es de 2000.000000 en la hora 1685907189
+[INFO] 19:33:09:615 Kernel/(3190:3193): PID: <3> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:33:09:615 Kernel/(3190:3193): El proceso [3] fue agregado a la cola ready
+[INFO] 19:33:09:615 Kernel/(3190:3193): Llego en ready en 1685907189
+[INFO] 19:33:09:615 Kernel/(3190:3195): El pcb[1] tiene [2.142857] y el pcb[2] tiene [2.000000]
+[INFO] 19:33:09:615 Kernel/(3190:3195): El pcb[1] tiene [2.142857] y el pcb[3] tiene [1.000000]
+[INFO] 19:33:09:615 Kernel/(3190:3195): El pcb[2] tiene [2.000000] y el pcb[3] tiene [1.000000]
+[INFO] 19:33:09:615 Kernel/(3190:3195): El proceso [1] fue quitado a la cola ready
+[INFO] 19:33:09:615 Kernel/(3190:3195): “PID: 1 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:33:11:617 Kernel/(3190:3193): Paso por finzalizar
+[INFO] 19:33:11:617 Kernel/(3190:3193): PID: <1> - Estado Anterior: <EXEC> - Estado Actual: <EXIT>
+[INFO] 19:33:11:617 Kernel/(3190:3195): El pcb[2] tiene [3.000000] y el pcb[3] tiene [2.000000]
+[INFO] 19:33:11:617 Kernel/(3190:3193): Finaliza el proceso <1> - Motivo: <SUCCESS>
+[INFO] 19:33:11:618 Kernel/(3190:3195): El proceso [2] fue quitado a la cola ready
+[INFO] 19:33:11:618 Kernel/(3190:3195): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:33:13:620 Kernel/(3190:3193): Paso por desalojado
+[INFO] 19:33:13:620 Kernel/(3190:3193): El pcb [2] tardo en exec 2000
+[INFO] 19:33:13:620 Kernel/(3190:3193): La estimacion del pcb [2]  es de 2000.000000 en la hora 1685907193
+[INFO] 19:33:13:620 Kernel/(3190:3193): PID: <2> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:33:13:621 Kernel/(3190:3193): El proceso [2] fue agregado a la cola ready
+[INFO] 19:33:13:621 Kernel/(3190:3193): Llego en ready en 1685907193
+[INFO] 19:33:13:621 Kernel/(3190:3195): El pcb[3] tiene [3.000000] y el pcb[2] tiene [1.000000]
+[INFO] 19:33:13:621 Kernel/(3190:3195): El proceso [3] fue quitado a la cola ready
+[INFO] 19:33:13:621 Kernel/(3190:3195): “PID: 3 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:33:15:625 Kernel/(3190:3193): Paso por desalojado
+[INFO] 19:33:15:625 Kernel/(3190:3193): El pcb [3] tardo en exec 2000
+[INFO] 19:33:15:625 Kernel/(3190:3193): La estimacion del pcb [3]  es de 2000.000000 en la hora 1685907195
+[INFO] 19:33:15:625 Kernel/(3190:3193): PID: <3> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:33:15:625 Kernel/(3190:3193): El proceso [3] fue agregado a la cola ready
+[INFO] 19:33:15:625 Kernel/(3190:3193): Llego en ready en 1685907195
+[INFO] 19:33:15:625 Kernel/(3190:3195): El pcb[2] tiene [2.000000] y el pcb[3] tiene [1.000000]
+[INFO] 19:33:15:625 Kernel/(3190:3195): El proceso [2] fue quitado a la cola ready
+[INFO] 19:33:15:625 Kernel/(3190:3195): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:33:17:628 Kernel/(3190:3193): Paso por desalojado
+[INFO] 19:33:17:628 Kernel/(3190:3193): El pcb [2] tardo en exec 2000
+[INFO] 19:33:17:628 Kernel/(3190:3193): La estimacion del pcb [2]  es de 2000.000000 en la hora 1685907197
+[INFO] 19:33:17:628 Kernel/(3190:3193): PID: <2> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:33:17:628 Kernel/(3190:3193): El proceso [2] fue agregado a la cola ready
+[INFO] 19:33:17:628 Kernel/(3190:3193): Llego en ready en 1685907197
+[INFO] 19:33:17:628 Kernel/(3190:3195): El pcb[3] tiene [2.000000] y el pcb[2] tiene [1.000000]
+[INFO] 19:33:17:628 Kernel/(3190:3195): El proceso [3] fue quitado a la cola ready
+[INFO] 19:33:17:628 Kernel/(3190:3195): “PID: 3 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:33:19:632 Kernel/(3190:3193): Paso por desalojado
+[INFO] 19:33:19:632 Kernel/(3190:3193): El pcb [3] tardo en exec 2000
+[INFO] 19:33:19:632 Kernel/(3190:3193): La estimacion del pcb [3]  es de 2000.000000 en la hora 1685907199
+[INFO] 19:33:19:632 Kernel/(3190:3193): PID: <3> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:33:19:632 Kernel/(3190:3193): El proceso [3] fue agregado a la cola ready
+[INFO] 19:33:19:632 Kernel/(3190:3193): Llego en ready en 1685907199
+[INFO] 19:33:19:632 Kernel/(3190:3195): El pcb[2] tiene [2.000000] y el pcb[3] tiene [1.000000]
+[INFO] 19:33:19:632 Kernel/(3190:3195): El proceso [2] fue quitado a la cola ready
+[INFO] 19:33:19:633 Kernel/(3190:3195): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:33:21:636 Kernel/(3190:3193): Paso por desalojado
+[INFO] 19:33:21:636 Kernel/(3190:3193): El pcb [2] tardo en exec 2000
+[INFO] 19:33:21:636 Kernel/(3190:3193): La estimacion del pcb [2]  es de 2000.000000 en la hora 1685907201
+[INFO] 19:33:21:636 Kernel/(3190:3193): PID: <2> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:33:21:636 Kernel/(3190:3193): El proceso [2] fue agregado a la cola ready
+[INFO] 19:33:21:636 Kernel/(3190:3193): Llego en ready en 1685907201
+[INFO] 19:33:21:637 Kernel/(3190:3195): El pcb[3] tiene [2.000000] y el pcb[2] tiene [1.000000]
+[INFO] 19:33:21:637 Kernel/(3190:3195): El proceso [3] fue quitado a la cola ready
+[INFO] 19:33:21:637 Kernel/(3190:3195): “PID: 3 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:33:23:639 Kernel/(3190:3193): Paso por desalojado
+[INFO] 19:33:23:639 Kernel/(3190:3193): El pcb [3] tardo en exec 2000
+[INFO] 19:33:23:639 Kernel/(3190:3193): La estimacion del pcb [3]  es de 2000.000000 en la hora 1685907203
+[INFO] 19:33:23:639 Kernel/(3190:3193): PID: <3> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:33:23:639 Kernel/(3190:3193): El proceso [3] fue agregado a la cola ready
+[INFO] 19:33:23:639 Kernel/(3190:3193): Llego en ready en 1685907203
+[INFO] 19:33:23:639 Kernel/(3190:3195): El pcb[2] tiene [2.000000] y el pcb[3] tiene [1.000000]
+[INFO] 19:33:23:639 Kernel/(3190:3195): El proceso [2] fue quitado a la cola ready
+[INFO] 19:33:23:639 Kernel/(3190:3195): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:33:25:643 Kernel/(3190:3193): Paso por desalojado
+[INFO] 19:33:25:643 Kernel/(3190:3193): El pcb [2] tardo en exec 2000
+[INFO] 19:33:25:643 Kernel/(3190:3193): La estimacion del pcb [2]  es de 2000.000000 en la hora 1685907205
+[INFO] 19:33:25:643 Kernel/(3190:3193): PID: <2> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:33:25:643 Kernel/(3190:3193): El proceso [2] fue agregado a la cola ready
+[INFO] 19:33:25:643 Kernel/(3190:3193): Llego en ready en 1685907205
+[INFO] 19:33:25:643 Kernel/(3190:3195): El pcb[3] tiene [2.000000] y el pcb[2] tiene [1.000000]
+[INFO] 19:33:25:643 Kernel/(3190:3195): El proceso [3] fue quitado a la cola ready
+[INFO] 19:33:25:643 Kernel/(3190:3195): “PID: 3 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:33:27:646 Kernel/(3190:3193): Paso por desalojado
+[INFO] 19:33:27:646 Kernel/(3190:3193): El pcb [3] tardo en exec 2000
+[INFO] 19:33:27:646 Kernel/(3190:3193): La estimacion del pcb [3]  es de 2000.000000 en la hora 1685907207
+[INFO] 19:33:27:646 Kernel/(3190:3193): PID: <3> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:33:27:646 Kernel/(3190:3193): El proceso [3] fue agregado a la cola ready
+[INFO] 19:33:27:646 Kernel/(3190:3193): Llego en ready en 1685907207
+[INFO] 19:33:27:646 Kernel/(3190:3195): El pcb[2] tiene [2.000000] y el pcb[3] tiene [1.000000]
+[INFO] 19:33:27:646 Kernel/(3190:3195): El proceso [2] fue quitado a la cola ready
+[INFO] 19:33:27:646 Kernel/(3190:3195): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:33:29:649 Kernel/(3190:3193): Paso por desalojado
+[INFO] 19:33:29:649 Kernel/(3190:3193): El pcb [2] tardo en exec 2000
+[INFO] 19:33:29:649 Kernel/(3190:3193): La estimacion del pcb [2]  es de 2000.000000 en la hora 1685907209
+[INFO] 19:33:29:649 Kernel/(3190:3193): PID: <2> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:33:29:649 Kernel/(3190:3193): El proceso [2] fue agregado a la cola ready
+[INFO] 19:33:29:649 Kernel/(3190:3193): Llego en ready en 1685907209
+[INFO] 19:33:29:649 Kernel/(3190:3195): El pcb[3] tiene [2.000000] y el pcb[2] tiene [1.000000]
+[INFO] 19:33:29:649 Kernel/(3190:3195): El proceso [3] fue quitado a la cola ready
+[INFO] 19:33:29:649 Kernel/(3190:3195): “PID: 3 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:33:31:652 Kernel/(3190:3193): Paso por desalojado
+[INFO] 19:33:31:652 Kernel/(3190:3193): El pcb [3] tardo en exec 2000
+[INFO] 19:33:31:652 Kernel/(3190:3193): La estimacion del pcb [3]  es de 2000.000000 en la hora 1685907211
+[INFO] 19:33:31:652 Kernel/(3190:3193): PID: <3> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:33:31:652 Kernel/(3190:3193): El proceso [3] fue agregado a la cola ready
+[INFO] 19:33:31:652 Kernel/(3190:3193): Llego en ready en 1685907211
+[INFO] 19:33:31:652 Kernel/(3190:3195): El pcb[2] tiene [2.000000] y el pcb[3] tiene [1.000000]
+[INFO] 19:33:31:652 Kernel/(3190:3195): El proceso [2] fue quitado a la cola ready
+[INFO] 19:33:31:652 Kernel/(3190:3195): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:33:32:655 Kernel/(3190:3193): Paso por desalojado
+[INFO] 19:33:32:655 Kernel/(3190:3193): El pcb [2] tardo en exec 1000
+[INFO] 19:33:32:655 Kernel/(3190:3193): La estimacion del pcb [2]  es de 1500.000000 en la hora 1685907212
+[INFO] 19:33:32:655 Kernel/(3190:3193): PID: <2> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:33:32:655 Kernel/(3190:3193): El proceso [2] fue agregado a la cola ready
+[INFO] 19:33:32:655 Kernel/(3190:3193): Llego en ready en 1685907212
+[INFO] 19:33:32:655 Kernel/(3190:3195): El pcb[3] tiene [1.500000] y el pcb[2] tiene [1.000000]
+[INFO] 19:33:32:655 Kernel/(3190:3195): El proceso [3] fue quitado a la cola ready
+[INFO] 19:33:32:655 Kernel/(3190:3195): “PID: 3 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:33:33:657 Kernel/(3190:3193): Paso por desalojado
+[INFO] 19:33:33:657 Kernel/(3190:3193): El pcb [3] tardo en exec 1000
+[INFO] 19:33:33:657 Kernel/(3190:3193): La estimacion del pcb [3]  es de 1500.000000 en la hora 1685907213
+[INFO] 19:33:33:657 Kernel/(3190:3193): PID: <3> - Estado Anterior: <EXEC> - Estado Actual: <READY>
+[INFO] 19:33:33:657 Kernel/(3190:3193): El proceso [3] fue agregado a la cola ready
+[INFO] 19:33:33:657 Kernel/(3190:3193): Llego en ready en 1685907213
+[INFO] 19:33:33:657 Kernel/(3190:3195): El pcb[2] tiene [1.666667] y el pcb[3] tiene [1.000000]
+[INFO] 19:33:33:657 Kernel/(3190:3195): El proceso [2] fue quitado a la cola ready
+[INFO] 19:33:33:658 Kernel/(3190:3195): “PID: 2 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:33:34:660 Kernel/(3190:3193): Paso por finzalizar
+[INFO] 19:33:34:660 Kernel/(3190:3193): PID: <2> - Estado Anterior: <EXEC> - Estado Actual: <EXIT>
+[INFO] 19:33:34:660 Kernel/(3190:3195): El proceso [3] fue quitado a la cola ready
+[INFO] 19:33:34:660 Kernel/(3190:3193): Finaliza el proceso <2> - Motivo: <SUCCESS>
+[INFO] 19:33:34:661 Kernel/(3190:3195): “PID: 3 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 19:33:35:666 Kernel/(3190:3193): Paso por finzalizar
+[INFO] 19:33:35:666 Kernel/(3190:3193): PID: <3> - Estado Anterior: <EXEC> - Estado Actual: <EXIT>
+[INFO] 19:33:35:666 Kernel/(3190:3193): Finaliza el proceso <3> - Motivo: <SUCCESS>
+[ERROR] 19:35:42:771 Kernel/(3190:3199): el cliente se desconecto. Terminando servidor
