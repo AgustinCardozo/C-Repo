@@ -5135,3 +5135,7 @@
 [INFO] 18:55:22:906 CPU/(3117:3118): Program COutnter: 25
 [INFO] 18:55:22:906 CPU/(3117:3118): Paso por Exit
 [INFO] 18:55:22:906 CPU/(3117:3118): TERMINO LA EJECUCION
+[INFO] 16:37:45:063 CPU/(14236:14248): CPU listo para recibir al kernel
+[INFO] 16:37:55:479 CPU/(14325:14326): CPU listo para recibir al kernel
+[INFO] 16:43:43:562 CPU/(15333:15334): CPU listo para recibir al kernel
+[INFO] 16:49:36:540 CPU/(15921:15922): CPU listo para recibir al kernel

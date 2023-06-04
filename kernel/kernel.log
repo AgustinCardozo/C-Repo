@@ -5410,3 +5410,7 @@
 [INFO] 18:55:21:895 Kernel/(3125:3128): Paso por finzalizar
 [INFO] 18:55:21:895 Kernel/(3125:3130): El proceso [3] fue quitado a la cola ready
 [INFO] 18:55:21:895 Kernel/(3125:3130): “PID: 3 - Estado Anterior: READY - Estado Actual: EXEC”
+[INFO] 16:38:12:099 Kernel/(14458:14459): INICIANDO EL RECURSO [DISCO] con [1] instancias
+[INFO] 16:40:43:545 Kernel/(14815:14816): INICIANDO EL RECURSO [DISCO] con [1] instancias
+[INFO] 16:44:07:203 Kernel/(15434:15435): INICIANDO EL RECURSO [DISCO] con [1] instancias
+[INFO] 16:49:41:086 Kernel/(15955:15956): INICIANDO EL RECURSO [DISCO] con [1] instancias

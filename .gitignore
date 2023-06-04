@@ -29,18 +29,18 @@
 *.dylib
 
 # Executables
-#*.exe
-#*.out
-#*.app
-#*.i*86
-#*.x86_64
-#*.hex
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
 
 # Debug files
-#*.dSYM/
-#*.su
-#*.idb
-#*.pdb
+*.dSYM/
+*.su
+*.idb
+*.pdb
 
 # Kernel Module Compile Results
 *.mod*
@@ -48,7 +48,7 @@
 .tmp_versions/
 modules.order
 Module.symvers
-#Mkfile.old
+Mkfile.old
 dkms.conf
 /.metadata/
 
@@ -58,7 +58,7 @@ dkms.conf
 # VSCode Files
 **.vscode
 **/obj/
-#Makefile 
-#exec
-#hexec
-#vexec
+Makefile 
+exec
+hexec
+vexec

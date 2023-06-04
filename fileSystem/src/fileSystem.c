@@ -67,7 +67,6 @@ void iniciar_estructura_fs(const char *contenidos[]){
 	// config_bitmap = iniciar_config_fs(datos.path_bitmap);
 	// config_bloques = iniciar_config_fs(datos.path_bloques);
 	// config_fcb = iniciar_config_fs(datos.path_fcb);
-	
 	//Si existe la carpeta crea los archivos
 	bitmap = fopen(datos.path_bitmap,"a");
 	bloques = fopen(datos.path_bloques,"a");
