@@ -277,29 +277,29 @@ registros_pos devolver_registro(char* registro){
 
 void insertar(t_pcb* pcb, registros_pos pos,char* caracteres){
 	switch(pos){
-		case AX: strcpy(pcb->registro.AX,caracteres);
+		case AX: memcpy(pcb->registro.AX,caracteres,5);
 			break;
-		case BX: strcpy(pcb->registro.BX,caracteres);
+		case BX: memcpy(pcb->registro.BX,caracteres,5);
 			break;
-		case CX: strcpy(pcb->registro.CX,caracteres);
+		case CX: memcpy(pcb->registro.CX,caracteres,5);
 			break;
-		case DX: strcpy(pcb->registro.DX,caracteres);
+		case DX: memcpy(pcb->registro.DX,caracteres,5);
 			break;
-		case EAX: strcpy(pcb->registro.EAX,caracteres);
+		case EAX: memcpy(pcb->registro.EAX,caracteres,9);
 			break;
-		case EBX: strcpy(pcb->registro.EBX,caracteres);
+		case EBX: memcpy(pcb->registro.EBX,caracteres,9);
 			break;
-		case ECX: strcpy(pcb->registro.ECX,caracteres);
+		case ECX: memcpy(pcb->registro.ECX,caracteres,9);
 			break;
-		case EDX: strcpy(pcb->registro.EDX,caracteres);
+		case EDX: memcpy(pcb->registro.EDX,caracteres,9);
 			break;
-		case RAX: strcpy(pcb->registro.RAX,caracteres);
+		case RAX: memcpy(pcb->registro.RAX,caracteres,17);
 			break;
-		case RBX: strcpy(pcb->registro.RBX,caracteres);
+		case RBX: memcpy(pcb->registro.RBX,caracteres,17);
 			break;
-		case RCX: strcpy(pcb->registro.RCX,caracteres);
+		case RCX: memcpy(pcb->registro.RCX,caracteres,17);
 			break;
-		case RDX: strcpy(pcb->registro.RDX,caracteres);
+		case RDX: memcpy(pcb->registro.RDX,caracteres,17);
 			break;
 	}
 
@@ -312,5 +312,13 @@ void mostrar_registro(t_pcb* pcb){
 	log_info(logger,"En el registro BX esta los caracteres: %s",pcb->registro.BX);
 	log_info(logger,"En el registro CX esta los caracteres: %s",pcb->registro.CX);
 	log_info(logger,"En el registro DX esta los caracteres: %s",pcb->registro.DX);
+	log_info(logger,"En el registro EAX esta los caracteres: %s",pcb->registro.EAX);
+	log_info(logger,"En el registro EBX esta los caracteres: %s",pcb->registro.EBX);
+	log_info(logger,"En el registro ECX esta los caracteres: %s",pcb->registro.ECX);
+	log_info(logger,"En el registro EDX esta los caracteres: %s",pcb->registro.EDX);
+	log_info(logger,"En el registro RAX esta los caracteres: %s",pcb->registro.RAX);
+	log_info(logger,"En el registro RBX esta los caracteres: %s",pcb->registro.RBX);
+	log_info(logger,"En el registro RCX esta los caracteres: %s",pcb->registro.RCX);
+	log_info(logger,"En el registro RDX esta los caracteres: %s",pcb->registro.RDX);
 
 }

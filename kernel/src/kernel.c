@@ -698,6 +698,14 @@ void mostrar_registro(t_pcb* pcb){
 	log_info(logger,"En el registro BX esta los caracteres: %s",pcb->registro.BX);
 	log_info(logger,"En el registro CX esta los caracteres: %s",pcb->registro.CX);
 	log_info(logger,"En el registro DX esta los caracteres: %s",pcb->registro.DX);
+	log_info(logger,"En el registro EAX esta los caracteres: %s",pcb->registro.EAX);
+	log_info(logger,"En el registro EBX esta los caracteres: %s",pcb->registro.EBX);
+	log_info(logger,"En el registro ECX esta los caracteres: %s",pcb->registro.ECX);
+	log_info(logger,"En el registro EDX esta los caracteres: %s",pcb->registro.EDX);
+	log_info(logger,"En el registro RAX esta los caracteres: %s",pcb->registro.RAX);
+	log_info(logger,"En el registro RBX esta los caracteres: %s",pcb->registro.RBX);
+	log_info(logger,"En el registro RCX esta los caracteres: %s",pcb->registro.RCX);
+	log_info(logger,"En el registro RDX esta los caracteres: %s",pcb->registro.RDX);
 
 }
 
