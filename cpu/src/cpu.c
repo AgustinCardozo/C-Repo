@@ -25,9 +25,8 @@ int decode(t_instruccion* instruccion);
 void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel);
 void mostrar(t_instruccion* inst);
 void mostrar_parametro(char* value);
-int devolver_registro(char* registro);
+registros_pos devolver_registro(char* registro);
 int band_ejecutar;
-registro registro_general;
 
 int main(void) {
 	logger = iniciar_logger("cpu.log","CPU");;
@@ -194,10 +193,16 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			log_info(logger,"Paso por Set");
 			char* reg_des = list_get(instruccion->parametros,0);
 			char* caracteres = list_get(instruccion->parametros,1);
-			//log_warning(logger,"!!!!!!!!!!!1 %i %s ",reg_des,caracteres);
-			//registro_general.bytes4[0] = string_new();
-			//sleep(5);
-			//registro_general.bytes4[0] = string_duplicate(caracteres);
+			registros_pos pos = devolver_registro(reg_des);
+			if(pos == AX || pos == BX || pos == CX || pos == DX){
+				strcpy(pcb->registro.X[pos],caracteres);
+			} else if (pos == EAX || pos == EBX || pos == ECX || pos == EDX){
+				strcpy(pcb->registro.XE[pos-4],caracteres);
+			} else if (pos == RAX || pos == RBX || pos == RCX || pos == RDX){
+				strcpy(pcb->registro.XR[pos-8],caracteres);
+			} else {
+				log_error(logger,"Cuidado, registro no encontrado");
+			}
 			log_info(logger,"En %s esta %s",reg_des,caracteres);
 			break;
 		case IO:
@@ -243,30 +248,34 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 	}
 }
 
-int devolver_registro(char* registro){
-	int v;
+registros_pos devolver_registro(char* registro){
+	registros_pos v;
 	if(strcmp(registro,"AX")==0){
-		v = 0;
+		v = AX;
 	} else if(strcmp(registro,"BX")==0){
-		v = 1;
+		v = BX;
 	} else if(strcmp(registro,"CX")==0){
-		v = 2;
+		v = CX;
 	} else if(strcmp(registro,"DX")==0){
-		v = 3;
-	} else if(strcmp(registro,"BX")==0){
-		v = 1;
-	} else if(strcmp(registro,"CX")==0){
-		v = 2;
-	} else if(strcmp(registro,"DX")==0){
-		v = 3;
-	} else if(strcmp(registro,"BX")==0){
-		v = 1;
-	} else if(strcmp(registro,"CX")==0){
-		v = 2;
-	} else if(strcmp(registro,"DX")==0){
-		v = 3;
+		v = DX;
+	} else if(strcmp(registro,"EAX")==0){
+		v = EAX;
+	} else if(strcmp(registro,"EBX")==0){
+		v = EBX;
+	} else if(strcmp(registro,"ECX")==0){
+		v = ECX;
+	} else if(strcmp(registro,"EDX")==0){
+		v = EDX;
+	} else if(strcmp(registro,"RAX")==0){
+		v = RAX;
+	} else if(strcmp(registro,"RBX")==0){
+		v = RBX;
+	} else if(strcmp(registro,"RCX")==0){
+		v = RCX;
+	} else if(strcmp(registro,"RDX")==0){
+		v = RDX;
 	} else {
-		exit(1);
+		log_error(logger,"CUIDADO,CODIGO INVALIDO");
 	}
 	return v;
 }

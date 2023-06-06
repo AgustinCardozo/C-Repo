@@ -51,6 +51,7 @@ void de_ready_a_ejecutar_hrrn(void);
 //Recursos
 void ejecutar_wait(t_pcb* pcb);
 bool comparador_hrrn(void* data1,void* data2);
+void mostrar_registro(t_pcb* pcb);
 
 sem_t mutex_cola_new;
 sem_t mutex_cola_ready;
@@ -208,6 +209,7 @@ void* atender_cpu(void){
 					pcb = deserializar_pcb(buffer);
 					log_info(logger,"PID: <%d> - Estado Anterior: <EXEC> - Estado Actual: <EXIT>",pcb->pid);
 					//log_info(logger,"El pcb [%i] ha sido finalizado",pcb->pid);
+					mostrar_registro(pcb);
 					log_info(logger,"Finaliza el proceso <%d> - Motivo: <SUCCESS>",pcb->pid);
 					enviar_mensaje("Tu proceso ha finalizado",pcb->conexion_consola);
 
@@ -687,5 +689,20 @@ void* ejecutar_IO(void* dato){
 
 
 	return NULL;
+}
+
+void mostrar_registro(t_pcb* pcb){
+
+	for(int i = 0; i < 4; i++){
+		for(int j = 0; j <4;j++){
+			log_info(logger,"En el registro X [%i] estan los caracteres: %c",i,pcb->registro.X[i][j]);
+		}
+	}
+	for(int i = 0; i < 4; i++){
+		log_info(logger,"En el registro EX [%i] estan los caracteres: %s",i,pcb->registro.XE[i]);
+	}
+	for(int i = 0; i < 4; i++){
+		log_info(logger,"En el registro RX [%i] estan los caracteres: %s",i,pcb->registro.XR[i]);
+	}
 }
 

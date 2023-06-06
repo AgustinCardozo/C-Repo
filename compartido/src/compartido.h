@@ -80,10 +80,21 @@ typedef struct{
 }tabla_segmento; //TODO Preguntar como puede ser
 
 typedef struct{
+	char X[4][4];
+	char XE[4][8];
+	char XR[4][16];
+}registros_generales;
+
+typedef enum{
+	AX,BX,CX,DX,EAX,EBX,ECX,EDX,RAX,RBX,RCX,RDX
+}registros_pos;
+
+typedef struct{
 	int pid;
 	t_list* lista_instrucciones;
 	int program_counter;
 	tabla_segmento segmentos;
+	registros_generales registro;
 	float estimacion;
 	int real_ant;
 	int llegadaReady;
