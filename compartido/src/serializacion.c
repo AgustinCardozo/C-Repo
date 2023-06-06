@@ -30,40 +30,40 @@ t_buffer* serializar_pcb(t_pcb* pcb){
 	memcpy(buffer->stream + offset, &pcb->program_counter, sizeof(int));
 	offset += sizeof(int);
 
-	memcpy(buffer->stream + offset, &pcb->registro.X[0], 5);
+	memcpy(buffer->stream + offset, &pcb->registro.AX, 5);
 	offset += 5;
 
-	memcpy(buffer->stream + offset, &pcb->registro.X[1], 5);
+	memcpy(buffer->stream + offset, &pcb->registro.BX, 5);
 	offset += 5;
 
-	memcpy(buffer->stream + offset, &pcb->registro.X[2], 5);
+	memcpy(buffer->stream + offset, &pcb->registro.CX, 5);
 	offset += 5;
 
-	memcpy(buffer->stream + offset, &pcb->registro.X[3], 5);
+	memcpy(buffer->stream + offset, &pcb->registro.DX, 5);
 	offset += 5;
 
-	memcpy(buffer->stream + offset, &pcb->registro.XE[0], 9);
+	memcpy(buffer->stream + offset, &pcb->registro.EAX, 9);
 	offset += 9;
 
-	memcpy(buffer->stream + offset, &pcb->registro.XE[1], 9);
+	memcpy(buffer->stream + offset, &pcb->registro.EBX, 9);
 	offset += 9;
 
-	memcpy(buffer->stream + offset, &pcb->registro.XE[2], 9);
+	memcpy(buffer->stream + offset, &pcb->registro.ECX, 9);
 	offset += 9;
 
-	memcpy(buffer->stream + offset, &pcb->registro.XE[3], 9);
+	memcpy(buffer->stream + offset, &pcb->registro.EDX, 9);
 	offset += 9;
 
-	memcpy(buffer->stream + offset, &pcb->registro.XR[0], 17);
+	memcpy(buffer->stream + offset, &pcb->registro.RAX, 17);
 	offset += 17;
 
-	memcpy(buffer->stream + offset, &pcb->registro.XR[1], 17);
+	memcpy(buffer->stream + offset, &pcb->registro.RBX, 17);
 	offset += 17;
 
-	memcpy(buffer->stream + offset, &pcb->registro.XR[2], 17);
+	memcpy(buffer->stream + offset, &pcb->registro.RCX, 17);
 	offset += 17;
 
-	memcpy(buffer->stream + offset, &pcb->registro.XR[3], 17);
+	memcpy(buffer->stream + offset, &pcb->registro.RDX, 17);
 	offset += 17;
 
 	memcpy(buffer->stream + offset, &pcb->segmentos.id, sizeof(int));
@@ -288,29 +288,29 @@ t_pcb* deserializar_pcb(t_buffer* buffer){
 	offset += sizeof(int);
 	memcpy(&(pcb->program_counter),buffer->stream + offset,sizeof(int));
 	offset += sizeof(int);
-	memcpy(&(pcb->registro.X[0]),buffer->stream + offset,5);
+	memcpy(&(pcb->registro.AX),buffer->stream + offset,5);
 	offset += 5;
-	memcpy(&(pcb->registro.X[1]),buffer->stream + offset,5);
+	memcpy(&(pcb->registro.BX),buffer->stream + offset,5);
 	offset += 5;
-	memcpy(&(pcb->registro.X[2]),buffer->stream + offset,5);
+	memcpy(&(pcb->registro.CX),buffer->stream + offset,5);
 	offset += 5;
-	memcpy(&(pcb->registro.X[3]),buffer->stream + offset,5);
+	memcpy(&(pcb->registro.DX),buffer->stream + offset,5);
 	offset += 5;
-	memcpy(&(pcb->registro.XE[0]),buffer->stream + offset,9);
+	memcpy(&(pcb->registro.EAX),buffer->stream + offset,9);
 	offset += 9;
-	memcpy(&(pcb->registro.XE[1]),buffer->stream + offset,9);
+	memcpy(&(pcb->registro.EBX),buffer->stream + offset,9);
 	offset += 9;
-	memcpy(&(pcb->registro.XE[2]),buffer->stream + offset,9);
+	memcpy(&(pcb->registro.ECX),buffer->stream + offset,9);
 	offset += 9;
-	memcpy(&(pcb->registro.XE[3]),buffer->stream + offset,9);
+	memcpy(&(pcb->registro.EDX),buffer->stream + offset,9);
 	offset += 9;
-	memcpy(&(pcb->registro.XR[0]),buffer->stream + offset,17);
+	memcpy(&(pcb->registro.RAX),buffer->stream + offset,17);
 	offset += 17;
-	memcpy(&(pcb->registro.XR[1]),buffer->stream + offset,17);
+	memcpy(&(pcb->registro.RBX),buffer->stream + offset,17);
 	offset += 17;
-	memcpy(&(pcb->registro.XR[2]),buffer->stream + offset,17);
+	memcpy(&(pcb->registro.RCX),buffer->stream + offset,17);
 	offset += 17;
-	memcpy(&(pcb->registro.XR[3]),buffer->stream + offset,17);
+	memcpy(&(pcb->registro.RDX),buffer->stream + offset,17);
 	offset += 17;
 	memcpy(&(pcb->segmentos.id),buffer->stream + offset,sizeof(int));
 	offset += sizeof(int);

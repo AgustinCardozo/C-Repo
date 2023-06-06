@@ -26,6 +26,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel);
 void mostrar(t_instruccion* inst);
 void mostrar_parametro(char* value);
 registros_pos devolver_registro(char* registro);
+void insertar(t_pcb* pcb, registros_pos pos,char* caracteres);
 int band_ejecutar;
 
 int main(void) {
@@ -194,15 +195,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			char* reg_des = list_get(instruccion->parametros,0);
 			char* caracteres = list_get(instruccion->parametros,1);
 			registros_pos pos = devolver_registro(reg_des);
-			if(pos == AX || pos == BX || pos == CX || pos == DX){
-				strcpy(pcb->registro.X[pos],caracteres);
-			} else if (pos == EAX || pos == EBX || pos == ECX || pos == EDX){
-				strcpy(pcb->registro.XE[pos-4],caracteres);
-			} else if (pos == RAX || pos == RBX || pos == RCX || pos == RDX){
-				strcpy(pcb->registro.XR[pos-8],caracteres);
-			} else {
-				log_error(logger,"Cuidado, registro no encontrado");
-			}
+			insertar(pcb,pos,caracteres);
 			log_info(logger,"En %s esta %s",reg_des,caracteres);
 			break;
 		case IO:
@@ -278,4 +271,34 @@ registros_pos devolver_registro(char* registro){
 		log_error(logger,"CUIDADO,CODIGO INVALIDO");
 	}
 	return v;
+}
+
+void insertar(t_pcb* pcb, registros_pos pos,char* caracteres){
+	switch(pos){
+		case AX: strcpy(pcb->registro.AX,caracteres);
+			break;
+		case BX: strcpy(pcb->registro.BX,caracteres);
+			break;
+		case CX: strcpy(pcb->registro.CX,caracteres);
+			break;
+		case DX: strcpy(pcb->registro.DX,caracteres);
+			break;
+		case EAX: strcpy(pcb->registro.EAX,caracteres);
+			break;
+		case EBX: strcpy(pcb->registro.EBX,caracteres);
+			break;
+		case ECX: strcpy(pcb->registro.ECX,caracteres);
+			break;
+		case EDX: strcpy(pcb->registro.EDX,caracteres);
+			break;
+		case RAX: strcpy(pcb->registro.RAX,caracteres);
+			break;
+		case RBX: strcpy(pcb->registro.RBX,caracteres);
+			break;
+		case RCX: strcpy(pcb->registro.RCX,caracteres);
+			break;
+		case RDX: strcpy(pcb->registro.RDX,caracteres);
+			break;
+	}
+
 }

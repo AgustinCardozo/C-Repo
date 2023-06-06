@@ -693,16 +693,11 @@ void* ejecutar_IO(void* dato){
 
 void mostrar_registro(t_pcb* pcb){
 
-	for(int i = 0; i < 4; i++){
-		for(int j = 0; j <4;j++){
-			log_info(logger,"En el registro X [%i] estan los caracteres: %c",i,pcb->registro.X[i][j]);
-		}
-	}
-	for(int i = 0; i < 4; i++){
-		log_info(logger,"En el registro EX [%i] estan los caracteres: %s",i,pcb->registro.XE[i]);
-	}
-	for(int i = 0; i < 4; i++){
-		log_info(logger,"En el registro RX [%i] estan los caracteres: %s",i,pcb->registro.XR[i]);
-	}
+
+	log_info(logger,"En el registro AX esta los caracteres: %s",pcb->registro.AX);
+	log_info(logger,"En el registro BX esta los caracteres: %s",pcb->registro.BX);
+	log_info(logger,"En el registro CX esta los caracteres: %s",pcb->registro.CX);
+	log_info(logger,"En el registro DX esta los caracteres: %s",pcb->registro.DX);
+
 }
 
