@@ -27,6 +27,7 @@ void mostrar(t_instruccion* inst);
 void mostrar_parametro(char* value);
 registros_pos devolver_registro(char* registro);
 void insertar(t_pcb* pcb, registros_pos pos,char* caracteres);
+void mostrar_registro(t_pcb* pcb);
 int band_ejecutar;
 
 int main(void) {
@@ -197,6 +198,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			registros_pos pos = devolver_registro(reg_des);
 			insertar(pcb,pos,caracteres);
 			log_info(logger,"En %s esta %s",reg_des,caracteres);
+			mostrar_registro(pcb);
 			break;
 		case IO:
 			log_info(logger,"Pasa por I/O");
@@ -300,5 +302,15 @@ void insertar(t_pcb* pcb, registros_pos pos,char* caracteres){
 		case RDX: strcpy(pcb->registro.RDX,caracteres);
 			break;
 	}
+
+}
+
+void mostrar_registro(t_pcb* pcb){
+
+
+	log_info(logger,"En el registro AX esta los caracteres: %s",pcb->registro.AX);
+	log_info(logger,"En el registro BX esta los caracteres: %s",pcb->registro.BX);
+	log_info(logger,"En el registro CX esta los caracteres: %s",pcb->registro.CX);
+	log_info(logger,"En el registro DX esta los caracteres: %s",pcb->registro.DX);
 
 }
