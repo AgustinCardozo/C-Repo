@@ -29,6 +29,9 @@ registros_pos devolver_registro(char* registro);
 void insertar(t_pcb* pcb, registros_pos pos,char* caracteres);
 void mostrar_registro(t_pcb* pcb);
 int band_ejecutar;
+//mmu
+t_dl* obtenerDL(uint32_t dir_logica,t_pcb*pcb);
+t_df* traducirDLaDF(t_dl* dl,t_pcb* pcb,char*accion);
 
 int main(void) {
 	logger = iniciar_logger("cpu.log","CPU");;
@@ -39,7 +42,7 @@ int main(void) {
 	datos.puerto_memoria = config_get_string_value(config,"PUERTO_MEMORIA");
 	datos.puerto_escucha = config_get_string_value(config,"PUERTO_ESCUCHA");
 	datos.ret_instruccion = config_get_int_value(config,"RETARDO_INSTRUCCION");
-	datos.tam_max_maximo = config_get_int_value(config,"TAM_MAX_SEGMENTO");
+	datos.tam_max_segmento = config_get_int_value(config,"TAM_MAX_SEGMENTO");
 
 	pthread_create(&hilo_conexion_kernel,NULL,(void*) atender_kernel,NULL);
 	pthread_create(&hilo_conexion_memoria,NULL,(void*) atender_memoria,NULL);
@@ -320,5 +323,26 @@ void mostrar_registro(t_pcb* pcb){
 	log_info(logger,"En el registro RBX esta los caracteres: %s",pcb->registro.RBX);
 	log_info(logger,"En el registro RCX esta los caracteres: %s",pcb->registro.RCX);
 	log_info(logger,"En el registro RDX esta los caracteres: %s",pcb->registro.RDX);
+
+}
+
+t_dl* obtenerDL(uint32_t dir_logica,t_pcb*pcb){
+	t_dl* DL = malloc(sizeof(t_dl));
+
+	DL->pid=pcb->pid;
+	DL->num_segmento = floor(dir_logica / datos.tam_max_segmento);
+	DL->desplazamiento_segmento = dir_logica % datos.tam_max_segmento;
+	DL->segfault = false;
+
+	tabla_segmento* segmento = list_get(pcb->segmentos,DL->num_segmento);
+	if(DL->desplazamiento_segmento+0"tamaño a leer escribir">segmento->tamanio){
+		DL->segfault=true;
+		log_info(logger,"SEGMENTATION_FAULT: desplazamiento %d tamanio: %d",
+				DL->desplazamiento_segmento,datos->tam_max_segmento);
+	}
+	return DL;
+}
+
+t_df* traducirDLaDF(t_dl* dl,t_pcb* pcb,char*accion){
 
 }

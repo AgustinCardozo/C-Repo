@@ -22,8 +22,21 @@ typedef struct{
 	char* ip_memoria;
 	char* puerto_memoria;
 	char* puerto_escucha;
-	int tam_max_maximo;
+	int tam_max_segmento;
 }datos_config;
+
+typedef struct{
+	int pid;
+	int num_segmento;
+	int desplazamiento_segmento;
+	bool segfault;
+}t_dl;
+
+typedef struct{
+	int pid;
+	int base;
+	int desplazamiento_segmento;
+}t_df;
 
 void* atender_kernel(void);
 void* atender_memoria(void);
