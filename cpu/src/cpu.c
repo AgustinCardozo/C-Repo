@@ -335,7 +335,7 @@ t_dl* obtenerDL(uint32_t dir_logica,t_pcb*pcb){
 	DL->segfault = false;
 
 	tabla_segmento* segmento = list_get(pcb->segmentos,DL->num_segmento);
-	if(DL->desplazamiento_segmento+0"tamaño a leer escribir">segmento->tamanio){
+	if(DL->desplazamiento_segmento+segmento->direccion_base > segmento->tamanio){//TODO VERIFICAR
 		DL->segfault=true;
 		log_info(logger,"SEGMENTATION_FAULT: desplazamiento %d tamanio: %d",
 				DL->desplazamiento_segmento,datos->tam_max_segmento);
