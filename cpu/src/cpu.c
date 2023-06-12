@@ -30,8 +30,8 @@ void insertar(t_pcb* pcb, registros_pos pos,char* caracteres);
 void mostrar_registro(t_pcb* pcb);
 int band_ejecutar;
 //mmu
-t_dl* obtenerDL(uint32_t dir_logica,t_pcb*pcb);
-t_df* traducirDLaDF(t_dl* dl,t_pcb* pcb,char*accion);
+//t_dl* obtenerDL(uint32_t dir_logica,t_pcb*pcb);
+//t_df* traducirDLaDF(t_dl* dl,t_pcb* pcb,char*accion);
 
 int main(void) {
 	logger = iniciar_logger("cpu.log","CPU");;
@@ -325,7 +325,7 @@ void mostrar_registro(t_pcb* pcb){
 	log_info(logger,"En el registro RDX esta los caracteres: %s",pcb->registro.RDX);
 
 }
-
+/*
 t_dl* obtenerDL(uint32_t dir_logica,t_pcb*pcb){
 	t_dl* DL = malloc(sizeof(t_dl));
 
@@ -346,3 +346,5 @@ t_dl* obtenerDL(uint32_t dir_logica,t_pcb*pcb){
 t_df* traducirDLaDF(t_dl* dl,t_pcb* pcb,char*accion){
 
 }
+*/
+

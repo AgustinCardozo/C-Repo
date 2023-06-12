@@ -102,7 +102,7 @@ typedef struct{
 	int pid;
 	t_list* lista_instrucciones;
 	int program_counter;
-	t_list* segmentos;
+	tabla_segmento segmentos;
 	registros_generales registro;
 	float estimacion;
 	int real_ant;
