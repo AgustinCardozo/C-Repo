@@ -18,9 +18,11 @@ typedef struct{
 
 typedef struct{
 	int pid;
-	segmento segment;
+	t_list* segments;
 }tabla_de_proceso;
+
 void mostrar_tabla_huecos_libres();
+segmento* asignar_hueco_segmento_0(int tamanio);
 op_asignacion devolver_metodo_asignacion(char* asignacion);
 void* memoria_usuario;
 
@@ -45,8 +47,13 @@ int main(void) {
 	hueco->tamanio = datos.tam_memoria-1;
 
 	list_add(tabla_huecos_libres,hueco);
+
+	segmento* seg_0 = asignar_hueco_segmento_0(datos.tam_segmento);
+
 	mostrar_tabla_huecos_libres();
+
 	int server_fd = iniciar_servidor(logger,datos.puerto_escucha);
+
 	log_info(logger, "Memoria listo para recibir a los modulos");
 
 	cliente_fd = malloc(sizeof(int));
@@ -77,6 +84,7 @@ void atender_modulos(void* data){
 				break;
 			case INICIALIZAR_ESTRUCTURA:
 				log_info(logger,"Paso por INICIALIZAR_ESTRUCTURA");
+
 				send(cliente_fd,&datos.tam_segmento,sizeof(int),0);
 				break;
 			case -1:
@@ -142,5 +150,23 @@ op_asignacion devolver_metodo_asignacion(char* asignacion){
 	}
 
 	return cod;
+}
+
+segmento* asignar_hueco_segmento_0(int tamanio){
+	segmento * seg = malloc(sizeof(segmento));
+	for(int i = 0; i < list_size(tabla_huecos_libres);i++){
+		hueco_libre* hueco_asignado = list_get(tabla_huecos_libres,i);
+		if(hueco_asignado->tamanio > tamanio){
+			seg->id = 0;
+			seg->direccion_base = 0;
+			seg->tamanio = tamanio;
+
+			hueco_asignado->base += tamanio;
+			hueco_asignado->tamanio -= tamanio;
+			list_replace(tabla_huecos_libres,i,hueco_asignado);
+		}
+	}
+
+	return seg;
 }
 

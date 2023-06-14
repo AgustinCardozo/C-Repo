@@ -364,3 +364,24 @@ t_pcb* deserializar_pcb(t_buffer* buffer){
 	return pcb;
 }
 
+t_paquete* crear_paquete_segmento(segmento seg, op_code codigo){
+	t_paquete* paquete = malloc(sizeof(t_paquete));
+	paquete->codigo_operacion = codigo;
+	paquete->buffer = serializar_segmento(seg);
+
+	return paquete;
+}
+
+t_buffer* serializar_segmento(segmento seg){
+	t_buffer* buffer = malloc(sizeof(t_buffer));
+	int offset = 0;
+	buffer->size = sizeof(int)*3;
+	memcpy(buffer->stream + offset, &seg->id, sizeof(int));
+	offset += sizeof(int);
+	memcpy(buffer->stream + offset, &seg->direccion_base, sizeof(int));
+	offset += sizeof(int);
+	memcpy(buffer->stream + offset, &seg->tamanio, sizeof(int));
+	offset += sizeof(int);
+
+	return buffer;
+}
