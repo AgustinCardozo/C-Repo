@@ -20,7 +20,8 @@ t_buffer* serializar_pcb(t_pcb* pcb){
 	t_buffer* buffer = malloc(sizeof(t_buffer));
 	t_buffer* instrucciones = serializar_lista_de_instrucciones(pcb->lista_instrucciones);
 	int offset = 0;
-	buffer->size = sizeof(int)*11 + sizeof(float) + instrucciones->size + 136;
+	int tamanio_tabla = list_size(pcb->tabla_segmentos);
+	buffer->size = sizeof(int)*12 + sizeof(float) + instrucciones->size + 136 + tamanio_tabla*sizeof(segmento);
 
 	buffer->stream = malloc(buffer->size);
 
@@ -66,14 +67,21 @@ t_buffer* serializar_pcb(t_pcb* pcb){
 	memcpy(buffer->stream + offset, &pcb->registro.RDX, 17);
 	offset += 17;
 
-	memcpy(buffer->stream + offset, &pcb->segmentos.id, sizeof(int));
+	memcpy(buffer->stream + offset, &(tamanio_tabla), sizeof(int));
 	offset += sizeof(int);
 
-	memcpy(buffer->stream + offset, &pcb->segmentos.direccion_base, sizeof(int));
-	offset += sizeof(int);
+	for(int i = 0; i < tamanio_tabla; i++) {
+		segmento* seg = list_get(pcb->tabla_segmentos,i);
 
-	memcpy(buffer->stream + offset, &pcb->segmentos.tamanio, sizeof(int));
-	offset += sizeof(int);
+		memcpy(buffer->stream + offset, &seg->id, sizeof(int));
+		offset += sizeof(int);
+
+		memcpy(buffer->stream + offset, &seg->direccion_base, sizeof(int));
+		offset += sizeof(int);
+
+		memcpy(buffer->stream + offset, &seg->tamanio, sizeof(int));
+		offset += sizeof(int);
+	}
 
 	memcpy(buffer->stream + offset, &pcb->estimacion, sizeof(float));
 	offset += sizeof(float);
@@ -312,12 +320,22 @@ t_pcb* deserializar_pcb(t_buffer* buffer){
 	offset += 17;
 	memcpy(&(pcb->registro.RDX),buffer->stream + offset,17);
 	offset += 17;
-	memcpy(&(pcb->segmentos.id),buffer->stream + offset,sizeof(int));
+	int tamanio_tabla;
+	memcpy(&tamanio_tabla,buffer->stream + offset,sizeof(int));
 	offset += sizeof(int);
-	memcpy(&(pcb->segmentos.direccion_base),buffer->stream + offset,sizeof(int));
-	offset += sizeof(int);
-	memcpy(&(pcb->segmentos.tamanio),buffer->stream + offset,sizeof(int));
-	offset += sizeof(int);
+	pcb->tabla_segmentos = list_create();
+	for(int i = 0; i < tamanio_tabla; i++){
+
+		segmento* seg = malloc(sizeof(segmento));
+		memcpy(&(seg->id),buffer->stream + offset,sizeof(int));
+		offset += sizeof(int);
+		memcpy(&(seg->direccion_base),buffer->stream + offset,sizeof(int));
+		offset += sizeof(int);
+		memcpy(&(seg->tamanio),buffer->stream + offset,sizeof(int));
+		offset += sizeof(int);
+		list_add(pcb->tabla_segmentos,seg);
+	}
+
 	memcpy(&(pcb->estimacion),buffer->stream + offset,sizeof(float));
 	offset += sizeof(float);
 	memcpy(&(pcb->llegadaExec),buffer->stream + offset,sizeof(int));
@@ -345,5 +363,4 @@ t_pcb* deserializar_pcb(t_buffer* buffer){
 
 	return pcb;
 }
-
 

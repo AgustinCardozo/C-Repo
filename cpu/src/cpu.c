@@ -29,6 +29,7 @@ registros_pos devolver_registro(char* registro);
 void insertar(t_pcb* pcb, registros_pos pos,char* caracteres);
 void mostrar_registro(t_pcb* pcb);
 int band_ejecutar;
+int obtener_direccion_fisica(uint32_t dir_logica,t_pcb*pcb,int tam_dato);
 //mmu
 //t_dl* obtenerDL(uint32_t dir_logica,t_pcb*pcb);
 //t_df* traducirDLaDF(t_dl* dl,t_pcb* pcb,char*accion);
@@ -203,6 +204,30 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			log_info(logger,"En %s esta %s",reg_des,caracteres);
 			mostrar_registro(pcb);
 			break;
+		case MOV_IN:
+			log_info(logger,"Paso por mov_in");
+			break;
+		case MOV_OUT:
+			log_info(logger,"Paso por mov_out");
+			break;
+		case F_OPEN:
+			log_info(logger,"Paso por f_open");
+			break;
+		case F_CLOSE:
+			log_info(logger,"Paso por f_close");
+			break;
+		case F_SEEK:
+			log_info(logger,"Paso por f_seek");
+			break;
+		case F_READ:
+			log_info(logger,"Paso por f_read");
+			break;
+		case F_WRITE:
+			log_info(logger,"Paso por f_write");
+			break;
+		case F_TRUNCATE:
+			log_info(logger,"Paso por f_truncate");
+			break;
 		case IO:
 			log_info(logger,"Pasa por I/O");
 			enviar_pcb_a(pcb,conexion_kernel,EJECUTAR_IO);
@@ -229,6 +254,12 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			} else {
 				log_info(logger,"El programa sigue");
 			}
+			break;
+		case CREATE_SEGMENT:
+			log_info(logger,"Paso por create_segment");
+			break;
+		case DELETE_SEGMENT:
+			log_info(logger,"Paso por delete_segment");
 			break;
 		case YIELD:
 			log_info(logger,"Paso por YIELD");
@@ -325,26 +356,36 @@ void mostrar_registro(t_pcb* pcb){
 	log_info(logger,"En el registro RDX esta los caracteres: %s",pcb->registro.RDX);
 
 }
-/*
-t_dl* obtenerDL(uint32_t dir_logica,t_pcb*pcb){
+
+
+
+int obtener_direccion_fisica(uint32_t dir_logica,t_pcb*pcb,int tam_dato){
 	t_dl* DL = malloc(sizeof(t_dl));
 
 	DL->pid=pcb->pid;
 	DL->num_segmento = floor(dir_logica / datos.tam_max_segmento);
-	DL->desplazamiento_segmento = dir_logica % datos.tam_max_segmento;
+	DL->offset = dir_logica % datos.tam_max_segmento;
 	DL->segfault = false;
 
-	tabla_segmento* segmento = list_get(pcb->segmentos,DL->num_segmento);
-	if(DL->desplazamiento_segmento+segmento->direccion_base > segmento->tamanio){//TODO VERIFICAR
-		DL->segfault=true;
-		log_info(logger,"SEGMENTATION_FAULT: desplazamiento %d tamanio: %d",
-				DL->desplazamiento_segmento,datos->tam_max_segmento);
+	int df;
+
+	for(int i = 0; i < list_size(pcb->tabla_segmentos); i++){
+		segmento* seg = list_get(pcb->tabla_segmentos,i);
+		if(seg->id == DL->num_segmento){
+			if(DL->offset+tam_dato > seg->tamanio){//TODO VERIFICAR
+
+				log_info(logger,"SEGMENTATION_FAULT: desplazamiento %d tamanio: %d",
+				DL->offset,seg->tamanio);
+				DL->segfault=true;
+			} else {
+				df = DL->offset + seg->direccion_base;
+			}
+		}
+
 	}
-	return DL;
+	//tabla_segmento* segmento = list_get(pcb->segmentos,DL->num_segmento);
+
+	return df;
 }
 
-t_df* traducirDLaDF(t_dl* dl,t_pcb* pcb,char*accion){
-
-}
-*/
 

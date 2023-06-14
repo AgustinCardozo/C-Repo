@@ -348,9 +348,17 @@ t_pcb* crear_pcb(t_buffer* buffer,int conexion_cliente){
 	t_list* lista_instrucciones = deserializar_lista_instrucciones(buffer);
 	pcb->lista_instrucciones = lista_instrucciones;
 	pcb->program_counter = 0;
-	pcb->segmentos.id = 0;
-	pcb->segmentos.direccion_base = 0;
-	pcb->segmentos.tamanio = 0;
+	pcb->tabla_segmentos = list_create();
+	int tamanio_seg_0;
+	op_code cod = INICIALIZAR_ESTRUCTURA;
+	send(conexion_memoria,&cod , sizeof(op_code), 0);
+	recv(conexion_memoria, &tamanio_seg_0, sizeof(int), MSG_WAITALL);
+	segmento* seg = malloc(sizeof(segmento));
+	seg->id = 0;
+	seg->direccion_base = 0;
+	seg->tamanio = tamanio_seg_0;
+	log_info(logger,"Semento id: %i, base: %i, tamanio: %i",seg->id,seg->direccion_base,seg->tamanio);
+	list_add(pcb->tabla_segmentos,seg);
 	pcb->llegadaReady = 0;
 	pcb->llegadaExec = 0;
 	pcb->real_ant = 0;
@@ -708,4 +716,5 @@ void mostrar_registro(t_pcb* pcb){
 	log_info(logger,"En el registro RDX esta los caracteres: %s",pcb->registro.RDX);
 
 }
+
 

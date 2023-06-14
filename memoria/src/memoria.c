@@ -48,6 +48,10 @@ void atender_modulos(void* data){
 				log_info(logger, "Me llegaron los siguientes valores:\n");
 				list_iterate(lista, (void*) iterator);
 				break;
+			case INICIALIZAR_ESTRUCTURA:
+				log_info(logger,"Paso por INICIALIZAR_ESTRUCTURA");
+				send(cliente_fd,&datos.tam_segmento,sizeof(int),0);
+				break;
 			case -1:
 				log_error(logger, "el cliente se desconecto. Terminando servidor");
 				log_destroy(logger);

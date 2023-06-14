@@ -16,6 +16,7 @@
 #include <sockets.h>
 #include <compartido.h>
 #include <serializacion.h>
+#include <math.h>
 
 typedef struct{
 	int ret_instruccion;
@@ -28,7 +29,7 @@ typedef struct{
 typedef struct{
 	int pid;
 	int num_segmento;
-	int desplazamiento_segmento;
+	int offset;
 	bool segfault;
 }t_dl;
 

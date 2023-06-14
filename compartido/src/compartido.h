@@ -28,7 +28,8 @@ typedef enum
 	EJECUTAR_SIGNAL,
 	EJECUTAR_IO,
 	DESALOJADO,
-	FINALIZAR
+	FINALIZAR,
+	INICIALIZAR_ESTRUCTURA
 }op_code;
 
 typedef struct{
@@ -77,7 +78,7 @@ typedef struct{
 	int id;
 	int direccion_base;
 	int tamanio;
-}tabla_segmento; //TODO Preguntar como puede ser
+}segmento;
 
 typedef struct{
 	char AX[4];
@@ -102,7 +103,7 @@ typedef struct{
 	int pid;
 	t_list* lista_instrucciones;
 	int program_counter;
-	tabla_segmento segmentos;
+	t_list* tabla_segmentos;
 	registros_generales registro;
 	float estimacion;
 	int real_ant;

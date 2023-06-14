@@ -48,14 +48,6 @@ libcompartido.so: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
 clean:
 	-$(RM) libcompartido.so
 	-@echo ' '
-	
-install: all
-	sudo cp -u build/libcompartido.so /usr/lib
-	sudo cp --parents -u $(H_SRCS) /usr/include
-	
-uninstall:
-	sudo rm -f /usr/lib/libcompartido.so
-	sudo rm -rf /usr/include/compartido
 
 .PHONY: all clean dependents main-build
 
