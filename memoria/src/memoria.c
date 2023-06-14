@@ -11,14 +11,40 @@
 #include <stdlib.h>
 #include "memoria.h"
 
+typedef struct{
+	int base;
+	int tamanio;
+}hueco_libre;
+
+typedef struct{
+	int pid;
+	segmento segment;
+}tabla_de_proceso;
+void mostrar_tabla_huecos_libres();
+void* memoria_usuario;
+
+t_list* tabla_huecos_libres;
+t_list* tabla_general;
+
 int main(void) {
 	pthread_t hilo_atender_modulos;
+	tabla_huecos_libres = list_create();
+	tabla_general = list_create();
 
 	logger = iniciar_logger(MEMORIA_LOG, MEMORIA_NAME);
 	config = iniciar_config(MEMORIA_CONFIG);
 
 	iniciar_config_memoria();
 
+	memoria_usuario = malloc(datos.tam_memoria);
+
+	hueco_libre* hueco = malloc(sizeof(hueco_libre));
+
+	hueco->base = 0;
+	hueco->tamanio = datos.tam_memoria-1;
+
+	list_add(tabla_huecos_libres,hueco);
+	mostrar_tabla_huecos_libres();
 	int server_fd = iniciar_servidor(logger,datos.puerto_escucha);
 	log_info(logger, "Memoria listo para recibir a los modulos");
 
@@ -90,3 +116,15 @@ void finalizar_memoria(){
 void iterator(char* value) {
 	log_info(logger,"%s", value);
 }
+
+void mostrar_tabla_huecos_libres(){
+	log_info(logger,"ESTA ES LA TABLA DE HUECOS LIBRES:");
+	log_info(logger,"___________________________________");
+	log_info(logger,"BASE        |    TAMANIO     ");
+	for(int i = 0; i < list_size(tabla_huecos_libres);i++){
+		hueco_libre* hueco = list_get(tabla_huecos_libres,i);
+		log_info(logger,"%i          |    %i          ",hueco->base,hueco->tamanio);
+	}
+	log_info(logger,"___________________________________");
+}
+
