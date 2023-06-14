@@ -12,7 +12,7 @@ testfunction(){
    read git_PASSWORD
 
    cd $1
-   git install https://github.com/sisoputnfrba/so-commons-library.git $1
+   git clone https://github.com/sisoputnfrba/so-commons-library.git $1
    git_USUARIO $1
    git_PASSWORD $1
    echo "Se instalaron las commons"
@@ -28,7 +28,6 @@ testfunction(){
    cd .. $1
    cd src/ $1
    make install $1
-   utnso $1
    echo "Se generaron las estrucuras de COMPARTIDO"
 
    cd $1
