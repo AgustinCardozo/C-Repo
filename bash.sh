@@ -17,12 +17,6 @@ testfunction(){
    git_PASSWORD $1
    echo "Se instalaron las commons"
 
-   cd $1
-   git install https://github.com/sisoputnfrba/tp-2023-1c-EstaEsLaVencida.git $1
-   git_USUARIO $1
-   git_PASSWORD $1
-   echo "Se instalo nuestro TP"
-
    cd so-commons-library/ $1
    make all $1
    echo "Se generaron las estructuras de las COMMONS"
