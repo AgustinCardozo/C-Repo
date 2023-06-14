@@ -21,6 +21,7 @@ typedef struct{
 	segmento segment;
 }tabla_de_proceso;
 void mostrar_tabla_huecos_libres();
+op_asignacion devolver_metodo_asignacion(char* asignacion);
 void* memoria_usuario;
 
 t_list* tabla_huecos_libres;
@@ -102,12 +103,11 @@ void iniciar_config_memoria(){
 	datos.cant_segmentos = config_get_int_value(config, "CANT_SEGMENTOS");
 	datos.ret_memoria = config_get_int_value(config, "RETARDO_MEMORIA");
 	datos.ret_compactacion = config_get_int_value(config, "RETARDO_COMPACTACION");
-	datos.algoritmo = config_get_string_value(config, "ALGORITMO_ASIGNACION");
+	datos.algoritmo = devolver_metodo_asignacion(config_get_string_value(config, "ALGORITMO_ASIGNACION"));
 }
 
 void finalizar_memoria(){
 	log_destroy(logger);
-	free(datos.algoritmo);
 	config_destroy(config);
 	close(server_fd);
 	free(cliente_fd);
@@ -126,5 +126,21 @@ void mostrar_tabla_huecos_libres(){
 		log_info(logger,"%i          |    %i          ",hueco->base,hueco->tamanio);
 	}
 	log_info(logger,"___________________________________");
+}
+
+op_asignacion devolver_metodo_asignacion(char* asignacion){
+	op_asignacion cod;
+
+	if(strcmp(asignacion,"FIRST")){
+		cod = FIRST;
+	} else if(strcmp(asignacion,"BEST")){
+		cod = BEST;
+	} else if(strcmp(asignacion,"WORST")){
+		cod = WORST;
+	} else {
+		log_warning(logger,"Codigo invalido");
+	}
+
+	return cod;
 }
 

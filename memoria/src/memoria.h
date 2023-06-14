@@ -21,6 +21,14 @@
 #define MEMORIA_LOG "memoria.log"
 #define MEMORIA_CONFIG "memoria.config"
 #define MEMORIA_NAME "Memoria" 
+
+
+typedef enum{
+	FIRST,
+	BEST,
+	WORST
+}op_asignacion;
+
 typedef struct{
 	char* puerto_escucha;
 	int tam_memoria;
@@ -28,7 +36,7 @@ typedef struct{
 	int cant_segmentos;
 	int ret_memoria;
 	int ret_compactacion;
-	char* algoritmo;
+	op_asignacion algoritmo;
 }datos_config;
 
 t_log* logger;
