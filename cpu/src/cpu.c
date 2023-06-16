@@ -30,6 +30,9 @@ void insertar(t_pcb* pcb, registros_pos pos,char* caracteres);
 void mostrar_registro(t_pcb* pcb);
 int band_ejecutar;
 int obtener_direccion_fisica(uint32_t dir_logica,t_pcb*pcb,int tam_dato);
+char*devolver_dato(t_pcb* pcb,registros_pos registro);
+void enviar_datos_para_escritura(int dir, char* valor);
+int size_registro(registros_pos registro);
 //mmu
 //t_dl* obtenerDL(uint32_t dir_logica,t_pcb*pcb);
 //t_df* traducirDLaDF(t_dl* dl,t_pcb* pcb,char*accion);
@@ -44,12 +47,12 @@ int main(void) {
 	datos.puerto_escucha = config_get_string_value(config,"PUERTO_ESCUCHA");
 	datos.ret_instruccion = config_get_int_value(config,"RETARDO_INSTRUCCION");
 	datos.tam_max_segmento = config_get_int_value(config,"TAM_MAX_SEGMENTO");
-
+	conexion_memoria = crear_conexion(datos.ip_memoria,datos.puerto_memoria);
 	pthread_create(&hilo_conexion_kernel,NULL,(void*) atender_kernel,NULL);
-	pthread_create(&hilo_conexion_memoria,NULL,(void*) atender_memoria,NULL);
+	//pthread_create(&hilo_conexion_memoria,NULL,(void*) atender_memoria,NULL);
 
 	pthread_join(hilo_conexion_kernel,NULL);
-	pthread_join(hilo_conexion_memoria,NULL);
+	//pthread_join(hilo_conexion_memoria,NULL);
 	log_destroy(logger);
 	config_destroy(config);
 	close(server_fd);
@@ -194,6 +197,9 @@ int decode(t_instruccion* instruccion){
 
 void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 	uint32_t result;
+	int registro;
+	int df;
+	int dl;
 	switch(instruccion->nombre){
 		case SET:
 			log_info(logger,"Paso por Set");
@@ -206,9 +212,17 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			break;
 		case MOV_IN:
 			log_info(logger,"Paso por mov_in");
+			registro = devolver_registro(list_get(instruccion->parametros,0));
+			dl=atoi(list_get(instruccion->parametros,1));
+			df=obtener_direccion_fisica(dl,pcb,size_registro(registro));
 			break;
 		case MOV_OUT:
 			log_info(logger,"Paso por mov_out");
+			registro = devolver_registro(list_get(instruccion->parametros,1));
+			char *dato= devolver_dato(pcb,registro);
+			dl=atoi(list_get(instruccion->parametros,0));
+			df=obtener_direccion_fisica(dl,pcb,size_registro(registro));
+			enviar_datos_para_escritura(df,dato);
 			break;
 		case F_OPEN:
 			log_info(logger,"Paso por f_open");
@@ -339,6 +353,37 @@ void insertar(t_pcb* pcb, registros_pos pos,char* caracteres){
 
 }
 
+char*devolver_dato(t_pcb* pcb,registros_pos registro){
+	char*dato;
+	switch(registro){
+			case AX: dato= pcb->registro.AX;
+				break;
+			case BX: dato= pcb->registro.BX;
+				break;
+			case CX: dato= pcb->registro.CX;
+				break;
+			case DX: dato= pcb->registro.DX;
+				break;
+			case EAX: dato= pcb->registro.EAX;
+				break;
+			case EBX: dato= pcb->registro.EBX;
+				break;
+			case ECX: dato= pcb->registro.ECX;
+				break;
+			case EDX: dato= pcb->registro.EDX;
+				break;
+			case RAX: dato= pcb->registro.RAX;
+				break;
+			case RBX: dato= pcb->registro.RBX;
+				break;
+			case RCX: dato= pcb->registro.RCX;
+				break;
+			case RDX: dato= pcb->registro.RDX;
+				break;
+		}
+		return dato;
+}
+
 void mostrar_registro(t_pcb* pcb){
 
 
@@ -372,7 +417,7 @@ int obtener_direccion_fisica(uint32_t dir_logica,t_pcb*pcb,int tam_dato){
 	for(int i = 0; i < list_size(pcb->tabla_segmentos); i++){
 		segmento* seg = list_get(pcb->tabla_segmentos,i);
 		if(seg->id == DL->num_segmento){
-			if(DL->offset+tam_dato > seg->tamanio){//TODO VERIFICAR
+			if(DL->offset+tam_dato > seg->tamanio){
 
 				log_info(logger,"SEGMENTATION_FAULT: desplazamiento %d tamanio: %d",
 				DL->offset,seg->tamanio);
@@ -388,4 +433,83 @@ int obtener_direccion_fisica(uint32_t dir_logica,t_pcb*pcb,int tam_dato){
 	return df;
 }
 
+int size_registro(registros_pos registro){
+	int tamanio;
+	switch(registro){
+			case AX: tamanio= 4;
+			break;
+			case BX: tamanio= 4;
+			break;
+			case CX: tamanio= 4;
+			break;
+			case DX: tamanio= 4;
+			break;
+			case EAX: tamanio= 8;
+			break;
+			case EBX: tamanio= 8;
+			break;
+			case ECX: tamanio= 8;
+			break;
+			case EDX: tamanio= 8;
+			break;
+			case RAX:tamanio= 16;
+			break;
+			case RBX:tamanio= 16;
+			break;
+			case RCX: tamanio= 16;
+			break;
+			case RDX: tamanio= 16;
+			break;
+		}
+	return tamanio;
+}
 
+void enviar_datos_para_lectura(int dir){
+	t_paquete* paquete = malloc(sizeof(t_paquete));
+	paquete->codigo_operacion = ACCEDER_PARA_LECTURA;
+	t_buffer* buffer = malloc(sizeof(t_buffer));
+	int offset = 0;
+	buffer->size = sizeof(int);
+	buffer->stream = malloc(buffer->size);
+
+	memcpy(buffer->stream + offset, &dir, sizeof(int));
+	offset += sizeof(int);
+
+	paquete->buffer = buffer;
+
+	enviar_paquete(paquete,conexion_memoria);
+
+	//free(paquete->buffer->stream);
+	//free(paquete->buffer);
+	//free(paquete);
+}
+
+char* deserializar_valor(t_buffer* buffer){
+	char* valor;
+
+	int offset = 0;
+
+	memcpy(&valor,buffer->stream + offset,sizeof(char*));
+	offset += sizeof(char*);
+
+	return valor;
+}
+
+void enviar_datos_para_escritura(int dir, char* valor){
+	t_paquete* paquete = malloc(sizeof(t_paquete));
+	paquete->codigo_operacion = ACCEDER_PARA_ESCRITURA;
+	t_buffer* buffer = malloc(sizeof(t_buffer));
+	int offset = 0;
+	buffer->size = sizeof(int) + sizeof(char*);
+	buffer->stream = malloc(buffer->size);
+
+	memcpy(buffer->stream + offset, &dir, sizeof(int));
+	offset += sizeof(int);
+
+	memcpy(buffer->stream + offset,&valor, sizeof(char*));
+	offset += sizeof(int);
+
+	paquete->buffer = buffer;
+
+	enviar_paquete(paquete,conexion_memoria);
+}
