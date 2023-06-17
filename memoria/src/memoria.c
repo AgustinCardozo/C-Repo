@@ -32,7 +32,8 @@ void* memoria_usuario;
 t_list* tabla_huecos_libres;
 t_list* tabla_general;
 
-
+hueco_libre* buscar_por_first(int seg_tam, int *indice);
+void crear_segmento(int pid,int seg_id,int seg_tam);
 
 int pid;
 int main(void) {
@@ -121,6 +122,8 @@ void atender_modulos(void* data){
 				offset+=sizeof(int);
 
 				log_info(logger,"Crear segmento con pid: %i id: %i con tamanio: %i ",pid,seg_id,seg_tamanio);
+				crear_segmento(pid,seg_id,seg_tamanio);
+
 				break;
 			case ELIMINAR_SEGMENTO:
 				break;
@@ -222,5 +225,53 @@ segmento* asignar_hueco_segmento_0(int tamanio){
 	}
 
 	return seg;
+}
+
+void crear_segmento(int pid,int seg_id,int seg_tam){
+	hueco_libre* hueco;
+	int indice;
+	switch(datos.algoritmo){
+		case FIRST:
+			hueco = buscar_por_first(seg_tam,&indice);
+			break;
+		case BEST:
+			//hueco = buscar_por_best(seg_tam);
+			break;
+		case WORST:
+			//hueco = buscar_por_worst(seg_tam);
+			break;
+	}
+
+	for(int i = 0; i < list_size(tabla_general);i++){
+		tabla_de_proceso* proc = list_get(tabla_general,i);
+		if(proc->pid == pid){
+			segmento* seg= malloc(sizeof(segmento));
+			seg->id = seg_id;
+			seg->tamanio = seg_tam;
+			seg->direccion_base = hueco->base;
+
+			hueco->base += seg_tam;
+			hueco->tamanio -= seg_tam;
+
+			list_replace(tabla_huecos_libres,indice,hueco);
+
+			list_add(proc->segments,seg);
+
+		}
+	}
+}
+
+hueco_libre* buscar_por_first(int seg_tam, int *indice){
+	hueco_libre* hueco;
+	for(int i = 0; i<list_size(tabla_huecos_libres);i++){
+		hueco = list_get(tabla_huecos_libres,i);
+
+		if(hueco->tamanio >= seg_tam){
+			indice = &i;
+			break;
+		}
+	}
+
+	return hueco;
 }
 
