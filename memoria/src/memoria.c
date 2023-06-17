@@ -24,16 +24,21 @@ typedef struct{
 void mostrar_tabla_huecos_libres();
 segmento* asignar_hueco_segmento_0(int tamanio);
 op_asignacion devolver_metodo_asignacion(char* asignacion);
+void mostrar_tablas_de_segmentos();
+
 void* memoria_usuario;
 
 t_list* tabla_huecos_libres;
 t_list* tabla_general;
 
+
+
+int pid;
 int main(void) {
 	pthread_t hilo_atender_modulos;
 	tabla_huecos_libres = list_create();
 	tabla_general = list_create();
-
+	pid = 0;
 	logger = iniciar_logger(MEMORIA_LOG, MEMORIA_NAME);
 	config = iniciar_config(MEMORIA_CONFIG);
 
@@ -48,7 +53,7 @@ int main(void) {
 
 	list_add(tabla_huecos_libres,hueco);
 
-	segmento* seg_0 = asignar_hueco_segmento_0(datos.tam_segmento);
+	//seg_0 = asignar_hueco_segmento_0(datos.tam_segmento);
 
 	mostrar_tabla_huecos_libres();
 
@@ -84,8 +89,25 @@ void atender_modulos(void* data){
 				break;
 			case INICIALIZAR_ESTRUCTURA:
 				log_info(logger,"Paso por INICIALIZAR_ESTRUCTURA");
+				pid++;
 
+				segmento * seg = malloc(sizeof(segmento));
+				seg->id = 0;
+				seg->direccion_base = 0;
+				seg->tamanio = datos.tam_segmento;
+				tabla_de_proceso* tab = malloc(sizeof(tabla_de_proceso));
+				tab->pid = pid;
+				tab->segments = list_create();
+				list_add(tab->segments,seg);
+				list_add(tabla_general,tab);
 				send(cliente_fd,&datos.tam_segmento,sizeof(int),0);
+				mostrar_tablas_de_segmentos();
+				break;
+			case CREAR_SEGMENTO:
+				break;
+			case ELIMINAR_SEGMENTO:
+				break;
+			case REALIZAR_COMPACTACION:
 				break;
 			case -1:
 				log_error(logger, "el cliente se desconecto. Terminando servidor");
@@ -132,6 +154,21 @@ void mostrar_tabla_huecos_libres(){
 	for(int i = 0; i < list_size(tabla_huecos_libres);i++){
 		hueco_libre* hueco = list_get(tabla_huecos_libres,i);
 		log_info(logger,"%i          |    %i          ",hueco->base,hueco->tamanio);
+	}
+	log_info(logger,"___________________________________");
+}
+
+void mostrar_tablas_de_segmentos(){
+	log_info(logger,"ESTA ES LA TABLA DE SEGMENTOS:");
+	for(int i = 0; i < list_size(tabla_general);i++){
+		tabla_de_proceso* pro = list_get(tabla_general,i);
+		log_info(logger,"___________________________________");
+		log_info(logger,"PROCESO %i",pro->pid);
+		for(int j = 0; j < list_size(pro->segments);j++){
+			segmento* s = list_get(pro->segments,j);
+			log_info(logger,"___________________________________");
+			log_info(logger,"Segmento: %i | Base: %i | Tamanio: %i",s->id,s->direccion_base,s->tamanio);
+		}
 	}
 	log_info(logger,"___________________________________");
 }

@@ -271,9 +271,17 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			break;
 		case CREATE_SEGMENT:
 			log_info(logger,"Paso por create_segment");
+			int id_seg = atoi(list_get(instruccion->parametros,0));
+			int tamanio_seg = atoi(list_get(instruccion->parametros,1));
+
+			log_info(logger,"Crear segmento %i de tamanio %i",id_seg,tamanio_seg);
+
+			enviar_crear_segmento(id_seg,tamanio_seg);
 			break;
 		case DELETE_SEGMENT:
 			log_info(logger,"Paso por delete_segment");
+			int id_seg_del = atoi(list_get(instruccion->parametros,0));
+			log_info(logger,"Eliminar segmento %i",id_seg_del);
 			break;
 		case YIELD:
 			log_info(logger,"Paso por YIELD");
@@ -512,4 +520,8 @@ void enviar_datos_para_escritura(int dir, char* valor){
 	paquete->buffer = buffer;
 
 	enviar_paquete(paquete,conexion_memoria);
+}
+
+void enviar_crear_segmento(int id_seg,int tamanio_seg){
+
 }
