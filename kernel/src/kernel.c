@@ -71,6 +71,7 @@ t_list* lista_recursos;
 int t_ahora;
 
 void* iniciar_recurso(void* data);
+void enviar_crear_segmento(int pid, int id_seg,int tamanio_seg,int conexion_kernel);
 int pid;
 
 int main(void) {
@@ -201,6 +202,16 @@ void* atender_cpu(void){
 					pthread_create(&thread_bloqueo_IO,NULL,(void*) ejecutar_IO,pcb);
 					pthread_detach(thread_bloqueo_IO);
 					break;
+				case CREAR_SEGMENTO:
+					int result;
+					buffer = desempaquetar(paquete,conexion_cpu);
+					pcb = deserializar_pcb(buffer);
+					log_info(logger,"Crear segmento %i de tamanio %i",pcb->dat_seg,pcb->dat_tamanio);
+					enviar_crear_segmento(pcb->pid,pcb->dat_seg,pcb->dat_tamanio,conexion_memoria);
+					recv(conexion_memoria, &result, sizeof(uint32_t), MSG_WAITALL);
+					break;
+				case ELIMINAR_SEGMENTO:
+					break;
 				case FINALIZAR:
 					log_info(logger,"Paso por finzalizar");
 					sem_post(&sem_habilitar_exec);
@@ -211,7 +222,9 @@ void* atender_cpu(void){
 					//log_info(logger,"El pcb [%i] ha sido finalizado",pcb->pid);
 					mostrar_registro(pcb);
 					log_info(logger,"Finaliza el proceso <%d> - Motivo: <SUCCESS>",pcb->pid);
-					enviar_mensaje("Tu proceso ha finalizado",pcb->conexion_consola);
+					//enviar_mensaje("Tu proceso ha finalizado",pcb->conexion_consola);
+					op_code c = FINALIZAR;
+					send(pcb->conexion_consola,&c,sizeof(op_code),0);
 
 					break;
 				case -1:
@@ -364,6 +377,8 @@ t_pcb* crear_pcb(t_buffer* buffer,int conexion_cliente){
 	pcb->real_ant = 0;
 	pcb->estimacion = datos.est_inicial;
 	pcb->conexion_consola = conexion_cliente;
+	pcb->dat_seg = 0;
+	pcb->dat_tamanio = 0;
 	//TODO Falta lo de archivos abiertos
 	return pcb;
 }
@@ -398,6 +413,7 @@ void agregar_a_cola_ready(t_pcb* pcb){
 	log_info(logger,"Llego en ready en %i",pcb->llegadaReady);
 	queue_push(cola.cola_ready_fifo,pcb);
 	sem_post(&mutex_cola_ready);
+	sem_post(&sem_habilitar_exec);
 	//sem_post(&sem_exec);
 	//mostrar_cola(cola.cola_ready);
 }
@@ -417,6 +433,7 @@ void* de_new_a_ready(void){
 
 	while(1){
 		//sem_wait(&sem_avisar);
+		log_info(logger,"HOLAAAA");
 		sem_wait(&sem_nuevo);
 		while(!queue_is_empty(cola.cola_new)){
 			sem_wait(&sem_multiprogramacion);
@@ -453,8 +470,10 @@ void* de_ready_a_ejecutar(void){
 void de_ready_a_ejecutar_fifo(void){
 	while(1){
 		//sem_wait(&sem_habilitar_exec);
+		log_info(logger,"HOLAAAAA");
+		sem_wait(&sem_habilitar_exec);
 		while(!queue_is_empty(cola.cola_ready_fifo)){
-			sem_wait(&sem_habilitar_exec);
+
 			t_pcb* pcb = quitar_de_cola_ready();
 			log_info(logger,"“PID: %d - Estado Anterior: READY - Estado Actual: EXEC”",pcb->pid);
 			pcb->llegadaExec = time(NULL);
@@ -467,8 +486,9 @@ void de_ready_a_ejecutar_fifo(void){
 
 void de_ready_a_ejecutar_hrrn(void){
 	while(1){
+		sem_wait(&sem_habilitar_exec);
 		while(!queue_is_empty(cola.cola_ready_fifo)){
-			sem_wait(&sem_habilitar_exec);
+
 			//replanificar();
 			t_ahora = time(NULL);
 			list_sort(cola.cola_ready_fifo->elements,comparador_hrrn);
@@ -715,6 +735,28 @@ void mostrar_registro(t_pcb* pcb){
 	log_info(logger,"En el registro RCX esta los caracteres: %s",pcb->registro.RCX);
 	log_info(logger,"En el registro RDX esta los caracteres: %s",pcb->registro.RDX);
 
+}
+
+void enviar_crear_segmento(int pid, int id_seg,int tamanio_seg,int conexion_kernel){
+	t_paquete* paquete = malloc(sizeof(t_paquete));
+	paquete->codigo_operacion = CREAR_SEGMENTO;
+	t_buffer* buffer = malloc(sizeof(t_buffer));
+	int offset = 0;
+	buffer->size = sizeof(int)*3;
+	buffer->stream = malloc(buffer->size);
+
+	memcpy(buffer->stream + offset, &pid, sizeof(int));
+	offset += sizeof(int);
+
+	memcpy(buffer->stream + offset, &id_seg, sizeof(int));
+	offset += sizeof(int);
+
+	memcpy(buffer->stream + offset, &tamanio_seg, sizeof(int));
+	offset += sizeof(int);
+
+	paquete->buffer = buffer;
+
+	enviar_paquete(paquete,conexion_kernel);
 }
 
 

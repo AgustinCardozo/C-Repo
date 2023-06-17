@@ -21,7 +21,7 @@ t_buffer* serializar_pcb(t_pcb* pcb){
 	t_buffer* instrucciones = serializar_lista_de_instrucciones(pcb->lista_instrucciones);
 	int offset = 0;
 	int tamanio_tabla = list_size(pcb->tabla_segmentos);
-	buffer->size = sizeof(int)*12 + sizeof(float) + instrucciones->size + 136 + tamanio_tabla*sizeof(segmento);
+	buffer->size = sizeof(int)*14 + sizeof(float) + instrucciones->size + 136 + tamanio_tabla*sizeof(segmento);
 
 	buffer->stream = malloc(buffer->size);
 
@@ -96,6 +96,12 @@ t_buffer* serializar_pcb(t_pcb* pcb){
 	offset += sizeof(int);
 
 	memcpy(buffer->stream + offset, &pcb->conexion_consola, sizeof(int));
+	offset += sizeof(int);
+
+	memcpy(buffer->stream + offset, &(pcb->dat_seg), sizeof(int));
+	offset += sizeof(int);
+
+	memcpy(buffer->stream + offset, &(pcb->dat_tamanio), sizeof(int));
 	offset += sizeof(int);
 
 	memcpy(buffer->stream + offset, &(instrucciones->size), sizeof(int));
@@ -346,6 +352,12 @@ t_pcb* deserializar_pcb(t_buffer* buffer){
 	offset += sizeof(int);
 
 	memcpy(&(pcb->conexion_consola),buffer->stream + offset,sizeof(int));
+	offset += sizeof(int);
+
+	memcpy(&(pcb->dat_seg),buffer->stream + offset, sizeof(int));
+	offset += sizeof(int);
+
+	memcpy(&(pcb->dat_tamanio),buffer->stream + offset, sizeof(int));
 	offset += sizeof(int);
 
 	t_buffer* buffer_i = malloc(sizeof(t_buffer));

@@ -116,6 +116,8 @@ typedef struct{
 	int llegadaExec;
 	char** archivos_abiertos;
 	int conexion_consola;
+	int dat_seg;
+	int dat_tamanio;
 }t_pcb;
 
 typedef struct{

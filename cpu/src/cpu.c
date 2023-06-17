@@ -33,6 +33,7 @@ int obtener_direccion_fisica(uint32_t dir_logica,t_pcb*pcb,int tam_dato);
 char*devolver_dato(t_pcb* pcb,registros_pos registro);
 void enviar_datos_para_escritura(int dir, char* valor);
 int size_registro(registros_pos registro);
+void enviar_crear_segmento(int id_seg,int tamanio_seg,int conexion_kernel);
 //mmu
 //t_dl* obtenerDL(uint32_t dir_logica,t_pcb*pcb);
 //t_df* traducirDLaDF(t_dl* dl,t_pcb* pcb,char*accion);
@@ -271,12 +272,13 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			break;
 		case CREATE_SEGMENT:
 			log_info(logger,"Paso por create_segment");
-			int id_seg = atoi(list_get(instruccion->parametros,0));
-			int tamanio_seg = atoi(list_get(instruccion->parametros,1));
+			pcb->dat_seg = atoi(list_get(instruccion->parametros,0));
+			pcb->dat_tamanio = atoi(list_get(instruccion->parametros,1));
 
-			log_info(logger,"Crear segmento %i de tamanio %i",id_seg,tamanio_seg);
-
-			enviar_crear_segmento(id_seg,tamanio_seg);
+			log_info(logger,"Crear segmento %i de tamanio %i",pcb->dat_seg,pcb->dat_tamanio);
+			enviar_pcb_a(pcb,conexion_kernel,CREAR_SEGMENTO);
+			recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
+			//enviar_crear_segmento(id_seg,tamanio_seg,conexion_kernel);
 			break;
 		case DELETE_SEGMENT:
 			log_info(logger,"Paso por delete_segment");
@@ -522,6 +524,21 @@ void enviar_datos_para_escritura(int dir, char* valor){
 	enviar_paquete(paquete,conexion_memoria);
 }
 
-void enviar_crear_segmento(int id_seg,int tamanio_seg){
+void enviar_crear_segmento(int id_seg,int tamanio_seg,int conexion_kernel){
+	t_paquete* paquete = malloc(sizeof(t_paquete));
+	paquete->codigo_operacion = CREAR_SEGMENTO;
+	t_buffer* buffer = malloc(sizeof(t_buffer));
+	int offset = 0;
+	buffer->size = sizeof(int)*2;
+	buffer->stream = malloc(buffer->size);
 
+	memcpy(buffer->stream + offset, &id_seg, sizeof(int));
+	offset += sizeof(int);
+
+	memcpy(buffer->stream + offset, &tamanio_seg, sizeof(int));
+	offset += sizeof(int);
+
+	paquete->buffer = buffer;
+
+	enviar_paquete(paquete,conexion_kernel);
 }

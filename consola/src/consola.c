@@ -67,6 +67,10 @@ int main(int argc, char** argv) {
 			case FINALIZAR:
 				log_info(logger,"El proceso ha finalizado");
 				break;
+			default:
+				log_warning(logger,"Cuidado!!!!");
+				exit(1);
+				break;
 		}
 	}
 	log_destroy(logger);

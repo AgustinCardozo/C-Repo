@@ -25,6 +25,7 @@ void mostrar_tabla_huecos_libres();
 segmento* asignar_hueco_segmento_0(int tamanio);
 op_asignacion devolver_metodo_asignacion(char* asignacion);
 void mostrar_tablas_de_segmentos();
+void atender_modulos(void* data);
 
 void* memoria_usuario;
 
@@ -74,6 +75,9 @@ int main(void) {
 
 void atender_modulos(void* data){
 	int cliente_fd = *((int*)data);
+	t_paquete* paquete = malloc(sizeof(t_paquete));
+	paquete->buffer = malloc(sizeof(t_buffer));
+	t_buffer* buffer;
 	t_list* lista;
 	while(1){
 
@@ -104,6 +108,19 @@ void atender_modulos(void* data){
 				mostrar_tablas_de_segmentos();
 				break;
 			case CREAR_SEGMENTO:
+				buffer = desempaquetar(paquete,cliente_fd);
+				int pid;
+				int seg_id;
+				int seg_tamanio;
+				int offset = 0;
+				memcpy(&pid,buffer->stream + offset,sizeof(int));
+				offset+=sizeof(int);
+				memcpy(&seg_id,buffer->stream + offset,sizeof(int));
+				offset+=sizeof(int);
+				memcpy(&seg_tamanio,buffer->stream + offset,sizeof(int));
+				offset+=sizeof(int);
+
+				log_info(logger,"Crear segmento con pid: %i id: %i con tamanio: %i ",pid,seg_id,seg_tamanio);
 				break;
 			case ELIMINAR_SEGMENTO:
 				break;
