@@ -71,7 +71,9 @@ t_list* lista_recursos;
 int t_ahora;
 
 void* iniciar_recurso(void* data);
-void enviar_crear_segmento(int pid, int id_seg,int tamanio_seg,int conexion_kernel);
+//void enviar_crear_segmento(int pid, int id_seg,int tamanio_seg,int conexion_kernel);
+int enviar_datos_a_memoria(seg_aux segmento, int conexion, op_code codigo);
+void enviar_segmento_con_cod(int pid, segmento segmento, int conexion, op_code codigo);
 int pid;
 
 int main(void) {
@@ -203,14 +205,20 @@ void* atender_cpu(void){
 					pthread_detach(thread_bloqueo_IO);
 					break;
 				case CREAR_SEGMENTO:
-					int result;
 					buffer = desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
+
 					log_info(logger,"Crear segmento %i de tamanio %i",pcb->dat_seg,pcb->dat_tamanio);
-					enviar_crear_segmento(pcb->pid,pcb->dat_seg,pcb->dat_tamanio,conexion_memoria);
-					recv(conexion_memoria, &result, sizeof(uint32_t), MSG_WAITALL);
+
+					enviar_datos_a_memoria(pcb, conexion_memoria, CREAR_SEGMENTO);
 					break;
 				case ELIMINAR_SEGMENTO:
+					buffer = desempaquetar(paquete, conexion_cpu);
+					pcb = deserializar_pcb(buffer);
+
+					log_info(logger, "Eliminar segmento %i", pcb->dat_seg);
+
+					enviar_datos_a_memoria(pcb, conexion_memoria, ELIMINAR_SEGMENTO);
 					break;
 				case FINALIZAR:
 					log_info(logger,"Paso por finzalizar");
@@ -737,6 +745,58 @@ void mostrar_registro(t_pcb* pcb){
 
 }
 
+// Envia los datos para la creacion del segmento a memoria (con el pid), y le devuelve el resultado
+int enviar_datos_a_memoria(t_pcb pcb, int conexion, op_code codigo){
+	int result;
+
+	seg_aux seg_aux = malloc(sizeof(seg_aux));
+	seg_aux->pid=pcb->pid;
+	seg_aux->segmento->id=pcb->dat_seg;
+	seg_aux->segmento->tamanio=pcb->dat_tamanio;
+
+	enviar_segmento_con_cod(seg_aux, conexion, codigo);
+	recv(conexion, &result, sizeof(uint32_t), MSG_WAITALL);
+
+	free(seg_aux);
+
+	return result;
+}
+
+void enviar_segmento_con_cod(seg_aux segmento, int conexion, op_code codigo){
+	t_paquete* paquete = malloc(sizeof(t_paquete));
+    paquete->codigo_operacion = codigo;
+
+    t_buffer* buffer = malloc(sizeof(t_buffer));
+    int offset = 0;
+    buffer->size = sizeof(seg_aux);
+    buffer->stream = malloc(buffer->size);
+
+    switch(codigo){
+     case CREAR_SEGMENTO:
+    	 memcpy(buffer->stream + offset, seg_aux->pid, sizeof(int));
+    	 offset +=sizeof(int);
+
+    	 memcpy(buffer->stream + offset, seg_aux->segmento->id, sizeof(int));
+    	 offset += sizeof(int);
+
+    	 memcpy(buffer->stream + offset, seg_aux->segmento->tamanio, sizeof(int));
+    	 offset += sizeof(int);
+    	 break;
+     case ELIMINAR_SEGMENTO:
+    	 memcpy(buffer->stream + offset, seg_aux->pid, sizeof(int));
+    	 offset +=sizeof(int);
+
+    	 memcpy(buffer->stream + offset, seg_aux->segmento->id, sizeof(int));
+    	 offset += sizeof(int);
+    	 break;
+    }
+
+    paquete->buffer = buffer;
+
+    enviar_paquete(paquete,conexion);
+}
+
+/*
 void enviar_crear_segmento(int pid, int id_seg,int tamanio_seg,int conexion_kernel){
 	t_paquete* paquete = malloc(sizeof(t_paquete));
 	paquete->codigo_operacion = CREAR_SEGMENTO;
@@ -758,5 +818,4 @@ void enviar_crear_segmento(int pid, int id_seg,int tamanio_seg,int conexion_kern
 
 	enviar_paquete(paquete,conexion_kernel);
 }
-
-
+*/

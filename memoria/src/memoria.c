@@ -35,6 +35,8 @@ t_list* tabla_general;
 hueco_libre* buscar_por_first(int seg_tam, int *indice);
 void crear_segmento(int pid,int seg_id,int seg_tam);
 
+seg_aux deserializar_segmento_auxiliar(t_buffer* buffer);
+
 int pid;
 int main(void) {
 	pthread_t hilo_atender_modulos;
@@ -80,6 +82,7 @@ void atender_modulos(void* data){
 	paquete->buffer = malloc(sizeof(t_buffer));
 	t_buffer* buffer;
 	t_list* lista;
+	seg_aux datos_aux;
 	while(1){
 
 		int cod_op = recibir_operacion(cliente_fd);
@@ -110,22 +113,29 @@ void atender_modulos(void* data){
 				break;
 			case CREAR_SEGMENTO:
 				buffer = desempaquetar(paquete,cliente_fd);
-				int pid;
-				int seg_id;
-				int seg_tamanio;
+				datos_aux = deserializar_segmento_auxiliar(buffer);
+
+				log_info(logger,"Crear segmento con pid: %i id: %i con tamanio: %i ",
+						datos_aux.pid,datos_aux.segmento.id,datos_aux.segmento.tamanio);
+
+				crear_segmento(datos_aux.pid, datos_aux.segmento.id, datos_aux.segmento.tamanio);
+
+				/*int pid, seg_id, seg_tamanio;
 				int offset = 0;
+
 				memcpy(&pid,buffer->stream + offset,sizeof(int));
 				offset+=sizeof(int);
 				memcpy(&seg_id,buffer->stream + offset,sizeof(int));
 				offset+=sizeof(int);
 				memcpy(&seg_tamanio,buffer->stream + offset,sizeof(int));
-				offset+=sizeof(int);
-
-				log_info(logger,"Crear segmento con pid: %i id: %i con tamanio: %i ",pid,seg_id,seg_tamanio);
-				crear_segmento(pid,seg_id,seg_tamanio);
-
+				offset+=sizeof(int);*/
 				break;
 			case ELIMINAR_SEGMENTO:
+				buffer = desempaquetar(paquete, cliente_fd);
+				datos_aux = deserializar_segmento_auxiliar(buffer);
+
+				log_info(logger,"Eliminar segmento con pid: %i id: %i", datos_aux.pid, datos_aux.segmento.id);
+				eliminar_segmento(datos_aux.pid,datos_aux.segmento.id);
 				break;
 			case REALIZAR_COMPACTACION:
 				break;
@@ -273,5 +283,28 @@ hueco_libre* buscar_por_first(int seg_tam, int *indice){
 	}
 
 	return hueco;
+}
+
+void eliminar_segmento(int pid, int seg_id){
+	//TODO eliminar segmento
+}
+
+seg_aux deserializar_segmento_auxiliar(t_buffer* buffer){
+	seg_aux segmento_auxiliar;
+	int pid, seg_id, seg_tam;
+	int offset = 0;
+
+	memcpy(&pid, buffer->stream + offset, sizeof(int));
+	offset+=sizeof(int);
+	memcpy(&seg_id,buffer->stream + offset, sizeof(int));
+	offset+=sizeof(int);
+	memcpy(&seg_tam, buffer->stream + offset, sizeof(int));
+	offset+=sizeof(int);
+
+	segmento_auxiliar.pid=pid;
+	segmento_auxiliar.segmento.id=seg_id;
+	segmento_auxiliar.segmento.tamanio=seg_tam;
+
+	return segmento_auxiliar;
 }
 

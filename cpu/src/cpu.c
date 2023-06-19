@@ -33,7 +33,7 @@ int obtener_direccion_fisica(uint32_t dir_logica,t_pcb*pcb,int tam_dato);
 char*devolver_dato(t_pcb* pcb,registros_pos registro);
 void enviar_datos_para_escritura(int dir, char* valor);
 int size_registro(registros_pos registro);
-void enviar_crear_segmento(int id_seg,int tamanio_seg,int conexion_kernel);
+void enviar_crear_segmento(int id_seg,int tamanio_seg,int conexion);
 //mmu
 //t_dl* obtenerDL(uint32_t dir_logica,t_pcb*pcb);
 //t_df* traducirDLaDF(t_dl* dl,t_pcb* pcb,char*accion);
@@ -282,8 +282,11 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			break;
 		case DELETE_SEGMENT:
 			log_info(logger,"Paso por delete_segment");
-			int id_seg_del = atoi(list_get(instruccion->parametros,0));
-			log_info(logger,"Eliminar segmento %i",id_seg_del);
+			pcb->dat_seg = atoi(list_get(instruccion->parametros,0));
+
+			log_info(logger,"Eliminar segmento %i",pcb->dat_seg);
+			enviar_pcb_a(pcb, conexion_kernel, ELIMINAR_SEGMENTO);
+			recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
 			break;
 		case YIELD:
 			log_info(logger,"Paso por YIELD");
@@ -524,7 +527,10 @@ void enviar_datos_para_escritura(int dir, char* valor){
 	enviar_paquete(paquete,conexion_memoria);
 }
 
-void enviar_crear_segmento(int id_seg,int tamanio_seg,int conexion_kernel){
+//------------------------------------------------------------------------//
+
+/*
+void enviar_crear_segmento(int id_seg,int tamanio_seg,int conexion){
 	t_paquete* paquete = malloc(sizeof(t_paquete));
 	paquete->codigo_operacion = CREAR_SEGMENTO;
 	t_buffer* buffer = malloc(sizeof(t_buffer));
@@ -540,5 +546,6 @@ void enviar_crear_segmento(int id_seg,int tamanio_seg,int conexion_kernel){
 
 	paquete->buffer = buffer;
 
-	enviar_paquete(paquete,conexion_kernel);
+	enviar_paquete(paquete,conexion);
 }
+*/

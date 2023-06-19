@@ -86,6 +86,11 @@ typedef struct{
 }segmento;
 
 typedef struct{
+	segmento segmento;
+	int pid;
+}seg_aux;
+
+typedef struct{
 	char AX[4];
 	char BX[4];
 	char CX[4];
