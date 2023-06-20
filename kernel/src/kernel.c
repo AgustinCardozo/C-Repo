@@ -72,8 +72,8 @@ int t_ahora;
 
 void* iniciar_recurso(void* data);
 //void enviar_crear_segmento(int pid, int id_seg,int tamanio_seg,int conexion_kernel);
-int enviar_datos_a_memoria(seg_aux segmento, int conexion, op_code codigo);
-void enviar_segmento_con_cod(int pid, segmento segmento, int conexion, op_code codigo);
+int enviar_datos_a_memoria(t_pcb* pcb, int conexion, op_code codigo);
+void enviar_segmento_con_cod(seg_aux* segmento, int conexion, op_code codigo);
 int pid;
 
 int main(void) {
@@ -746,13 +746,13 @@ void mostrar_registro(t_pcb* pcb){
 }
 
 // Envia los datos para la creacion del segmento a memoria (con el pid), y le devuelve el resultado
-int enviar_datos_a_memoria(t_pcb pcb, int conexion, op_code codigo){
+int enviar_datos_a_memoria(t_pcb* pcb, int conexion, op_code codigo){
 	int result;
 
-	seg_aux seg_aux = malloc(sizeof(seg_aux));
+	seg_aux* seg_aux = malloc(sizeof(seg_aux));
 	seg_aux->pid=pcb->pid;
-	seg_aux->segmento->id=pcb->dat_seg;
-	seg_aux->segmento->tamanio=pcb->dat_tamanio;
+	seg_aux->segmento.id=pcb->dat_seg;
+	seg_aux->segmento.tamanio=pcb->dat_tamanio;
 
 	enviar_segmento_con_cod(seg_aux, conexion, codigo);
 	recv(conexion, &result, sizeof(uint32_t), MSG_WAITALL);
@@ -762,7 +762,7 @@ int enviar_datos_a_memoria(t_pcb pcb, int conexion, op_code codigo){
 	return result;
 }
 
-void enviar_segmento_con_cod(seg_aux segmento, int conexion, op_code codigo){
+void enviar_segmento_con_cod(seg_aux* seg_aux, int conexion, op_code codigo){
 	t_paquete* paquete = malloc(sizeof(t_paquete));
     paquete->codigo_operacion = codigo;
 
@@ -776,19 +776,22 @@ void enviar_segmento_con_cod(seg_aux segmento, int conexion, op_code codigo){
     	 memcpy(buffer->stream + offset, seg_aux->pid, sizeof(int));
     	 offset +=sizeof(int);
 
-    	 memcpy(buffer->stream + offset, seg_aux->segmento->id, sizeof(int));
+    	 memcpy(buffer->stream + offset, seg_aux->segmento.id, sizeof(int));
     	 offset += sizeof(int);
 
-    	 memcpy(buffer->stream + offset, seg_aux->segmento->tamanio, sizeof(int));
+    	 memcpy(buffer->stream + offset, seg_aux->segmento.tamanio, sizeof(int));
     	 offset += sizeof(int);
     	 break;
      case ELIMINAR_SEGMENTO:
     	 memcpy(buffer->stream + offset, seg_aux->pid, sizeof(int));
-    	 offset +=sizeof(int);
+    	 offset+=sizeof(int);
 
-    	 memcpy(buffer->stream + offset, seg_aux->segmento->id, sizeof(int));
-    	 offset += sizeof(int);
+    	 memcpy(buffer->stream + offset, seg_aux->segmento.id, sizeof(int));
+    	 offset+=sizeof(int);
     	 break;
+     default:
+	    log_info(logger, "Codigo de operacion desconocido en enviar datos a memoria");
+	    break;
     }
 
     paquete->buffer = buffer;
