@@ -37,6 +37,8 @@ void* memoria_usuario;
 t_list* tabla_huecos_libres;
 t_list* tabla_general;
 
+sem_t mutex_modulos;
+
 t_hueco buscar_por_first(int seg_tam);
 t_hueco buscar_por_best(int seg_tam);
 t_hueco buscar_por_worst(int seg_tam);
@@ -49,6 +51,7 @@ void eliminar_segmento(int pid, int seg_id);
 int pid;
 int main(void) {
 	pthread_t hilo_atender_modulos;
+	sem_init(&mutex_modulos,0,1);
 	tabla_huecos_libres = list_create();
 	tabla_general = list_create();
 	pid = 0;
@@ -95,6 +98,7 @@ void atender_modulos(void* data){
 	while(1){
 
 		int cod_op = recibir_operacion(cliente_fd);
+		sem_wait(&mutex_modulos);
 		switch (cod_op) {
 			case MENSAJE:
 				recibir_mensaje(logger,cliente_fd);
@@ -142,6 +146,16 @@ void atender_modulos(void* data){
 				break;
 			case REALIZAR_COMPACTACION:
 				break;
+			case ACCEDER_PARA_LECTURA:
+				buffer = desempaquetar(paquete, cliente_fd);
+				int df;
+				memcpy(&df, buffer, sizeof(int));
+				log_info(logger,"La df es %i",df);
+				df = 1;
+				send(cliente_fd, &df, sizeof(int), 0);
+				break;
+			case ACCEDER_PARA_ESCRITURA:
+				break;
 			case -1:
 				log_error(logger, "el cliente se desconecto. Terminando servidor");
 				log_destroy(logger);
@@ -155,6 +169,7 @@ void atender_modulos(void* data){
 				log_warning(logger,"Operacion desconocida. No quieras meter la pata");
 				break;
 		}
+		sem_post(&mutex_modulos);
 	}
 
 }

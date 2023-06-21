@@ -33,6 +33,7 @@ int obtener_direccion_fisica(uint32_t dir_logica,t_pcb*pcb,int tam_dato);
 char*devolver_dato(t_pcb* pcb,registros_pos registro);
 void enviar_datos_para_escritura(int dir, char* valor);
 int size_registro(registros_pos registro);
+void enviar_datos_para_lectura(int dir);
 //void enviar_crear_segmento(int id_seg,int tamanio_seg,int conexion);
 //mmu
 //t_dl* obtenerDL(uint32_t dir_logica,t_pcb*pcb);
@@ -215,15 +216,24 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			log_info(logger,"En %s esta %s",reg_des,caracteres);
 			mostrar_registro(pcb);
 			break;
+		case MOV_OUT:
+			sleep(2);
+			log_info(logger,"Paso por mov_out");
+			registro = devolver_registro(list_get(instruccion->parametros,1));
+			dl=atoi(list_get(instruccion->parametros,0));
+			df=obtener_direccion_fisica(dl,pcb,size_registro(registro));
+			enviar_datos_para_lectura(df);
+			recv(conexion_memoria, &result, sizeof(uint32_t), MSG_WAITALL);
+			if(result == 0){
+				log_info(logger,"Algo salio mal");
+				band_ejecutar = 1;
+			} else {
+				log_info(logger,"El programa sigue");
+			}
+			break;
 		case MOV_IN:
 			log_info(logger,"Paso por mov_in");
 			registro = devolver_registro(list_get(instruccion->parametros,0));
-			dl=atoi(list_get(instruccion->parametros,1));
-			df=obtener_direccion_fisica(dl,pcb,size_registro(registro));
-			break;
-		case MOV_OUT:
-			log_info(logger,"Paso por mov_out");
-			registro = devolver_registro(list_get(instruccion->parametros,1));
 			char *dato= devolver_dato(pcb,registro);
 			dl=atoi(list_get(instruccion->parametros,0));
 			df=obtener_direccion_fisica(dl,pcb,size_registro(registro));
@@ -454,6 +464,8 @@ int obtener_direccion_fisica(uint32_t dir_logica,t_pcb*pcb,int tam_dato){
 	DL->num_segmento = floor(dir_logica / datos.tam_max_segmento);
 	DL->offset = dir_logica % datos.tam_max_segmento;
 	DL->segfault = false;
+
+	log_info(logger,"El segmento es %i con offset %i",DL->num_segmento,DL->offset);
 
 	int df;
 

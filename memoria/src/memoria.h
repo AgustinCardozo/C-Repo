@@ -16,6 +16,7 @@
 #include <utils.h>
 #include <sockets.h>
 #include <compartido.h>
+#include <semaphore.h>
 #include <serializacion.h>
 
 #define IP "127.0.0.1"
