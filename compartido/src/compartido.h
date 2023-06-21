@@ -85,10 +85,7 @@ typedef struct{
 	int tamanio;
 }segmento;
 
-typedef struct{
-	segmento segmento;
-	int pid;
-}seg_aux;
+
 
 typedef struct{
 	char AX[4];

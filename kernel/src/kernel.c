@@ -71,9 +71,11 @@ t_list* lista_recursos;
 int t_ahora;
 
 void* iniciar_recurso(void* data);
-//void enviar_crear_segmento(int pid, int id_seg,int tamanio_seg,int conexion_kernel);
-int enviar_datos_a_memoria(t_pcb* pcb, int conexion, op_code codigo);
-void enviar_segmento_con_cod(seg_aux* segmento, int conexion, op_code codigo);
+void enviar_crear_segmento(int pid, int id_seg,int tamanio_seg);
+void enviar_eliminar_segmento(int pid, int id_seg,int tamanio_seg);
+void analizar_resultado(int result);
+//int enviar_datos_a_memoria(t_pcb* pcb, int conexion, op_code codigo);
+//void enviar_segmento_con_cod(seg_aux* segmento, int conexion, op_code codigo);
 int pid;
 
 int main(void) {
@@ -161,6 +163,7 @@ void* atender_cpu(void){
 	paquete->buffer = malloc(sizeof(t_buffer));
 	t_pcb* pcb;
 	t_buffer* buffer;
+	int result;
 
 	while(1){
 		int cod_op = recibir_operacion(conexion_cpu);
@@ -210,15 +213,25 @@ void* atender_cpu(void){
 
 					log_info(logger,"Crear segmento %i de tamanio %i",pcb->dat_seg,pcb->dat_tamanio);
 
-					enviar_datos_a_memoria(pcb, conexion_memoria, CREAR_SEGMENTO);
+					//enviar_datos_a_memoria(pcb, conexion_memoria, CREAR_SEGMENTO);
+					enviar_crear_segmento(pcb->pid,pcb->dat_seg,pcb->dat_tamanio);
+					recv(conexion_memoria, &result, sizeof(uint32_t), MSG_WAITALL);
+
+					analizar_resultado(result);
+
+					enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
+
 					break;
 				case ELIMINAR_SEGMENTO:
 					buffer = desempaquetar(paquete, conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 
 					log_info(logger, "Eliminar segmento %i", pcb->dat_seg);
+					enviar_eliminar_segmento(pcb->pid,pcb->dat_seg,pcb->dat_tamanio);
+					recv(conexion_memoria, &result, sizeof(uint32_t), MSG_WAITALL);
 
-					enviar_datos_a_memoria(pcb, conexion_memoria, ELIMINAR_SEGMENTO);
+					enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
+					//enviar_datos_a_memoria(pcb, conexion_memoria, ELIMINAR_SEGMENTO);
 					break;
 				case FINALIZAR:
 					log_info(logger,"Paso por finzalizar");
@@ -746,7 +759,7 @@ void mostrar_registro(t_pcb* pcb){
 }
 
 // Envia los datos para la creacion del segmento a memoria (con el pid), y le devuelve el resultado
-int enviar_datos_a_memoria(t_pcb* pcb, int conexion, op_code codigo){
+/*int enviar_datos_a_memoria(t_pcb* pcb, int conexion, op_code codigo){
 	int result;
 
 	seg_aux* seg_aux = malloc(sizeof(seg_aux));
@@ -760,8 +773,8 @@ int enviar_datos_a_memoria(t_pcb* pcb, int conexion, op_code codigo){
 	free(seg_aux);
 
 	return result;
-}
-
+}*/
+/*
 void enviar_segmento_con_cod(seg_aux* seg_aux, int conexion, op_code codigo){
 	t_paquete* paquete = malloc(sizeof(t_paquete));
     paquete->codigo_operacion = codigo;
@@ -798,9 +811,9 @@ void enviar_segmento_con_cod(seg_aux* seg_aux, int conexion, op_code codigo){
 
     enviar_paquete(paquete,conexion);
 }
+*/
 
-/*
-void enviar_crear_segmento(int pid, int id_seg,int tamanio_seg,int conexion_kernel){
+void enviar_crear_segmento(int pid, int id_seg,int tamanio_seg){
 	t_paquete* paquete = malloc(sizeof(t_paquete));
 	paquete->codigo_operacion = CREAR_SEGMENTO;
 	t_buffer* buffer = malloc(sizeof(t_buffer));
@@ -819,6 +832,36 @@ void enviar_crear_segmento(int pid, int id_seg,int tamanio_seg,int conexion_kern
 
 	paquete->buffer = buffer;
 
-	enviar_paquete(paquete,conexion_kernel);
+	enviar_paquete(paquete,conexion_memoria);
 }
-*/
+
+void enviar_eliminar_segmento(int pid, int id_seg,int tamanio_seg){
+	t_paquete* paquete = malloc(sizeof(t_paquete));
+	paquete->codigo_operacion = ELIMINAR_SEGMENTO;
+	t_buffer* buffer = malloc(sizeof(t_buffer));
+	int offset = 0;
+	buffer->size = sizeof(int)*2;
+	buffer->stream = malloc(buffer->size);
+
+	memcpy(buffer->stream + offset, &pid, sizeof(int));
+	offset += sizeof(int);
+
+	memcpy(buffer->stream + offset, &id_seg, sizeof(int));
+	offset += sizeof(int);
+
+	paquete->buffer = buffer;
+
+	enviar_paquete(paquete,conexion_memoria);
+}
+
+void analizar_resultado(int result){
+	switch(result){
+		case 0: log_info(logger,"Creacion exitosa");
+			break;
+		case 1: log_info(logger,"Necesidad de Compactar");
+			break;
+		case 2: log_info(logger,"No hay mas espacio en memoria, se termina el proceso");
+			break;
+		}
+}
+

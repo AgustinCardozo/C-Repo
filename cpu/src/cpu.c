@@ -33,7 +33,7 @@ int obtener_direccion_fisica(uint32_t dir_logica,t_pcb*pcb,int tam_dato);
 char*devolver_dato(t_pcb* pcb,registros_pos registro);
 void enviar_datos_para_escritura(int dir, char* valor);
 int size_registro(registros_pos registro);
-void enviar_crear_segmento(int id_seg,int tamanio_seg,int conexion);
+//void enviar_crear_segmento(int id_seg,int tamanio_seg,int conexion);
 //mmu
 //t_dl* obtenerDL(uint32_t dir_logica,t_pcb*pcb);
 //t_df* traducirDLaDF(t_dl* dl,t_pcb* pcb,char*accion);
@@ -201,6 +201,10 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 	int registro;
 	int df;
 	int dl;
+	int cod_op;
+	t_paquete* paquete = malloc(sizeof(t_paquete));
+	paquete->buffer = malloc(sizeof(t_buffer));
+	t_buffer* buffer;
 	switch(instruccion->nombre){
 		case SET:
 			log_info(logger,"Paso por Set");
@@ -277,7 +281,20 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 
 			log_info(logger,"Crear segmento %i de tamanio %i",pcb->dat_seg,pcb->dat_tamanio);
 			enviar_pcb_a(pcb,conexion_kernel,CREAR_SEGMENTO);
-			recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
+			cod_op = recibir_operacion(conexion_kernel);
+			switch(cod_op){
+			case EJECUTAR:
+				log_info(logger,"SIGA siga");
+				break;
+			default:
+				log_info(logger,"Se acabo el proceso");
+				break;
+			}
+			buffer = desempaquetar(paquete,conexion_kernel);
+			pcb = deserializar_pcb(buffer);
+
+			log_info(logger,"Volvio el pcb %i ", pcb->pid);
+			//recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
 			//enviar_crear_segmento(id_seg,tamanio_seg,conexion_kernel);
 			break;
 		case DELETE_SEGMENT:
@@ -286,7 +303,20 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 
 			log_info(logger,"Eliminar segmento %i",pcb->dat_seg);
 			enviar_pcb_a(pcb, conexion_kernel, ELIMINAR_SEGMENTO);
-			recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
+			cod_op = recibir_operacion(conexion_kernel);
+				switch(cod_op){
+					case EJECUTAR:
+						log_info(logger,"SIGA siga");
+						break;
+					default:
+						log_info(logger,"Se acabo el proceso");
+						break;
+				}
+			buffer = desempaquetar(paquete,conexion_kernel);
+			pcb = deserializar_pcb(buffer);
+
+			log_info(logger,"Volvio el pcb %i ", pcb->pid);
+			//recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
 			break;
 		case YIELD:
 			log_info(logger,"Paso por YIELD");

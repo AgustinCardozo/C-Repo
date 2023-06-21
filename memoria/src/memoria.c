@@ -17,12 +17,17 @@ typedef struct{
 }hueco_libre;
 
 typedef struct{
+	hueco_libre* hueco;
+	int indice;
+}t_hueco;
+
+typedef struct{
 	int pid;
 	t_list* segments;
 }tabla_de_proceso;
 
 void mostrar_tabla_huecos_libres();
-segmento* asignar_hueco_segmento_0(int tamanio);
+void asignar_hueco_segmento_0(int tamanio);
 op_asignacion devolver_metodo_asignacion(char* asignacion);
 void mostrar_tablas_de_segmentos();
 void atender_modulos(void* data);
@@ -32,10 +37,12 @@ void* memoria_usuario;
 t_list* tabla_huecos_libres;
 t_list* tabla_general;
 
-hueco_libre* buscar_por_first(int seg_tam, int *indice);
-void crear_segmento(int pid,int seg_id,int seg_tam);
+t_hueco buscar_por_first(int seg_tam);
+int crear_segmento(int pid,int seg_id,int seg_tam);
 
 seg_aux deserializar_segmento_auxiliar(t_buffer* buffer);
+seg_aux deserializar_segmento_a_eliminar(t_buffer* buffer);
+void eliminar_segmento(int pid, int seg_id);
 
 int pid;
 int main(void) {
@@ -53,11 +60,11 @@ int main(void) {
 	hueco_libre* hueco = malloc(sizeof(hueco_libre));
 
 	hueco->base = 0;
-	hueco->tamanio = datos.tam_memoria-1;
+	hueco->tamanio = datos.tam_memoria;
 
 	list_add(tabla_huecos_libres,hueco);
 
-	//seg_0 = asignar_hueco_segmento_0(datos.tam_segmento);
+	asignar_hueco_segmento_0(datos.tam_segmento);
 
 	mostrar_tabla_huecos_libres();
 
@@ -114,21 +121,13 @@ void atender_modulos(void* data){
 			case CREAR_SEGMENTO:
 				buffer = desempaquetar(paquete,cliente_fd);
 				datos_aux = deserializar_segmento_auxiliar(buffer);
-
+				int resultado;
 				log_info(logger,"Crear segmento con pid: %i id: %i con tamanio: %i ",
 						datos_aux.pid,datos_aux.segmento.id,datos_aux.segmento.tamanio);
 
-				crear_segmento(datos_aux.pid, datos_aux.segmento.id, datos_aux.segmento.tamanio);
+				resultado = crear_segmento(datos_aux.pid, datos_aux.segmento.id, datos_aux.segmento.tamanio);
+				send(cliente_fd, &resultado, sizeof(int), 0);
 
-				/*int pid, seg_id, seg_tamanio;
-				int offset = 0;
-
-				memcpy(&pid,buffer->stream + offset,sizeof(int));
-				offset+=sizeof(int);
-				memcpy(&seg_id,buffer->stream + offset,sizeof(int));
-				offset+=sizeof(int);
-				memcpy(&seg_tamanio,buffer->stream + offset,sizeof(int));
-				offset+=sizeof(int);*/
 				break;
 			case ELIMINAR_SEGMENTO:
 				buffer = desempaquetar(paquete, cliente_fd);
@@ -136,6 +135,8 @@ void atender_modulos(void* data){
 
 				log_info(logger,"Eliminar segmento con pid: %i id: %i", datos_aux.pid, datos_aux.segmento.id);
 				eliminar_segmento(datos_aux.pid,datos_aux.segmento.id);
+				resultado = 0;
+				send(cliente_fd, &resultado, sizeof(int), 0);
 				break;
 			case REALIZAR_COMPACTACION:
 				break;
@@ -206,11 +207,11 @@ void mostrar_tablas_de_segmentos(){
 op_asignacion devolver_metodo_asignacion(char* asignacion){
 	op_asignacion cod;
 
-	if(strcmp(asignacion,"FIRST")){
+	if(strcmp(asignacion,"FIRST")==0){
 		cod = FIRST;
-	} else if(strcmp(asignacion,"BEST")){
+	} else if(strcmp(asignacion,"BEST")==0){
 		cod = BEST;
-	} else if(strcmp(asignacion,"WORST")){
+	} else if(strcmp(asignacion,"WORST")==0){
 		cod = WORST;
 	} else {
 		log_warning(logger,"Codigo invalido");
@@ -219,7 +220,7 @@ op_asignacion devolver_metodo_asignacion(char* asignacion){
 	return cod;
 }
 
-segmento* asignar_hueco_segmento_0(int tamanio){
+void asignar_hueco_segmento_0(int tamanio){
 	segmento * seg = malloc(sizeof(segmento));
 	for(int i = 0; i < list_size(tabla_huecos_libres);i++){
 		hueco_libre* hueco_asignado = list_get(tabla_huecos_libres,i);
@@ -233,16 +234,15 @@ segmento* asignar_hueco_segmento_0(int tamanio){
 			list_replace(tabla_huecos_libres,i,hueco_asignado);
 		}
 	}
-
-	return seg;
 }
 
-void crear_segmento(int pid,int seg_id,int seg_tam){
-	hueco_libre* hueco;
-	int indice;
+int crear_segmento(int pid,int seg_id,int seg_tam){
+
+	t_hueco hueco_i;
+
 	switch(datos.algoritmo){
 		case FIRST:
-			hueco = buscar_por_first(seg_tam,&indice);
+			hueco_i = buscar_por_first(seg_tam);
 			break;
 		case BEST:
 			//hueco = buscar_por_best(seg_tam);
@@ -258,35 +258,60 @@ void crear_segmento(int pid,int seg_id,int seg_tam){
 			segmento* seg= malloc(sizeof(segmento));
 			seg->id = seg_id;
 			seg->tamanio = seg_tam;
-			seg->direccion_base = hueco->base;
+			seg->direccion_base = hueco_i.hueco->base;
 
-			hueco->base += seg_tam;
-			hueco->tamanio -= seg_tam;
+			hueco_i.hueco->base += seg_tam;
+			hueco_i.hueco->tamanio -= seg_tam;
 
-			list_replace(tabla_huecos_libres,indice,hueco);
+			list_replace(tabla_huecos_libres,hueco_i.indice,hueco_i.hueco);
 
 			list_add(proc->segments,seg);
 
 		}
 	}
+	mostrar_tabla_huecos_libres();
+	mostrar_tablas_de_segmentos();
+
+
+	return 0;
 }
 
-hueco_libre* buscar_por_first(int seg_tam, int *indice){
-	hueco_libre* hueco;
+t_hueco buscar_por_first(int seg_tam){
+	t_hueco hueco_i;
 	for(int i = 0; i<list_size(tabla_huecos_libres);i++){
-		hueco = list_get(tabla_huecos_libres,i);
+		hueco_i.hueco = list_get(tabla_huecos_libres,i);
 
-		if(hueco->tamanio >= seg_tam){
-			indice = &i;
+		if(hueco_i.hueco->tamanio >= seg_tam){
+			hueco_i.indice = i;
 			break;
 		}
 	}
 
-	return hueco;
+	return hueco_i;
 }
 
 void eliminar_segmento(int pid, int seg_id){
-	//TODO eliminar segmento
+	for(int i = 0; i < list_size(tabla_general);i++){
+		tabla_de_proceso* proc = list_get(tabla_general,i);
+		if(proc->pid == pid){
+
+			for(int j = 0; j < list_size(proc->segments); j++){
+				segmento* seg = list_get(proc->segments,j);
+				if(seg->id == seg_id){
+					hueco_libre* hueco = malloc(sizeof(hueco_libre));
+					hueco->base = seg->direccion_base;
+					hueco->tamanio = seg->tamanio;
+					list_add(tabla_huecos_libres,hueco);
+					list_remove(proc->segments,j);
+
+				}
+			}
+
+		}
+	}
+
+	mostrar_tabla_huecos_libres();
+	mostrar_tablas_de_segmentos();
 }
 
 seg_aux deserializar_segmento_auxiliar(t_buffer* buffer){
@@ -304,6 +329,23 @@ seg_aux deserializar_segmento_auxiliar(t_buffer* buffer){
 	segmento_auxiliar.pid=pid;
 	segmento_auxiliar.segmento.id=seg_id;
 	segmento_auxiliar.segmento.tamanio=seg_tam;
+
+	return segmento_auxiliar;
+}
+
+seg_aux deserializar_segmento_a_eliminar(t_buffer* buffer){
+	seg_aux segmento_auxiliar;
+	int pid, seg_id;
+	int offset = 0;
+
+	memcpy(&pid, buffer->stream + offset, sizeof(int));
+	offset+=sizeof(int);
+	memcpy(&seg_id,buffer->stream + offset, sizeof(int));
+	offset+=sizeof(int);
+
+	segmento_auxiliar.pid=pid;
+	segmento_auxiliar.segmento.id=seg_id;
+	segmento_auxiliar.segmento.tamanio=0;
 
 	return segmento_auxiliar;
 }

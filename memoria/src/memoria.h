@@ -40,6 +40,11 @@ typedef struct{
 	op_asignacion algoritmo;
 }datos_config;
 
+typedef struct{
+	segmento segmento;
+	int pid;
+}seg_aux;
+
 t_log* logger;
 t_config* config;
 datos_config datos;
