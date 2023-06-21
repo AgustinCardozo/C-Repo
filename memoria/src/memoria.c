@@ -25,7 +25,7 @@ typedef struct{
 	int pid;
 	t_list* segments;
 }tabla_de_proceso;
-
+bool ordenar_tamanios(void* data1,void* data2);
 void mostrar_tabla_huecos_libres();
 void asignar_hueco_segmento_0(int tamanio);
 op_asignacion devolver_metodo_asignacion(char* asignacion);
@@ -38,6 +38,8 @@ t_list* tabla_huecos_libres;
 t_list* tabla_general;
 
 t_hueco buscar_por_first(int seg_tam);
+t_hueco buscar_por_best(int seg_tam);
+t_hueco buscar_por_worst(int seg_tam);
 int crear_segmento(int pid,int seg_id,int seg_tam);
 
 seg_aux deserializar_segmento_auxiliar(t_buffer* buffer);
@@ -245,10 +247,10 @@ int crear_segmento(int pid,int seg_id,int seg_tam){
 			hueco_i = buscar_por_first(seg_tam);
 			break;
 		case BEST:
-			//hueco = buscar_por_best(seg_tam);
+			hueco_i = buscar_por_best(seg_tam);
 			break;
 		case WORST:
-			//hueco = buscar_por_worst(seg_tam);
+			hueco_i = buscar_por_worst(seg_tam);
 			break;
 	}
 
@@ -269,11 +271,24 @@ int crear_segmento(int pid,int seg_id,int seg_tam){
 
 		}
 	}
+	list_sort(tabla_huecos_libres,ordenar_tamanios);
 	mostrar_tabla_huecos_libres();
 	mostrar_tablas_de_segmentos();
 
 
 	return 0;
+}
+
+bool ordenar_tamanios(void* data1,void* data2){
+	hueco_libre* hueco1 = ((hueco_libre*) data1);
+	hueco_libre* hueco2 = ((hueco_libre*) data2);
+
+	if(hueco1->base < hueco2->base){
+		return true;
+
+	} else {
+		return false;
+	}
 }
 
 t_hueco buscar_por_first(int seg_tam){
@@ -283,6 +298,58 @@ t_hueco buscar_por_first(int seg_tam){
 
 		if(hueco_i.hueco->tamanio >= seg_tam){
 			hueco_i.indice = i;
+			break;
+		}
+	}
+
+	return hueco_i;
+}
+
+t_hueco buscar_por_best(int seg_tam){
+
+
+	t_hueco hueco_i;
+	for(int i = 0; i<list_size(tabla_huecos_libres);i++){
+		hueco_i.hueco = list_get(tabla_huecos_libres,i);
+
+		if(hueco_i.hueco->tamanio == seg_tam){
+			hueco_i.indice = i;
+			break;
+		} else if(hueco_i.hueco->tamanio > seg_tam){
+			hueco_i.indice = i;
+			for(int j = i+1; j<list_size(tabla_huecos_libres);j++){
+				hueco_libre* hueco_j = list_get(tabla_huecos_libres,j);
+				if(hueco_j->tamanio < hueco_i.hueco->tamanio && hueco_j->tamanio >= seg_tam){
+					hueco_i.hueco = hueco_j;
+					hueco_i.indice = j;
+					break;
+				}
+			}
+			break;
+		}
+	}
+
+	return hueco_i;
+}
+
+t_hueco buscar_por_worst(int seg_tam){
+
+
+	t_hueco hueco_i;
+	for(int i = 0; i<list_size(tabla_huecos_libres);i++){
+		hueco_i.hueco = list_get(tabla_huecos_libres,i);
+
+
+		if(hueco_i.hueco->tamanio >= seg_tam){
+			hueco_i.indice = i;
+			for(int j = i+1; j<list_size(tabla_huecos_libres);j++){
+				hueco_libre* hueco_j = list_get(tabla_huecos_libres,j);
+				if(hueco_j->tamanio > hueco_i.hueco->tamanio){
+					hueco_i.hueco = hueco_j;
+					hueco_i.indice = j;
+					break;
+				}
+			}
 			break;
 		}
 	}
@@ -309,7 +376,7 @@ void eliminar_segmento(int pid, int seg_id){
 
 		}
 	}
-
+	list_sort(tabla_huecos_libres,ordenar_tamanios);
 	mostrar_tabla_huecos_libres();
 	mostrar_tablas_de_segmentos();
 }
