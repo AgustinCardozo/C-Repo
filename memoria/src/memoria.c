@@ -153,6 +153,7 @@ void atender_modulos(void* data){
 				log_info(logger,"La df es %i",df);
 				df = 1;
 				send(cliente_fd, &df, sizeof(int), 0);
+				//Ejemplo de lectura
 				break;
 			case ACCEDER_PARA_ESCRITURA:
 				break;
@@ -430,5 +431,18 @@ seg_aux deserializar_segmento_a_eliminar(t_buffer* buffer){
 	segmento_auxiliar.segmento.tamanio=0;
 
 	return segmento_auxiliar;
+}
+
+char* leer_valor_de_memoria(int df){
+	char* valor;
+
+	memcpy(valor,memoria_usuario+df,4);
+
+	return valor;
+}
+
+void escribir_valor_de_memoria(char* valor,int df){
+
+	memcpy(memoria_usuario+df,valor,4);
 }
 
