@@ -42,11 +42,15 @@ sem_t mutex_modulos;
 t_hueco buscar_por_first(int seg_tam);
 t_hueco buscar_por_best(int seg_tam);
 t_hueco buscar_por_worst(int seg_tam);
-int crear_segmento(int pid,int seg_id,int seg_tam);
+t_list* crear_segmento(int pid,int seg_id,int seg_tam);
 
 seg_aux deserializar_segmento_auxiliar(t_buffer* buffer);
 seg_aux deserializar_segmento_a_eliminar(t_buffer* buffer);
 void eliminar_segmento(int pid, int seg_id);
+
+void enviar_tabla_actualizada(t_list* resultado,int cliente_fd);
+t_paquete* crear_paquete_tabla_actualizada(t_list* lista,op_code codigo);
+t_buffer* serializar_tabla_actualizada(t_list* lista);
 
 int pid;
 int main(void) {
@@ -127,13 +131,13 @@ void atender_modulos(void* data){
 			case CREAR_SEGMENTO:
 				buffer = desempaquetar(paquete,cliente_fd);
 				datos_aux = deserializar_segmento_auxiliar(buffer);
-				int resultado;
+				t_list* resultado;
 				log_info(logger,"Crear segmento con pid: %i id: %i con tamanio: %i ",
 						datos_aux.pid,datos_aux.segmento.id,datos_aux.segmento.tamanio);
 
 				resultado = crear_segmento(datos_aux.pid, datos_aux.segmento.id, datos_aux.segmento.tamanio);
-				send(cliente_fd, &resultado, sizeof(int), 0);
-
+				//send(cliente_fd, &resultado, sizeof(int), 0);
+				enviar_tabla_actualizada(resultado,cliente_fd);
 				break;
 			case ELIMINAR_SEGMENTO:
 				buffer = desempaquetar(paquete, cliente_fd);
@@ -254,9 +258,10 @@ void asignar_hueco_segmento_0(int tamanio){
 	}
 }
 
-int crear_segmento(int pid,int seg_id,int seg_tam){
+t_list* crear_segmento(int pid,int seg_id,int seg_tam){
 
 	t_hueco hueco_i;
+	t_list* tabla_a_enviar;
 
 	switch(datos.algoritmo){
 		case FIRST:
@@ -285,6 +290,8 @@ int crear_segmento(int pid,int seg_id,int seg_tam){
 
 			list_add(proc->segments,seg);
 
+			tabla_a_enviar = proc->segments;
+
 		}
 	}
 	list_sort(tabla_huecos_libres,ordenar_tamanios);
@@ -292,7 +299,7 @@ int crear_segmento(int pid,int seg_id,int seg_tam){
 	mostrar_tablas_de_segmentos();
 
 
-	return 0;
+	return tabla_a_enviar;
 }
 
 bool ordenar_tamanios(void* data1,void* data2){
@@ -434,7 +441,7 @@ seg_aux deserializar_segmento_a_eliminar(t_buffer* buffer){
 }
 
 char* leer_valor_de_memoria(int df){
-	char* valor;
+	char* valor="HOLAAAAAAAAA";
 
 	memcpy(valor,memoria_usuario+df,4);
 
@@ -445,4 +452,46 @@ void escribir_valor_de_memoria(char* valor,int df){
 
 	memcpy(memoria_usuario+df,valor,4);
 }
+
+void enviar_tabla_actualizada(t_list* resultado,int cliente_fd){
+	t_paquete* paquete = crear_paquete_tabla_actualizada(resultado,CREACION_EXITOSA);
+
+	enviar_paquete_a(paquete,cliente_fd);
+}
+
+t_paquete* crear_paquete_tabla_actualizada(t_list* lista,op_code codigo){
+	t_paquete* paquete = malloc(sizeof(t_paquete));
+	paquete->codigo_operacion = codigo;
+	paquete->buffer = serializar_tabla_actualizada(lista);
+
+	return paquete;
+}
+
+t_buffer* serializar_tabla_actualizada(t_list* lista){
+	t_buffer* buffer = malloc(sizeof(t_buffer));
+	int offset = 0;
+	int tamanio_tabla = list_size(lista);
+	buffer->size = sizeof(int)+sizeof(segmento)*tamanio_tabla;
+	buffer->stream = malloc(buffer->size);
+
+	memcpy(buffer->stream + offset, &(tamanio_tabla), sizeof(int));
+	offset += sizeof(int);
+
+	for(int i = 0; i < tamanio_tabla; i++) {
+		segmento* seg = list_get(lista,i);
+
+		memcpy(buffer->stream + offset, &seg->id, sizeof(int));
+		offset += sizeof(int);
+
+		memcpy(buffer->stream + offset, &seg->direccion_base, sizeof(int));
+		offset += sizeof(int);
+
+		memcpy(buffer->stream + offset, &seg->tamanio, sizeof(int));
+		offset += sizeof(int);
+	}
+
+	return buffer;
+}
+
+
 

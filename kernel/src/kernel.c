@@ -73,7 +73,8 @@ int t_ahora;
 void* iniciar_recurso(void* data);
 void enviar_crear_segmento(int pid, int id_seg,int tamanio_seg);
 void enviar_eliminar_segmento(int pid, int id_seg,int tamanio_seg);
-void analizar_resultado(int result);
+void analizar_resultado(t_pcb* pcb,t_paquete* paquete,t_buffer* buffer);
+t_list* deserializar_tabla_actualizada(t_buffer* buffer);
 //int enviar_datos_a_memoria(t_pcb* pcb, int conexion, op_code codigo);
 //void enviar_segmento_con_cod(seg_aux* segmento, int conexion, op_code codigo);
 int pid;
@@ -215,11 +216,11 @@ void* atender_cpu(void){
 
 					//enviar_datos_a_memoria(pcb, conexion_memoria, CREAR_SEGMENTO);
 					enviar_crear_segmento(pcb->pid,pcb->dat_seg,pcb->dat_tamanio);
-					recv(conexion_memoria, &result, sizeof(uint32_t), MSG_WAITALL);
+					//recv(conexion_memoria, &result, sizeof(uint32_t), MSG_WAITALL);
 
-					analizar_resultado(result);
+					analizar_resultado(pcb,paquete,buffer);
 
-					enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
+					//enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
 
 					break;
 				case ELIMINAR_SEGMENTO:
@@ -854,14 +855,42 @@ void enviar_eliminar_segmento(int pid, int id_seg,int tamanio_seg){
 	enviar_paquete(paquete,conexion_memoria);
 }
 
-void analizar_resultado(int result){
-	switch(result){
-		case 0: log_info(logger,"Creacion exitosa");
+void analizar_resultado(t_pcb* pcb,t_paquete* paquete,t_buffer* buffer){
+	int cod_op = recibir_operacion(conexion_memoria);
+	switch(cod_op){
+		case CREACION_EXITOSA:
+			log_info(logger,"Creacion exitosa");
+			buffer = desempaquetar(paquete,conexion_memoria);
+			t_list* lista = deserializar_tabla_actualizada(buffer);
+			pcb->tabla_segmentos = lista;
+			enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
 			break;
-		case 1: log_info(logger,"Necesidad de Compactar");
+		case COMPACTAR: log_info(logger,"Necesidad de Compactar");
 			break;
-		case 2: log_info(logger,"No hay mas espacio en memoria, se termina el proceso");
+		case SIN_MEMORIA: log_info(logger,"No hay mas espacio en memoria, se termina el proceso");
 			break;
 		}
+}
+
+t_list* deserializar_tabla_actualizada(t_buffer* buffer){
+	int tamanio_tabla;
+	int offset = 0;
+	memcpy(&tamanio_tabla,buffer->stream + offset,sizeof(int));
+	offset += sizeof(int);
+	t_list* lista = list_create();
+	for(int i = 0; i < tamanio_tabla; i++){
+
+		segmento* seg = malloc(sizeof(segmento));
+		memcpy(&(seg->id),buffer->stream + offset,sizeof(int));
+		offset += sizeof(int);
+		memcpy(&(seg->direccion_base),buffer->stream + offset,sizeof(int));
+		offset += sizeof(int);
+		memcpy(&(seg->tamanio),buffer->stream + offset,sizeof(int));
+		offset += sizeof(int);
+		list_add(lista,seg);
+		log_info(logger,"Segmento ID %i BASE %i TAMANIO %i",seg->id,seg->direccion_base,seg->tamanio);
+	}
+
+	return lista;
 }
 
