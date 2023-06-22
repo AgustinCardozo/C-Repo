@@ -31,9 +31,9 @@ void mostrar_registro(t_pcb* pcb);
 int band_ejecutar;
 int obtener_direccion_fisica(uint32_t dir_logica,t_pcb*pcb,int tam_dato);
 char*devolver_dato(t_pcb* pcb,registros_pos registro);
-void enviar_datos_para_escritura(int dir, char* valor);
+void enviar_datos_para_escritura(int dir, char* valor,int tamanio);
 int size_registro(registros_pos registro);
-void enviar_datos_para_lectura(int dir);
+void enviar_datos_para_lectura(int dir,int tamanio);
 //void enviar_crear_segmento(int id_seg,int tamanio_seg,int conexion);
 //mmu
 //t_dl* obtenerDL(uint32_t dir_logica,t_pcb*pcb);
@@ -216,28 +216,39 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			log_info(logger,"En %s esta %s",reg_des,caracteres);
 			mostrar_registro(pcb);
 			break;
-		case MOV_OUT:
-			sleep(2);
-			log_info(logger,"Paso por mov_out");
-			registro = devolver_registro(list_get(instruccion->parametros,1));
-			dl=atoi(list_get(instruccion->parametros,0));
+		case MOV_IN:
+			//sleep(2);
+			log_info(logger,"Paso por mov_in");
+			registro = devolver_registro(list_get(instruccion->parametros,0));
+			dl=atoi(list_get(instruccion->parametros,1));
 			df=obtener_direccion_fisica(dl,pcb,size_registro(registro));
-			enviar_datos_para_lectura(df);
-			recv(conexion_memoria, &result, sizeof(uint32_t), MSG_WAITALL);
-			if(result == 0){
+			enviar_datos_para_lectura(df,size_registro(registro));
+			char* valor = malloc(size_registro(registro)+1);
+			recv(conexion_memoria, valor, size_registro(registro), MSG_WAITALL);
+			insertar(pcb,registro,valor);
+			log_info(logger,"Se leyo el valor %s",pcb->registro.AX);
+			/*if(result == 0){
 				log_info(logger,"Algo salio mal");
 				band_ejecutar = 1;
 			} else {
 				log_info(logger,"El programa sigue");
-			}
+			}*/
 			break;
-		case MOV_IN:
-			log_info(logger,"Paso por mov_in");
-			registro = devolver_registro(list_get(instruccion->parametros,0));
-			char *dato= devolver_dato(pcb,registro);
+		case MOV_OUT:
+			log_info(logger,"Paso por mov_out");
+			registro = devolver_registro(list_get(instruccion->parametros,1));
 			dl=atoi(list_get(instruccion->parametros,0));
+			char *dato= devolver_dato(pcb,registro);
+
 			df=obtener_direccion_fisica(dl,pcb,size_registro(registro));
-			enviar_datos_para_escritura(df,dato);
+			enviar_datos_para_escritura(df,dato,size_registro(registro));
+			recv(conexion_memoria, &result, sizeof(int), MSG_WAITALL);
+			if(result == 0){
+				log_info(logger,"Algo salio bien");
+
+			} else {
+				log_info(logger,"El programa sigue");
+			}
 			break;
 		case F_OPEN:
 			log_info(logger,"Paso por f_open");
@@ -519,15 +530,18 @@ int size_registro(registros_pos registro){
 	return tamanio;
 }
 
-void enviar_datos_para_lectura(int dir){
+void enviar_datos_para_lectura(int dir, int tamanio){
 	t_paquete* paquete = malloc(sizeof(t_paquete));
 	paquete->codigo_operacion = ACCEDER_PARA_LECTURA;
 	t_buffer* buffer = malloc(sizeof(t_buffer));
 	int offset = 0;
-	buffer->size = sizeof(int);
+	buffer->size = sizeof(int)*2;
 	buffer->stream = malloc(buffer->size);
 
 	memcpy(buffer->stream + offset, &dir, sizeof(int));
+	offset += sizeof(int);
+
+	memcpy(buffer->stream + offset, &tamanio, sizeof(int));
 	offset += sizeof(int);
 
 	paquete->buffer = buffer;
@@ -550,20 +564,27 @@ char* deserializar_valor(t_buffer* buffer){
 	return valor;
 }
 
-void enviar_datos_para_escritura(int dir, char* valor){
+void enviar_datos_para_escritura(int dir, char* valor, int tamanio){
 	t_paquete* paquete = malloc(sizeof(t_paquete));
 	paquete->codigo_operacion = ACCEDER_PARA_ESCRITURA;
 	t_buffer* buffer = malloc(sizeof(t_buffer));
 	int offset = 0;
-	buffer->size = sizeof(int) + sizeof(char*);
+	buffer->size = sizeof(int)*3 + tamanio;
 	buffer->stream = malloc(buffer->size);
 
 	memcpy(buffer->stream + offset, &dir, sizeof(int));
 	offset += sizeof(int);
 
-	memcpy(buffer->stream + offset,&valor, sizeof(char*));
+	memcpy(buffer->stream + offset, &tamanio, sizeof(int));
 	offset += sizeof(int);
 
+	memcpy(buffer->stream + offset, valor, tamanio);
+	offset += tamanio;
+
+	log_info(logger,"La df es %i con tamanio %i se envio %s",dir,tamanio,valor);
+	if(offset != buffer->size){
+		log_warning(logger,"No son iguales offset %i buffer %i",offset,buffer->size);
+	}
 	paquete->buffer = buffer;
 
 	enviar_paquete(paquete,conexion_memoria);

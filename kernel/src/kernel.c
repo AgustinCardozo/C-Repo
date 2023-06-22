@@ -242,7 +242,7 @@ void* atender_cpu(void){
 					pcb = deserializar_pcb(buffer);
 					log_info(logger,"PID: <%d> - Estado Anterior: <EXEC> - Estado Actual: <EXIT>",pcb->pid);
 					//log_info(logger,"El pcb [%i] ha sido finalizado",pcb->pid);
-					mostrar_registro(pcb);
+					//mostrar_registro(pcb);
 					log_info(logger,"Finaliza el proceso <%d> - Motivo: <SUCCESS>",pcb->pid);
 					//enviar_mensaje("Tu proceso ha finalizado",pcb->conexion_consola);
 					op_code c = FINALIZAR;

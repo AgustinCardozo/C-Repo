@@ -22,6 +22,11 @@ typedef struct{
 }t_hueco;
 
 typedef struct{
+	int df;
+	int tamanio;
+	char* dato;
+}t_df;
+typedef struct{
 	int pid;
 	t_list* segments;
 }tabla_de_proceso;
@@ -31,7 +36,7 @@ void asignar_hueco_segmento_0(int tamanio);
 op_asignacion devolver_metodo_asignacion(char* asignacion);
 void mostrar_tablas_de_segmentos();
 void atender_modulos(void* data);
-
+t_df* deserializar_df(t_buffer* buffer);
 void* memoria_usuario;
 
 t_list* tabla_huecos_libres;
@@ -51,6 +56,8 @@ void eliminar_segmento(int pid, int seg_id);
 void enviar_tabla_actualizada(t_list* resultado,int cliente_fd);
 t_paquete* crear_paquete_tabla_actualizada(t_list* lista,op_code codigo);
 t_buffer* serializar_tabla_actualizada(t_list* lista);
+char* leer_valor_de_memoria(int df,int tamanio);
+void escribir_valor_de_memoria(char* valor,int df, int tamanio);
 
 int pid;
 int main(void) {
@@ -99,6 +106,10 @@ void atender_modulos(void* data){
 	t_buffer* buffer;
 	t_list* lista;
 	seg_aux datos_aux;
+	int df;
+	int tamanio;
+	int offset = 0;
+	char* valor = string_new();
 	while(1){
 
 		int cod_op = recibir_operacion(cliente_fd);
@@ -145,21 +156,33 @@ void atender_modulos(void* data){
 
 				log_info(logger,"Eliminar segmento con pid: %i id: %i", datos_aux.pid, datos_aux.segmento.id);
 				eliminar_segmento(datos_aux.pid,datos_aux.segmento.id);
-				resultado = 0;
-				send(cliente_fd, &resultado, sizeof(int), 0);
+				//int res = 0;
+				//send(cliente_fd, &res, sizeof(int), 0);
 				break;
 			case REALIZAR_COMPACTACION:
 				break;
 			case ACCEDER_PARA_LECTURA:
 				buffer = desempaquetar(paquete, cliente_fd);
-				int df;
-				memcpy(&df, buffer, sizeof(int));
-				log_info(logger,"La df es %i",df);
-				df = 1;
-				send(cliente_fd, &df, sizeof(int), 0);
+				offset = 0;
+
+				memcpy(&df, buffer->stream + offset, sizeof(int));
+				offset += sizeof(int);
+				memcpy(&tamanio, buffer->stream + offset, sizeof(int));
+				offset += sizeof(int);
+				valor = leer_valor_de_memoria(df,tamanio);
+
+				send(cliente_fd, valor, tamanio, 0);
 				//Ejemplo de lectura
 				break;
 			case ACCEDER_PARA_ESCRITURA:
+				buffer = desempaquetar(paquete, cliente_fd);
+
+				t_df* df = deserializar_df(buffer);
+
+				log_info(logger,"El df es %i, con tamanio %i, el valor es %s",df->df,df->tamanio,df->dato);
+				escribir_valor_de_memoria(df->dato,df->df,df->tamanio);
+				int a = 0;
+				send(cliente_fd, &a, sizeof(int), 0);
 				break;
 			case -1:
 				log_error(logger, "el cliente se desconecto. Terminando servidor");
@@ -440,17 +463,19 @@ seg_aux deserializar_segmento_a_eliminar(t_buffer* buffer){
 	return segmento_auxiliar;
 }
 
-char* leer_valor_de_memoria(int df){
-	char* valor="HOLAAAAAAAAA";
+char* leer_valor_de_memoria(int df,int tamanio){
+	char* valor = malloc(tamanio+1);
 
-	memcpy(valor,memoria_usuario+df,4);
+	memcpy(valor,memoria_usuario+df,tamanio);
+
+	log_info(logger,"El valor leyo %s",valor);
 
 	return valor;
 }
 
-void escribir_valor_de_memoria(char* valor,int df){
-
-	memcpy(memoria_usuario+df,valor,4);
+void escribir_valor_de_memoria(char* valor,int df, int tamanio){
+	log_info(logger,"Se escribio el valor %s", valor);
+	memcpy(memoria_usuario+df,valor,tamanio);
 }
 
 void enviar_tabla_actualizada(t_list* resultado,int cliente_fd){
@@ -494,4 +519,17 @@ t_buffer* serializar_tabla_actualizada(t_list* lista){
 }
 
 
+t_df* deserializar_df(t_buffer* buffer){
+	int offset = 0;
+	t_df* df = malloc(sizeof(t_df));
+	//log_info(logger,"el buffer tiene %s",buffer->stream);
+	memcpy(&df->df, buffer->stream+offset, sizeof(int));
+	offset += sizeof(int);
+	memcpy(&df->tamanio, buffer->stream+offset, sizeof(int));
+	offset += sizeof(int);
+	df->dato = malloc(df->tamanio+1);
+	memcpy(df->dato, buffer->stream+offset, df->tamanio);
+	offset += df->tamanio;
 
+	return df;
+}
