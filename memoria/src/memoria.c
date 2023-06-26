@@ -51,7 +51,7 @@ t_list* crear_segmento(int pid,int seg_id,int seg_tam);
 
 seg_aux deserializar_segmento_auxiliar(t_buffer* buffer);
 seg_aux deserializar_segmento_a_eliminar(t_buffer* buffer);
-void eliminar_segmento(int pid, int seg_id);
+t_list* eliminar_segmento(int pid, int seg_id);
 
 void enviar_tabla_actualizada(t_list* resultado,int cliente_fd);
 t_paquete* crear_paquete_tabla_actualizada(t_list* lista,op_code codigo);
@@ -106,6 +106,7 @@ void atender_modulos(void* data){
 	paquete->buffer = malloc(sizeof(t_buffer));
 	t_buffer* buffer;
 	t_list* lista;
+	t_list* resultado;
 	seg_aux datos_aux;
 	int df;
 	int tamanio;
@@ -152,12 +153,12 @@ void atender_modulos(void* data){
 
 				//Recive del kernel el segmento a crear
 				datos_aux = deserializar_segmento_auxiliar(buffer);
-				t_list* resultado;
+
 				log_info(logger,"Crear segmento con pid: %i id: %i con tamanio: %i ",
 						datos_aux.pid,datos_aux.segmento.id,datos_aux.segmento.tamanio);
 				//En esta funcion se crea el segmento
 				resultado = crear_segmento(datos_aux.pid, datos_aux.segmento.id, datos_aux.segmento.tamanio);
-				send(cliente_fd, &resultado, sizeof(int), 0);
+
 				enviar_tabla_actualizada(resultado,cliente_fd);
 				break;
 			case ELIMINAR_SEGMENTO:
@@ -165,9 +166,10 @@ void atender_modulos(void* data){
 				datos_aux = deserializar_segmento_auxiliar(buffer);
 
 				log_info(logger,"Eliminar segmento con pid: %i id: %i", datos_aux.pid, datos_aux.segmento.id);
-				eliminar_segmento(datos_aux.pid,datos_aux.segmento.id);
-				int res = 0;
-				send(cliente_fd, &res, sizeof(int), 0);
+				resultado = eliminar_segmento(datos_aux.pid,datos_aux.segmento.id);
+
+				enviar_tabla_actualizada(resultado,cliente_fd);
+
 				break;
 			case REALIZAR_COMPACTACION:
 				break;
@@ -419,8 +421,8 @@ t_hueco buscar_por_worst(int seg_tam){
 	return hueco_i;
 }
 
-void eliminar_segmento(int pid, int seg_id){
-
+t_list* eliminar_segmento(int pid, int seg_id){
+	t_list* tabla_a_enviar;
 	//busco la tabla del proceso
 	for(int i = 0; i < list_size(tabla_general);i++){
 		tabla_de_proceso* proc = list_get(tabla_general,i);
@@ -434,15 +436,22 @@ void eliminar_segmento(int pid, int seg_id){
 					hueco->tamanio = seg->tamanio;
 					list_add(tabla_huecos_libres,hueco);
 					list_remove(proc->segments,j);
+					//Guardo la tabla de segmentos que despues le tengo que enviar al pcb para actualizar
+					tabla_a_enviar = proc->segments;
+					break;
 
 				}
 			}
+
+			break;
 
 		}
 	}
 	list_sort(tabla_huecos_libres,ordenar_tamanios);
 	mostrar_tabla_huecos_libres();
 	mostrar_tablas_de_segmentos();
+
+	return tabla_a_enviar;
 }
 
 seg_aux deserializar_segmento_auxiliar(t_buffer* buffer){
