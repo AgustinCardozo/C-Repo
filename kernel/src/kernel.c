@@ -214,13 +214,9 @@ void* atender_cpu(void){
 
 					log_info(logger,"Crear segmento %i de tamanio %i",pcb->dat_seg,pcb->dat_tamanio);
 
-					//enviar_datos_a_memoria(pcb, conexion_memoria, CREAR_SEGMENTO);
 					enviar_crear_segmento(pcb->pid,pcb->dat_seg,pcb->dat_tamanio);
-					//recv(conexion_memoria, &result, sizeof(uint32_t), MSG_WAITALL);
 
 					analizar_resultado(pcb,paquete,buffer);
-
-					//enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
 
 					break;
 				case ELIMINAR_SEGMENTO:
@@ -229,9 +225,9 @@ void* atender_cpu(void){
 
 					log_info(logger, "Eliminar segmento %i", pcb->dat_seg);
 					enviar_eliminar_segmento(pcb->pid,pcb->dat_seg,pcb->dat_tamanio);
-					recv(conexion_memoria, &result, sizeof(uint32_t), MSG_WAITALL);
+					//recv(conexion_memoria, &result, sizeof(uint32_t), MSG_WAITALL);
 
-					enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
+					analizar_resultado(pcb,paquete,buffer);
 					//enviar_datos_a_memoria(pcb, conexion_memoria, ELIMINAR_SEGMENTO);
 					break;
 				case FINALIZAR:
@@ -296,30 +292,13 @@ void atender_consolas(void* data){
 
 			case INSTRUCCIONES:
 				buffer = desempaquetar(paquete,cliente_fd);
-				//t_list* lista_instrucciones = deserializar_lista_instrucciones(buffer);
 
-				//int pid = agregar_pid(buffer);
-				//t_pcb* pcb= crear_pcb(pid,lista_instrucciones);
 				t_pcb* pcb= crear_pcb(buffer,cliente_fd);
-				/*if(pcb->pid>0){
-					agregar_a_cola_new(pcb);
-				}*/
-				/*agregar_a_cola_ready(pcb);
-				mostrar_cola(cola->cola_ready_fifo);
-				mostrar_cola(cola->cola_ready_hrrn);
-*/
+
 				log_info(logger,"EL PID QUE ME LLEGO ES %i",pcb->pid);
 
 				agregar_a_cola_new(pcb);
-				//mostrar_cola(cola->cola_new_fifo);
 
-
-				//list_iterate(pcb->lista_instrucciones, (void*) mostrar);
-
-				//enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
-
-
-				//log_info(logger,"El alfa es %d",pcb->estimacion);
 				break;
 			case -1:
 				log_error(logger, "el cliente se desconecto. Terminando servidor");
