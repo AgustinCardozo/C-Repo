@@ -70,16 +70,16 @@ int main(void) {
 	config = iniciar_config(MEMORIA_CONFIG);
 
 	iniciar_config_memoria();
-
+	//Aqui le reservo la memoria al espacio de usuario contiguo
 	memoria_usuario = malloc(datos.tam_memoria);
-
+	//Le asigno el primer hueco libre que seria la memroia completa
 	hueco_libre* hueco = malloc(sizeof(hueco_libre));
 
 	hueco->base = 0;
 	hueco->tamanio = datos.tam_memoria;
 
 	list_add(tabla_huecos_libres,hueco);
-
+	//Reservo el primer segmento que sera compartido por todos los procesos
 	asignar_hueco_segmento_0(datos.tam_segmento);
 
 	mostrar_tabla_huecos_libres();
@@ -91,6 +91,7 @@ int main(void) {
 	cliente_fd = malloc(sizeof(int));
 
 	while(1){
+		//Recibe todos los modulos que solicita bajo demanda
 		cliente_fd = esperar_cliente(logger,server_fd);
 		pthread_create(&hilo_atender_modulos,NULL,(void*) atender_modulos,cliente_fd);
 		pthread_detach(hilo_atender_modulos);
@@ -126,28 +127,37 @@ void atender_modulos(void* data){
 			case INICIALIZAR_ESTRUCTURA:
 				log_info(logger,"Paso por INICIALIZAR_ESTRUCTURA");
 				pid++;
-
+				/*Cuando le llega un proceso se le envia nomas el tamanio del segmentoa
+				  ya que se da por sentado que todos van a empezar con ese segmento
+				  asi que solo se le envia el tamanio del segmento 0 para simplificar
+				*/
 				segmento * seg = malloc(sizeof(segmento));
 				seg->id = 0;
 				seg->direccion_base = 0;
 				seg->tamanio = datos.tam_segmento;
+
+				//Creo la tabla de segmentos de los procesos
 				tabla_de_proceso* tab = malloc(sizeof(tabla_de_proceso));
 				tab->pid = pid;
 				tab->segments = list_create();
+
 				list_add(tab->segments,seg);
 				list_add(tabla_general,tab);
+				//Le envio el tamanio del proceso
 				send(cliente_fd,&datos.tam_segmento,sizeof(int),0);
 				mostrar_tablas_de_segmentos();
 				break;
 			case CREAR_SEGMENTO:
 				buffer = desempaquetar(paquete,cliente_fd);
+
+				//Recive del kernel el segmento a crear
 				datos_aux = deserializar_segmento_auxiliar(buffer);
 				t_list* resultado;
 				log_info(logger,"Crear segmento con pid: %i id: %i con tamanio: %i ",
 						datos_aux.pid,datos_aux.segmento.id,datos_aux.segmento.tamanio);
-
+				//En esta funcion se crea el segmento
 				resultado = crear_segmento(datos_aux.pid, datos_aux.segmento.id, datos_aux.segmento.tamanio);
-				//send(cliente_fd, &resultado, sizeof(int), 0);
+				send(cliente_fd, &resultado, sizeof(int), 0);
 				enviar_tabla_actualizada(resultado,cliente_fd);
 				break;
 			case ELIMINAR_SEGMENTO:
@@ -156,8 +166,8 @@ void atender_modulos(void* data){
 
 				log_info(logger,"Eliminar segmento con pid: %i id: %i", datos_aux.pid, datos_aux.segmento.id);
 				eliminar_segmento(datos_aux.pid,datos_aux.segmento.id);
-				//int res = 0;
-				//send(cliente_fd, &res, sizeof(int), 0);
+				int res = 0;
+				send(cliente_fd, &res, sizeof(int), 0);
 				break;
 			case REALIZAR_COMPACTACION:
 				break;
@@ -169,6 +179,8 @@ void atender_modulos(void* data){
 				offset += sizeof(int);
 				memcpy(&tamanio, buffer->stream + offset, sizeof(int));
 				offset += sizeof(int);
+
+				//Leo en memoria elvalor del df que pide
 				valor = leer_valor_de_memoria(df,tamanio);
 
 				send(cliente_fd, valor, tamanio, 0);
@@ -180,6 +192,7 @@ void atender_modulos(void* data){
 				t_df* df = deserializar_df(buffer);
 
 				log_info(logger,"El df es %i, con tamanio %i, el valor es %s",df->df,df->tamanio,df->dato);
+				//Le agrego en memoria el valor del string
 				escribir_valor_de_memoria(df->dato,df->df,df->tamanio);
 				int a = 0;
 				send(cliente_fd, &a, sizeof(int), 0);
@@ -285,7 +298,7 @@ t_list* crear_segmento(int pid,int seg_id,int seg_tam){
 
 	t_hueco hueco_i;
 	t_list* tabla_a_enviar;
-
+	//Busco el hueco por el aggoritmo elegido
 	switch(datos.algoritmo){
 		case FIRST:
 			hueco_i = buscar_por_first(seg_tam);
@@ -297,7 +310,7 @@ t_list* crear_segmento(int pid,int seg_id,int seg_tam){
 			hueco_i = buscar_por_worst(seg_tam);
 			break;
 	}
-
+	//Busco la tabla por el pid y se lo asigno
 	for(int i = 0; i < list_size(tabla_general);i++){
 		tabla_de_proceso* proc = list_get(tabla_general,i);
 		if(proc->pid == pid){
@@ -312,11 +325,14 @@ t_list* crear_segmento(int pid,int seg_id,int seg_tam){
 			list_replace(tabla_huecos_libres,hueco_i.indice,hueco_i.hueco);
 
 			list_add(proc->segments,seg);
-
+			//En esta variable guardo la tabla de segmetno que le voy a enviar al kernel
+			//Y actualizar el constexto de ejecucion
 			tabla_a_enviar = proc->segments;
 
 		}
 	}
+
+	//Ordeno la tabla de huecos para mas comodidad
 	list_sort(tabla_huecos_libres,ordenar_tamanios);
 	mostrar_tabla_huecos_libres();
 	mostrar_tablas_de_segmentos();
@@ -404,10 +420,12 @@ t_hueco buscar_por_worst(int seg_tam){
 }
 
 void eliminar_segmento(int pid, int seg_id){
+
+	//busco la tabla del proceso
 	for(int i = 0; i < list_size(tabla_general);i++){
 		tabla_de_proceso* proc = list_get(tabla_general,i);
 		if(proc->pid == pid){
-
+			//Ahora busco es la tabla de segmentos del proceso el segmento a eliminar
 			for(int j = 0; j < list_size(proc->segments); j++){
 				segmento* seg = list_get(proc->segments,j);
 				if(seg->id == seg_id){
@@ -465,7 +483,7 @@ seg_aux deserializar_segmento_a_eliminar(t_buffer* buffer){
 
 char* leer_valor_de_memoria(int df,int tamanio){
 	char* valor = malloc(tamanio+1);
-
+	//Copio el valor de la df a la variable valor
 	memcpy(valor,memoria_usuario+df,tamanio);
 
 	log_info(logger,"El valor leyo %s",valor);

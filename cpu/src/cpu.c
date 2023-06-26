@@ -297,10 +297,12 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			break;
 		case CREATE_SEGMENT:
 			log_info(logger,"Paso por create_segment");
+
 			pcb->dat_seg = atoi(list_get(instruccion->parametros,0));
 			pcb->dat_tamanio = atoi(list_get(instruccion->parametros,1));
 
 			log_info(logger,"Crear segmento %i de tamanio %i",pcb->dat_seg,pcb->dat_tamanio);
+			//Hay que devolverle el pdb al kernel para que despues el mismo se lo envie a memoria como explica en el enuncuad
 			enviar_pcb_a(pcb,conexion_kernel,CREAR_SEGMENTO);
 			cod_op = recibir_operacion(conexion_kernel);
 			switch(cod_op){
@@ -323,6 +325,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			pcb->dat_seg = atoi(list_get(instruccion->parametros,0));
 
 			log_info(logger,"Eliminar segmento %i",pcb->dat_seg);
+			//Hay que devolverle el pdb al kernel para que despues el mismo se lo envie a memoria como explica en el enuncuad
 			enviar_pcb_a(pcb, conexion_kernel, ELIMINAR_SEGMENTO);
 			cod_op = recibir_operacion(conexion_kernel);
 				switch(cod_op){
