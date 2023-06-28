@@ -40,7 +40,7 @@ main-build: libcompartido.so
 libcompartido.so: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc -shared -o "libcompartido.so" $(OBJS) $(USER_OBJS) $(LIBS) -lcommons -lreadline
+	gcc -shared -o "libcompartido.so" $(OBJS) $(USER_OBJS) $(LIBS) -lreadline -lcommons
 	@echo 'Finished building target: $@'
 	@echo ' '
 
