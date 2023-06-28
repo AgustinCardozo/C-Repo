@@ -835,20 +835,29 @@ void enviar_eliminar_segmento(int pid, int id_seg,int tamanio_seg){
 }
 
 void analizar_resultado(t_pcb* pcb,t_paquete* paquete,t_buffer* buffer){
-	int cod_op = recibir_operacion(conexion_memoria);
-	switch(cod_op){
-		case CREACION_EXITOSA:
-			log_info(logger,"Creacion exitosa");
-			buffer = desempaquetar(paquete,conexion_memoria);
-			t_list* lista = deserializar_tabla_actualizada(buffer);
-			pcb->tabla_segmentos = lista;
-			enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
-			break;
-		case COMPACTAR: log_info(logger,"Necesidad de Compactar");
-			break;
-		case SIN_MEMORIA: log_info(logger,"No hay mas espacio en memoria, se termina el proceso");
-			break;
-		}
+	int seguir = 1;
+	while(seguir == 1){
+		int cod_op = recibir_operacion(conexion_memoria);
+		switch(cod_op){
+			case CREACION_EXITOSA:
+				log_info(logger,"Creacion exitosa");
+				buffer = desempaquetar(paquete,conexion_memoria);
+				t_list* lista = deserializar_tabla_actualizada(buffer);
+				pcb->tabla_segmentos = lista;
+				enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
+				seguir = 0;
+				break;
+			case REALIZAR_COMPACTACION:
+				log_info(logger,"Necesidad de Compactar");
+				op_code codigo = REALIZAR_COMPACTACION;
+				send(conexion_memoria,&codigo,sizeof(op_code),0);
+				break;
+			case SIN_MEMORIA: log_info(logger,"No hay mas espacio en memoria, se termina el proceso");
+				seguir = 0;
+				break;
+			}
+	}
+
 }
 
 t_list* deserializar_tabla_actualizada(t_buffer* buffer){
