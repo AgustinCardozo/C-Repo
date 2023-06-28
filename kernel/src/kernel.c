@@ -852,6 +852,10 @@ void analizar_resultado(t_pcb* pcb,t_paquete* paquete,t_buffer* buffer){
 				op_code codigo = REALIZAR_COMPACTACION;
 				send(conexion_memoria,&codigo,sizeof(op_code),0);
 				break;
+			case COMPACTAR:
+				log_info(logger,"Creando de nuevo");
+				enviar_crear_segmento(pcb->pid,pcb->dat_seg,pcb->dat_tamanio);
+				break;
 			case SIN_MEMORIA: log_info(logger,"No hay mas espacio en memoria, se termina el proceso");
 				seguir = 0;
 				break;

@@ -39,6 +39,7 @@ void atender_modulos(void* data);
 t_df* deserializar_df(t_buffer* buffer);
 void* memoria_usuario;
 
+
 t_list* tabla_huecos_libres;
 t_list* tabla_general;
 
@@ -71,7 +72,8 @@ typedef struct{
 bool ordenar_x_base(void* data1,void* data2);
 void compactar_tabla_general();
 void compactar_tabla_huecos_libres();
-void compactar_memoria_usuario();
+//void compactar_memoria_usuario();
+void mostrar_tabla_aux(segm_y_pid* value);
 
 int pid;
 int main(void) {
@@ -197,8 +199,11 @@ void atender_modulos(void* data){
 				log_info(logger,"Empezando a compactar");
 				compactar_tabla_general();
 				compactar_tabla_huecos_libres();
+				sleep(5);
 				mostrar_tabla_huecos_libres();
 				mostrar_tablas_de_segmentos();
+				op_code codigo = COMPACTAR;
+				send(cliente_fd,&codigo,sizeof(op_code),0);
 				break;
 			case ACCEDER_PARA_LECTURA:
 				buffer = desempaquetar(paquete, cliente_fd);
@@ -611,17 +616,17 @@ bool ordenar_x_base(void* data1,void* data2){
 }
 
 void compactar_tabla_general(){
-	segmento * unseg = malloc(sizeof(segmento));
+	//segmento * unseg = malloc(sizeof(segmento));
 	t_list*tabla_aux=list_create();//tabla con todo junto de tabla general (tabla de segmentosypid)
 	tabla_de_proceso*tabla; //pid del proceso y lista de segmentos
-	segm_y_pid*segmento=malloc(sizeof(segm_y_pid*));
-	int seg0=1;//para que ponga el segmento 0 una sola vez
+
+	//int seg0=1;//para que ponga el segmento 0 una sola vez
 
 	for(int i=0;i<list_size(tabla_general);i++){
 		tabla=list_get(tabla_general,i);//obtengo una tabla de proceso
 
 		for(int j=0;j<list_size(tabla->segments);j++){ //cada segmento lo pongo con su pid y lo guardo en tabla_aux
-
+			segm_y_pid*segmento=malloc(sizeof(segm_y_pid*));
 			segmento->segm=list_get(tabla->segments,j);
 			segmento->pid=tabla->pid;
 			list_add(tabla_aux,segmento);
@@ -630,7 +635,18 @@ void compactar_tabla_general(){
 
 	list_sort(tabla_aux,ordenar_x_base);// ordeno la lista tabla_aux (de segmentosypid) x base
 	//ahora hay que ver q hay contiguo.
+	list_iterate(tabla_aux,(void*) mostrar_tabla_aux);
+	int base_minima = datos.tam_segmento;
+	for(int i = 1; i < list_size(tabla_aux); i++){
+		segm_y_pid* seg = list_get(tabla_aux,i);
 
+		seg->segm->direccion_base = base_minima;
+		base_minima = seg->segm->direccion_base + seg->segm->tamanio;
+
+	}
+
+	list_iterate(tabla_aux,(void*) mostrar_tabla_aux);
+	/*
 	for(int i=0;i<list_size(tabla_aux);i++){//TODO Atrapado en un bucle infinito
 
 		segm_y_pid*seg1=list_get(tabla_aux,i);
@@ -648,7 +664,26 @@ void compactar_tabla_general(){
 			list_add(tabla_aux,seg2);
 		}
 
+	}*/
+
+	for(int i = 0; i < list_size(tabla_general); i++){
+		tabla_de_proceso* tabla = list_get(tabla_general,i);
+		for(int j = 0; j < list_size(tabla_aux);j++){
+			segm_y_pid* info = list_get(tabla_aux,j);
+			if(tabla->pid == info->pid){
+				for(int g = 1; g < list_size(tabla->segments);g++){
+					segmento* seg = list_get(tabla->segments,g);
+					if(seg->id == info->segm->id){
+						seg->direccion_base = info->segm->direccion_base;
+						list_replace(tabla->segments,g,seg);
+					}
+				}
+			}
+		}
 	}
+
+
+/*
 	t_list* tabla_gen_aux=list_create();
 	//quedo la tabla compactada, hay que volver todo a su lugar
 	for(int i=0;i<list_size(tabla_general);i++){
@@ -675,9 +710,11 @@ void compactar_tabla_general(){
 	}
 	//al agregar todas las tablas de proceso a tabla_Gen_aux, luego agrego esta tabla_gen_aux a tabla_General
 	list_clean_and_destroy_elements(tabla_general,NULL);//REVISAR SI ESTA BIEN
-	list_add_all(tabla_general,tabla_gen_aux);
+	list_add_all(tabla_general,tabla_gen_aux);*/
 }
 
+
+/*
 void compactar_tabla_huecos_libres(){
 	int suma_huecos=0;
 	hueco_libre*hueco=malloc(sizeof(hueco_libre));
@@ -688,6 +725,26 @@ void compactar_tabla_huecos_libres(){
 	hueco_libre*nuevo_hueco=malloc(sizeof(hueco_libre));
 	nuevo_hueco->base=0;
 	nuevo_hueco->tamanio=suma_huecos;
-	list_clean_and_destroy_elements(tabla_huecos_libres,NULL);//REVISAR SI ESTA BIEN
+	//list_clean_and_destroy_elements(tabla_huecos_libres,NULL);//REVISAR SI ESTA BIEN
+	list_clean(tabla_huecos_libres);
+	list_add(tabla_huecos_libres,nuevo_hueco);
+}*/
+
+void mostrar_tabla_aux(segm_y_pid* value){
+	log_info(logger,"PID: %i | SEG: %i | BASE: %i | TAMANIO: %i",value->pid,value->segm->id,value->segm->direccion_base,value->segm->tamanio);
+}
+
+void compactar_tabla_huecos_libres(){
+	int suma_huecos=0;
+	//hueco_libre*hueco=malloc(sizeof(hueco_libre));
+	for(int i=0;i<list_size(tabla_huecos_libres);i++){
+		hueco_libre* hueco= list_get(tabla_huecos_libres,i);
+		suma_huecos+=hueco->tamanio;
+	}
+	hueco_libre*nuevo_hueco=malloc(sizeof(hueco_libre));
+	nuevo_hueco->base=datos.tam_memoria - suma_huecos;
+	nuevo_hueco->tamanio=suma_huecos;
+	//list_clean_and_destroy_elements(tabla_huecos_libres,NULL);//REVISAR SI ESTA BIEN
+	list_clean(tabla_huecos_libres);
 	list_add(tabla_huecos_libres,nuevo_hueco);
 }
