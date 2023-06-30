@@ -52,7 +52,7 @@ t_list* crear_segmento(int pid,int seg_id,int seg_tam);
 
 seg_aux deserializar_segmento_auxiliar(t_buffer* buffer);
 seg_aux deserializar_segmento_a_eliminar(t_buffer* buffer);
-t_list* eliminar_segmento(int pid, int seg_id);
+void eliminar_segmento(int pid, int seg_id);
 
 void enviar_tabla_actualizada(t_list* resultado,int cliente_fd);
 t_paquete* crear_paquete_tabla_actualizada(t_list* lista,op_code codigo);
@@ -75,6 +75,8 @@ void compactar_tabla_huecos_libres();
 //void compactar_memoria_usuario();
 void mostrar_tabla_aux(segm_y_pid* value);
 void combinar_huecos_libres();
+t_list* buscar_lista_segmentos(int pid);
+void eliminar_proceso(int pid);
 
 int pid;
 int main(void) {
@@ -191,10 +193,18 @@ void atender_modulos(void* data){
 				datos_aux = deserializar_segmento_auxiliar(buffer);
 
 				log_info(logger,"Eliminar segmento con pid: %i id: %i", datos_aux.pid, datos_aux.segmento.id);
-				resultado = eliminar_segmento(datos_aux.pid,datos_aux.segmento.id);
-
+				eliminar_segmento(datos_aux.pid,datos_aux.segmento.id);
+				resultado = buscar_lista_segmentos(datos_aux.pid);
 				enviar_tabla_actualizada(resultado,cliente_fd);
 
+				break;
+			case FINALIZAR:
+				buffer = desempaquetar(paquete, cliente_fd);
+				log_info(logger,"Liberando recursos");
+				int pid;
+				memcpy(&pid,buffer->stream,sizeof(int));
+
+				eliminar_proceso(pid);
 				break;
 			case REALIZAR_COMPACTACION:
 				log_info(logger,"Empezando a compactar");
@@ -463,8 +473,8 @@ t_hueco buscar_por_worst(int seg_tam){
 	return hueco_i;
 }
 
-t_list* eliminar_segmento(int pid, int seg_id){
-	t_list* tabla_a_enviar;
+void eliminar_segmento(int pid, int seg_id){
+
 	//busco la tabla del proceso
 	for(int i = 0; i < list_size(tabla_general);i++){
 		tabla_de_proceso* proc = list_get(tabla_general,i);
@@ -479,7 +489,7 @@ t_list* eliminar_segmento(int pid, int seg_id){
 					list_add(tabla_huecos_libres,hueco);
 					list_remove(proc->segments,j);
 					//Guardo la tabla de segmentos que despues le tengo que enviar al pcb para actualizar
-					tabla_a_enviar = proc->segments;
+
 					break;
 
 				}
@@ -493,6 +503,21 @@ t_list* eliminar_segmento(int pid, int seg_id){
 	combinar_huecos_libres();
 	mostrar_tabla_huecos_libres();
 	mostrar_tablas_de_segmentos();
+}
+
+t_list* buscar_lista_segmentos(int pid){
+	t_list* tabla_a_enviar;
+	//busco la tabla del proceso
+	for(int i = 0; i < list_size(tabla_general);i++){
+		tabla_de_proceso* proc = list_get(tabla_general,i);
+		if(proc->pid == pid){
+			//Ahora busco es la tabla de segmentos del proceso el segmento a eliminar
+			//Guardo la tabla de segmentos que despues le tengo que enviar al pcb para actualizar
+			tabla_a_enviar = proc->segments;
+			break;
+
+		}
+	}
 
 	return tabla_a_enviar;
 }
@@ -772,4 +797,24 @@ void combinar_huecos_libres(){
 			i--;
 		}
 	}
+}
+
+void eliminar_proceso(int pid){
+	for(int i = 0; i < list_size(tabla_general);i++){
+			tabla_de_proceso* proc = list_get(tabla_general,i);
+			if(proc->pid == pid){
+				int cant = list_size(proc->segments);
+				cant--;
+				while(cant >= 1){
+					segmento* seg = list_get(proc->segments,cant);
+					eliminar_segmento(proc->pid,seg->id);
+					cant--;
+
+				}
+
+
+				break;
+
+			}
+		}
 }

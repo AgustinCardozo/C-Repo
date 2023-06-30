@@ -75,6 +75,7 @@ void enviar_crear_segmento(int pid, int id_seg,int tamanio_seg);
 void enviar_eliminar_segmento(int pid, int id_seg,int tamanio_seg);
 void analizar_resultado(t_pcb* pcb,t_paquete* paquete,t_buffer* buffer);
 t_list* deserializar_tabla_actualizada(t_buffer* buffer);
+void enviar_eliminar_proceso(int pid);
 //int enviar_datos_a_memoria(t_pcb* pcb, int conexion, op_code codigo);
 //void enviar_segmento_con_cod(seg_aux* segmento, int conexion, op_code codigo);
 int pid;
@@ -164,7 +165,7 @@ void* atender_cpu(void){
 	paquete->buffer = malloc(sizeof(t_buffer));
 	t_pcb* pcb;
 	t_buffer* buffer;
-	int result;
+	//int result;
 
 	while(1){
 		int cod_op = recibir_operacion(conexion_cpu);
@@ -241,6 +242,7 @@ void* atender_cpu(void){
 					//mostrar_registro(pcb);
 					log_info(logger,"Finaliza el proceso <%d> - Motivo: <SUCCESS>",pcb->pid);
 					//enviar_mensaje("Tu proceso ha finalizado",pcb->conexion_consola);
+					enviar_eliminar_proceso(pcb->pid);
 					op_code c = FINALIZAR;
 					send(pcb->conexion_consola,&c,sizeof(op_code),0);
 
@@ -827,6 +829,22 @@ void enviar_eliminar_segmento(int pid, int id_seg,int tamanio_seg){
 	offset += sizeof(int);
 
 	memcpy(buffer->stream + offset, &id_seg, sizeof(int));
+	offset += sizeof(int);
+
+	paquete->buffer = buffer;
+
+	enviar_paquete(paquete,conexion_memoria);
+}
+
+void enviar_eliminar_proceso(int pid){
+	t_paquete* paquete = malloc(sizeof(t_paquete));
+	paquete->codigo_operacion = FINALIZAR;
+	t_buffer* buffer = malloc(sizeof(t_buffer));
+	int offset = 0;
+	buffer->size = sizeof(int);
+	buffer->stream = malloc(buffer->size);
+
+	memcpy(buffer->stream + offset, &pid, sizeof(int));
 	offset += sizeof(int);
 
 	paquete->buffer = buffer;
