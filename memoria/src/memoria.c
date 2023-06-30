@@ -74,6 +74,7 @@ void compactar_tabla_general();
 void compactar_tabla_huecos_libres();
 //void compactar_memoria_usuario();
 void mostrar_tabla_aux(segm_y_pid* value);
+void combinar_huecos_libres();
 
 int pid;
 int main(void) {
@@ -489,6 +490,7 @@ t_list* eliminar_segmento(int pid, int seg_id){
 		}
 	}
 	list_sort(tabla_huecos_libres,ordenar_tamanios);
+	combinar_huecos_libres();
 	mostrar_tabla_huecos_libres();
 	mostrar_tablas_de_segmentos();
 
@@ -747,4 +749,19 @@ void compactar_tabla_huecos_libres(){
 	//list_clean_and_destroy_elements(tabla_huecos_libres,NULL);//REVISAR SI ESTA BIEN
 	list_clean(tabla_huecos_libres);
 	list_add(tabla_huecos_libres,nuevo_hueco);
+}
+
+void combinar_huecos_libres(){
+	//int cant = list_size(tabla_huecos_libres);
+	for(int i = 1; i < list_size(tabla_huecos_libres);i++){
+		hueco_libre* hueco1 = list_get(tabla_huecos_libres,i-1);
+		hueco_libre* hueco2 = list_get(tabla_huecos_libres,i);
+
+		if(hueco1->base + hueco1->tamanio == hueco2->base){
+			hueco1->tamanio += hueco2->tamanio;
+
+			list_remove(tabla_huecos_libres,i);
+			i--;
+		}
+	}
 }
