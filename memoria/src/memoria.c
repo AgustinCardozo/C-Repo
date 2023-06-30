@@ -200,7 +200,7 @@ void atender_modulos(void* data){
 				log_info(logger,"Empezando a compactar");
 				compactar_tabla_general();
 				compactar_tabla_huecos_libres();
-				sleep(5);
+				//sleep(5);
 				mostrar_tabla_huecos_libres();
 				mostrar_tablas_de_segmentos();
 				op_code codigo = COMPACTAR;
@@ -668,6 +668,10 @@ void compactar_tabla_general(){
 
 	}*/
 
+	void* memoria_aux = malloc(datos.tam_memoria);
+
+	memcpy(memoria_aux,memoria_usuario,datos.tam_memoria);
+
 	for(int i = 0; i < list_size(tabla_general); i++){
 		tabla_de_proceso* tabla = list_get(tabla_general,i);
 		for(int j = 0; j < list_size(tabla_aux);j++){
@@ -676,14 +680,18 @@ void compactar_tabla_general(){
 				for(int g = 1; g < list_size(tabla->segments);g++){
 					segmento* seg = list_get(tabla->segments,g);
 					if(seg->id == info->segm->id){
+						int tamanio = info->segm->tamanio;
+						memcpy(memoria_usuario + info->segm->direccion_base,memoria_aux + seg->direccion_base,tamanio);
 						seg->direccion_base = info->segm->direccion_base;
 						list_replace(tabla->segments,g,seg);
+
 					}
 				}
 			}
 		}
 	}
 
+	free(memoria_aux);
 
 /*
 	t_list* tabla_gen_aux=list_create();
