@@ -76,14 +76,30 @@ void enviar_eliminar_segmento(int pid, int id_seg,int tamanio_seg);
 void analizar_resultado(t_pcb* pcb,t_paquete* paquete,t_buffer* buffer);
 t_list* deserializar_tabla_actualizada(t_buffer* buffer);
 void enviar_eliminar_proceso(int pid);
+void deserializar_tabla_general_actualizada(t_buffer* buffer);
 //int enviar_datos_a_memoria(t_pcb* pcb, int conexion, op_code codigo);
 //void enviar_segmento_con_cod(seg_aux* segmento, int conexion, op_code codigo);
 int pid;
+
+t_list* tabla_general;
+
+typedef struct{
+	int pid;
+	t_list* segments;
+}tabla_de_proceso;
+
+void mostrar_tablas_de_segmentos();
+t_pcb* actualizar_de_la_tabla_general(t_pcb* pcb);
+int hayQueActualizar;
 
 int main(void) {
 	pid=0;
 
 	lista_recursos = list_create();
+
+	tabla_general = list_create();
+
+	hayQueActualizar = 0;
 
 	cola.cola_new = queue_create();
 	cola.cola_ready_fifo=queue_create();
@@ -478,6 +494,7 @@ void de_ready_a_ejecutar_fifo(void){
 		while(!queue_is_empty(cola.cola_ready_fifo)){
 
 			t_pcb* pcb = quitar_de_cola_ready();
+			pcb = actualizar_de_la_tabla_general(pcb);
 			log_info(logger,"“PID: %d - Estado Anterior: READY - Estado Actual: EXEC”",pcb->pid);
 			pcb->llegadaExec = time(NULL);
 			enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
@@ -496,6 +513,7 @@ void de_ready_a_ejecutar_hrrn(void){
 			t_ahora = time(NULL);
 			list_sort(cola.cola_ready_fifo->elements,comparador_hrrn);
 			t_pcb* pcb = quitar_de_cola_ready();
+			pcb = actualizar_de_la_tabla_general(pcb);
 			log_info(logger,"“PID: %d - Estado Anterior: READY - Estado Actual: EXEC”",pcb->pid);
 			//log_info(logger,"La hora en el clock es %ld",hora);
 			pcb->llegadaExec = time(NULL);
@@ -872,6 +890,11 @@ void analizar_resultado(t_pcb* pcb,t_paquete* paquete,t_buffer* buffer){
 				break;
 			case COMPACTAR:
 				log_info(logger,"Creando de nuevo");
+				buffer = desempaquetar(paquete,conexion_memoria);
+				deserializar_tabla_general_actualizada(buffer);
+				hayQueActualizar = 1;
+				mostrar_tablas_de_segmentos();
+				pcb = actualizar_de_la_tabla_general(pcb);
 				enviar_crear_segmento(pcb->pid,pcb->dat_seg,pcb->dat_tamanio);
 				break;
 			case SIN_MEMORIA: log_info(logger,"No hay mas espacio en memoria, se termina el proceso");
@@ -902,5 +925,69 @@ t_list* deserializar_tabla_actualizada(t_buffer* buffer){
 	}
 
 	return lista;
+}
+
+void deserializar_tabla_general_actualizada(t_buffer* buffer){
+	int tamanio_tabla;
+	int offset = 0;
+	memcpy(&tamanio_tabla,buffer->stream + offset,sizeof(int));
+	offset += sizeof(int);
+	//t_list* lista = list_create();
+	for(int i = 0; i < tamanio_tabla; i++){
+		tabla_de_proceso* proc = malloc(sizeof(tabla_de_proceso));
+		memcpy(&proc->pid,buffer->stream + offset,sizeof(int));
+		offset += sizeof(int);
+		proc->segments = list_create();
+		int tam_seg;
+
+
+		memcpy(&tam_seg,buffer->stream + offset,sizeof(int));
+		offset += sizeof(int);
+
+		for(int j = 0; j < tam_seg;j++){
+			segmento* seg = malloc(sizeof(segmento));
+			memcpy(&(seg->id),buffer->stream + offset,sizeof(int));
+			offset += sizeof(int);
+			memcpy(&(seg->direccion_base),buffer->stream + offset,sizeof(int));
+			offset += sizeof(int);
+			memcpy(&(seg->tamanio),buffer->stream + offset,sizeof(int));
+			offset += sizeof(int);
+
+			list_add(proc->segments,seg);
+		}
+
+		list_add(tabla_general,proc);
+
+		//list_add(lista,seg);
+		//log_info(logger,"Segmento ID %i BASE %i TAMANIO %i",seg->id,seg->direccion_base,seg->tamanio);
+	}
+
+}
+
+void mostrar_tablas_de_segmentos(){
+	log_info(logger,"ESTA ES LA TABLA DE SEGMENTOS:");
+	for(int i = 0; i < list_size(tabla_general);i++){
+		tabla_de_proceso* pro = list_get(tabla_general,i);
+		log_info(logger,"___________________________________");
+		log_info(logger,"PROCESO %i",pro->pid);
+		for(int j = 0; j < list_size(pro->segments);j++){
+			segmento* s = list_get(pro->segments,j);
+			log_info(logger,"___________________________________");
+			log_info(logger,"Segmento: %i | Base: %i | Tamanio: %i",s->id,s->direccion_base,s->tamanio);
+		}
+	}
+	log_info(logger,"___________________________________");
+}
+
+t_pcb* actualizar_de_la_tabla_general(t_pcb* pcb){
+	if(hayQueActualizar == 1){
+		for(int i = 0; i < list_size(tabla_general);i++){
+			tabla_de_proceso* proc = list_get(tabla_general,i);
+			if(pcb->pid == proc->pid){
+				pcb->tabla_segmentos = proc->segments;
+			}
+		}
+	}
+	return pcb;
 }
 

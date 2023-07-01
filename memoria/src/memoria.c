@@ -77,6 +77,9 @@ void mostrar_tabla_aux(segm_y_pid* value);
 void combinar_huecos_libres();
 t_list* buscar_lista_segmentos(int pid);
 void eliminar_proceso(int pid);
+void enviar_tabla_general(int conexion);
+t_paquete* crear_paquete_tabla_general();
+t_buffer* serializar_tabla_general();
 
 int pid;
 int main(void) {
@@ -213,8 +216,9 @@ void atender_modulos(void* data){
 				//sleep(5);
 				mostrar_tabla_huecos_libres();
 				mostrar_tablas_de_segmentos();
-				op_code codigo = COMPACTAR;
-				send(cliente_fd,&codigo,sizeof(op_code),0);
+				//op_code codigo = COMPACTAR;
+				//send(cliente_fd,&codigo,sizeof(op_code),0);
+				enviar_tabla_general(cliente_fd);
 				break;
 			case ACCEDER_PARA_LECTURA:
 				buffer = desempaquetar(paquete, cliente_fd);
@@ -811,10 +815,73 @@ void eliminar_proceso(int pid){
 					cant--;
 
 				}
-
-
 				break;
-
 			}
 		}
+}
+
+void enviar_tabla_general(int conexion){
+	t_paquete* paquete = crear_paquete_tabla_general();
+
+	enviar_paquete_a(paquete,conexion);
+}
+
+t_paquete* crear_paquete_tabla_general(){
+	t_paquete* paquete = malloc(sizeof(t_paquete));
+	paquete->codigo_operacion = COMPACTAR;
+	paquete->buffer = serializar_tabla_general();
+
+	return paquete;
+}
+
+t_buffer* serializar_tabla_general(){
+	t_buffer* buffer = malloc(sizeof(t_buffer));
+	int offset = 0;
+	int cant_proc = list_size(tabla_general);
+	buffer->size = sizeof(int);
+
+	for(int i = 0; i < cant_proc; i++){
+		tabla_de_proceso* proc = list_get(tabla_general,i);
+
+		buffer->size += sizeof(int)*2 + list_size(proc->segments)*sizeof(int)*3;
+	}
+
+	buffer->stream = malloc(buffer->size);
+
+	memcpy(buffer->stream + offset, &cant_proc, sizeof(int));
+	offset += sizeof(int);
+
+	for(int i = 0; i < cant_proc; i++){
+		tabla_de_proceso* proc = list_get(tabla_general,i);
+		memcpy(buffer->stream + offset, &proc->pid, sizeof(int));
+		offset += sizeof(int);
+
+		int cant_seg = list_size(proc->segments);
+
+		memcpy(buffer->stream + offset, &cant_seg, sizeof(int));
+		offset += sizeof(int);
+
+		for(int j = 0; j < cant_seg;j++){
+			segmento* seg = list_get(proc->segments,j);
+
+			memcpy(buffer->stream + offset, &seg->id, sizeof(int));
+			offset += sizeof(int);
+			memcpy(buffer->stream + offset, &seg->direccion_base, sizeof(int));
+			offset += sizeof(int);
+			memcpy(buffer->stream + offset, &seg->tamanio, sizeof(int));
+			offset += sizeof(int);
+		}
+	}
+
+	return buffer;
+}
+
+t_pcb* actualizar_de_la_tabla_general(t_pcb* pcb){
+	for(int i = 0; i < list_size(tabla_general);i++){
+		tabla_de_proceso* proc = list_get(tabla_general,i);
+		if(pcb->pid == proc->pid){
+			pcb->tabla_segmentos = proc->segments;
+		}
+	}
+	return pcb;
 }
