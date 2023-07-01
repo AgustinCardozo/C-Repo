@@ -898,7 +898,10 @@ void analizar_resultado(t_pcb* pcb,t_paquete* paquete,t_buffer* buffer){
 				enviar_crear_segmento(pcb->pid,pcb->dat_seg,pcb->dat_tamanio);
 				break;
 			case SIN_MEMORIA: log_info(logger,"No hay mas espacio en memoria, se termina el proceso");
+				op_code c = FINALIZAR;
+				send(conexion_cpu,&c,sizeof(op_code),0);
 				seguir = 0;
+				send(pcb->conexion_consola,&c,sizeof(op_code),0);
 				break;
 			}
 	}

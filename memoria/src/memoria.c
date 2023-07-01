@@ -80,6 +80,7 @@ void eliminar_proceso(int pid);
 void enviar_tabla_general(int conexion);
 t_paquete* crear_paquete_tabla_general();
 t_buffer* serializar_tabla_general();
+int hay_espacio(int tamanio_segmento);
 
 int pid;
 int main(void) {
@@ -176,19 +177,26 @@ void atender_modulos(void* data){
 				//Recive del kernel el segmento a crear
 				datos_aux = deserializar_segmento_auxiliar(buffer);
 
-				log_info(logger,"Crear segmento con pid: %i id: %i con tamanio: %i ",
-						datos_aux.pid,datos_aux.segmento.id,datos_aux.segmento.tamanio);
-				//En esta funcion se crea el segmento
+				if(hay_espacio(datos_aux.segmento.tamanio) == 0){
+					log_info(logger,"Crear segmento con pid: %i id: %i con tamanio: %i ",
+							datos_aux.pid,datos_aux.segmento.id,datos_aux.segmento.tamanio);
+					//En esta funcion se crea el segmento
 
-				resultado = crear_segmento(datos_aux.pid, datos_aux.segmento.id, datos_aux.segmento.tamanio);
+					resultado = crear_segmento(datos_aux.pid, datos_aux.segmento.id, datos_aux.segmento.tamanio);
 
-				if(list_size(resultado) == 0){
-					op_code codigo = REALIZAR_COMPACTACION;
+					if(list_size(resultado) == 0){
+						op_code codigo = REALIZAR_COMPACTACION;
 
-					send(cliente_fd,&codigo,sizeof(op_code),0);
+						send(cliente_fd,&codigo,sizeof(op_code),0);
+					} else {
+						enviar_tabla_actualizada(resultado,cliente_fd);
+					}
 				} else {
-					enviar_tabla_actualizada(resultado,cliente_fd);
+					op_code codigo = SIN_MEMORIA;
+					send(cliente_fd,&codigo,sizeof(op_code),0);
 				}
+
+
 
 				break;
 			case ELIMINAR_SEGMENTO:
@@ -876,12 +884,22 @@ t_buffer* serializar_tabla_general(){
 	return buffer;
 }
 
-t_pcb* actualizar_de_la_tabla_general(t_pcb* pcb){
-	for(int i = 0; i < list_size(tabla_general);i++){
-		tabla_de_proceso* proc = list_get(tabla_general,i);
-		if(pcb->pid == proc->pid){
-			pcb->tabla_segmentos = proc->segments;
-		}
+int hay_espacio(int tamanio_segmento){
+	int suma_huecos_tamanios=0;
+	int band;
+	//hueco_libre*hueco=malloc(sizeof(hueco_libre));
+	for(int i=0;i<list_size(tabla_huecos_libres);i++){
+		hueco_libre* hueco= list_get(tabla_huecos_libres,i);
+		suma_huecos_tamanios+=hueco->tamanio;
 	}
-	return pcb;
+
+	if(tamanio_segmento <= suma_huecos_tamanios){
+		band = 0;
+	} else {
+		band = 1;
+	}
+
+	return band;
+
 }
+

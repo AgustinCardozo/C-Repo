@@ -311,6 +311,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 				break;
 			default:
 				log_info(logger,"Se acabo el proceso");
+				band_ejecutar = 1;
 				break;
 			}
 			buffer = desempaquetar(paquete,conexion_kernel);
