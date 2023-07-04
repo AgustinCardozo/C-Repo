@@ -38,6 +38,11 @@ void enviar_datos_para_lectura(int dir,int tamanio);
 //mmu
 //t_dl* obtenerDL(uint32_t dir_logica,t_pcb*pcb);
 //t_df* traducirDLaDF(t_dl* dl,t_pcb* pcb,char*accion);
+void enviar_datos_para_op_fs(t_pcb* pcb, envio_instr instrAEnviar, op_code codigo, int conexion);
+typedef struct{
+	char* nombreArchivo;
+	int datos_aux;
+}envio_instr;
 
 int main(void) {
 	logger = iniciar_logger("cpu.log","CPU");;
@@ -203,6 +208,8 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 	int df;
 	int dl;
 	int cod_op;
+	int cant_bytes;
+	envio_instr instrAEnviar;
 	t_paquete* paquete = malloc(sizeof(t_paquete));
 	paquete->buffer = malloc(sizeof(t_buffer));
 	t_buffer* buffer;
@@ -252,21 +259,68 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			break;
 		case F_OPEN:
 			log_info(logger,"Paso por f_open");
+			
+			instrAEnviar->nombreArchivo=list_get(instruccion->parametros, 0);
+			instrAEnviar->datos_aux=0;
+
+			enviar_datos_para_op_fs(pcb,instrAEnviar,ABRIR_ARCHIVO,conexion_kernel);
+
+			recv(conexion_kernel,&result,sizeof(uint32_t),MSG_WAITALL);
+
+			if(result == 0){
+				log_info(logger,"No se pudo abrir el archivo");
+				band_ejecutar = 1;
+			}else{
+				log_info(logger, "Sigue el programa");
+			}
 			break;
 		case F_CLOSE:
 			log_info(logger,"Paso por f_close");
+			
+			instrAEnviar->nombreArchivo=list_get(instruccion->parametros,0);
+			instrAEnviar->datos_aux=list_get(instruccion->parametros,1);
+
+			enviar_datos_para_op_fs(pcb,instrAEnviar,CERRAR_ARCHIVO,conexion_kernel);
 			break;
 		case F_SEEK:
 			log_info(logger,"Paso por f_seek");
+			
+			instrAEnviar->nombreArchivo=list_get(instruccion->parametros,0);
+		        instrAEnviar->datos_aux=list_get(instruccion->parametros,1); //Es la posicion
+
+		        enviar_datos_para_op_fs(pcb,instrAEnviar,ACTUALIZAR_PUNTERO,conexion_kernel);
 			break;
 		case F_READ:
 			log_info(logger,"Paso por f_read");
+
+			dl=atoi(list_get(instruccion->parametros, 1));
+		        cant_bytes = atoi(list_get(instruccion->parametros, 2));
+		        df=obtener_direccion_fisica(dl,pcb,cant_bytes);
+
+		        instrAEnviar->nombreArchivo=list_get(instruccion->parametros,0);
+		        instrAEnviar->datos_aux=list_get(instruccion->parametros,1);
+
+		        enviar_datos_para_op_fs(pcb,instrAEnviar,LEER_ARCHIVO,conexion_kernel);
 			break;
 		case F_WRITE:
 			log_info(logger,"Paso por f_write");
+			
+			dl=atoi(list_get(instruccion->parametros, 1));
+			cant_bytes=atoi(list_get(instruccion->parametros, 2));
+			df=obtener_direccion_fisica(dl,pcb,cant_bytes);
+
+			instrAEnviar->nombreArchivo=list_get(instruccion->parametros,0);
+			instrAEnviar->datos_aux=list_get(instruccion->parametros,1);
+
+		        enviar_datos_para_op_fs(pcb,instrAEnviar,ESCRIBIR_ARCHIVO,conexion_kernel);
 			break;
 		case F_TRUNCATE:
 			log_info(logger,"Paso por f_truncate");
+			
+			instrAEnviar->nombreArchivo=list_get(instruccion->parametros,0);
+			instrAEnviar->datos_aux=list_get(instruccion->parametros,1); //Es el tamanio
+
+		        enviar_datos_para_op_fs(pcb,instrAEnviar,MODIFICAR_TAMANIO,conexion_kernel);
 			break;
 		case IO:
 			log_info(logger,"Pasa por I/O");
@@ -616,3 +670,52 @@ void enviar_crear_segmento(int id_seg,int tamanio_seg,int conexion){
 	enviar_paquete(paquete,conexion);
 }
 */
+
+//------------------------------------------------------------------------//
+void enviar_datos_para_op_fs(t_pcb* pcb, envio_instr instrAEnviar, op_code codigo, int conexion){
+	t_paquete* paquete = malloc(sizeof(t_paquete));
+	paquete->codigo_operacion=codigo;
+	t_buffer* buffer = malloc(sizeof(t_buffer));
+	t_buffer* s_pcb = serializar_pcb(pcb);
+	int offset = 0;
+
+	buffer->size = s_pcb->size + sizeof(char*);
+
+	switch(codigo){
+	 case ABRIR_ARCHIVO || CERRAR_ARCHIVO:
+	     buffer->stream = malloc(buffer->size);
+
+	     memcpy(buffer->stream + offset, s_pcb->stream, s_pcb->size);
+	     offset += s_pcb->size;
+
+	     memcpy(buffer->stream + offset, &(instrAEnviar->nombreArchivo), sizeof(char*));
+	     offset += sizeof(char*);
+
+		 break;
+
+	 case LEER_ARCHIVO || ESCRIBIR_ARCHIVO || ACTUALIZAR_PUNTERO || MODIFICAR_TAMANIO:
+	     buffer->size += sizeof(int);
+	     buffer->stream = malloc(buffer->size);
+
+	     //"dato_aux" depende del contexto de la instruccion:
+	     // Para: LEER_ARCHIVO, EXCRIBIR_ARCHIVO  => df (direccion fisica).
+         // Para: ACTUALIZAR_PUNTERO => posicion a actualizar.
+	     // Para: MODIFICAR_TAMANIO => tamanio a modificar.
+
+	     memcpy(buffer->stream + offset, s_pcb->stream, s_pcb->size);
+	     offset += s_pcb->size;
+
+	     memcpy(buffer->stream + offset, &(instrAEnviar->nombreArchivo), sizeof(char*));
+	     offset += sizeof(char*);
+
+	     memcpy(buffer->stream + offset, &(instrAEnviar->datos_aux), sizeof(int));
+	     offset += sizeof(int);
+
+	     break;
+	}
+
+	paquete->buffer = buffer;
+
+	enviar_paquete(paquete, conexion);
+}
+
