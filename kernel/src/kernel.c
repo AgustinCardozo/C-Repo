@@ -20,6 +20,7 @@ int* cliente_fd;
 int conexion_cpu;
 int conexion_memoria;
 int conexion_filesystem;
+t_list* archivos_abiertos;
 //t_buffer* desempaquetar(t_paquete* paquete, int cliente_fd);
 int agregar_pid(t_buffer* buffer);
 void mostrar(t_instruccion* inst);
@@ -53,6 +54,14 @@ void ejecutar_wait(t_pcb* pcb);
 bool comparador_hrrn(void* data1,void* data2);
 void mostrar_registro(t_pcb* pcb);
 
+//SERIALIZACION
+int deserializar_df(t_buffer* buffer);
+char* deserializar_nombreArchivo(t_buffer* buffer);
+
+//ADICIONALES
+bool contiene_archivo(char* nombreArchivo);
+
+sem_t mutex_fs;
 sem_t mutex_cola_new;
 sem_t mutex_cola_ready;
 sem_t sem_multiprogramacion;
@@ -121,7 +130,7 @@ int main(void) {
 	datos.recursos = string_get_string_as_array(config_get_string_value(config,"RECURSOS"));
 	datos.instancias = string_get_string_as_array(config_get_string_value(config,"INSTANCIAS_RECURSOS"));
 
-
+        sem_init(&mutex_fs,0,1);
 	sem_init(&mutex_cola_new,0,1);
 	sem_init(&mutex_cola_ready,0,1);
 	sem_init(&sem_multiprogramacion,0,datos.multiprogramacion);
@@ -183,6 +192,8 @@ void* atender_cpu(void){
 	t_buffer* buffer;
 	//int result;
 
+	t_cola proc_bloqueados=queue_create();
+        int df;
 	while(1){
 		int cod_op = recibir_operacion(conexion_cpu);
 			switch (cod_op) {
@@ -225,6 +236,47 @@ void* atender_cpu(void){
 					pthread_create(&thread_bloqueo_IO,NULL,(void*) ejecutar_IO,pcb);
 					pthread_detach(thread_bloqueo_IO);
 					break;
+				case ABRIR_ARCHIVO:
+					log_info(logger, "Paso por Abrir_Archivo");
+					buffer=desempaquetar(paquete,conexion_cpu);
+					pcb = deserializar_pcb(buffer);
+					char* nombreArchivo = deserializar_nombreArchivo(buffer);
+					int result;
+
+					if(contiene_archivo(nombreArchivo)){
+						sem_wait(&mutex_fs);
+                                                list_add(pcb->archivos_abiertos, nombreArchivo);
+                                                queue_push(proc_bloqueados, pcb);
+                                                enviar_pcb_a(pcb,conexion_filesystem,ABRIR_ARCHIVO);
+                                                recv(conexion_filesystem, &result, sizeof(uint32_t), MSG_WAITALL);
+                                                sem_post(&mutex_fs);
+					 }else{
+                                                //enviar_archivo_a(pcb, nombreArchivo, VERIFICAR_ARCHIVO);
+				         }
+					break;
+				case CERRAR_ARCHIVO:
+					log_info(logger, "Paso por Abrir_Archivo");
+					buffer=desempaquetar(paquete,conexion_cpu);
+					pcb = deserializar_pcb(buffer);
+					char* nombreArchivo = deserializar_nombreArchivo(buffer);
+
+					if(archivoEnUso(nombreArchivo, pcb)){
+						queue_pop(proc_bloqueados, pcb);
+					}else{
+						queue_pop(proc_bloqueados, pcb);
+						list_remove(archivosAbiertos, nombreArchivo);
+					}
+				    break;
+				    /*
+				case ACTUALIZAR_PUNTERO:
+					break;
+				case LEER_ARCHIVO:
+					break;
+				case ESCRIBIR_ARCHIVO:
+					break;
+				case MODIFICAR_TAMANIO:
+					break;
+					*/
 				case CREAR_SEGMENTO:
 					buffer = desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
@@ -813,6 +865,7 @@ void enviar_segmento_con_cod(seg_aux* seg_aux, int conexion, op_code codigo){
 }
 */
 
+//--------------------------------- SERIALIZACION --------------------------------------//
 void enviar_crear_segmento(int pid, int id_seg,int tamanio_seg){
 	t_paquete* paquete = malloc(sizeof(t_paquete));
 	paquete->codigo_operacion = CREAR_SEGMENTO;
@@ -994,3 +1047,29 @@ t_pcb* actualizar_de_la_tabla_general(t_pcb* pcb){
 	return pcb;
 }
 
+int deserializar_df(t_buffer* buffer){
+	int df = malloc(sizeof(int));
+
+	int offset = buffer->size - sizeof(int);
+
+	memcpy(&df, buffer->stream + offset, sizeof(int));
+	offset += sizeof(int);
+
+	return df;
+}
+
+char* deserializar_nombreArchivo(t_buffer* buffer){
+	char* nombreArchivo = malloc(sizeof(char*));
+
+	int offset = buffer->size - sizeof(char*) - sizeof(int);
+
+	mempcy(&nombreArchivo, buffer->stream + offset, sizeof(char*));
+	offset += sizeof(char*);
+
+	return nombreArchivo;
+}
+//-------------------------------------ADICIONALES----------------------------------//
+bool contiene_archivo(char* nombreArchivo){
+	//TODO implementar la condicion cuando este resuelto la tabla de archivos abiertos
+	return 1;
+}
