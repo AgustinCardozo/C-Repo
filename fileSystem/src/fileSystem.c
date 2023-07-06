@@ -4,7 +4,7 @@
  Author      : EstaEsLaVencida
  Version     :
  Copyright   : Your copyright notice
- Description : Hello World in C, Ansi-style
+ Description : Modulo de FileSystem
  ============================================================================
  */
 #include <stdio.h>
@@ -26,7 +26,30 @@ int main(void) {
 	int block_size = config_get_int_value(config_superbloque, "BLOCK_SIZE");
 	int block_count = config_get_int_value(config_superbloque, "BLOCK_COUNT");
 
+	int tamanioBitmap = convertir_byte_a_bit(block_count);
+	set_tamanio_archivo(bitmap, convertir_byte_a_bit(block_count));
+
+	int fd = fd = open("/home/utnso/fs/BITMAPA.dat", O_RDWR | O_CREAT , S_IRUSR | S_IWUSR);
+	ftruncate(fd, tamanioBitmap);
+	int *map = mmap(NULL, tamanioBitmap, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+	if (map == MAP_FAILED) {
+		log_error(logger, "Error al mapear el archivo");
+		exit(EXIT_FAILURE);
+    }
+	printf("Datos iniciales: %i\n", map[0]);
+    map[0] = 3;
+	printf("Datos iniciales: %i\n", map[0]);
 	log_info(logger,"block_size: %i \tblock_count: %i", block_size, block_count);
+	log_info(logger, "convertir block_count: %i", convertir_byte_a_bit(block_count));
+
+	void* puntero_a_bits = malloc(1);//un byte de memoria, como por ejemplo malloc(1)
+	// *			bitarray_create(puntero_a_bits, 1)
+	bitarray = bitarray_create(puntero_a_bits, 1);
+	// bitarray_get_max_bit
+	bitarray_set_bit(bitarray, 0);
+	bitarray_set_bit(bitarray, 0);
+
+	log_info(logger, "tamanio del bitmap: %i", (int)bitarray_test_bit(bitarray, 0));
 
 	pthread_create(&hilo_conexion_kernel,NULL,(void*) atender_kernel,NULL);
 	pthread_create(&hilo_conexion_memoria,NULL,(void*) atender_memoria,NULL);
@@ -36,6 +59,18 @@ int main(void) {
 
 	finalizar_fs();
 	return EXIT_SUCCESS;
+}
+
+int convertir_byte_a_bit(int block_count){
+	return block_count/8;
+}
+
+int cantidad_punteros_por_bloques(int block_size){
+	return block_size/TAMANIO_DE_PUNTERO; 
+}
+
+int tamanio_maximo_teorico_archivo(){
+	//TODO: implementar
 }
 
 void inicializar_config(){
@@ -48,19 +83,25 @@ void inicializar_config(){
 	datos.path_fcb = config_get_string_value(config,"PATH_FCB");
 	datos.ret_acceso_bloque = config_get_int_value(config,"RETARDO_ACCESO_BLOQUE");
 
-	reemplazar_y_concatenar_palabra(datos.path_superbloque, "~/fs/sbloque.dat", "/home/utnso/fs/", "superbloque.dat");
-	reemplazar_y_concatenar_palabra(datos.path_bitmap, "~/fs", "/home/utnso/fs/", "bitmap.dat");
-	reemplazar_y_concatenar_palabra(datos.path_bloques, "~/fs", "/home/utnso/fs/", "bloques.dat");
-	reemplazar_y_concatenar_palabra(datos.path_fcb, "~/fs", "/home/utnso/fs/", "fcb");
+	// reemplazar_y_concatenar_palabra(datos.path_superbloque, "~/fs/sbloque.dat", "/home/utnso/fs/", "superbloque.dat");
+	// reemplazar_y_concatenar_palabra(datos.path_bitmap, "~/fs", "/home/utnso/fs/", "bitmap.dat");
+	// reemplazar_y_concatenar_palabra(datos.path_bloques, "~/fs", "/home/utnso/fs/", "bloques.dat");
+	// reemplazar_y_concatenar_palabra(datos.path_fcb, "~/fs", "/home/utnso/fs/", "fcb");
 
 }
 
+void set_tamanio_archivo(FILE* bloques, int tamanioBloque){
+    if (ftruncate(fileno(bloques), tamanioBloque) == -1) {
+        perror("Error al establecer el tamaño del archivo");
+        exit(EXIT_FAILURE);
+    }
+}
+
 void iniciar_estructura_fs(const char *contenidos[]){
-	int valor = mkdir(PATH, 0777); //TODO: preguntar si existe la carpeta o si lo tenemos q crear
+	int valor = mkdir(PATH, 0777);
 	if(valor < 0){
 		log_warning(logger, "Ya existe el directo(%s)", PATH);
 	}
-
 	int num_contenidos = sizeof(contenido_superbloque) / sizeof(contenido_superbloque[0]);
 	crear_archivo(datos.path_superbloque, contenido_superbloque, num_contenidos);
 	config_superbloque = iniciar_config_fs(datos.path_superbloque);
@@ -70,8 +111,29 @@ void iniciar_estructura_fs(const char *contenidos[]){
 	
 	//Si existe la carpeta crea los archivos
 	bitmap = fopen(datos.path_bitmap,"a");
+	crear_bloque(bloques, config_superbloque);
+	// bloques = fopen(datos.path_bloques,"a");
+	valor = mkdir(datos.path_fcb, 0777);
+	if(valor < 0){
+		log_warning(logger, "Ya existe el directo(%s)", PATH);
+	}
+}
+
+void crear_bloque(FILE* bloques, t_config* config_superbloque){
 	bloques = fopen(datos.path_bloques,"a");
-	fcb = fopen(datos.path_fcb,"a");
+	int block_size = config_get_int_value(config_superbloque, "BLOCK_SIZE");
+	int block_count = config_get_int_value(config_superbloque, "BLOCK_COUNT");
+
+	int tamanioBloque = block_size * block_count;
+	set_tamanio_archivo(bloques, tamanioBloque);
+}
+
+//TODO: revisar
+char* crear_archivo_fcb(char* path_name){
+	crear_estructuras(path_name);
+	set_tamanio_archivo(fcb, 0);
+	fclose(fcb);
+	return "OK";
 }
 
 t_config* iniciar_config_fs(char * path) {
