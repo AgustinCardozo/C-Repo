@@ -32,6 +32,12 @@ typedef enum
 	INICIALIZAR_ESTRUCTURA,
 	ACCEDER_PARA_LECTURA,
 	ACCEDER_PARA_ESCRITURA,
+	ABRIR_ARCHIVO,
+	CERRAR_ARCHIVO,
+	LEER_ARCHIVO,
+	ESCRIBIR_ARCHIVO,
+	ACTUALIZAR_PUNTERO,
+	MODIFICAR_TAMANIO,
 	CREAR_SEGMENTO,
 	ELIMINAR_SEGMENTO,
 	REALIZAR_COMPACTACION,
@@ -39,7 +45,9 @@ typedef enum
 	COMPACTAR,
 	SIN_MEMORIA,
 	SEGMENTO_ELIMINADO,
-	CREAR_OTRA_VEZ
+	CREAR_OTRA_VEZ,
+	SIN_PARAMETRO,
+	CON_PARAMETRO
 }op_code;
 
 typedef struct{
@@ -90,6 +98,10 @@ typedef struct{
 	int tamanio;
 }segmento;
 
+typedef struct{
+	char* nombreArchivo;
+	int datos_aux;
+}envio_instr;
 
 
 typedef struct{

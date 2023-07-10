@@ -39,15 +39,10 @@ void enviar_datos_para_lectura(int dir,int tamanio);
 //t_dl* obtenerDL(uint32_t dir_logica,t_pcb*pcb);
 //t_df* traducirDLaDF(t_dl* dl,t_pcb* pcb,char*accion);
 void enviar_datos_para_op_fs(t_pcb* pcb, envio_instr instrAEnviar, op_code codigo, int conexion);
-typedef struct{
-	char* nombreArchivo;
-	int datos_aux;
-}envio_instr;
 
 int main(void) {
 	logger = iniciar_logger("cpu.log","CPU");;
 	config = iniciar_config("cpu.config");
-	band_ejecutar = 0;
 
 	datos.ip_memoria = config_get_string_value(config,"IP_MEMORIA");
 	datos.puerto_memoria = config_get_string_value(config,"PUERTO_MEMORIA");
@@ -260,10 +255,10 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 		case F_OPEN:
 			log_info(logger,"Paso por f_open");
 			
-			instrAEnviar->nombreArchivo=list_get(instruccion->parametros, 0);
-			instrAEnviar->datos_aux=0;
+			instrAEnviar.nombreArchivo=list_get(instruccion->parametros, 0);
+			instrAEnviar.datos_aux=0;
 
-			enviar_datos_para_op_fs(pcb,instrAEnviar,ABRIR_ARCHIVO,conexion_kernel);
+			enviar_datos_para_op_fs(pcb,instrAEnviar,SIN_PARAMETRO,conexion_kernel);
 
 			recv(conexion_kernel,&result,sizeof(uint32_t),MSG_WAITALL);
 
@@ -277,18 +272,18 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 		case F_CLOSE:
 			log_info(logger,"Paso por f_close");
 			
-			instrAEnviar->nombreArchivo=list_get(instruccion->parametros,0);
-			instrAEnviar->datos_aux=list_get(instruccion->parametros,1);
+			instrAEnviar.nombreArchivo=list_get(instruccion->parametros,0);
+			instrAEnviar.datos_aux=list_get(instruccion->parametros,1);
 
-			enviar_datos_para_op_fs(pcb,instrAEnviar,CERRAR_ARCHIVO,conexion_kernel);
+			enviar_datos_para_op_fs(pcb,instrAEnviar,SIN_PARAMETRO,conexion_kernel);
 			break;
 		case F_SEEK:
 			log_info(logger,"Paso por f_seek");
 			
-			instrAEnviar->nombreArchivo=list_get(instruccion->parametros,0);
-		        instrAEnviar->datos_aux=list_get(instruccion->parametros,1); //Es la posicion
+			instrAEnviar.nombreArchivo=list_get(instruccion->parametros,0);
+		    instrAEnviar.datos_aux=list_get(instruccion->parametros,1); //Es la posicion
 
-		        enviar_datos_para_op_fs(pcb,instrAEnviar,ACTUALIZAR_PUNTERO,conexion_kernel);
+		    enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;
 		case F_READ:
 			log_info(logger,"Paso por f_read");
@@ -297,10 +292,10 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 		        cant_bytes = atoi(list_get(instruccion->parametros, 2));
 		        df=obtener_direccion_fisica(dl,pcb,cant_bytes);
 
-		        instrAEnviar->nombreArchivo=list_get(instruccion->parametros,0);
-		        instrAEnviar->datos_aux=list_get(instruccion->parametros,1);
+		        instrAEnviar.nombreArchivo=list_get(instruccion->parametros,0);
+		        instrAEnviar.datos_aux=list_get(instruccion->parametros,1);
 
-		        enviar_datos_para_op_fs(pcb,instrAEnviar,LEER_ARCHIVO,conexion_kernel);
+		        enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;
 		case F_WRITE:
 			log_info(logger,"Paso por f_write");
@@ -309,18 +304,18 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			cant_bytes=atoi(list_get(instruccion->parametros, 2));
 			df=obtener_direccion_fisica(dl,pcb,cant_bytes);
 
-			instrAEnviar->nombreArchivo=list_get(instruccion->parametros,0);
-			instrAEnviar->datos_aux=list_get(instruccion->parametros,1);
+			instrAEnviar.nombreArchivo=list_get(instruccion->parametros,0);
+			instrAEnviar.datos_aux=list_get(instruccion->parametros,1);
 
-		        enviar_datos_para_op_fs(pcb,instrAEnviar,ESCRIBIR_ARCHIVO,conexion_kernel);
+		        enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;
 		case F_TRUNCATE:
 			log_info(logger,"Paso por f_truncate");
 			
-			instrAEnviar->nombreArchivo=list_get(instruccion->parametros,0);
-			instrAEnviar->datos_aux=list_get(instruccion->parametros,1); //Es el tamanio
+			instrAEnviar.nombreArchivo=list_get(instruccion->parametros,0);
+			instrAEnviar.datos_aux=list_get(instruccion->parametros,1); //Es el tamanio
 
-		        enviar_datos_para_op_fs(pcb,instrAEnviar,MODIFICAR_TAMANIO,conexion_kernel);
+		        enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;
 		case IO:
 			log_info(logger,"Pasa por I/O");
@@ -682,18 +677,18 @@ void enviar_datos_para_op_fs(t_pcb* pcb, envio_instr instrAEnviar, op_code codig
 	buffer->size = s_pcb->size + sizeof(char*);
 
 	switch(codigo){
-	 case ABRIR_ARCHIVO || CERRAR_ARCHIVO:
+	 case (SIN_PARAMETRO):
 	     buffer->stream = malloc(buffer->size);
 
 	     memcpy(buffer->stream + offset, s_pcb->stream, s_pcb->size);
 	     offset += s_pcb->size;
 
-	     memcpy(buffer->stream + offset, &(instrAEnviar->nombreArchivo), sizeof(char*));
-	     offset += sizeof(char*);
+	     memcpy(buffer->stream + offset, &(instrAEnviar.nombreArchivo), strlen(instrAEnviar.nombreArchivo) + 1);
+	     offset += strlen(instrAEnviar.nombreArchivo) + 1;
 
 		 break;
 
-	 case LEER_ARCHIVO || ESCRIBIR_ARCHIVO || ACTUALIZAR_PUNTERO || MODIFICAR_TAMANIO:
+	 case CON_PARAMETRO:
 	     buffer->size += sizeof(int);
 	     buffer->stream = malloc(buffer->size);
 
@@ -705,10 +700,10 @@ void enviar_datos_para_op_fs(t_pcb* pcb, envio_instr instrAEnviar, op_code codig
 	     memcpy(buffer->stream + offset, s_pcb->stream, s_pcb->size);
 	     offset += s_pcb->size;
 
-	     memcpy(buffer->stream + offset, &(instrAEnviar->nombreArchivo), sizeof(char*));
-	     offset += sizeof(char*);
+	     memcpy(buffer->stream + offset, &(instrAEnviar.nombreArchivo), strlen(instrAEnviar.nombreArchivo) + 1);
+	     offset += strlen(instrAEnviar.nombreArchivo) + 1;
 
-	     memcpy(buffer->stream + offset, &(instrAEnviar->datos_aux), sizeof(int));
+	     memcpy(buffer->stream + offset, &(instrAEnviar.datos_aux), sizeof(int));
 	     offset += sizeof(int);
 
 	     break;

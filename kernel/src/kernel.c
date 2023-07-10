@@ -60,6 +60,7 @@ char* deserializar_nombreArchivo(t_buffer* buffer);
 
 //ADICIONALES
 bool contiene_archivo(char* nombreArchivo);
+bool archivoEnUso(char* nombreArchivo, t_pcb* pcb);
 
 sem_t mutex_fs;
 sem_t mutex_cola_new;
@@ -192,7 +193,7 @@ void* atender_cpu(void){
 	t_buffer* buffer;
 	//int result;
 
-	t_cola proc_bloqueados=queue_create();
+	//t_cola proc_bloqueados=queue_create();
         int df;
 	while(1){
 		int cod_op = recibir_operacion(conexion_cpu);
@@ -240,13 +241,13 @@ void* atender_cpu(void){
 					log_info(logger, "Paso por Abrir_Archivo");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
-					char* nombreArchivo = deserializar_nombreArchivo(buffer);
+					char* nombreArchivo1 = deserializar_nombreArchivo(buffer);
 					int result;
 
-					if(contiene_archivo(nombreArchivo)){
+					if(contiene_archivo(nombreArchivo1)){
 						sem_wait(&mutex_fs);
-                                                list_add(pcb->archivos_abiertos, nombreArchivo);
-                                                queue_push(proc_bloqueados, pcb);
+                                                list_add(pcb->archivos_abiertos, nombreArchivo1);
+                                                //queue_push(proc_bloqueados, pcb);
                                                 enviar_pcb_a(pcb,conexion_filesystem,ABRIR_ARCHIVO);
                                                 recv(conexion_filesystem, &result, sizeof(uint32_t), MSG_WAITALL);
                                                 sem_post(&mutex_fs);
@@ -258,13 +259,13 @@ void* atender_cpu(void){
 					log_info(logger, "Paso por Abrir_Archivo");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
-					char* nombreArchivo = deserializar_nombreArchivo(buffer);
+					char* nombreArchivo2 = deserializar_nombreArchivo(buffer);
 
-					if(archivoEnUso(nombreArchivo, pcb)){
-						queue_pop(proc_bloqueados, pcb);
+					if(archivoEnUso(nombreArchivo2, pcb)){
+						//queue_push(proc_bloqueados, pcb);
 					}else{
-						queue_pop(proc_bloqueados, pcb);
-						list_remove(archivosAbiertos, nombreArchivo);
+						//queue_push(proc_bloqueados, pcb);
+						list_remove(archivos_abiertos, nombreArchivo2);
 					}
 				    break;
 				    /*
@@ -950,7 +951,8 @@ void analizar_resultado(t_pcb* pcb,t_paquete* paquete,t_buffer* buffer){
 				pcb = actualizar_de_la_tabla_general(pcb);
 				enviar_crear_segmento(pcb->pid,pcb->dat_seg,pcb->dat_tamanio);
 				break;
-			case SIN_MEMORIA: log_info(logger,"No hay mas espacio en memoria, se termina el proceso");
+			case SIN_MEMORIA:
+				log_info(logger,"No hay mas espacio en memoria, se termina el proceso");
 				op_code c = FINALIZAR;
 				send(conexion_cpu,&c,sizeof(op_code),0);
 				seguir = 0;
@@ -1063,13 +1065,16 @@ char* deserializar_nombreArchivo(t_buffer* buffer){
 
 	int offset = buffer->size - sizeof(char*) - sizeof(int);
 
-	mempcy(&nombreArchivo, buffer->stream + offset, sizeof(char*));
-	offset += sizeof(char*);
+	memcpy(&nombreArchivo, buffer->stream + offset, strlen(nombreArchivo) + 1);
 
 	return nombreArchivo;
 }
 //-------------------------------------ADICIONALES----------------------------------//
 bool contiene_archivo(char* nombreArchivo){
 	//TODO implementar la condicion cuando este resuelto la tabla de archivos abiertos
+	return 1;
+}
+
+bool archivoEnUso(char* nombreArchivo, t_pcb* pcb){
 	return 1;
 }
