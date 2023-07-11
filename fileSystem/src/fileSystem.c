@@ -26,12 +26,13 @@ int main(void) {
 	int block_size = config_get_int_value(config_superbloque, "BLOCK_SIZE");
 	int block_count = config_get_int_value(config_superbloque, "BLOCK_COUNT");
 
-	int tamanioBitmap = convertir_byte_a_bit(block_count);
+	int tamanio_bitmap = convertir_byte_a_bit(block_count);
 	set_tamanio_archivo(bitmap, convertir_byte_a_bit(block_count));
 
+	// char* path = datos.path_bitmap; 
 	int fd = fd = open("/home/utnso/fs/BITMAPA.dat", O_RDWR | O_CREAT , S_IRUSR | S_IWUSR);
-	ftruncate(fd, tamanioBitmap);
-	int *map = mmap(NULL, tamanioBitmap, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+	ftruncate(fd, tamanio_bitmap);
+	int *map = mmap(NULL, tamanio_bitmap, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 	if (map == MAP_FAILED) {
 		log_error(logger, "Error al mapear el archivo");
 		exit(EXIT_FAILURE);
@@ -50,6 +51,29 @@ int main(void) {
 	bitarray_set_bit(bitarray, 0);
 
 	log_info(logger, "tamanio del bitmap: %i", (int)bitarray_test_bit(bitarray, 0));
+
+	char* str1 = "/";
+    char* nombre_archivo = "test_fcb";    
+    char resultado[50];
+	char directorio[100];
+
+	strcpy(directorio, datos.path_fcb);
+    strcpy(resultado, str1); 
+    strcat(resultado, nombre_archivo); 
+	strcpy(resultado, strcat(directorio, resultado));
+    // char* resultado = concatenar_path(nombre_archivo);
+
+	log_info(logger, "%s", resultado);
+	log_info(logger,"PATH_FCB: %s", datos.path_fcb);
+	//TODO
+	if(abrir_archivo_fcb(datos.path_fcb, nombre_archivo) == "ERROR"){
+		log_error(logger, "No existe el archivo: %s", nombre_archivo);
+	};
+	char* lala = crear_archivo_fcb(resultado);
+	printf("%s\n", lala);
+	log_info(logger, "Crear Archivo: %s", "test_fcb");
+	lala = abrir_archivo_fcb(datos.path_fcb, nombre_archivo);
+	printf("%s\n", lala);
 
 	pthread_create(&hilo_conexion_kernel,NULL,(void*) atender_kernel,NULL);
 	pthread_create(&hilo_conexion_memoria,NULL,(void*) atender_memoria,NULL);
@@ -91,6 +115,19 @@ void inicializar_config(){
 
 }
 
+char* concatenar_path(char* nombre_archivo){
+	char* str1 = "/";
+    char resultado[50];
+	char directorio[100];
+
+	strcpy(directorio, datos.path_fcb);
+    strcpy(resultado, str1); 
+    strcat(resultado, nombre_archivo); 
+	strcpy(resultado, strcat(directorio, resultado));
+
+	return resultado;
+}
+
 void set_tamanio_archivo(FILE* bloques, int tamanioBloque){
     if (ftruncate(fileno(bloques), tamanioBloque) == -1) {
         perror("Error al establecer el tamaño del archivo");
@@ -130,11 +167,34 @@ void crear_bloque(FILE* bloques, t_config* config_superbloque){
 }
 
 //TODO: revisar
-char* crear_archivo_fcb(char* path_name){
-	crear_estructuras(path_name);
+char* crear_archivo_fcb(char path_name[]){
+	FILE* fcb = crear_estructuras(path_name);
 	set_tamanio_archivo(fcb, 0);
 	fclose(fcb);
 	return "OK";
+}
+
+char* abrir_archivo_fcb(char* directorio, char* nombre_archivo){
+	// return access(path_name, F_OK) == 0 ? "ERROR" : "OK";
+    DIR* dir = opendir(directorio);
+
+    if (dir == NULL) {
+        log_error(logger, "No se pudo abrir el directorio: %s", directorio);
+        return "ERROR";
+    }
+
+    struct dirent* entry;
+
+    while ((entry = readdir(dir)) != NULL) {
+        if (strcmp(entry->d_name, nombre_archivo) == 0) {
+            return "OK";
+            closedir(dir);
+        }
+    }
+
+    return "ERROR";
+    closedir(dir);
+
 }
 
 t_config* iniciar_config_fs(char * path) {

@@ -23,6 +23,7 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <assert.h>
+#include <dirent.h>
 
 #define FS_LOG "filesySystem.log"
 #define FS_CONFIG "fileSystem.config"
@@ -76,9 +77,12 @@ pthread_t hilo_conexion_memoria;
 void* atender_kernel(void);
 void* atender_memoria(void);
 
+char* abrir_archivo_fcb(char*, char*);
 void crear_archivo(const char*, const char *contenidos[], int);
+char* crear_archivo_fcb(char path_name[]);
 void crear_bloque(FILE*, t_config*);
 FILE* crear_estructuras(char*);
+char* concatenar_path(char*);
 int convertir_byte_a_bit(int);
 void finalizar_fs();
 void inicializar_config();
