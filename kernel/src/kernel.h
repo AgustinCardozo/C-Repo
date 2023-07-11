@@ -57,6 +57,12 @@ typedef struct{
 	sem_t sem_recurso;
 }t_recurso;
 
+typedef struct{
+	char* directorio;
+	t_queue* cola_archivo;
+	sem_t sem_archivo;
+}t_archivo;
+
 void iterator(char* value);
 void atender_consolas(void* data);
 #endif /* KERNEL_H_ */

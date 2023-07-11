@@ -33,7 +33,9 @@ typedef enum
 	ACCEDER_PARA_LECTURA,
 	ACCEDER_PARA_ESCRITURA,
 	ABRIR_ARCHIVO,
+	CREAR_ARCHIVO,
 	CERRAR_ARCHIVO,
+	EXISTE_ARCHIVO,
 	LEER_ARCHIVO,
 	ESCRIBIR_ARCHIVO,
 	ACTUALIZAR_PUNTERO,
@@ -66,6 +68,11 @@ typedef struct
 	op_code codigo_operacion;
 	t_buffer* buffer;
 }t_paquete;
+
+typedef struct{
+	char* dir;
+	int punt;
+}info_arch;
 
 typedef enum
 {
@@ -136,7 +143,7 @@ typedef struct{
 	t_list* archivos_abiertos;
 	int conexion_consola;
 	int dat_seg;
-	int dat_tamanio;
+	int dat_tamanio; // ESTE TAMBIEN VA A SER EL TAMANIO DE LO QUE SE VA A TRUNCAR
 	char* arch_a_abrir;
 	int posicion;
 	int df_fs;

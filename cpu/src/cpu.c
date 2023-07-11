@@ -203,8 +203,8 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 	int df;
 	int dl;
 	int cod_op;
-	int cant_bytes;
-	envio_instr instrAEnviar;
+	//int cant_bytes;
+	//envio_instr instrAEnviar;
 	t_paquete* paquete = malloc(sizeof(t_paquete));
 	paquete->buffer = malloc(sizeof(t_buffer));
 	t_buffer* buffer;
@@ -255,11 +255,11 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 		case F_OPEN:
 			log_info(logger,"Paso por f_open");
 			
-			instrAEnviar.nombreArchivo=list_get(instruccion->parametros, 0);
-			instrAEnviar.datos_aux=0;
+			pcb->arch_a_abrir=list_get(instruccion->parametros, 0);
+			//instrAEnviar.datos_aux=0;
 
-			enviar_datos_para_op_fs(pcb,instrAEnviar,SIN_PARAMETRO,conexion_kernel);
-
+			//enviar_datos_para_op_fs(pcb,instrAEnviar,SIN_PARAMETRO,conexion_kernel);
+			enviar_pcb_a(pcb,conexion_kernel,ABRIR_ARCHIVO);
 			recv(conexion_kernel,&result,sizeof(uint32_t),MSG_WAITALL);
 
 			if(result == 0){
@@ -272,50 +272,85 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 		case F_CLOSE:
 			log_info(logger,"Paso por f_close");
 			
-			instrAEnviar.nombreArchivo=list_get(instruccion->parametros,0);
-			instrAEnviar.datos_aux=atoi(list_get(instruccion->parametros,1));
-
-			enviar_datos_para_op_fs(pcb,instrAEnviar,SIN_PARAMETRO,conexion_kernel);
+			pcb->arch_a_abrir=list_get(instruccion->parametros,0);
+			//instrAEnviar.datos_aux=atoi(list_get(instruccion->parametros,1));
+			enviar_pcb_a(pcb,conexion_kernel,CERRAR_ARCHIVO);
+			//enviar_datos_para_op_fs(pcb,instrAEnviar,SIN_PARAMETRO,conexion_kernel);
+			recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
+			if(result == 0){
+				log_info(logger,"El proceso se bloqueo o no existe");
+				band_ejecutar = 1;
+			} else {
+				log_info(logger,"El programa sigue");
+			}
 			break;
 		case F_SEEK:
 			log_info(logger,"Paso por f_seek");
 			
-			instrAEnviar.nombreArchivo=list_get(instruccion->parametros,0);
-		    instrAEnviar.datos_aux=atoi(list_get(instruccion->parametros,1)); //Es la posicion
-
-		    enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
+			pcb->arch_a_abrir=list_get(instruccion->parametros,0);
+		    pcb->posicion=atoi(list_get(instruccion->parametros,1)); //Es la posicion
+		    enviar_pcb_a(pcb,conexion_kernel,ACTUALIZAR_PUNTERO);
+		    recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
+			if(result == 0){
+				log_info(logger,"El proceso se bloqueo o no existe");
+				band_ejecutar = 1;
+			} else {
+				log_info(logger,"El programa sigue");
+			}
+		    //enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;
 		case F_READ:
 			log_info(logger,"Paso por f_read");
 
 			dl=atoi(list_get(instruccion->parametros, 1));
-		        cant_bytes = atoi(list_get(instruccion->parametros, 2));
-		        df=obtener_direccion_fisica(dl,pcb,cant_bytes);
+		    pcb->cant_bytes = atoi(list_get(instruccion->parametros, 2));
+		    pcb->df_fs=obtener_direccion_fisica(dl,pcb,pcb->cant_bytes);
 
-		        instrAEnviar.nombreArchivo=list_get(instruccion->parametros,0);
-		        instrAEnviar.datos_aux=atoi(list_get(instruccion->parametros,1));
-
-		        enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
+		    pcb->arch_a_abrir=list_get(instruccion->parametros,0);
+		    //instrAEnviar.datos_aux=atoi(list_get(instruccion->parametros,1));
+		    enviar_pcb_a(pcb,conexion_kernel,LEER_ARCHIVO);
+		    recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
+			if(result == 0){
+				log_info(logger,"El proceso se bloqueo o no existe");
+				band_ejecutar = 1;
+			} else {
+				log_info(logger,"El programa sigue");
+			}
+		    //enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;
 		case F_WRITE:
 			log_info(logger,"Paso por f_write");
 			
 			dl=atoi(list_get(instruccion->parametros, 1));
-			cant_bytes=atoi(list_get(instruccion->parametros, 2));
-			df=obtener_direccion_fisica(dl,pcb,cant_bytes);
+			pcb->cant_bytes=atoi(list_get(instruccion->parametros, 2));
+			pcb->df_fs=obtener_direccion_fisica(dl,pcb,pcb->cant_bytes);
 
-			instrAEnviar.nombreArchivo=list_get(instruccion->parametros,0);
-			instrAEnviar.datos_aux=atoi(list_get(instruccion->parametros,1));
-
-		        enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
+			pcb->arch_a_abrir=list_get(instruccion->parametros,0);
+			//instrAEnviar.datos_aux=atoi(list_get(instruccion->parametros,1));
+			enviar_pcb_a(pcb,conexion_kernel,ESCRIBIR_ARCHIVO);
+			recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
+			if(result == 0){
+				log_info(logger,"El proceso se bloqueo o no existe");
+				band_ejecutar = 1;
+			} else {
+				log_info(logger,"El programa sigue");
+			}
+		    //enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;
 		case F_TRUNCATE:
 			log_info(logger,"Paso por f_truncate");
 			
-			instrAEnviar.nombreArchivo=list_get(instruccion->parametros,0);
-			instrAEnviar.datos_aux=atoi(list_get(instruccion->parametros,1)); //Es el tamanio
-
-		        enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
+			pcb->arch_a_abrir=list_get(instruccion->parametros,0);
+			pcb->dat_tamanio=atoi(list_get(instruccion->parametros,1)); //Es el tamanio
+			enviar_pcb_a(pcb,conexion_kernel,MODIFICAR_TAMANIO);
+			recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
+			if(result == 0){
+				log_info(logger,"El proceso se bloqueo o no existe");
+				band_ejecutar = 1;
+			} else {
+				log_info(logger,"El programa sigue");
+			}
+		    //enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;
 		case IO:
 			log_info(logger,"Pasa por I/O");

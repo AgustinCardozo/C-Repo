@@ -59,8 +59,7 @@ int deserializar_df(t_buffer* buffer);
 char* deserializar_nombreArchivo(t_buffer* buffer);
 
 //ADICIONALES
-bool contiene_archivo(char* nombreArchivo);
-bool archivoEnUso(char* nombreArchivo, t_pcb* pcb);
+//bool archivoEnUso(char* nombreArchivo);
 
 sem_t mutex_fs;
 sem_t mutex_cola_new;
@@ -75,8 +74,10 @@ pthread_t hilo_atender_consolas;
 pthread_t thread_ejecutar;
 pthread_t thread_recurso;
 pthread_t thread_bloqueo_IO;
+pthread_t thread_archivo_abiertos;
 
 t_list* lista_recursos;
+t_list* lista_archivos_abiertos;
 
 int t_ahora;
 
@@ -87,6 +88,10 @@ void analizar_resultado(t_pcb* pcb,t_paquete* paquete,t_buffer* buffer);
 t_list* deserializar_tabla_actualizada(t_buffer* buffer);
 void enviar_eliminar_proceso(int pid);
 void deserializar_tabla_general_actualizada(t_buffer* buffer);
+int contiene_archivo(t_pcb* pcb, char* nombreArchivo);
+void* iniciar_archivo(void* data);
+void crear_archivo(char* nombreArchivo);
+void cerrar_archivo(char* nombreArchivo);
 //int enviar_datos_a_memoria(t_pcb* pcb, int conexion, op_code codigo);
 //void enviar_segmento_con_cod(seg_aux* segmento, int conexion, op_code codigo);
 int pid;
@@ -106,7 +111,7 @@ int main(void) {
 	pid=0;
 
 	lista_recursos = list_create();
-
+	lista_archivos_abiertos = list_create();
 	tabla_general = list_create();
 
 	hayQueActualizar = 0;
@@ -131,7 +136,7 @@ int main(void) {
 	datos.recursos = string_get_string_as_array(config_get_string_value(config,"RECURSOS"));
 	datos.instancias = string_get_string_as_array(config_get_string_value(config,"INSTANCIAS_RECURSOS"));
 
-        sem_init(&mutex_fs,0,1);
+    sem_init(&mutex_fs,0,1);
 	sem_init(&mutex_cola_new,0,1);
 	sem_init(&mutex_cola_ready,0,1);
 	sem_init(&sem_multiprogramacion,0,datos.multiprogramacion);
@@ -194,7 +199,7 @@ void* atender_cpu(void){
 	//int result;
 
 	//t_cola proc_bloqueados=queue_create();
-    int df;
+    //int df;
 	while(1){
 		int cod_op = recibir_operacion(conexion_cpu);
 			switch (cod_op) {
@@ -241,6 +246,33 @@ void* atender_cpu(void){
 					log_info(logger, "Paso por Abrir_Archivo");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
+
+					if(contiene_archivo(pcb,pcb->arch_a_abrir)){
+						//enviar mensaje al cpu que debe continuar por que se bloqueo
+					} else {
+						//enviar mensaje al filesystem a ber si existe el archivo
+						enviar_pcb_a(pcb,conexion_filesystem,ABRIR_ARCHIVO);
+						int cod_op = recibir_operacion(conexion_filesystem);
+
+						switch(cod_op){
+							case EXISTE_ARCHIVO:
+								//devolver el pcb
+								break;
+							case CREAR_ARCHIVO:
+								//enviar para crear el archivo
+								crear_archivo(pcb->arch_a_abrir);
+								break;
+							default:
+								log_info(logger,"Error en algun lado");
+								break;
+						}
+
+					}
+
+
+
+					//int cod_op = recibir_operacion(conexion_filesystem);
+
 					/*char* nombreArchivo1 = deserializar_nombreArchivo(buffer);
 					int result;
 
@@ -259,25 +291,37 @@ void* atender_cpu(void){
 					log_info(logger, "Paso por Abrir_Archivo");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
-					char* nombreArchivo2 = deserializar_nombreArchivo(buffer);
+					//char* nombreArchivo2 = deserializar_nombreArchivo(buffer);
 
-					if(archivoEnUso(nombreArchivo2, pcb)){
+					//if(archivoEnUso(nombreArchivo2, pcb)){
 						//queue_push(proc_bloqueados, pcb);
-					}else{
+					//}else{
 						//queue_push(proc_bloqueados, pcb);
 						//list_remove(archivos_abiertos, nombreArchivo2);
-					}
+					//}
 				    break;
-				    /*
+
 				case ACTUALIZAR_PUNTERO:
+					log_info(logger, "Paso por Actualizar_Archivo");
+					buffer=desempaquetar(paquete,conexion_cpu);
+					pcb = deserializar_pcb(buffer);
 					break;
 				case LEER_ARCHIVO:
+					log_info(logger, "Paso por leer_Archivo");
+					buffer=desempaquetar(paquete,conexion_cpu);
+					pcb = deserializar_pcb(buffer);
 					break;
 				case ESCRIBIR_ARCHIVO:
+					log_info(logger, "Paso por escribir_Archivo");
+					buffer=desempaquetar(paquete,conexion_cpu);
+					pcb = deserializar_pcb(buffer);
 					break;
 				case MODIFICAR_TAMANIO:
+					log_info(logger, "Paso por modificar_Archivo");
+					buffer=desempaquetar(paquete,conexion_cpu);
+					pcb = deserializar_pcb(buffer);
 					break;
-					*/
+
 				case CREAR_SEGMENTO:
 					buffer = desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
@@ -1074,11 +1118,54 @@ char* deserializar_nombreArchivo(t_buffer* buffer){
 	return nombreArchivo;
 }
 //-------------------------------------ADICIONALES----------------------------------//
-bool contiene_archivo(char* nombreArchivo){
+int contiene_archivo(t_pcb* pcb, char* nombreArchivo){
 	//TODO implementar la condicion cuando este resuelto la tabla de archivos abiertos
-	return 1;
+	int band = 0;
+	for(int i = 0; i < list_size(lista_archivos_abiertos); i++){
+		t_archivo* archi = list_get(lista_archivos_abiertos,i);
+
+		if(strcmp(nombreArchivo,archi->directorio) == 0){
+			info_arch* arch_proc = malloc(sizeof(info_arch));
+			arch_proc->dir = nombreArchivo;
+			arch_proc->punt = 0;
+			list_add(pcb->archivos_abiertos,arch_proc);
+			queue_push(archi->cola_archivo,pcb);
+			band = 1;
+		}
+	}
+	return band;
 }
 
-bool archivoEnUso(char* nombreArchivo, t_pcb* pcb){
-	return 1;
+void crear_archivo(char* nombreArchivo){
+	t_archivo* archi = malloc(sizeof(t_archivo));
+	archi->directorio = nombreArchivo;
+	archi->cola_archivo = queue_create();
+	sem_init(&archi->sem_archivo,0,0);
+
+	pthread_create(&thread_archivo_abiertos,NULL,(void*) iniciar_archivo,archi);
+	list_add(lista_archivos_abiertos,archi);
+}
+
+void* iniciar_archivo(void* data){
+	t_archivo* archi = ((t_archivo*) data);
+	log_info(logger,"INICIANDO EL ARCHIVO [%s] ",archi->directorio);
+	while(1){
+		sem_wait(&archi->sem_archivo);
+		t_pcb* pcb = queue_pop(archi->cola_archivo);
+		agregar_a_cola_ready(pcb);
+
+	}
+}
+
+void cerrar_archivo(char* nombreArchivo){
+	for(int i = 0; i < list_size(lista_archivos_abiertos);i++){
+		t_archivo* archi = list_get(lista_archivos_abiertos,i);
+		if(strcmp(archi->directorio,nombreArchivo) == 0){
+			if(queue_size(archi->cola_archivo) == 0){
+				list_remove(lista_archivos_abiertos,i);
+			} else {
+				sem_post(&archi->sem_archivo);
+			}
+		}
+	}
 }

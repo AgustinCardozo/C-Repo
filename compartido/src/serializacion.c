@@ -23,8 +23,8 @@ t_buffer* serializar_pcb(t_pcb* pcb){
 	int tamanioTotal = 0;
 
 	for(int i = 0; i < list_size(pcb->archivos_abiertos); i++){
-		char* dir = list_get(pcb->archivos_abiertos,i);
-		tamanioTotal = strlen(dir) + 1 + sizeof(int);
+		info_arch* archi = list_get(pcb->archivos_abiertos,i);
+		tamanioTotal = strlen(archi->dir) + 1 + sizeof(int)*2;
 	}
 
 	int tamanio_tabla = list_size(pcb->tabla_segmentos);
@@ -98,14 +98,17 @@ t_buffer* serializar_pcb(t_pcb* pcb){
 	offset += sizeof(int);
 
 	for(int i = 0; i < tam_tab_arch; i++){
-		char* dir = list_get(pcb->archivos_abiertos,i);
-		int size = strlen(dir) + 1;
+		info_arch* archi = list_get(pcb->archivos_abiertos,i);
+		int size = strlen(archi->dir) + 1;
 
 		memcpy(buffer->stream + offset, &size, sizeof(int));
 		offset += sizeof(int);
 
-		memcpy(buffer->stream + offset, dir, size);
+		memcpy(buffer->stream + offset, archi->dir, size);
 		offset += size;
+
+		memcpy(buffer->stream + offset, &archi->punt, sizeof(int));
+		offset += sizeof(int);
 	}
 
 	memcpy(buffer->stream + offset, &pcb->estimacion, sizeof(float));
@@ -390,18 +393,24 @@ t_pcb* deserializar_pcb(t_buffer* buffer){
 	offset += sizeof(int);
 
 	for(int i = 0; i < tam; i++){
-		char* dir;
+		info_arch* archi = malloc(sizeof(info_arch));
+		//char* dir;
 		int size;
 
 		memcpy(&size, buffer->stream + offset,  sizeof(int));
 		offset += sizeof(int);
 
-		dir = malloc(size);
+		archi->dir = malloc(size);
 
-		memcpy(dir,buffer->stream + offset,  size);
+		memcpy(archi->dir,buffer->stream + offset,  size);
 		offset += size;
 
-		list_add(pcb->archivos_abiertos,dir);
+		memcpy(&archi->punt,buffer->stream + offset,  sizeof(int));
+		offset += sizeof(int);
+
+		list_add(pcb->archivos_abiertos,archi);
+
+
 	}
 
 	memcpy(&(pcb->estimacion),buffer->stream + offset,sizeof(float));
