@@ -11,6 +11,8 @@
 #include <stdlib.h>
 #include "fileSystem.h"
 
+int TAM_BITMAP;
+
 char* str1 = "/";
 char* path_bitmap = "/home/utnso/fs/BITMAPA.dat";
 
@@ -29,12 +31,13 @@ int main(void) {
 	int block_size = config_get_int_value(config_superbloque, "BLOCK_SIZE");
 	int block_count = config_get_int_value(config_superbloque, "BLOCK_COUNT");
 
-	int tamanio_bitmap = convertir_byte_a_bit(block_count);
+
+	TAM_BITMAP = convertir_byte_a_bit(block_count);
 	set_tamanio_archivo(bitmap, convertir_byte_a_bit(block_count));
 
-	crear_bitmap(tamanio_bitmap);
+	abrir_escribir_cerrar_BITMAP_DAT(0,1);
 
-	limpiar_bitarray(bitarray);
+	//limpiar_bitarray(bitarray);
     
 	log_info(logger, "tamanio del bitmap: %i", (int)bitarray_test_bit(bitarray, 8192+10));
 	bitarray_clean_bit(bitarray, 8192+10);
@@ -91,31 +94,29 @@ int tamanio_maximo_teorico_archivo(){
 	return 0;
 }
 
-void crear_bitmap(int tamanio_bitmap){
-    int fd = fd = open(path_bitmap, O_RDWR | O_CREAT , S_IRUSR | S_IWUSR);
-	ftruncate(fd, tamanio_bitmap);
+void abrir_escribir_cerrar_BITMAP_DAT(int puntero, int bit_presencia){
+    double *datos;
+    int fd;
 
-	int *map = mmap(NULL, tamanio_bitmap, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-	
-    leer_archivo(fd);
-
-	if (map == MAP_FAILED) {
-		log_error(logger, "Error al mapear el archivo");
-		exit(EXIT_FAILURE);
-    }
-
+/*
 	void* puntero_a_bits = malloc(tamanio_bitmap);
 	bitarray_create(puntero_a_bits, 1);
-}
+*/
+    fd = open(path_bitmap, O_RDWR | O_CREAT , S_IRUSR | S_IWUSR);
+	ftruncate(fd, TAM_BITMAP);
 
-void modificar_bitmap(char* path, int tamanio_bitmap, char* op){
-	switch(op){
-       case: "ESCRITURA":
-	    break;
-	   case: "LECTURA":
-	    break;
-		default: 
-	}
+    datos = (double *)mmap(NULL, TAM_BITMAP, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, fd, 0);
+    assert(datos != MAP_FAILED);
+
+    /* Leemos el valor inicial y lo modificamos */
+	log_info(logger,"Contenido inicial del puntero %i: %i", puntero, datos[puntero]);
+    datos[puntero] = bit_presencia;
+
+    /* Desmapeamos el archivo de la memoria */
+    int rc = munmap(datos, TAM_BITMAP);
+    assert(rc == 0);
+    /* Cerramos el archivo */
+    close(fd);
 }
 
 void leer_archivo(int fd){
