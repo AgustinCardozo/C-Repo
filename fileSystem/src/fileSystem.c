@@ -12,6 +12,7 @@
 #include "fileSystem.h"
 
 char* str1 = "/";
+char* path_bitmap = "/home/utnso/fs/BITMAPA.dat";
 
 int main(void) {
 	logger = iniciar_logger(FS_LOG, FS_NAME);;
@@ -31,27 +32,10 @@ int main(void) {
 	int tamanio_bitmap = convertir_byte_a_bit(block_count);
 	set_tamanio_archivo(bitmap, convertir_byte_a_bit(block_count));
 
-	// char* path = datos.path_bitmap; 
-	int fd = fd = open("/home/utnso/fs/BITMAPA.dat", O_RDWR | O_CREAT , S_IRUSR | S_IWUSR);
-	ftruncate(fd, tamanio_bitmap);
-	int *map = mmap(NULL, tamanio_bitmap, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-	if (map == MAP_FAILED) {
-		log_error(logger, "Error al mapear el archivo");
-		exit(EXIT_FAILURE);
-    }
-	printf("Datos iniciales: %i\n", map[0]);
-    map[0] = 2;
-	printf("Datos iniciales: %i\n", map[0]);
-	// t_bitarray bitar    bitarray_create(charbitarray, size_t size);
-	log_info(logger,"block_size: %i \tblock_count: %i", block_size, block_count);
-	log_info(logger, "convertir block_count: %i", convertir_byte_a_bit(block_count));
+	crear_bitmap(tamanio_bitmap);
 
-	void* puntero_a_bits = malloc(tamanio_bitmap);//un byte de memoria, como por ejemplo malloc(1)
-	// *			bitarray_create(puntero_a_bits, 1)
-	bitarray = bitarray_create(puntero_a_bits, 1);
-	// bitarray_get_max_bit
-	bitarray_set_bit(bitarray, 8192+10);
-
+	limpiar_bitarray(bitarray);
+    
 	log_info(logger, "tamanio del bitmap: %i", (int)bitarray_test_bit(bitarray, 8192+10));
 	bitarray_clean_bit(bitarray, 8192+10);
 	log_info(logger, "tamanio del bitmap: %i", (int)bitarray_test_bit(bitarray, 8192+10));
@@ -88,9 +72,11 @@ int main(void) {
 	return EXIT_SUCCESS;
 }
 
-// void limpiar_bitarray(t_bitarray* bitarray){
-// 	for(int)
-// }
+void limpiar_bitarray(t_bitarray* bitarray){
+ 	for(int i = 0; i < bitarray_get_max_bit(bitarray); i++){
+ 		bitarray_clean_bit(bitarray, i);
+ 	}
+}
 
 int convertir_byte_a_bit(int block_count){
 	return block_count/8;
@@ -103,6 +89,38 @@ int cantidad_punteros_por_bloques(int block_size){
 int tamanio_maximo_teorico_archivo(){
 	//TODO: implementar
 	return 0;
+}
+
+void crear_bitmap(int tamanio_bitmap){
+    int fd = fd = open(path_bitmap, O_RDWR | O_CREAT , S_IRUSR | S_IWUSR);
+	ftruncate(fd, tamanio_bitmap);
+
+	int *map = mmap(NULL, tamanio_bitmap, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+	
+    leer_archivo(fd);
+
+	if (map == MAP_FAILED) {
+		log_error(logger, "Error al mapear el archivo");
+		exit(EXIT_FAILURE);
+    }
+
+	void* puntero_a_bits = malloc(tamanio_bitmap);
+	bitarray_create(puntero_a_bits, 1);
+}
+
+void modificar_bitmap(char* path, int tamanio_bitmap, char* op){
+	switch(op){
+       case: "ESCRITURA":
+	    break;
+	   case: "LECTURA":
+	    break;
+		default: 
+	}
+}
+
+void leer_archivo(int fd){
+    fd = read(fd, contenido_superbloque, sizeof(contenido_superbloque));
+	log_info(logger, "Contenido del archivo: %s", contenido_superbloque);	
 }
 
 void inicializar_config(){
