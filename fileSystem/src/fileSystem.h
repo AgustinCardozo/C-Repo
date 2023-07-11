@@ -91,5 +91,6 @@ t_config* iniciar_config_fs(char*);
 void iterator(char*);
 void reemplazar_y_concatenar_palabra(char*, const char*, const char*, const char*);
 void set_tamanio_archivo(FILE*, int);
+void abrir_escribir_cerrar_BITMAP_DAT(int, int);
 
 #endif /* FILESYSTEM_H_ */
