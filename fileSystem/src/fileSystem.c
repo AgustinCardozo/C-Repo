@@ -11,6 +11,8 @@
 #include <stdlib.h>
 #include "fileSystem.h"
 
+char* str1 = "/";
+
 int main(void) {
 	logger = iniciar_logger(FS_LOG, FS_NAME);;
 	config = iniciar_config(FS_CONFIG);
@@ -38,21 +40,22 @@ int main(void) {
 		exit(EXIT_FAILURE);
     }
 	printf("Datos iniciales: %i\n", map[0]);
-    map[0] = 3;
+    map[0] = 2;
 	printf("Datos iniciales: %i\n", map[0]);
+	// t_bitarray bitar    bitarray_create(charbitarray, size_t size);
 	log_info(logger,"block_size: %i \tblock_count: %i", block_size, block_count);
 	log_info(logger, "convertir block_count: %i", convertir_byte_a_bit(block_count));
 
-	void* puntero_a_bits = malloc(1);//un byte de memoria, como por ejemplo malloc(1)
+	void* puntero_a_bits = malloc(tamanio_bitmap);//un byte de memoria, como por ejemplo malloc(1)
 	// *			bitarray_create(puntero_a_bits, 1)
 	bitarray = bitarray_create(puntero_a_bits, 1);
 	// bitarray_get_max_bit
-	bitarray_set_bit(bitarray, 0);
-	bitarray_set_bit(bitarray, 0);
+	bitarray_set_bit(bitarray, 8192+10);
 
-	log_info(logger, "tamanio del bitmap: %i", (int)bitarray_test_bit(bitarray, 0));
+	log_info(logger, "tamanio del bitmap: %i", (int)bitarray_test_bit(bitarray, 8192+10));
+	bitarray_clean_bit(bitarray, 8192+10);
+	log_info(logger, "tamanio del bitmap: %i", (int)bitarray_test_bit(bitarray, 8192+10));
 
-	char* str1 = "/";
     char* nombre_archivo = "test_fcb";    
     char resultado[50];
 	char directorio[100];
@@ -84,6 +87,10 @@ int main(void) {
 	finalizar_fs();
 	return EXIT_SUCCESS;
 }
+
+// void limpiar_bitarray(t_bitarray* bitarray){
+// 	for(int)
+// }
 
 int convertir_byte_a_bit(int block_count){
 	return block_count/8;
