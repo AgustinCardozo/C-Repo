@@ -71,6 +71,7 @@ int cantidad_punteros_por_bloques(int block_size){
 
 int tamanio_maximo_teorico_archivo(){
 	//TODO: implementar
+	return 0;
 }
 
 void inicializar_config(){

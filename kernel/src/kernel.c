@@ -194,7 +194,7 @@ void* atender_cpu(void){
 	//int result;
 
 	//t_cola proc_bloqueados=queue_create();
-        int df;
+    int df;
 	while(1){
 		int cod_op = recibir_operacion(conexion_cpu);
 			switch (cod_op) {
@@ -246,14 +246,14 @@ void* atender_cpu(void){
 
 					if(contiene_archivo(nombreArchivo1)){
 						sem_wait(&mutex_fs);
-                                                list_add(pcb->archivos_abiertos, nombreArchivo1);
-                                                //queue_push(proc_bloqueados, pcb);
-                                                enviar_pcb_a(pcb,conexion_filesystem,ABRIR_ARCHIVO);
-                                                recv(conexion_filesystem, &result, sizeof(uint32_t), MSG_WAITALL);
-                                                sem_post(&mutex_fs);
+                        list_add(pcb->archivos_abiertos, nombreArchivo1);
+                        //queue_push(proc_bloqueados, pcb);
+                        enviar_pcb_a(pcb,conexion_filesystem,ABRIR_ARCHIVO);
+                        recv(conexion_filesystem, &result, sizeof(uint32_t), MSG_WAITALL);
+                        sem_post(&mutex_fs);
 					 }else{
-                                                //enviar_archivo_a(pcb, nombreArchivo, VERIFICAR_ARCHIVO);
-				         }
+                        //enviar_archivo_a(pcb, nombreArchivo, VERIFICAR_ARCHIVO);
+				     }
 					break;
 				case CERRAR_ARCHIVO:
 					log_info(logger, "Paso por Abrir_Archivo");
@@ -1050,7 +1050,7 @@ t_pcb* actualizar_de_la_tabla_general(t_pcb* pcb){
 }
 
 int deserializar_df(t_buffer* buffer){
-	int df = malloc(sizeof(int));
+	int df;
 
 	int offset = buffer->size - sizeof(int);
 

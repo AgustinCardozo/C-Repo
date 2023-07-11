@@ -273,7 +273,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			log_info(logger,"Paso por f_close");
 			
 			instrAEnviar.nombreArchivo=list_get(instruccion->parametros,0);
-			instrAEnviar.datos_aux=list_get(instruccion->parametros,1);
+			instrAEnviar.datos_aux=atoi(list_get(instruccion->parametros,1));
 
 			enviar_datos_para_op_fs(pcb,instrAEnviar,SIN_PARAMETRO,conexion_kernel);
 			break;
@@ -281,7 +281,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			log_info(logger,"Paso por f_seek");
 			
 			instrAEnviar.nombreArchivo=list_get(instruccion->parametros,0);
-		    instrAEnviar.datos_aux=list_get(instruccion->parametros,1); //Es la posicion
+		    instrAEnviar.datos_aux=atoi(list_get(instruccion->parametros,1)); //Es la posicion
 
 		    enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;
@@ -293,7 +293,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 		        df=obtener_direccion_fisica(dl,pcb,cant_bytes);
 
 		        instrAEnviar.nombreArchivo=list_get(instruccion->parametros,0);
-		        instrAEnviar.datos_aux=list_get(instruccion->parametros,1);
+		        instrAEnviar.datos_aux=atoi(list_get(instruccion->parametros,1));
 
 		        enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;
@@ -305,7 +305,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			df=obtener_direccion_fisica(dl,pcb,cant_bytes);
 
 			instrAEnviar.nombreArchivo=list_get(instruccion->parametros,0);
-			instrAEnviar.datos_aux=list_get(instruccion->parametros,1);
+			instrAEnviar.datos_aux=atoi(list_get(instruccion->parametros,1));
 
 		        enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;
@@ -313,7 +313,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			log_info(logger,"Paso por f_truncate");
 			
 			instrAEnviar.nombreArchivo=list_get(instruccion->parametros,0);
-			instrAEnviar.datos_aux=list_get(instruccion->parametros,1); //Es el tamanio
+			instrAEnviar.datos_aux=atoi(list_get(instruccion->parametros,1)); //Es el tamanio
 
 		        enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;
@@ -707,6 +707,8 @@ void enviar_datos_para_op_fs(t_pcb* pcb, envio_instr instrAEnviar, op_code codig
 	     offset += sizeof(int);
 
 	     break;
+	 default: log_info(logger,"Hubo un error");
+	 	 break;
 	}
 
 	paquete->buffer = buffer;

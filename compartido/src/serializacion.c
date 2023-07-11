@@ -20,8 +20,15 @@ t_buffer* serializar_pcb(t_pcb* pcb){
 	t_buffer* buffer = malloc(sizeof(t_buffer));
 	t_buffer* instrucciones = serializar_lista_de_instrucciones(pcb->lista_instrucciones);
 	int offset = 0;
+	int tamanioTotal = 0;
+
+	for(int i = 0; i < list_size(pcb->archivos_abiertos); i++){
+		char* dir = list_get(pcb->archivos_abiertos,i);
+		tamanioTotal = strlen(dir) + 1 + sizeof(int);
+	}
+
 	int tamanio_tabla = list_size(pcb->tabla_segmentos);
-	buffer->size = sizeof(int)*14 + sizeof(float) + instrucciones->size + 136 + tamanio_tabla*sizeof(segmento);
+	buffer->size = sizeof(int)*14 + sizeof(float) + instrucciones->size + 136 + tamanio_tabla*sizeof(segmento) + tamanioTotal;
 
 	buffer->stream = malloc(buffer->size);
 

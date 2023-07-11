@@ -133,7 +133,7 @@ typedef struct{
 	int real_ant;
 	int llegadaReady;
 	int llegadaExec;
-	char** archivos_abiertos;
+	t_list* archivos_abiertos;
 	int conexion_consola;
 	int dat_seg;
 	int dat_tamanio;
