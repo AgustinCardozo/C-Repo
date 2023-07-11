@@ -137,6 +137,10 @@ typedef struct{
 	int conexion_consola;
 	int dat_seg;
 	int dat_tamanio;
+	char* arch_a_abrir;
+	int posicion;
+	int df_fs;
+	uint32_t cant_bytes;
 }t_pcb;
 
 typedef struct{

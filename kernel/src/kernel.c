@@ -241,7 +241,7 @@ void* atender_cpu(void){
 					log_info(logger, "Paso por Abrir_Archivo");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
-					char* nombreArchivo1 = deserializar_nombreArchivo(buffer);
+					/*char* nombreArchivo1 = deserializar_nombreArchivo(buffer);
 					int result;
 
 					if(contiene_archivo(nombreArchivo1)){
@@ -253,7 +253,7 @@ void* atender_cpu(void){
                         sem_post(&mutex_fs);
 					 }else{
                         //enviar_archivo_a(pcb, nombreArchivo, VERIFICAR_ARCHIVO);
-				     }
+				     }*/
 					break;
 				case CERRAR_ARCHIVO:
 					log_info(logger, "Paso por Abrir_Archivo");
@@ -265,7 +265,7 @@ void* atender_cpu(void){
 						//queue_push(proc_bloqueados, pcb);
 					}else{
 						//queue_push(proc_bloqueados, pcb);
-						list_remove(archivos_abiertos, nombreArchivo2);
+						//list_remove(archivos_abiertos, nombreArchivo2);
 					}
 				    break;
 				    /*
@@ -444,6 +444,7 @@ t_pcb* crear_pcb(t_buffer* buffer,int conexion_cliente){
 	seg->tamanio = tamanio_seg_0;
 	log_info(logger,"Semento id: %i, base: %i, tamanio: %i",seg->id,seg->direccion_base,seg->tamanio);
 	list_add(pcb->tabla_segmentos,seg);
+	pcb->archivos_abiertos = list_create();
 	pcb->llegadaReady = 0;
 	pcb->llegadaExec = 0;
 	pcb->real_ant = 0;
@@ -451,7 +452,10 @@ t_pcb* crear_pcb(t_buffer* buffer,int conexion_cliente){
 	pcb->conexion_consola = conexion_cliente;
 	pcb->dat_seg = 0;
 	pcb->dat_tamanio = 0;
-	//TODO Falta lo de archivos abiertos
+	pcb->arch_a_abrir = "Hola soy un archivo";
+	pcb->cant_bytes = 0;
+	pcb->df_fs = 0;
+	pcb->posicion = 0;
 	return pcb;
 }
 

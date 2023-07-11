@@ -353,6 +353,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			log_info(logger,"Crear segmento %i de tamanio %i",pcb->dat_seg,pcb->dat_tamanio);
 			//Hay que devolverle el pdb al kernel para que despues el mismo se lo envie a memoria como explica en el enuncuad
 			enviar_pcb_a(pcb,conexion_kernel,CREAR_SEGMENTO);
+
 			cod_op = recibir_operacion(conexion_kernel);
 			switch(cod_op){
 			case EJECUTAR:
@@ -677,7 +678,7 @@ void enviar_datos_para_op_fs(t_pcb* pcb, envio_instr instrAEnviar, op_code codig
 	buffer->size = s_pcb->size + sizeof(char*);
 
 	switch(codigo){
-	 case (SIN_PARAMETRO):
+	 case SIN_PARAMETRO:
 	     buffer->stream = malloc(buffer->size);
 
 	     memcpy(buffer->stream + offset, s_pcb->stream, s_pcb->size);
