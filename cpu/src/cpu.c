@@ -228,7 +228,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			char* valor = malloc(size_registro(registro)+1);
 			recv(conexion_memoria, valor, size_registro(registro), MSG_WAITALL);
 			insertar(pcb,registro,valor);
-			log_info(logger,"Se leyo el valor %s",pcb->registro.AX);
+			//log_info(logger,"Se leyo el valor %s",pcb->registro.AX);
 			/*if(result == 0){
 				log_info(logger,"Algo salio mal");
 				band_ejecutar = 1;
@@ -260,14 +260,29 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 
 			//enviar_datos_para_op_fs(pcb,instrAEnviar,SIN_PARAMETRO,conexion_kernel);
 			enviar_pcb_a(pcb,conexion_kernel,ABRIR_ARCHIVO);
-			recv(conexion_kernel,&result,sizeof(uint32_t),MSG_WAITALL);
+			//recv(conexion_kernel,&result,sizeof(uint32_t),MSG_WAITALL);
 
-			if(result == 0){
+			cod_op = recibir_operacion(conexion_kernel);
+
+			switch(cod_op){
+				case CONTINUAR:
+					buffer = desempaquetar(paquete,conexion_kernel);
+					pcb = deserializar_pcb(buffer);
+					log_info(logger, "Sigue el programa");
+					break;
+				case DETENER:
+					log_info(logger,"No se pudo abrir el archivo");
+					band_ejecutar = 1;
+					break;
+				default:
+					break;
+			}
+			/*if(result == 0){
 				log_info(logger,"No se pudo abrir el archivo");
 				band_ejecutar = 1;
 			}else{
 				log_info(logger, "Sigue el programa");
-			}
+			}*/
 			break;
 		case F_CLOSE:
 			log_info(logger,"Paso por f_close");
@@ -275,14 +290,30 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			pcb->arch_a_abrir=list_get(instruccion->parametros,0);
 			//instrAEnviar.datos_aux=atoi(list_get(instruccion->parametros,1));
 			enviar_pcb_a(pcb,conexion_kernel,CERRAR_ARCHIVO);
+
+			cod_op = recibir_operacion(conexion_kernel);
+
+			switch(cod_op){
+				case CONTINUAR:
+					buffer = desempaquetar(paquete,conexion_kernel);
+					pcb = deserializar_pcb(buffer);
+					log_info(logger, "Sigue el programa");
+					break;
+				case DETENER:
+					log_info(logger,"No se pudo abrir el archivo");
+					band_ejecutar = 1;
+					break;
+				default:
+					break;
+			}
 			//enviar_datos_para_op_fs(pcb,instrAEnviar,SIN_PARAMETRO,conexion_kernel);
-			recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
+			/*recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
 			if(result == 0){
 				log_info(logger,"El proceso se bloqueo o no existe");
 				band_ejecutar = 1;
 			} else {
 				log_info(logger,"El programa sigue");
-			}
+			}*/
 			break;
 		case F_SEEK:
 			log_info(logger,"Paso por f_seek");
@@ -290,12 +321,20 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			pcb->arch_a_abrir=list_get(instruccion->parametros,0);
 		    pcb->posicion=atoi(list_get(instruccion->parametros,1)); //Es la posicion
 		    enviar_pcb_a(pcb,conexion_kernel,ACTUALIZAR_PUNTERO);
-		    recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
-			if(result == 0){
-				log_info(logger,"El proceso se bloqueo o no existe");
-				band_ejecutar = 1;
-			} else {
-				log_info(logger,"El programa sigue");
+			cod_op = recibir_operacion(conexion_kernel);
+
+			switch(cod_op){
+				case CONTINUAR:
+					buffer = desempaquetar(paquete,conexion_kernel);
+					pcb = deserializar_pcb(buffer);
+					log_info(logger, "Sigue el programa");
+					break;
+				case DETENER:
+					log_info(logger,"No se pudo abrir el archivo");
+					band_ejecutar = 1;
+					break;
+				default:
+					break;
 			}
 		    //enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;
@@ -309,12 +348,20 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 		    pcb->arch_a_abrir=list_get(instruccion->parametros,0);
 		    //instrAEnviar.datos_aux=atoi(list_get(instruccion->parametros,1));
 		    enviar_pcb_a(pcb,conexion_kernel,LEER_ARCHIVO);
-		    recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
-			if(result == 0){
-				log_info(logger,"El proceso se bloqueo o no existe");
-				band_ejecutar = 1;
-			} else {
-				log_info(logger,"El programa sigue");
+			cod_op = recibir_operacion(conexion_kernel);
+
+			switch(cod_op){
+				case CONTINUAR:
+					buffer = desempaquetar(paquete,conexion_kernel);
+					pcb = deserializar_pcb(buffer);
+					log_info(logger, "Sigue el programa");
+					break;
+				case DETENER:
+					log_info(logger,"No se pudo abrir el archivo");
+					band_ejecutar = 1;
+					break;
+				default:
+					break;
 			}
 		    //enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;
@@ -328,12 +375,20 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			pcb->arch_a_abrir=list_get(instruccion->parametros,0);
 			//instrAEnviar.datos_aux=atoi(list_get(instruccion->parametros,1));
 			enviar_pcb_a(pcb,conexion_kernel,ESCRIBIR_ARCHIVO);
-			recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
-			if(result == 0){
-				log_info(logger,"El proceso se bloqueo o no existe");
-				band_ejecutar = 1;
-			} else {
-				log_info(logger,"El programa sigue");
+			cod_op = recibir_operacion(conexion_kernel);
+
+			switch(cod_op){
+				case CONTINUAR:
+					buffer = desempaquetar(paquete,conexion_kernel);
+					pcb = deserializar_pcb(buffer);
+					log_info(logger, "Sigue el programa");
+					break;
+				case DETENER:
+					log_info(logger,"No se pudo abrir el archivo");
+					band_ejecutar = 1;
+					break;
+				default:
+					break;
 			}
 		    //enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;
@@ -343,12 +398,20 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			pcb->arch_a_abrir=list_get(instruccion->parametros,0);
 			pcb->dat_tamanio=atoi(list_get(instruccion->parametros,1)); //Es el tamanio
 			enviar_pcb_a(pcb,conexion_kernel,MODIFICAR_TAMANIO);
-			recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
-			if(result == 0){
-				log_info(logger,"El proceso se bloqueo o no existe");
-				band_ejecutar = 1;
-			} else {
-				log_info(logger,"El programa sigue");
+			int cod_op = recibir_operacion(conexion_kernel);
+
+			switch(cod_op){
+				case CONTINUAR:
+					buffer = desempaquetar(paquete,conexion_kernel);
+					pcb = deserializar_pcb(buffer);
+					log_info(logger, "Sigue el programa");
+					break;
+				case DETENER:
+					log_info(logger,"No se pudo abrir el archivo");
+					band_ejecutar = 1;
+					break;
+				default:
+					break;
 			}
 		    //enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;

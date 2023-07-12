@@ -91,7 +91,8 @@ void deserializar_tabla_general_actualizada(t_buffer* buffer);
 int contiene_archivo(t_pcb* pcb, char* nombreArchivo);
 void* iniciar_archivo(void* data);
 void crear_archivo(char* nombreArchivo);
-void cerrar_archivo(char* nombreArchivo);
+void cerrar_archivo(t_pcb* pcb);
+void actualizar_puntero(t_pcb* pcb);
 //int enviar_datos_a_memoria(t_pcb* pcb, int conexion, op_code codigo);
 //void enviar_segmento_con_cod(seg_aux* segmento, int conexion, op_code codigo);
 int pid;
@@ -249,6 +250,7 @@ void* atender_cpu(void){
 
 					if(contiene_archivo(pcb,pcb->arch_a_abrir)){
 						//enviar mensaje al cpu que debe continuar por que se bloqueo
+						enviar_pcb_a(pcb,conexion_cpu,DETENER);
 					} else {
 						//enviar mensaje al filesystem a ber si existe el archivo
 						enviar_pcb_a(pcb,conexion_filesystem,ABRIR_ARCHIVO);
@@ -256,70 +258,63 @@ void* atender_cpu(void){
 
 						switch(cod_op){
 							case EXISTE_ARCHIVO:
-								//devolver el pcb
+
+								log_info(logger,"El archivo ya existe");
 								break;
 							case CREAR_ARCHIVO:
 								//enviar para crear el archivo
 								crear_archivo(pcb->arch_a_abrir);
+								log_info(logger,"El archivo se creo");
+
 								break;
 							default:
 								log_info(logger,"Error en algun lado");
 								break;
 						}
 
+						enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
+
 					}
 
-
-
-					//int cod_op = recibir_operacion(conexion_filesystem);
-
-					/*char* nombreArchivo1 = deserializar_nombreArchivo(buffer);
-					int result;
-
-					if(contiene_archivo(nombreArchivo1)){
-						sem_wait(&mutex_fs);
-                        list_add(pcb->archivos_abiertos, nombreArchivo1);
-                        //queue_push(proc_bloqueados, pcb);
-                        enviar_pcb_a(pcb,conexion_filesystem,ABRIR_ARCHIVO);
-                        recv(conexion_filesystem, &result, sizeof(uint32_t), MSG_WAITALL);
-                        sem_post(&mutex_fs);
-					 }else{
-                        //enviar_archivo_a(pcb, nombreArchivo, VERIFICAR_ARCHIVO);
-				     }*/
 					break;
 				case CERRAR_ARCHIVO:
 					log_info(logger, "Paso por Abrir_Archivo");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
-					//char* nombreArchivo2 = deserializar_nombreArchivo(buffer);
 
-					//if(archivoEnUso(nombreArchivo2, pcb)){
-						//queue_push(proc_bloqueados, pcb);
-					//}else{
-						//queue_push(proc_bloqueados, pcb);
-						//list_remove(archivos_abiertos, nombreArchivo2);
-					//}
+					cerrar_archivo(pcb);
+
+					enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
+
 				    break;
 
 				case ACTUALIZAR_PUNTERO:
 					log_info(logger, "Paso por Actualizar_Archivo");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
+
+					actualizar_puntero(pcb);
+
+					enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
+
 					break;
 				case LEER_ARCHIVO:
 					log_info(logger, "Paso por leer_Archivo");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
+					enviar_pcb_a(pcb,conexion_cpu,DETENER);
 					break;
 				case ESCRIBIR_ARCHIVO:
 					log_info(logger, "Paso por escribir_Archivo");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
+					enviar_pcb_a(pcb,conexion_cpu,DETENER);
 					break;
 				case MODIFICAR_TAMANIO:
 					log_info(logger, "Paso por modificar_Archivo");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
+					enviar_pcb_a(pcb,conexion_cpu,DETENER);
 					break;
 
 				case CREAR_SEGMENTO:
@@ -1157,7 +1152,8 @@ void* iniciar_archivo(void* data){
 	}
 }
 
-void cerrar_archivo(char* nombreArchivo){
+void cerrar_archivo(t_pcb* pcb){
+	char* nombreArchivo = pcb->arch_a_abrir;
 	for(int i = 0; i < list_size(lista_archivos_abiertos);i++){
 		t_archivo* archi = list_get(lista_archivos_abiertos,i);
 		if(strcmp(archi->directorio,nombreArchivo) == 0){
@@ -1167,5 +1163,19 @@ void cerrar_archivo(char* nombreArchivo){
 				sem_post(&archi->sem_archivo);
 			}
 		}
+	}
+}
+
+void actualizar_puntero(t_pcb* pcb){
+	char* nombreArchivo = pcb->arch_a_abrir;
+	for(int i = 0; i < list_size(pcb->archivos_abiertos);i++){
+		info_arch* archi = list_get(pcb->archivos_abiertos,i);
+
+		if(strcmp(archi->dir,nombreArchivo)){
+			archi->punt = pcb->posicion;
+			list_replace(pcb->archivos_abiertos,i,archi);
+			break;
+		}
+
 	}
 }

@@ -251,34 +251,61 @@ void finalizar_fs(){
 void* atender_kernel(void){
 	server_fd = iniciar_servidor(logger,datos.puerto_escucha);
 	log_info(logger, "Fyle System listo para recibir al kernel");
+	t_list* lista;
+	t_paquete* paquete = malloc(sizeof(t_paquete));
+	paquete->buffer = malloc(sizeof(t_buffer));
 	int *cliente_fd = esperar_cliente(logger,server_fd);
+	t_pcb* pcb;
+	t_buffer* buffer;
 	while(1){
-		t_list* lista;
-		while(1){
-			int cod_op = recibir_operacion(*cliente_fd);
-			switch (cod_op) {
-				case MENSAJE:
-					recibir_mensaje(logger,*cliente_fd);
-					break;
-				case PAQUETE:
-					lista = recibir_paquete(*cliente_fd);
-					log_info(logger, "Me llegaron los siguientes valores:\n");
-					list_iterate(lista, (void*) iterator);
-					break;
-				case -1:
-					log_error(logger, "el cliente se desconecto. Terminando servidor");
-					log_destroy(logger);
-					config_destroy(config);
-					close(*cliente_fd);
-					close(server_fd);
-					//return EXIT_FAILURE;
-					exit(1);
-				default:
-					log_warning(logger,"Operacion desconocida. No quieras meter la pata");
-					break;
-			}
+		int cod_op = recibir_operacion(*cliente_fd);
+		switch (cod_op) {
+			case MENSAJE:
+				recibir_mensaje(logger,*cliente_fd);
+				break;
+			case PAQUETE:
+				lista = recibir_paquete(*cliente_fd);
+				log_info(logger, "Me llegaron los siguientes valores:\n");
+				list_iterate(lista, (void*) iterator);
+				break;
+			case ABRIR_ARCHIVO:
+				buffer=desempaquetar(paquete,*cliente_fd);
+				pcb = deserializar_pcb(buffer);
+				log_info(logger,"El id es %d", pcb->pid);
+				break;
+			case CERRAR_ARCHIVO:
+				buffer=desempaquetar(paquete,*cliente_fd);
+				pcb = deserializar_pcb(buffer);
+				break;
+			case MODIFICAR_TAMANIO:
+				buffer=desempaquetar(paquete,*cliente_fd);
+				pcb = deserializar_pcb(buffer);
+				break;
+			case LEER_ARCHIVO:
+				buffer=desempaquetar(paquete,*cliente_fd);
+				pcb = deserializar_pcb(buffer);
+				break;
+			case ESCRIBIR_ARCHIVO:
+				buffer=desempaquetar(paquete,*cliente_fd);
+				pcb = deserializar_pcb(buffer);
+				break;
+			case -1:
+				log_error(logger, "el cliente se desconecto. Terminando servidor");
+				log_destroy(logger);
+				config_destroy(config);
+				close(*cliente_fd);
+				close(server_fd);
+				//return EXIT_FAILURE;
+				exit(1);
+			default:
+				log_warning(logger,"Operacion desconocida. No quieras meter la pata");
+				break;
 		}
 	}
+
+
+
+
 }
 
 void* atender_memoria(void){
@@ -292,7 +319,7 @@ void* atender_memoria(void){
 				case MENSAJE:
 					recibir_mensaje(logger,conexion_memoria);
 					break;
-					case PAQUETE:
+				case PAQUETE:
 					lista = recibir_paquete(conexion_memoria);
 					log_info(logger, "Me llegaron los siguientes valores:\n");
 					list_iterate(lista, (void*) iterator);

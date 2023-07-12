@@ -17,6 +17,8 @@
 #include <utils.h>
 #include <sockets.h>
 #include <compartido.h>
+#include <serializacion.h>
+#include <utils.h>
 #include <sys/mman.h>
 #include <sys/types.h>
 #include <fcntl.h>
