@@ -191,23 +191,6 @@ void crear_bloque(FILE* bloques, t_config* config_superbloque){
 	set_tamanio_archivo(bloques, tamanioBloque);
 }
 
-//TODO: revisar
-t_fcb crear_fcb(t_pcb* pcb){
-	t_fcb fcb;
-	//FILE* archivo=malloc(sizeof(FILE)); 
-
-	fcb.archivo=archivo;
-	fcb.nombre_archivo=pcb->arch_a_abrir;
-	fcb.tamanio=pcb->dat_tamanio;
-    set_tamanio_archivo(fcb, pcb->dat_tamanio);
-	fcb.puntero_directo=0;
-	fcb.puntero_indirecto=0;
-
-    list_add(lista_fcb, fcb);
-
-	return fcb;
-}
-
 void set_tamanio_archivo(FILE* bloque, int tamanioBloque){
     if (ftruncate(fileno(bloque), tamanioBloque) == -1) {
         perror("Error al establecer el tamaño del archivo");
@@ -330,10 +313,6 @@ void* atender_kernel(void){
 				
 				list_add(lista_fcb, fcb);
 
-				break;
-			case CERRAR_ARCHIVO:
-				buffer=desempaquetar(paquete,*cliente_fd);
-				pcb = deserializar_pcb(buffer);
 				break;
 			case MODIFICAR_TAMANIO:
 				buffer=desempaquetar(paquete,*cliente_fd);
@@ -483,4 +462,24 @@ void crear_archivo(const char *nombre_archivo, const char *contenidos[], int num
         log_warning(logger, "El archivo ya existe.");
         fclose(archivo);
     }
+}
+
+
+//TODO: revisar
+t_fcb crear_fcb(t_pcb* pcb){
+	t_fcb fcb;
+	//FILE* archivo=malloc(sizeof(FILE)); 
+
+	fcb.archivo=archivo;
+	fcb.nombre_archivo=pcb->arch_a_abrir;
+	fcb.tamanio=pcb->dat_tamanio;
+    set_tamanio_archivo(fcb, pcb->dat_tamanio);
+	fcb.puntero_directo=0;
+	fcb.puntero_indirecto=0;
+
+    list_add(lista_fcb, fcb);
+
+	crear_archivo(fcb.nombre_archivo, NULL, 0);
+
+	return fcb;
 }
