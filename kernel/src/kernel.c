@@ -248,6 +248,8 @@ void* atender_cpu(void){
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 
+					log_info(logger, "PID: %i - Abrir Archivo: %s", pcb->pid, pcb->arch_a_abrir);
+
 					if(contiene_archivo(pcb,pcb->arch_a_abrir)){
 						//enviar mensaje al cpu que debe continuar por que se bloqueo
 						enviar_pcb_a(pcb,conexion_cpu,DETENER);
@@ -258,14 +260,15 @@ void* atender_cpu(void){
 
 						switch(cod_op){
 							case EXISTE_ARCHIVO:
-
 								log_info(logger,"El archivo ya existe");
+								
 								break;
 							case CREAR_ARCHIVO:
 								//enviar para crear el archivo
 								crear_archivo(pcb->arch_a_abrir);
+								pcb->dat_tamanio=0;
+								enviar_pcb_a(pcb,conexion_filesystem,CREAR_ARCHIVO);
 								log_info(logger,"El archivo se creo");
-
 								break;
 							default:
 								log_info(logger,"Error en algun lado");

@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <commons/collections/list.h>
 #include <commons/log.h>
 #include <commons/bitarray.h>
 #include <pthread.h>
@@ -31,6 +32,7 @@
 #define FS_CONFIG "fileSystem.config"
 #define FS_NAME "File_System"
 #define PATH "/home/utnso/fs"
+#define PATH_FCB "/home/utnso/fs/FCB"
 #define TAMANIO_DE_PUNTERO 4
 
 const char *contenido_superbloque[] = {
@@ -49,19 +51,26 @@ typedef struct{
 	int ret_acceso_bloque;
 }datos_config;
 
+// ------------------------ESTRUCTURAS------------------------ //
 typedef struct{
+	FILE* archivo;
 	char* nombre_archivo; 
 	int tamanio_archivo; //expresado en Bytes
 	uint32_t puntero_directo; 
 	uint32_t puntero_indirecto; 
-}FCB; //TODO: Mover a compartido.h?
+}t_fcb; 
 
 t_bitarray* bitarray; 
+
+// ------------------------ARCHIVOS------------------------ //
 
 FILE* bitmap;
 FILE* bloques;
 FILE* fcb;
 
+// ------------------------VARIABLES GLOBALES------------------------ //
+
+// ------------------------CONEXIONES------------------------ //
 t_log* logger;
 
 t_config* config;
@@ -76,6 +85,7 @@ int conexion_memoria;
 pthread_t hilo_conexion_kernel;
 pthread_t hilo_conexion_memoria;
 
+// ------------------------FUNCIONES------------------------ //
 void* atender_kernel(void);
 void* atender_memoria(void);
 
@@ -83,7 +93,10 @@ char* abrir_archivo_fcb(char*, char*);
 void crear_archivo(const char*, const char *contenidos[], int);
 char* crear_archivo_fcb(char path_name[]);
 void crear_bloque(FILE*, t_config*);
-FILE* crear_estructuras(char*);
+FILE* abrir_archivo(char*);
+int buscar_fcb(char*);
+int buscar_archivo_fcb(char*);
+t_fcb* obtener_fcb(char*);
 char* concatenar_path(char*);
 int convertir_byte_a_bit(int);
 void finalizar_fs();

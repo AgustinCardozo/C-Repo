@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include "fileSystem.h"
 
-int TAM_BITMAP;
+size_t TAM_BITMAP;
 
 char* str1 = "/";
 char* path_bitmap = "/home/utnso/fs/BITMAPA.dat";
@@ -31,11 +31,13 @@ int main(void) {
 	int block_size = config_get_int_value(config_superbloque, "BLOCK_SIZE");
 	int block_count = config_get_int_value(config_superbloque, "BLOCK_COUNT");
 
-
 	TAM_BITMAP = convertir_byte_a_bit(block_count);
 	set_tamanio_archivo(bitmap, convertir_byte_a_bit(block_count));
 
-	abrir_escribir_cerrar_BITMAP_DAT(0,1);
+    t_list* lista_fcb = list_create();
+
+    //-----------------------------------------------------------------------------//
+	modificar_puntero_BITMAP(0,1);
 
 	//limpiar_bitarray(bitarray);
     
@@ -59,11 +61,12 @@ int main(void) {
 	if(abrir_archivo_fcb(datos.path_fcb, nombre_archivo) == "ERROR"){
 		log_error(logger, "No existe el archivo: %s", nombre_archivo);
 	};
-	char* lala = crear_archivo_fcb(resultado);
+	char* lala = crear_fcb(resultado);
 	printf("%s\n", lala);
 	log_info(logger, "Crear Archivo: %s", "test_fcb");
 	lala = abrir_archivo_fcb(datos.path_fcb, nombre_archivo);
 	printf("%s\n", lala);
+    //-----------------------------------------------------------------------------//
 
 	pthread_create(&hilo_conexion_kernel,NULL,(void*) atender_kernel,NULL);
 	pthread_create(&hilo_conexion_memoria,NULL,(void*) atender_memoria,NULL);
@@ -94,7 +97,7 @@ int tamanio_maximo_teorico_archivo(){
 	return 0;
 }
 
-void abrir_escribir_cerrar_BITMAP_DAT(int puntero, int bit_presencia){
+void modificar_puntero_BITMAP(int puntero, int bit_presencia){
     double *datos;
     int fd;
 
@@ -105,7 +108,7 @@ void abrir_escribir_cerrar_BITMAP_DAT(int puntero, int bit_presencia){
     fd = open(path_bitmap, O_RDWR | O_CREAT , S_IRUSR | S_IWUSR);
 	ftruncate(fd, TAM_BITMAP);
 
-    datos = (double *)mmap(NULL, TAM_BITMAP, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, fd, 0);
+    datos = (double *)mmap(NULL, TAM_BITMAP*sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, fd, 0);
     assert(datos != MAP_FAILED);
 
     /* Leemos el valor inicial y lo modificamos */
@@ -120,8 +123,9 @@ void abrir_escribir_cerrar_BITMAP_DAT(int puntero, int bit_presencia){
 }
 
 void leer_archivo(int fd){
-    fd = read(fd, contenido_superbloque, sizeof(contenido_superbloque));
-	log_info(logger, "Contenido del archivo: %s", contenido_superbloque);	
+	char* archivo[TAM_BITMAP];
+    fd = read(fd, archivo, TAM_BITMAP);
+	log_info(logger, "Contenido del archivo: %s", archivo);	
 }
 
 void inicializar_config(){
@@ -154,13 +158,6 @@ char* concatenar_path(char* nombre_archivo){
 	return resultado;
 }
 
-void set_tamanio_archivo(FILE* bloques, int tamanioBloque){
-    if (ftruncate(fileno(bloques), tamanioBloque) == -1) {
-        perror("Error al establecer el tamaño del archivo");
-        exit(EXIT_FAILURE);
-    }
-}
-
 void iniciar_estructura_fs(const char *contenidos[]){
 	int valor = mkdir(PATH, 0777);
 	if(valor < 0){
@@ -183,6 +180,8 @@ void iniciar_estructura_fs(const char *contenidos[]){
 	}
 }
 
+//---------------------------CREACION DE BLOQUES ------------------------------//
+
 void crear_bloque(FILE* bloques, t_config* config_superbloque){
 	bloques = fopen(datos.path_bloques,"a");
 	int block_size = config_get_int_value(config_superbloque, "BLOCK_SIZE");
@@ -193,13 +192,48 @@ void crear_bloque(FILE* bloques, t_config* config_superbloque){
 }
 
 //TODO: revisar
-char* crear_archivo_fcb(char path_name[]){
-	FILE* fcb = crear_estructuras(path_name);
-	set_tamanio_archivo(fcb, 0);
-	fclose(fcb);
-	return "OK";
+t_fcb crear_fcb(t_pcb* pcb){
+	t_fcb fcb;
+	//FILE* archivo=malloc(sizeof(FILE)); 
+
+	fcb.archivo=archivo;
+	fcb.nombre_archivo=pcb->arch_a_abrir;
+	fcb.tamanio=pcb->dat_tamanio;
+    set_tamanio_archivo(fcb, pcb->dat_tamanio);
+	fcb.puntero_directo=0;
+	fcb.puntero_indirecto=0;
+
+    list_add(lista_fcb, fcb);
+
+	return fcb;
 }
 
+void set_tamanio_archivo(FILE* bloque, int tamanioBloque){
+    if (ftruncate(fileno(bloque), tamanioBloque) == -1) {
+        perror("Error al establecer el tamaño del archivo");
+        exit(EXIT_FAILURE);
+    }
+	ftruncate(bloque, tamanioBloque);
+}
+
+FILE* abrir_archivo(char* path, char* modo){
+	FILE* file =fopen(path, modo);
+	return file; 
+}
+
+void crear_archivo(char* path, const char *contenidos[], int num_contenidos){
+	FILE *archivo;
+	archivo = fopen(path,"w");
+	for(int i = 0; i < num_contenidos; i++){
+		fprintf(archivo, "%s\n", contenidos[i]);
+	}
+	fclose(archivo);
+}
+
+//----------------------------------------------------------------------//
+
+//TODO: revisar el uso de la funcion
+/*
 char* abrir_archivo_fcb(char* directorio, char* nombre_archivo){
 	// return access(path_name, F_OK) == 0 ? "ERROR" : "OK";
     DIR* dir = opendir(directorio);
@@ -222,6 +256,7 @@ char* abrir_archivo_fcb(char* directorio, char* nombre_archivo){
     closedir(dir);
 
 }
+*/
 
 t_config* iniciar_config_fs(char * path) {
 	t_config* config = iniciar_config(path);
@@ -233,11 +268,6 @@ t_config* iniciar_config_fs(char * path) {
 	return config;
 }
 
-FILE* crear_estructuras(char* path){
-	FILE* file =fopen(path,"a");
-	return file; 
-}
-
 void finalizar_fs(){
 	log_destroy(logger);
 	config_destroy(config);
@@ -247,6 +277,8 @@ void finalizar_fs(){
 	fclose(bloques);
 	fclose(fcb);
 }
+
+
 
 void* atender_kernel(void){
 	server_fd = iniciar_servidor(logger,datos.puerto_escucha);
@@ -271,7 +303,33 @@ void* atender_kernel(void){
 			case ABRIR_ARCHIVO:
 				buffer=desempaquetar(paquete,*cliente_fd);
 				pcb = deserializar_pcb(buffer);
+				
 				log_info(logger,"El id es %d", pcb->pid);
+
+				if(buscar_archivo_fcb(pcb->arch_a_abrir)){
+					//Encontro el archivo en el directorio
+					log_info(logger,"El archivo existe");
+
+					if(buscar_fcb(pcb->arch_a_abrir)==0){
+					   log_info(logger, "Se agrega a la lista de fcb");
+					   list_add(lista_fcb, obtener_fcb(pcb->arch_a_abrir));
+					   enviar_pcb_a(pcb,conexion_kernel,EXISTE_ARCHIVO);
+					}
+				}else{
+					log_info(logger,"El archivo no existe");
+					enviar_pcb_a(pcb,conexion_kernel,CREAR_ARCHIVO);
+				}
+				break;
+			case CREAR_ARCHIVO:
+				buffer=desempaquetar(paquete,*cliente_fd);
+				pcb = deserializar_pcb(buffer);
+				log_info(logger, "Crear Archivo: %s", pcb->arch_a_abrir);
+				log_info(logger, "El id es %d", pcb->pid);
+			    
+				crear_fcb(pcb);
+				
+				list_add(lista_fcb, fcb);
+
 				break;
 			case CERRAR_ARCHIVO:
 				buffer=desempaquetar(paquete,*cliente_fd);
@@ -302,10 +360,52 @@ void* atender_kernel(void){
 				break;
 		}
 	}
+}
 
+t_fcb* obtener_fcb(char* nombre_archivo){
+	int i=1;
+	while(i<list_size(lista_fcb)){
+		t_fcb* fcb = list_get(lista_fcb,i);
+		if(strcmp(fcb->nombre_archivo,nombre_archivo)==1){
+			return fcb;
+		}
+		i++;
+	}
+	log_info(logger, "No se encontro el archivo: %s", nombre_archivo);
+	return NULL;
+}
 
+int buscar_fcb(char* nombre_archivo){
+	int i=1;
+	while(i<list_size(lista_fcb)){
+		t_fcb* fcb = list_get(lista_fcb,i);
+		if(strcmp(fcb->nombre_archivo,nombre_archivo)==1){
+			return i;
+		}
+		i++;
+	}
+	return 0;
+}
 
+int buscar_archivo_fcb(char* nombre_archivo){
+    DIR* dir = opendir(PATH_FCB);
 
+    if (dir == NULL) {
+        log_error(logger, "No se pudo abrir el directorio: %s", PATH_FCB);
+        return 0;
+    }
+
+    struct dirent* entry;
+
+    while ((entry = readdir(dir)) != NULL) {
+        if (strcmp(entry->d_name, nombre_archivo) == 0) {
+            return 1;
+            closedir(dir);
+        }
+    }
+	log_info(logger,"No se encontro el archivo: %s",nombre_archivo);
+    return 0;
+	closedir(dir);
 }
 
 void* atender_memoria(void){
@@ -339,6 +439,7 @@ void* atender_memoria(void){
 	}
 }
 
+//----------------------------------- AUXILIARES -----------------------------------//
 void iterator(char* value) {
 	log_info(logger,"%s", value);
 }
