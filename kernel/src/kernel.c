@@ -257,6 +257,7 @@ void* atender_cpu(void){
 					} else {
 						//enviar mensaje al filesystem a ber si existe el archivo
 						enviar_pcb_a(pcb,conexion_filesystem,ABRIR_ARCHIVO);
+
 						int cod_op = recibir_operacion(conexion_filesystem);
 
 						switch(cod_op){
@@ -1196,7 +1197,7 @@ void modificar_tamanio(t_pcb* pcb){
 	sem_wait(&mutex_fs);
 	int result;
 	enviar_pcb_a(pcb, conexion_filesystem, MODIFICAR_TAMANIO);
-	recv(conexion_filesystem,&result,sizeof(int),SMG_WAITALL);
+	recv(conexion_filesystem,&result,sizeof(int),MSG_WAITALL);
 	if(result==0){
 		log_info(logger, "Ocurrio un error al modificar el tamanio. PID: %i - Archivo: %s", pcb->pid, pcb->arch_a_abrir);
 		enviar_pcb_a(pcb, conexion_cpu, DETENER);

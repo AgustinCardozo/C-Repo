@@ -69,6 +69,7 @@ FILE* bloques;
 FILE* fcb;
 
 // ------------------------VARIABLES GLOBALES------------------------ //
+t_list* lista_fcb;
 
 // ------------------------CONEXIONES------------------------ //
 t_log* logger;
@@ -89,18 +90,20 @@ pthread_t hilo_conexion_memoria;
 void* atender_kernel(void);
 void* atender_memoria(void);
 
+
 char* abrir_archivo_fcb(char*, char*);
-void crear_archivo(const char*, const char *contenidos[], int);
+void crear_archivo(const char*, const char**, int);
 char* crear_archivo_fcb(char path_name[]);
 t_fcb* crear_fcb(t_pcb* pcb);
 void crear_bloque(FILE*, t_config*);
-FILE* abrir_archivo(char*);
+FILE* abrir_archivo(char*, char*);
 int buscar_fcb(char*);
 int buscar_archivo_fcb(char*);
 t_fcb* obtener_fcb(t_pcb*);
-void actualzar_lista_fcb(t_fcb*);
+FILE* obtener_archivo(char*);
+void actualizar_lista_fcb(t_fcb*);
 void agrandar_archivo(t_fcb*, int);
-void achicar_tamanio(t_fcb*, int);
+void achicar_archivo(t_fcb*, int);
 char* concatenar_path(char*);
 int convertir_byte_a_bit(int);
 void finalizar_fs();

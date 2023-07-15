@@ -58,14 +58,17 @@ int main(void) {
 	log_info(logger, "%s", resultado);
 	log_info(logger,"PATH_FCB: %s", datos.path_fcb);
 	//TODO
+	/*
 	if(abrir_archivo_fcb(datos.path_fcb, nombre_archivo) == "ERROR"){
 		log_error(logger, "No existe el archivo: %s", nombre_archivo);
 	};
+
 	char* lala = crear_fcb(resultado);
 	printf("%s\n", lala);
 	log_info(logger, "Crear Archivo: %s", "test_fcb");
 	lala = abrir_archivo_fcb(datos.path_fcb, nombre_archivo);
 	printf("%s\n", lala);
+    */
     //-----------------------------------------------------------------------------//
 
 	pthread_create(&hilo_conexion_kernel,NULL,(void*) atender_kernel,NULL);
@@ -205,6 +208,7 @@ FILE* abrir_archivo(char* path, char* modo){
 	return file; 
 }
 
+/*
 void crear_archivo(char* path, const char *contenidos[], int num_contenidos){
 	FILE *archivo;
 	archivo = fopen(path,"w");
@@ -213,6 +217,7 @@ void crear_archivo(char* path, const char *contenidos[], int num_contenidos){
 	}
 	fclose(archivo);
 }
+*/
 
 //----------------------------------------------------------------------//
 
@@ -299,11 +304,12 @@ void* atender_kernel(void){
 					if(buscar_fcb(pcb->arch_a_abrir)==0){
 					   log_info(logger, "Se agrega a la lista de fcb");
 					   list_add(lista_fcb, obtener_fcb(pcb->arch_a_abrir));
-					   enviar_pcb_a(pcb,conexion_kernel,EXISTE_ARCHIVO);
+
+					   send(server_fd,EXISTE_ARCHIVO,sizeof(op_code),0);
 					}
 				}else{
 					log_info(logger,"El archivo no existe");
-					enviar_pcb_a(pcb,conexion_kernel,CREAR_ARCHIVO);
+					send(server_fd,CREAR_ARCHIVO,sizeof(op_code),0);
 				}
 				break;
 			case CREAR_ARCHIVO:
@@ -333,7 +339,7 @@ void* atender_kernel(void){
 					achicar_archivo(fcb, pcb->dat_tamanio);
 				}
 
-				send(conexion_kernel, 1, sizeof(int), 0);
+				send(server_fd, 1, sizeof(int), 0);
 
 				break;
 			case LEER_ARCHIVO:
@@ -370,7 +376,7 @@ t_fcb* obtener_fcb(t_pcb* pcb){
 		i++;
 	}
 	if(buscar_archivo_fcb(pcb->arch_a_abrir)==0){
-		log_info(logger, "No se encontro el archivo: %s", nombre_archivo);
+		log_info(logger, "No se encontro el archivo: %s", pcb->arch_a_abrir);
 	    return NULL;
 	}else{
 		t_fcb* fcb = crear_fcb(pcb);
@@ -379,7 +385,7 @@ t_fcb* obtener_fcb(t_pcb* pcb){
 	}
 }
 
-void actualzar_lista_fcb(t_fcb* fcb){
+void actualizar_lista_fcb(t_fcb* fcb){
 	list_add(lista_fcb,fcb);
 }
 
@@ -433,7 +439,7 @@ void agrandar_archivo(t_fcb* fcb, int tamanio){
 }
 
 //TODO: revisar (generado con IA)
-void achicar_tamanio(t_fcb* fcb, int tamanio){
+void achicar_archivo(t_fcb* fcb, int tamanio){
 	FILE* archivo = fopen(fcb->nombre_archivo, "r+");
 	fseek(archivo, 0, SEEK_END);
 	int tamanio_actual = ftell(archivo);
@@ -525,20 +531,25 @@ void crear_archivo(const char *nombre_archivo, const char *contenidos[], int num
     }
 }
 
+FILE* obtener_archivo(char* nombreArchivo){
+	FILE* archivo = fopen(nombreArchivo, "r");
+	return archivo;
+}
 
 //TODO: revisar
 t_fcb* crear_fcb(t_pcb* pcb){
-	t_fcb fcb;
-	//FILE* archivo=malloc(sizeof(FILE)); 
+	t_fcb* fcb = malloc(sizeof(t_fcb*));
 
-    crear_archivo(pcb->arch_a_abrir, NULL, 0);
+	crear_archivo(pcb->arch_a_abrir, NULL, 0);
 
-	fcb.archivo=archivo;
-	fcb.nombre_archivo=pcb->arch_a_abrir;
-	fcb.tamanio=pcb->dat_tamanio;
-    set_tamanio_archivo(fcb, pcb->dat_tamanio);
-	fcb.puntero_directo=0;
-	fcb.puntero_indirecto=0;
+	FILE* archivo = obtener_archivo(pcb->arch_a_abrir);
+
+	fcb->archivo=archivo;
+	fcb->nombre_archivo=pcb->arch_a_abrir;
+	fcb->tamanio_archivo=pcb->dat_tamanio;
+    set_tamanio_archivo(fcb->archivo, pcb->dat_tamanio);
+	fcb->puntero_directo=0;
+	fcb->puntero_indirecto=0;
 
     list_add(lista_fcb, fcb);
 
