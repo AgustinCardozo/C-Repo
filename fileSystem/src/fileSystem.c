@@ -41,9 +41,9 @@ int main(void) {
 
 	//limpiar_bitarray(bitarray);
     
-	log_info(logger, "tamanio del bitmap: %i", (int)bitarray_test_bit(bitarray, 8192+10));
-	bitarray_clean_bit(bitarray, 8192+10);
-	log_info(logger, "tamanio del bitmap: %i", (int)bitarray_test_bit(bitarray, 8192+10));
+	// log_info(logger, "tamanio del bitmap: %i", (int)bitarray_test_bit(bitarray, 8192+10));
+	// bitarray_clean_bit(bitarray, 8192+10);
+	// log_info(logger, "tamanio del bitmap: %i", (int)bitarray_test_bit(bitarray, 8192+10));
 
     char* nombre_archivo = "test_fcb";    
     char resultado[50];
@@ -102,7 +102,7 @@ int tamanio_maximo_teorico_archivo(t_fcb* fcb, int block_size){
 }
 
 void modificar_puntero_BITMAP(int puntero, int bit_presencia){
-    double *datos;
+    int *datos;
     int fd;
 
 /*
@@ -112,7 +112,7 @@ void modificar_puntero_BITMAP(int puntero, int bit_presencia){
     fd = open(path_bitmap, O_RDWR | O_CREAT , S_IRUSR | S_IWUSR);
 	ftruncate(fd, TAM_BITMAP);
 
-    datos = (double *)mmap(NULL, TAM_BITMAP*sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, fd, 0);
+    datos = mmap(NULL, TAM_BITMAP*sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, fd, 0);
     assert(datos != MAP_FAILED);
 
     /* Leemos el valor inicial y lo modificamos */
