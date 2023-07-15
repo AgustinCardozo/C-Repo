@@ -92,6 +92,7 @@ int contiene_archivo(t_pcb* pcb, char* nombreArchivo);
 void* iniciar_archivo(void* data);
 void crear_archivo(char* nombreArchivo);
 void cerrar_archivo(t_pcb* pcb);
+void modificar_tamanio(t_pcb* pcb);
 void actualizar_puntero(t_pcb* pcb);
 //int enviar_datos_a_memoria(t_pcb* pcb, int conexion, op_code codigo);
 //void enviar_segmento_con_cod(seg_aux* segmento, int conexion, op_code codigo);
@@ -280,6 +281,7 @@ void* atender_cpu(void){
 					}
 
 					break;
+				
 				case CERRAR_ARCHIVO:
 					log_info(logger, "Paso por Abrir_Archivo");
 					buffer=desempaquetar(paquete,conexion_cpu);
@@ -301,23 +303,30 @@ void* atender_cpu(void){
 					enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
 
 					break;
+				
 				case LEER_ARCHIVO:
 					log_info(logger, "Paso por leer_Archivo");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 					enviar_pcb_a(pcb,conexion_cpu,DETENER);
 					break;
+				
 				case ESCRIBIR_ARCHIVO:
 					log_info(logger, "Paso por escribir_Archivo");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 					enviar_pcb_a(pcb,conexion_cpu,DETENER);
 					break;
+				
 				case MODIFICAR_TAMANIO:
 					log_info(logger, "Paso por modificar_Archivo");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
-					enviar_pcb_a(pcb,conexion_cpu,DETENER);
+
+					modificar_tamanio(pcb);
+					
+					enviar_pcb_a(pcb, conexion_cpu, CONTINUAR);
+					//enviar_pcb_a(pcb,conexion_cpu,DETENER);
 					break;
 
 				case CREAR_SEGMENTO:
@@ -1181,4 +1190,16 @@ void actualizar_puntero(t_pcb* pcb){
 		}
 
 	}
+}
+
+void modificar_tamanio(t_pcb* pcb){
+	sem_wait(&mutex_fs);
+	int result;
+	enviar_pcb_a(pcb, conexion_filesystem, MODIFICAR_TAMANIO);
+	recv(conexion_filesystem,&result,sizeof(int),SMG_WAITALL);
+	if(result==0){
+		log_info(logger, "Ocurrio un error al modificar el tamanio. PID: %i - Archivo: %s", pcb->pid, pcb->arch_a_abrir);
+		enviar_pcb_a(pcb, conexion_cpu, DETENER);
+	}
+	sem_post(&mutex_fs);
 }

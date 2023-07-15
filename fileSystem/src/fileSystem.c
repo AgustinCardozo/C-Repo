@@ -92,8 +92,9 @@ int cantidad_punteros_por_bloques(int block_size){
 	return block_size/TAMANIO_DE_PUNTERO; 
 }
 
-int tamanio_maximo_teorico_archivo(){
+int tamanio_maximo_teorico_archivo(t_fcb* fcb, int block_size){
 	//TODO: implementar
+	int CPB = cantidad_punteros_por_bloques(block_size);
 	return 0;
 }
 
@@ -272,6 +273,8 @@ void* atender_kernel(void){
 	int *cliente_fd = esperar_cliente(logger,server_fd);
 	t_pcb* pcb;
 	t_buffer* buffer;
+
+	t_fcb* fcb;
 	while(1){
 		int cod_op = recibir_operacion(*cliente_fd);
 		switch (cod_op) {
@@ -309,7 +312,7 @@ void* atender_kernel(void){
 				log_info(logger, "Crear Archivo: %s", pcb->arch_a_abrir);
 				log_info(logger, "El id es %d", pcb->pid);
 			    
-				crear_fcb(pcb);
+				fcb = crear_fcb(pcb);
 				
 				list_add(lista_fcb, fcb);
 
@@ -317,6 +320,21 @@ void* atender_kernel(void){
 			case MODIFICAR_TAMANIO:
 				buffer=desempaquetar(paquete,*cliente_fd);
 				pcb = deserializar_pcb(buffer);
+                
+				log_info(logger, "Truncar Archivo: %s - Tamaño: %i", pcb->arch_a_abrir, pcb->dat_tamanio);
+
+				fcb = obtener_fcb(pcb);
+				
+				if(fcb->tamanio_archivo < pcb->dat_tamanio){
+					log_info(logger, "Agrandar archivo: %s", pcb->arch_a_abrir);
+					agrandar_archivo(fcb, pcb->dat_tamanio);
+				}else{
+					log_info(logger, "Achica archivo: %s", pcb->arch_a_abrir);
+					achicar_archivo(fcb, pcb->dat_tamanio);
+				}
+
+				send(conexion_kernel, 1, sizeof(int), 0);
+
 				break;
 			case LEER_ARCHIVO:
 				buffer=desempaquetar(paquete,*cliente_fd);
@@ -341,18 +359,31 @@ void* atender_kernel(void){
 	}
 }
 
-t_fcb* obtener_fcb(char* nombre_archivo){
+
+t_fcb* obtener_fcb(t_pcb* pcb){
 	int i=1;
 	while(i<list_size(lista_fcb)){
 		t_fcb* fcb = list_get(lista_fcb,i);
-		if(strcmp(fcb->nombre_archivo,nombre_archivo)==1){
+		if(strcmp(fcb->nombre_archivo,pcb->arch_a_abrir)==1){
 			return fcb;
 		}
 		i++;
 	}
-	log_info(logger, "No se encontro el archivo: %s", nombre_archivo);
-	return NULL;
+	if(buscar_archivo_fcb(pcb->arch_a_abrir)==0){
+		log_info(logger, "No se encontro el archivo: %s", nombre_archivo);
+	    return NULL;
+	}else{
+		t_fcb* fcb = crear_fcb(pcb);
+		actualizar_lista_fcb(fcb);
+		return fcb;
+	}
 }
+
+void actualzar_lista_fcb(t_fcb* fcb){
+	list_add(lista_fcb,fcb);
+}
+
+// ------------------------- BUSCAR FCB --------------------------- //
 
 int buscar_fcb(char* nombre_archivo){
 	int i=1;
@@ -386,6 +417,36 @@ int buscar_archivo_fcb(char* nombre_archivo){
     return 0;
 	closedir(dir);
 }
+
+// ------------------------- MODIFICAR TAMANIO ---------------------- //
+//TODO: revisar (generado con IA)
+void agrandar_archivo(t_fcb* fcb, int tamanio){
+	FILE* archivo = fopen(fcb->nombre_archivo, "r+");
+	fseek(archivo, 0, SEEK_END);
+	int tamanio_actual = ftell(archivo);
+	int diferencia = tamanio - tamanio_actual;
+	char* buffer = malloc(diferencia);
+	memset(buffer, '\0', diferencia);
+	fwrite(buffer, diferencia, 1, archivo);
+	fclose(archivo);
+	free(buffer);
+}
+
+//TODO: revisar (generado con IA)
+void achicar_tamanio(t_fcb* fcb, int tamanio){
+	FILE* archivo = fopen(fcb->nombre_archivo, "r+");
+	fseek(archivo, 0, SEEK_END);
+	int tamanio_actual = ftell(archivo);
+	int diferencia = tamanio_actual - tamanio;
+	char* buffer = malloc(diferencia);
+	memset(buffer, '\0', diferencia);
+	fwrite(buffer, diferencia, 1, archivo);
+	fclose(archivo);
+	free(buffer);
+}
+
+// --------------------------------------------------------------------- //
+
 
 void* atender_memoria(void){
 	conexion_memoria = crear_conexion(datos.ip_memoria,datos.puerto_memoria);
@@ -466,9 +527,11 @@ void crear_archivo(const char *nombre_archivo, const char *contenidos[], int num
 
 
 //TODO: revisar
-t_fcb crear_fcb(t_pcb* pcb){
+t_fcb* crear_fcb(t_pcb* pcb){
 	t_fcb fcb;
 	//FILE* archivo=malloc(sizeof(FILE)); 
+
+    crear_archivo(pcb->arch_a_abrir, NULL, 0);
 
 	fcb.archivo=archivo;
 	fcb.nombre_archivo=pcb->arch_a_abrir;
@@ -478,8 +541,6 @@ t_fcb crear_fcb(t_pcb* pcb){
 	fcb.puntero_indirecto=0;
 
     list_add(lista_fcb, fcb);
-
-	crear_archivo(fcb.nombre_archivo, NULL, 0);
 
 	return fcb;
 }
