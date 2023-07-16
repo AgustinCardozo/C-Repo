@@ -51,6 +51,11 @@ typedef struct{
 	int ret_acceso_bloque;
 }datos_config;
 
+typedef struct{
+   int block_size;
+   int block_count;
+}datos_superbloque
+
 // ------------------------ESTRUCTURAS------------------------ //
 typedef struct{
 	FILE* archivo;
@@ -65,7 +70,7 @@ t_bitarray* bitarray;
 // ------------------------ARCHIVOS------------------------ //
 
 FILE* bitmap;
-FILE* bloques;
+FILE* b_file;
 FILE* fcb;
 
 // ------------------------VARIABLES GLOBALES------------------------ //
@@ -81,6 +86,7 @@ t_config* config_bitmap;
 t_config* config_bloques;
 t_config* config_fcb;
 datos_config datos;
+datos_superbloque superbloque;
 int server_fd;
 int conexion_memoria;
 pthread_t hilo_conexion_kernel;
@@ -95,7 +101,7 @@ char* abrir_archivo_fcb(char*, char*);
 void crear_archivo(const char*, const char**, int);
 char* crear_archivo_fcb(char path_name[]);
 t_fcb* crear_fcb(t_pcb* pcb);
-void crear_bloque(FILE*, t_config*);
+void crear_archivo_bloques(FILE*, t_config*);
 FILE* abrir_archivo(char*, char*);
 int buscar_fcb(char*);
 int buscar_archivo_fcb(char*);
