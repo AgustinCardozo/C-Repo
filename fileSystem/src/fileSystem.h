@@ -36,6 +36,8 @@
 #define PATH_FCB "/home/utnso/fs/FCB"
 #define TAMANIO_DE_PUNTERO 4
 
+#define ARRAY_SIZE(arr) (sizeof(arr)/sizeof(arr[0]))
+
 const char *contenido_superbloque[] = {
 	"BLOCK_SIZE=64",
 	"BLOCK_COUNT=65536"
@@ -116,6 +118,12 @@ void achicar_archivo(t_fcb*, int);
 char* concatenar_path(char*);
 int convertir_byte_a_bit(int);
 
+void escribir_bitmap(int*, int);
+void leer_bitmap();
+void leer_bitarray(t_bitarray*);
+void crear_bitmap();
+void cerrar_bitmap();
+
 void finalizar_fs();
 void inicializar_superbloque();
 void inicializar_config();
@@ -124,6 +132,5 @@ t_config* iniciar_config_fs(char*);
 void iterator(char*);
 void reemplazar_y_concatenar_palabra(char*, const char*, const char*, const char*);
 void set_tamanio_archivo(FILE*, int);
-void modificar_bit_BITMAP(int*, int);
 
 #endif /* FILESYSTEM_H_ */

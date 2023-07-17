@@ -51,7 +51,9 @@ typedef enum
 	DETENER,
 	CREAR_OTRA_VEZ,
 	SIN_PARAMETRO,
-	CON_PARAMETRO
+	CON_PARAMETRO,
+	OK,
+	ERROR
 }op_code;
 
 typedef struct{

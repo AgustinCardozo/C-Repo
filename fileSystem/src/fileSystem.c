@@ -21,16 +21,16 @@ int main(void) {
 	config = iniciar_config(FS_CONFIG);
 
 	inicializar_config();
-	inicializar_superbloque();
 	iniciar_estructura_fs(contenido_superbloque);
+	inicializar_superbloque();
 
 	log_info(logger,"PATH_SUPERBLOQUE: %s", datos.path_superbloque);
 	log_info(logger,"PATH_BITMAP: %s", datos.path_bitmap);
 	log_info(logger,"PATH_BLOQUES: %s", datos.path_bloques);
 	log_info(logger,"PATH_FCB: %s", datos.path_fcb);
 
-    int tam_bits_bloque = convertir_byte_a_bit(superbloque.block_size);
-	TAM_BITMAP = tam_bits_bloque*superbloque.block_count;
+    int tam_bits_bloque = convertir_byte_a_bit(superbloque.block_count);
+	TAM_BITMAP = tam_bits_bloque;
 	set_tamanio_archivo(F_BITMAP, TAM_BITMAP);
 
 	crear_bitmap();
@@ -132,8 +132,30 @@ void inicializar_superbloque(){
 
 // ------------------------------- FUNCIONES - BITMAP --------------------------------------- //
 
-void modificar_bit_BITMAP(int* punteros, int bit_presencia){
-  //TODO: revisar luego
+void escribir_bitmap(int* punteros, int bit_presencia){
+  switch(bit_presencia){
+  case 1:
+	  log_info(logger, "Log: %i", sizeof(punteros));
+	  for(int i = 0; i < ARRAY_SIZE(punteros) + 1; i++){ //TODO: Revisar el tamanio del array (deberia de dar 4 en el caso de la prueba)
+	  	  log_info(logger, "Posicion: %i", punteros[i]);
+		  bitarray_set_bit(bitmap, punteros[i]);
+	  	  log_info(logger, "Acceso a Bitmap - Bloque: %i - Estado: 1", punteros[i]);
+	  }
+	  msync(bitmap->bitarray, bitmap->size,MS_SYNC);
+	  break;
+  case 0:
+	  for(int i = 0; i < ARRAY_SIZE(punteros) + 1; i++){
+	  	  bitarray_clean_bit(bitmap, punteros[i]);
+	  	  log_info(logger, "Acceso a Bitmap - Bloque: %d - Estado: 0", punteros[i]);
+	  }
+	  msync(bitmap->bitarray, bitmap->size,MS_SYNC);
+	  break;
+  default:
+	  log_error(logger, "El valor del bit de presencia no es ni 0 ni 1");
+	  exit(EXIT_FAILURE);
+	  break;
+  }
+  log_info(logger, "Acceso a Bitmap - Bloque: a - Estado: %i", bit_presencia);
 }
 
 void crear_bitmap(){
@@ -146,7 +168,7 @@ void crear_bitmap(){
 		exit(EXIT_FAILURE);
 	}
 
-	leer_bitmap();
+    ftruncate(fd, TAM_BITMAP);
 
 	/* Creamos la estructura para modificar */
 	datos_memoria = mmap(NULL, TAM_BITMAP*sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, fd, 0);
@@ -157,7 +179,13 @@ void crear_bitmap(){
 
 	bitmap = bitarray_create_with_mode(datos_memoria, TAM_BITMAP, LSB_FIRST);
 
-	fclose(fd);
+	for(int i = 0; i<bitmap->size; i++){
+	   bitarray_clean_bit(bitmap, i);
+	}
+
+	leer_bitmap();
+
+	close(fd);
 }
 
 void cerrar_bitmap(){
@@ -170,43 +198,51 @@ void cerrar_bitmap(){
 	bitarray_destroy(bitmap);
 }
 
-void leer_bitmap(){
-	FILE* archivo;
-	size_t ret;
-	unsigned int buffer[TAM_BITMAP];
+void leer_bitarray(t_bitarray* array){
+	for(int i = 0; i<=array->size; i++){
+		log_info(logger, "Pos. %i - Datos: %u", i , array->bitarray[i]);
+	}
+}
 
-	archivo = fopen(datos.path_bitmap, "rb");
-	if (!archivo){
+void leer_bitmap(){
+	size_t ret;
+	char* buffer = malloc(strlen(TAM_BITMAP) + 1);
+	int fd;
+
+	fd = open(path_bitmap, O_RDWR | O_CREAT , S_IRUSR | S_IWUSR);
+	if (!fd){
         log_error(logger, "No se pudo abrir el archivo");
     }
-	
-    ret = fread(buffer, sizeof(*buffer), (sizeof(buffer)/sizeof((buffer)[0])), archivo);
-    
+
+	ret = read(fd, buffer, TAM_BITMAP);
+
 	for(size_t i = 0; i < ret; i++){
-	    log_info(logger, "Pos. %i - Datos: %i\n", (int)i , buffer[i]);	
+	    log_info(logger, "Pos. %i - Datos: %u", i , atoi(buffer[i]));
 	}
 
-	fclose(archivo);
+	free(buffer);
+	close(fd);
 }
 
 // ---------------------------------- FUNCIONES - ARCHIVOS - GENERAL -------------------------- //
 
 void leer_archivo(FILE* archivo, size_t tamArchivo, char* path){
 	size_t ret;
-	unsigned char buffer[tamArchivo];
+	char* buffer = malloc(strlen(tamArchivo) + 1);
 	int dif;
+    int fd;
 
-	archivo = fopen(path, "rb");
-	if (!archivo){
+	fd = open(path, O_RDWR | O_CREAT , S_IRUSR | S_IWUSR);
+	if (!fd){
         log_error(logger, "No se pudo abrir el archivo");
     }
 	
 	// Obtenemos la cantidad de valores leidos con ret y los almacenamos en el buffer
-    ret = fread(buffer, sizeof(*buffer), (sizeof(buffer)/sizeof((buffer)[0])), archivo);
+    ret = read(fd, buffer, tamArchivo);
 
     //Lectura del archivo cada 4 valores hexadecimales 
 	for(size_t i = 0; i < ret; i+=4){
-	    log_info(logger, "Lec. %i - Dato: %02X %02X %02X %02X", (int)i , buffer[i], buffer[i+1], buffer[i+2], buffer[i+3]);	
+	    log_info(logger, "Lec. %i - Dato: %02X %02X %02X %02X", i , buffer[i], buffer[i+1], buffer[i+2], buffer[i+3]);
 		dif = (int)ret - i;
 	}
     
@@ -217,7 +253,8 @@ void leer_archivo(FILE* archivo, size_t tamArchivo, char* path){
 	    }
 	}
 
-	fclose(archivo);
+	free(buffer);
+	close(fd);
 }
 
 void set_tamanio_archivo(FILE* archivo, int tamanioArchivo){
@@ -247,10 +284,11 @@ void crear_archivo_bloques(FILE* archivo){
 // ---------------------------------------------------------------------------------------- //
 
 void prueba(){
-	int* punteros = {2,3,4,5};
-	modificar_bit_BITMAP(punteros, 1);
-	leer_archivo(F_BITMAP, TAM_BITMAP, datos.path_bitmap);
-	
+	int valores[] = {1,2,3,4,5}; //Posiblemente sea este el problema que lea mal los datos cuando escribe
+	int *punteros = malloc(sizeof(int));
+	strcpy(punteros, valores);
+	escribir_bitmap(punteros, 1);
+	leer_bitarray(bitmap);
 }
 
 /*
@@ -332,7 +370,6 @@ int cantidad_punteros_por_bloques(int block_size){
 
 int tamanio_maximo_teorico_archivo(t_fcb* fcb, int block_size){
 	//TODO: implementar
-	int CPB = cantidad_punteros_por_bloques(block_size);
 	return 0;
 }
 
@@ -406,7 +443,7 @@ void* atender_kernel(void){
 					achicar_archivo(fcb, pcb->dat_tamanio);
 				}
 
-				send(server_fd, 1, sizeof(int), 0);
+				send(server_fd,OK,sizeof(op_code),0);
 
 				break;
 			case LEER_ARCHIVO:
