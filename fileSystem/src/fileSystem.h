@@ -27,6 +27,7 @@
 #include <sys/stat.h>
 #include <assert.h>
 #include <dirent.h>
+#include <errno.h>
 
 #define FS_LOG "filesySystem.log"
 #define FS_CONFIG "fileSystem.config"
@@ -54,7 +55,7 @@ typedef struct{
 typedef struct{
    int block_size;
    int block_count;
-}datos_superbloque
+}datos_superbloque;
 
 // ------------------------ESTRUCTURAS------------------------ //
 typedef struct{
@@ -65,15 +66,16 @@ typedef struct{
 	uint32_t puntero_indirecto; //TODO: revisar
 }t_fcb; 
 
-t_bitarray* bitarray; 
+void* datos_memoria;
 
 // ------------------------ARCHIVOS------------------------ //
 
-FILE* bitmap;
-FILE* b_file;
-FILE* fcb;
+FILE* F_BITMAP;
+FILE* F_BLOCKS;
+FILE* F_FCB;
 
 // ------------------------VARIABLES GLOBALES------------------------ //
+t_bitarray* bitmap;
 t_list* lista_fcb;
 
 // ------------------------CONEXIONES------------------------ //
@@ -101,8 +103,9 @@ char* abrir_archivo_fcb(char*, char*);
 void crear_archivo(const char*, const char**, int);
 char* crear_archivo_fcb(char path_name[]);
 t_fcb* crear_fcb(t_pcb* pcb);
-void crear_archivo_bloques(FILE*, t_config*);
+void crear_archivo_bloques(FILE*);
 FILE* abrir_archivo(char*, char*);
+
 int buscar_fcb(char*);
 int buscar_archivo_fcb(char*);
 t_fcb* obtener_fcb(t_pcb*);
@@ -112,13 +115,15 @@ void agrandar_archivo(t_fcb*, int);
 void achicar_archivo(t_fcb*, int);
 char* concatenar_path(char*);
 int convertir_byte_a_bit(int);
+
 void finalizar_fs();
+void inicializar_superbloque();
 void inicializar_config();
 void iniciar_estructura_fs(const char *contenidos[]);
 t_config* iniciar_config_fs(char*);
 void iterator(char*);
 void reemplazar_y_concatenar_palabra(char*, const char*, const char*, const char*);
 void set_tamanio_archivo(FILE*, int);
-void abrir_escribir_cerrar_BITMAP_DAT(int, int);
+void modificar_bit_BITMAP(int*, int);
 
 #endif /* FILESYSTEM_H_ */

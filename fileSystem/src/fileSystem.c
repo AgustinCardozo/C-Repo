@@ -21,6 +21,7 @@ int main(void) {
 	config = iniciar_config(FS_CONFIG);
 
 	inicializar_config();
+	inicializar_superbloque();
 	iniciar_estructura_fs(contenido_superbloque);
 
 	log_info(logger,"PATH_SUPERBLOQUE: %s", datos.path_superbloque);
@@ -28,13 +29,13 @@ int main(void) {
 	log_info(logger,"PATH_BLOQUES: %s", datos.path_bloques);
 	log_info(logger,"PATH_FCB: %s", datos.path_fcb);
 
-	inicializar_superbloque();
-
     int tam_bits_bloque = convertir_byte_a_bit(superbloque.block_size);
 	TAM_BITMAP = tam_bits_bloque*superbloque.block_count;
-	set_tamanio_archivo(bitmap, TAM_BITMAP);	
+	set_tamanio_archivo(F_BITMAP, TAM_BITMAP);
+
+	crear_bitmap();
 		
-    b_file = crear_archivo_bloques();
+    crear_archivo_bloques(F_BLOCKS);
 
 	prueba();
 
@@ -58,6 +59,7 @@ int main(void) {
 	pthread_join(hilo_conexion_kernel,NULL);
 	pthread_join(hilo_conexion_memoria,NULL);
 
+	cerrar_bitmap();
 	finalizar_fs();
 	return EXIT_SUCCESS;
 }
@@ -87,8 +89,8 @@ void iniciar_estructura_fs(const char *contenidos[]){
 	// config_fcb = iniciar_config_fs(datos.path_fcb);
 	
 	//Si existe la carpeta crea los archivos
-	bitmap = fopen(datos.path_bitmap,"a");
-	crear_archivo_bloques(b_file, config_superbloque);
+	F_BITMAP = fopen(datos.path_bitmap,"a");
+	crear_archivo_bloques(F_BLOCKS);
 	// bloques = fopen(datos.path_bloques,"a");
 	valor = mkdir(datos.path_fcb, 0777);
 	if(valor < 0){
@@ -119,7 +121,7 @@ void inicializar_config(){
 	// reemplazar_y_concatenar_palabra(datos.path_superbloque, "~/fs/sbloque.dat", "/home/utnso/fs/", "superbloque.dat");
 	// reemplazar_y_concatenar_palabra(datos.path_bitmap, "~/fs", "/home/utnso/fs/", "bitmap.dat");
 	// reemplazar_y_concatenar_palabra(datos.path_bloques, "~/fs", "/home/utnso/fs/", "bloques.dat");
-	// reemplazar_y_concatenar_palabra(datos.path_fcb, "~/fs", "/home/utnso/fs/", "fcb");
+	// reemplazar_y_concatenar_palabra(datos.path_fcb, "~/fs", "/home/utnso/fs/", "F_FBC");
 
 }
 
@@ -131,31 +133,41 @@ void inicializar_superbloque(){
 // ------------------------------- FUNCIONES - BITMAP --------------------------------------- //
 
 void modificar_bit_BITMAP(int* punteros, int bit_presencia){
-    int *datos;
-    int fd;
-    off_t offset, pa_offset;
+  //TODO: revisar luego
+}
 
-	/* Abrimos el archivo en la direccion pasada por parametro y ajustamos el tamanio del mismo */
-    fd = open(path_bitmap, O_RDWR | O_CREAT , S_IRUSR | S_IWUSR);
-	ftruncate(fd, TAM_BITMAP);
+void crear_bitmap(){
+	int fd;
 
-    leer_bitmap();
-
-    /* Creamos la estructura para modificar */
-    datos = mmap(NULL, TAM_BITMAP*sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, fd, 0);
-    assert(datos != MAP_FAILED);
-
-    /* Leemos el valor inicial y lo modificamos */
-	for(int i = 0, i < sizeof(punteros), i++){
-	log_info(logger,"Contenido inicial del puntero %i: %i", puntero, datos[puntero[i]]);
-    datos[puntero] = bit_presencia;
+    /* Abrimos el archivo en la direccion pasada por parametro y ajustamos el tamanio del mismo */
+	fd = open(path_bitmap, O_RDWR | O_CREAT , S_IRUSR | S_IWUSR);
+    if(fd==EXIT_FAILURE){
+	    log_info(logger, "NO se pudo abrir el archivo del F_BITMAP");
+		exit(EXIT_FAILURE);
 	}
 
-    /* Desmapeamos el archivo de la memoria */
-    int rc = munmap(datos, TAM_BITMAP);
-    assert(rc == 0);
-    /* Cerramos el archivo */
-    close(fd);
+	leer_bitmap();
+
+	/* Creamos la estructura para modificar */
+	datos_memoria = mmap(NULL, TAM_BITMAP*sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, fd, 0);
+	if(datos_memoria==MAP_FAILED){
+	    log_info(logger, "NO se pudo inicializar el mmap");
+	    exit(EXIT_FAILURE);
+	}
+
+	bitmap = bitarray_create_with_mode(datos_memoria, TAM_BITMAP, LSB_FIRST);
+
+	fclose(fd);
+}
+
+void cerrar_bitmap(){
+	int rc = munmap(datos_memoria, TAM_BITMAP);
+	if(rc == -1){
+		log_info(logger, "No se pudo cerrar el F_BITMAP - Nro. Error:");
+		exit(EXIT_FAILURE);
+	}
+	munmap(datos_memoria, TAM_BITMAP);
+	bitarray_destroy(bitmap);
 }
 
 void leer_bitmap(){
@@ -165,12 +177,12 @@ void leer_bitmap(){
 
 	archivo = fopen(datos.path_bitmap, "rb");
 	if (!archivo){
-        log_error("No se pudo abrir el archivo");
+        log_error(logger, "No se pudo abrir el archivo");
     }
 	
-    ret = fread(buffer, sizeof(*buffer), ARRAY_SIZE(buffer), archivo);
+    ret = fread(buffer, sizeof(*buffer), (sizeof(buffer)/sizeof((buffer)[0])), archivo);
     
-	for(size_t i = 0, i < ret, i++){
+	for(size_t i = 0; i < ret; i++){
 	    log_info(logger, "Pos. %i - Datos: %i\n", (int)i , buffer[i]);	
 	}
 
@@ -186,21 +198,21 @@ void leer_archivo(FILE* archivo, size_t tamArchivo, char* path){
 
 	archivo = fopen(path, "rb");
 	if (!archivo){
-        log_error("No se pudo abrir el archivo");
+        log_error(logger, "No se pudo abrir el archivo");
     }
 	
 	// Obtenemos la cantidad de valores leidos con ret y los almacenamos en el buffer
-    ret = fread(buffer, sizeof(*buffer), ARRAY_SIZE(buffer), archivo);
+    ret = fread(buffer, sizeof(*buffer), (sizeof(buffer)/sizeof((buffer)[0])), archivo);
 
     //Lectura del archivo cada 4 valores hexadecimales 
-	for(size_t i = 0, i < ret, i+=4){
+	for(size_t i = 0; i < ret; i+=4){
 	    log_info(logger, "Lec. %i - Dato: %02X %02X %02X %02X", (int)i , buffer[i], buffer[i+1], buffer[i+2], buffer[i+3]);	
 		dif = (int)ret - i;
 	}
     
 	//Leo valores hexadecimales restantes del archivo si me quedasen 
 	if(dif != 0){
-	    for(size_t i = dif, i < ret, i++){
+	    for(size_t i = dif; i < ret; i++){
 	        log_info(logger, "Lec. %i - Dato: %02X", (int)i , buffer[i]);	
 	    }
 	}
@@ -223,22 +235,21 @@ FILE* abrir_archivo(char* path, char* modo){
 
 //--------------------------- FUNCIONES - ARCHIVO DE BLOQUES ----------------------------- //
 
-FILE* crear_archivo_bloques(){
-	FILE* archivo;
-	b_file = fopen(datos.path_bloques,"a");
+void crear_archivo_bloques(FILE* archivo){
+    archivo = fopen(datos.path_bloques,"a");
 	
 	int tamanioArchivo = superbloque.block_count * superbloque.block_size;
-	set_tamanio_archivo(b_file, tamanioArchivo);
+	set_tamanio_archivo(archivo, tamanioArchivo);
 
-	return b_file;
-	fclose(b_file);
+	fclose(archivo);
 }
 
 // ---------------------------------------------------------------------------------------- //
 
 void prueba(){
-	modificar_bit_BITMAP([2,3,4,5], 1);
-	leer_archivo(bitmap, TAM_BITMAP, datos.path_bitmap);
+	int* punteros = {2,3,4,5};
+	modificar_bit_BITMAP(punteros, 1);
+	leer_archivo(F_BITMAP, TAM_BITMAP, datos.path_bitmap);
 	
 }
 
@@ -286,9 +297,9 @@ void finalizar_fs(){
 	config_destroy(config);
 	close(server_fd);
 	close(conexion_memoria);
-	fclose(bitmap);
-	fclose(b_file);
-	fclose(fcb);
+	fclose(F_BITMAP);
+	fclose(F_BLOCKS);
+	fclose(F_FCB);
 }
 
 // ----------------------------------- ADICIONALES ----------------------------------- //
@@ -358,7 +369,7 @@ void* atender_kernel(void){
 					log_info(logger,"El archivo existe");
 
 					if(buscar_fcb(pcb->arch_a_abrir)==0){
-					   log_info(logger, "Se agrega a la lista de fcb");
+					   log_info(logger, "Se agrega a la lista de F_FCB");
 					   list_add(lista_fcb, obtener_fcb(pcb->arch_a_abrir));
 
 					   send(server_fd,EXISTE_ARCHIVO,sizeof(op_code),0);
