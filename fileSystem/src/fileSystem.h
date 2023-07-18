@@ -36,7 +36,7 @@
 #define PATH_FCB "/home/utnso/fs/FCB"
 #define TAMANIO_DE_PUNTERO 4
 
-#define ARRAY_SIZE(arr) (sizeof(arr)/sizeof(arr[0]))
+#define ARRAY_SIZE(arr) (sizeof(arr)/sizeof((arr)[0]))
 
 const char *contenido_superbloque[] = {
 	"BLOCK_SIZE=64",
@@ -64,9 +64,15 @@ typedef struct{
 	FILE* archivo;
 	char* nombre_archivo; 
 	int tamanio_archivo; //expresado en Bytes
-	uint32_t puntero_directo; //TODO: revisar 
-	uint32_t puntero_indirecto; //TODO: revisar
+	uint32_t puntero_directo; //Lista de uint32_t
+	uint32_t puntero_indirecto; //Lista de uint32_t
 }t_fcb; 
+
+typedef struct{
+	int fid; //Identificador del bloque
+	void* dato;
+	int pos;
+}t_block;
 
 void* datos_memoria;
 
@@ -79,6 +85,7 @@ FILE* F_FCB;
 // ------------------------VARIABLES GLOBALES------------------------ //
 t_bitarray* bitmap;
 t_list* lista_fcb;
+t_list* lista_bloques;
 
 // ------------------------CONEXIONES------------------------ //
 t_log* logger;
@@ -118,11 +125,15 @@ void achicar_archivo(t_fcb*, int);
 char* concatenar_path(char*);
 int convertir_byte_a_bit(int);
 
-void escribir_bitmap(int*, int);
+void escribir_bitmap(t_list*, int);
 void leer_bitmap();
 void leer_bitarray(t_bitarray*);
 void crear_bitmap();
 void cerrar_bitmap();
+
+void crear_lista_bloques();
+void liberar_lista_bloques();
+
 
 void finalizar_fs();
 void inicializar_superbloque();

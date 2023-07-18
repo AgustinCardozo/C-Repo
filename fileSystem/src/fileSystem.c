@@ -34,8 +34,6 @@ int main(void) {
 	set_tamanio_archivo(F_BITMAP, TAM_BITMAP);
 
 	crear_bitmap();
-		
-    crear_archivo_bloques(F_BLOCKS);
 
 	prueba();
 
@@ -59,6 +57,7 @@ int main(void) {
 	pthread_join(hilo_conexion_kernel,NULL);
 	pthread_join(hilo_conexion_memoria,NULL);
 
+	liberar_lista_bloques();
 	cerrar_bitmap();
 	finalizar_fs();
 	return EXIT_SUCCESS;
@@ -132,30 +131,40 @@ void inicializar_superbloque(){
 
 // ------------------------------- FUNCIONES - BITMAP --------------------------------------- //
 
-void escribir_bitmap(int* punteros, int bit_presencia){
-  switch(bit_presencia){
-  case 1:
-	  log_info(logger, "Log: %i", sizeof(punteros));
-	  for(int i = 0; i < ARRAY_SIZE(punteros) + 1; i++){ //TODO: Revisar el tamanio del array (deberia de dar 4 en el caso de la prueba)
-	  	  log_info(logger, "Posicion: %i", punteros[i]);
-		  bitarray_set_bit(bitmap, punteros[i]);
-	  	  log_info(logger, "Acceso a Bitmap - Bloque: %i - Estado: 1", punteros[i]);
+void escribir_bitmap(t_list* list, int bit_presencia){
+ int cantElementos = list_size(list);
+
+ switch(bit_presencia){
+    case 1:
+	  log_info(logger, "Log: %i", cantElementos);
+	  for(int i = 0; i < cantElementos; i++){
+		  char* pos = (char*)list_get(list, i);
+		  int intPos = atoi(pos);
+		  off_t offset = (off_t)intPos;
+
+		  log_info(logger, "Posicion: %i", intPos);
+
+		  bitarray_set_bit(bitmap, offset);
+	  	  log_info(logger, "Acceso a Bitmap - Bloque: %i - Estado: 1", intPos);
 	  }
 	  msync(bitmap->bitarray, bitmap->size,MS_SYNC);
 	  break;
-  case 0:
-	  for(int i = 0; i < ARRAY_SIZE(punteros) + 1; i++){
-	  	  bitarray_clean_bit(bitmap, punteros[i]);
-	  	  log_info(logger, "Acceso a Bitmap - Bloque: %d - Estado: 0", punteros[i]);
+    case 0:
+	  for(int i = 0; i < cantElementos; i++){
+	  	  int pos = (int)list_get(list, i);
+
+	  	  log_info(logger, "Posicion: %i", pos);
+
+		  bitarray_clean_bit(bitmap, pos);
+	  	  log_info(logger, "Acceso a Bitmap - Bloque: %d - Estado: 0", pos);
 	  }
 	  msync(bitmap->bitarray, bitmap->size,MS_SYNC);
 	  break;
-  default:
+    default:
 	  log_error(logger, "El valor del bit de presencia no es ni 0 ni 1");
 	  exit(EXIT_FAILURE);
 	  break;
   }
-  log_info(logger, "Acceso a Bitmap - Bloque: a - Estado: %i", bit_presencia);
 }
 
 void crear_bitmap(){
@@ -198,15 +207,31 @@ void cerrar_bitmap(){
 	bitarray_destroy(bitmap);
 }
 
+//--------------------------------- LEER BITMAP -------------------------------//
+
 void leer_bitarray(t_bitarray* array){
-	for(int i = 0; i<=array->size; i++){
-		log_info(logger, "Pos. %i - Datos: %u", i , array->bitarray[i]);
+	for(size_t i = 0; i<=array->size; i++){
+		off_t off_i = (off_t)i;
+		int bit = (int)bitarray_test_bit(array, off_i);
+		log_info(logger, "Pos. %i - Datos: %i", (int)i, bit);
+	}
+}
+
+void leer_pos_bitarray(t_bitarray* array, t_list* listPos){
+	for(size_t i = 0; i<=array->size; i++){
+			char* pos = (char*)list_get(listPos, (int)i);
+			int intPos = atoi(pos);
+
+			off_t off_i = (off_t)intPos;
+
+			int bit = (int)bitarray_test_bit(array, off_i);
+			log_info(logger, "Pos. %i - Datos: %i", intPos, bit);
 	}
 }
 
 void leer_bitmap(){
 	size_t ret;
-	char* buffer = malloc(strlen(TAM_BITMAP) + 1);
+	void *buffer = malloc(TAM_BITMAP);
 	int fd;
 
 	fd = open(path_bitmap, O_RDWR | O_CREAT , S_IRUSR | S_IWUSR);
@@ -217,7 +242,11 @@ void leer_bitmap(){
 	ret = read(fd, buffer, TAM_BITMAP);
 
 	for(size_t i = 0; i < ret; i++){
-	    log_info(logger, "Pos. %i - Datos: %u", i , atoi(buffer[i]));
+		//Manipulo bytes individuales del buffer
+		char* bytePtrBuffer = (char*)buffer;
+		//Calculo la direccion de memoria que quiero
+		char* ptrObtenido = bytePtrBuffer + i;
+	    log_info(logger, "Pos. %i - Datos: %d", i, *((int*)ptrObtenido));
 	}
 
 	free(buffer);
@@ -278,19 +307,56 @@ void crear_archivo_bloques(FILE* archivo){
 	int tamanioArchivo = superbloque.block_count * superbloque.block_size;
 	set_tamanio_archivo(archivo, tamanioArchivo);
 
+	crear_lista_bloques(tamanioArchivo);
+
 	fclose(archivo);
+}
+
+void crear_lista_bloques(){
+	//int tamanioBloque = ceil(tamanioArchivo/superbloque.block_size);
+	lista_bloques = list_create();
+
+	for(int i = 0; i <= superbloque.block_count; i++){
+		t_block* bloque = malloc(sizeof(t_block));
+		bloque->pos=i;
+		bloque->fid=0;
+
+		list_add(lista_bloques, bloque);
+	}
+}
+
+void liberar_lista_bloques(){
+	for(int i = 0; i <= superbloque.block_count; i++){
+		t_block* bloque = list_get(lista_bloques, i);
+		free(bloque);
+	}
 }
 
 // ---------------------------------------------------------------------------------------- //
 
 void prueba(){
-	int valores[] = {1,2,3,4,5}; //Posiblemente sea este el problema que lea mal los datos cuando escribe
-	int *punteros = malloc(sizeof(int));
-	strcpy(punteros, valores);
-	escribir_bitmap(punteros, 1);
+	t_list* pos_bloques = malloc(sizeof(int)*4);//Posiblemente sea este el problema que lea mal los datos cuando escribe
+	list_add(pos_bloques, "0");
+	list_add(pos_bloques, "1");
+	list_add(pos_bloques, "2");
+	list_add(pos_bloques, "3");
+	escribir_bitmap(pos_bloques, 1);
+
 	leer_bitarray(bitmap);
+
+	free(pos_bloques);
 }
 
+/*
+int* transf_list_a_ptr(t_list* lista){
+	int* ptr = malloc(list_size(lista)*sizeof(int));
+	for(int i = 0; i<list_size(lista);i++){
+		ptr[i] = list_get(lista, i);
+	}
+
+	return ptr;
+}
+*/
 /*
 void crear_archivo(char* path, const char *contenidos[], int num_contenidos){
 	FILE *archivo;
@@ -361,7 +427,7 @@ void limpiar_bitarray(t_bitarray* bitarray){
 }
 
 int convertir_byte_a_bit(int block_size){
-	return block_size*8;
+	return block_size/8;
 }
 
 int cantidad_punteros_por_bloques(int block_size){
@@ -409,11 +475,11 @@ void* atender_kernel(void){
 					   log_info(logger, "Se agrega a la lista de F_FCB");
 					   list_add(lista_fcb, obtener_fcb(pcb->arch_a_abrir));
 
-					   send(server_fd,EXISTE_ARCHIVO,sizeof(op_code),0);
+					   send(cliente_fd,EXISTE_ARCHIVO,sizeof(op_code),0);
 					}
 				}else{
 					log_info(logger,"El archivo no existe");
-					send(server_fd,CREAR_ARCHIVO,sizeof(op_code),0);
+					send(cliente_fd,CREAR_ARCHIVO,sizeof(op_code),0);
 				}
 				break;
 			case CREAR_ARCHIVO:
@@ -425,6 +491,10 @@ void* atender_kernel(void){
 				fcb = crear_fcb(pcb);
 				
 				list_add(lista_fcb, fcb);
+
+				log_info(logger, "Se agregó el fcb a la lista de fcbs");
+
+				send(cliente_fd,OK,sizeof(op_code),0);
 
 				break;
 			case MODIFICAR_TAMANIO:
