@@ -151,12 +151,14 @@ void escribir_bitmap(t_list* list, int bit_presencia){
 	  break;
     case 0:
 	  for(int i = 0; i < cantElementos; i++){
-	  	  int pos = (int)list_get(list, i);
+	  	  char* pos = (char*)list_get(list, i);
+	  	  int intPos = atoi(pos);
+	  	  off_t offset = (off_t)intPos;
 
-	  	  log_info(logger, "Posicion: %i", pos);
+	  	  log_info(logger, "Posicion: %i", intPos);
 
-		  bitarray_clean_bit(bitmap, pos);
-	  	  log_info(logger, "Acceso a Bitmap - Bloque: %d - Estado: 0", pos);
+		  bitarray_clean_bit(bitmap, offset);
+	  	  log_info(logger, "Acceso a Bitmap - Bloque: %i - Estado: 0", intPos);
 	  }
 	  msync(bitmap->bitarray, bitmap->size,MS_SYNC);
 	  break;
