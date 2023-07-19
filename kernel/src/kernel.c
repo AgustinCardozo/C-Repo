@@ -316,6 +316,9 @@ void* atender_cpu(void){
 					log_info(logger, "Paso por escribir_Archivo");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
+
+
+
 					enviar_pcb_a(pcb,conexion_cpu,DETENER);
 					break;
 				

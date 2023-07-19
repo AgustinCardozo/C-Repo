@@ -11,8 +11,6 @@
 #include <stdlib.h>
 #include "fileSystem.h"
 
-size_t TAM_BITMAP;
-
 char* str1 = "/";
 char* path_bitmap = "/home/utnso/fs/BITMAPA.dat";
 
@@ -29,11 +27,9 @@ int main(void) {
 	log_info(logger,"PATH_BLOQUES: %s", datos.path_bloques);
 	log_info(logger,"PATH_FCB: %s", datos.path_fcb);
 
-    int tam_bits_bloque = convertir_byte_a_bit(superbloque.block_count);
-	TAM_BITMAP = tam_bits_bloque;
-	set_tamanio_archivo(F_BITMAP, TAM_BITMAP);
+	crear_archivo_bloques(F_BLOCKS);
 
-	crear_bitmap();
+	crear_archivo_bitmap();
 
 	prueba();
 
@@ -78,7 +74,7 @@ int main(void) {
 void iniciar_estructura_fs(const char *contenidos[]){
 	int valor = mkdir(PATH, 0777);
 	if(valor < 0){
-		log_warning(logger, "Ya existe el directo(%s)", PATH);
+		log_warning(logger, "Ya existe el directorio: (%s)", PATH);
 	}
 	int num_contenidos = sizeof(contenido_superbloque) / sizeof(contenido_superbloque[0]);
 	crear_archivo(datos.path_superbloque, contenido_superbloque, num_contenidos);
@@ -87,14 +83,11 @@ void iniciar_estructura_fs(const char *contenidos[]){
 	// config_bloques = iniciar_config_fs(datos.path_bloques);
 	// config_fcb = iniciar_config_fs(datos.path_fcb);
 	
-	//Si existe la carpeta crea los archivos
-	F_BITMAP = fopen(datos.path_bitmap,"a");
-	crear_archivo_bloques(F_BLOCKS);
-	// bloques = fopen(datos.path_bloques,"a");
 	valor = mkdir(datos.path_fcb, 0777);
 	if(valor < 0){
-		log_warning(logger, "Ya existe el directo(%s)", PATH);
+		log_warning(logger, "Ya existe el directorio: (%s)", datos.path_fcb);
 	}
+
 }
 
 t_config* iniciar_config_fs(char * path) {
@@ -130,6 +123,16 @@ void inicializar_superbloque(){
 }
 
 // ------------------------------- FUNCIONES - BITMAP --------------------------------------- //
+
+void crear_archivo_bitmap(){
+	F_BITMAP = fopen(datos.path_bitmap, "a"); //TODO: revisar el modo, no deberia de ser "a+"?
+
+	int tam_bits_bloque = convertir_byte_a_bit(superbloque.block_count);
+	TAM_BITMAP = tam_bits_bloque;
+	set_tamanio_archivo(F_BITMAP, TAM_BITMAP);
+
+	crear_bitmap();
+}
 
 void escribir_bitmap(t_list* list, int bit_presencia){
  int cantElementos = list_size(list);
@@ -248,7 +251,7 @@ void leer_bitmap(){
 		char* bytePtrBuffer = (char*)buffer;
 		//Calculo la direccion de memoria que quiero
 		char* ptrObtenido = bytePtrBuffer + i;
-	    log_info(logger, "Pos. %i - Datos: %d", i, *((int*)ptrObtenido));
+	    log_info(logger, "Pos. %i - Datos: %d", (int)i, *((int*)ptrObtenido));
 	}
 
 	free(buffer);
@@ -259,7 +262,7 @@ void leer_bitmap(){
 
 void leer_archivo(FILE* archivo, size_t tamArchivo, char* path){
 	size_t ret;
-	char* buffer = malloc(strlen(tamArchivo) + 1);
+	char* buffer = malloc((int)tamArchivo);
 	int dif;
     int fd;
 
@@ -273,7 +276,7 @@ void leer_archivo(FILE* archivo, size_t tamArchivo, char* path){
 
     //Lectura del archivo cada 4 valores hexadecimales 
 	for(size_t i = 0; i < ret; i+=4){
-	    log_info(logger, "Lec. %i - Dato: %02X %02X %02X %02X", i , buffer[i], buffer[i+1], buffer[i+2], buffer[i+3]);
+	    log_info(logger, "Lec. %i - Dato: %02X %02X %02X %02X", (int)i , buffer[i], buffer[i+1], buffer[i+2], buffer[i+3]);
 		dif = (int)ret - i;
 	}
     
@@ -289,11 +292,12 @@ void leer_archivo(FILE* archivo, size_t tamArchivo, char* path){
 }
 
 void set_tamanio_archivo(FILE* archivo, int tamanioArchivo){
-    if (ftruncate(fileno(archivo), tamanioArchivo) == -1) {
+	if (ftruncate(fileno(archivo), tamanioArchivo) == -1) {
         perror("Error al establecer el tamaño del archivo");
         exit(EXIT_FAILURE);
     }
-	ftruncate(archivo, tamanioArchivo);
+
+	ftruncate(fileno(archivo), tamanioArchivo);
 }
 
 FILE* abrir_archivo(char* path, char* modo){
@@ -303,15 +307,13 @@ FILE* abrir_archivo(char* path, char* modo){
 
 //--------------------------- FUNCIONES - ARCHIVO DE BLOQUES ----------------------------- //
 
-void crear_archivo_bloques(FILE* archivo){
-    archivo = fopen(datos.path_bloques,"a");
+void crear_archivo_bloques(){
+    F_BLOCKS = fopen(datos.path_bloques,"a");
 	
 	int tamanioArchivo = superbloque.block_count * superbloque.block_size;
-	set_tamanio_archivo(archivo, tamanioArchivo);
+	set_tamanio_archivo(F_BLOCKS, tamanioArchivo);
 
 	crear_lista_bloques(tamanioArchivo);
-
-	fclose(archivo);
 }
 
 void crear_lista_bloques(){
@@ -357,44 +359,6 @@ int* transf_list_a_ptr(t_list* lista){
 	}
 
 	return ptr;
-}
-*/
-/*
-void crear_archivo(char* path, const char *contenidos[], int num_contenidos){
-	FILE *archivo;
-	archivo = fopen(path,"w");
-	for(int i = 0; i < num_contenidos; i++){
-		fprintf(archivo, "%s\n", contenidos[i]);
-	}
-	fclose(archivo);
-}
-*/
-
-//----------------------------------------------------------------------//
-
-//TODO: revisar el uso de la funcion
-/*
-char* abrir_archivo_fcb(char* directorio, char* nombre_archivo){
-	// return access(path_name, F_OK) == 0 ? "ERROR" : "OK";
-    DIR* dir = opendir(directorio);
-
-    if (dir == NULL) {
-        log_error(logger, "No se pudo abrir el directorio: %s", directorio);
-        return "ERROR";
-    }
-
-    struct dirent* entry;
-
-    while ((entry = readdir(dir)) != NULL) {
-        if (strcmp(entry->d_name, nombre_archivo) == 0) {
-            return "OK";
-            closedir(dir);
-        }
-    }
-
-    return "ERROR";
-    closedir(dir);
-
 }
 */
 
@@ -467,36 +431,36 @@ void* atender_kernel(void){
 				buffer=desempaquetar(paquete,*cliente_fd);
 				pcb = deserializar_pcb(buffer);
 				
+				log_info(logger, "Abrir Archivo: %s", pcb->arch_a_abrir);
 				log_info(logger,"El id es %d", pcb->pid);
 
 				if(buscar_archivo_fcb(pcb->arch_a_abrir)){
 					//Encontro el archivo en el directorio
 					log_info(logger,"El archivo existe");
 
+					//En caso de que no se encuentre en la lista de fcb pero exista el archivo mencionado
 					if(buscar_fcb(pcb->arch_a_abrir)==0){
 					   log_info(logger, "Se agrega a la lista de F_FCB");
-					   list_add(lista_fcb, obtener_fcb(pcb->arch_a_abrir));
 
-					   send(cliente_fd,EXISTE_ARCHIVO,sizeof(op_code),0);
+					   crear_fcb(pcb->arch_a_abrir);
 					}
+
+					enviar_respuesta_kernel(EXISTE_ARCHIVO);
 				}else{
 					log_info(logger,"El archivo no existe");
-					send(cliente_fd,CREAR_ARCHIVO,sizeof(op_code),0);
+					enviar_respuesta_kernel(CREAR_ARCHIVO);
 				}
 				break;
 			case CREAR_ARCHIVO:
 				buffer=desempaquetar(paquete,*cliente_fd);
 				pcb = deserializar_pcb(buffer);
+
 				log_info(logger, "Crear Archivo: %s", pcb->arch_a_abrir);
 				log_info(logger, "El id es %d", pcb->pid);
 			    
 				fcb = crear_fcb(pcb);
-				
-				list_add(lista_fcb, fcb);
 
-				log_info(logger, "Se agregó el fcb a la lista de fcbs");
-
-				send(cliente_fd,OK,sizeof(op_code),0);
+				enviar_respuesta_kernel(OK);
 
 				break;
 			case MODIFICAR_TAMANIO:
@@ -515,16 +479,20 @@ void* atender_kernel(void){
 					achicar_archivo(fcb, pcb->dat_tamanio);
 				}
 
-				send(server_fd,OK,sizeof(op_code),0);
+		        enviar_respuesta_kernel(OK);
 
 				break;
 			case LEER_ARCHIVO:
 				buffer=desempaquetar(paquete,*cliente_fd);
 				pcb = deserializar_pcb(buffer);
+
+
 				break;
 			case ESCRIBIR_ARCHIVO:
 				buffer=desempaquetar(paquete,*cliente_fd);
 				pcb = deserializar_pcb(buffer);
+
+
 				break;
 			case -1:
 				log_error(logger, "el cliente se desconecto. Terminando servidor");
@@ -541,6 +509,16 @@ void* atender_kernel(void){
 	}
 }
 
+void enviar_respuesta_kernel(op_code msj){
+	void* response = malloc(sizeof(op_code));
+	op_code value = msj;
+
+	memcpy(response, &value, sizeof(op_code));
+
+	send(server_fd,response,sizeof(op_code),0);
+
+	free(response);
+}
 
 t_fcb* obtener_fcb(t_pcb* pcb){
 	int i=1;
@@ -553,7 +531,7 @@ t_fcb* obtener_fcb(t_pcb* pcb){
 	}
 	if(buscar_archivo_fcb(pcb->arch_a_abrir)==0){
 		log_info(logger, "No se encontro el archivo: %s", pcb->arch_a_abrir);
-	    return NULL;
+	    exit(EXIT_FAILURE);
 	}else{
 		t_fcb* fcb = crear_fcb(pcb);
 		actualizar_lista_fcb(fcb);
@@ -562,7 +540,12 @@ t_fcb* obtener_fcb(t_pcb* pcb){
 }
 
 void actualizar_lista_fcb(t_fcb* fcb){
-	list_add(lista_fcb,fcb);
+	log_info(logger, "Se actualiza la lista de fcbs");
+	if(buscar_fcb(fcb->nombre_archivo)==0){
+	    list_add(lista_fcb,fcb);
+	}else{
+		list_remove(lista_fcb, fcb);
+	}
 }
 
 // ------------------------- BUSCAR FCB --------------------------- //
@@ -712,11 +695,34 @@ FILE* obtener_archivo(char* nombreArchivo){
 	return archivo;
 }
 
+void crear_archivo_fcb(char* nombreArchivo){
+	FILE *archivo;
+
+	char* path_archivo = strcat(PATH_FCB, strcat("/", strcat(nombreArchivo, ".dat")));
+
+	archivo = fopen(path_archivo, "r");
+
+	if (archivo == NULL) {
+	        archivo = fopen(path_archivo, "w");
+	        if (archivo != NULL) {
+	            leer_archivo(archivo, ftell(archivo), path_archivo);
+	            log_info(logger, "Archivo creado exitosamente.");
+	        } else {
+	            log_error(logger,"No se pudo crear el archivo.");
+	        }
+	    } else {
+	        log_warning(logger, "El archivo ya existe.");
+	        fclose(archivo);
+	    }
+}
+
 //TODO: revisar
 t_fcb* crear_fcb(t_pcb* pcb){
 	t_fcb* fcb = malloc(sizeof(t_fcb*));
 
-	crear_archivo(pcb->arch_a_abrir, NULL, 0);
+	if(buscar_archivo_fcb(pcb->arch_a_abrir)==0){
+	   crear_archivo(pcb->arch_a_abrir, NULL, 0);
+	}
 
 	FILE* archivo = obtener_archivo(pcb->arch_a_abrir);
 
@@ -728,6 +734,8 @@ t_fcb* crear_fcb(t_pcb* pcb){
 	fcb->puntero_indirecto=0;
 
     list_add(lista_fcb, fcb);
+
+    log_info(logger, "Se agregó el fcb a la lista de fcbs");
 
 	return fcb;
 }

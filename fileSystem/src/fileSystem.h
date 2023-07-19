@@ -28,15 +28,16 @@
 #include <assert.h>
 #include <dirent.h>
 #include <errno.h>
+//------------------ FUNC-DEFINIDAS ------------------//
+#define ARRAY_SIZE(arr) (sizeof(arr)/sizeof((arr)[0]))
+//----------------------------------------------------//
 
 #define FS_LOG "filesySystem.log"
 #define FS_CONFIG "fileSystem.config"
 #define FS_NAME "File_System"
-#define PATH "/home/utnso/fs"
-#define PATH_FCB "/home/utnso/fs/FCB"
+#define PATH "/home/utnso/fs" //TODO: cambiar las direcciones (/home/utnso/tp-2023-1c-EstaEsLaVencida/files)
+#define PATH_FCB "/home/utnso/fs/FCB" //TODO: cambiar las direcciones (/home/utnso/tp-2023-1c-EstaEsLaVencida/files/FCB)
 #define TAMANIO_DE_PUNTERO 4
-
-#define ARRAY_SIZE(arr) (sizeof(arr)/sizeof((arr)[0]))
 
 const char *contenido_superbloque[] = {
 	"BLOCK_SIZE=64",
@@ -84,7 +85,10 @@ FILE* F_FCB;
 
 // ------------------------VARIABLES GLOBALES------------------------ //
 t_bitarray* bitmap;
+size_t TAM_BITMAP;
+
 t_list* lista_fcb;
+
 t_list* lista_bloques;
 
 // ------------------------CONEXIONES------------------------ //
@@ -106,13 +110,14 @@ pthread_t hilo_conexion_memoria;
 // ------------------------FUNCIONES------------------------ //
 void* atender_kernel(void);
 void* atender_memoria(void);
+void enviar_respuesta_kernel(op_code);
 
 
 char* abrir_archivo_fcb(char*, char*);
 void crear_archivo(const char*, const char**, int);
-char* crear_archivo_fcb(char path_name[]);
+void crear_archivo_fcb(char*);
 t_fcb* crear_fcb(t_pcb* pcb);
-void crear_archivo_bloques(FILE*);
+void crear_archivo_bloques();
 FILE* abrir_archivo(char*, char*);
 
 int buscar_fcb(char*);
@@ -129,6 +134,7 @@ void escribir_bitmap(t_list*, int);
 void leer_bitmap();
 void leer_bitarray(t_bitarray*);
 void crear_bitmap();
+void crear_archivo_bitmap();
 void cerrar_bitmap();
 
 void crear_lista_bloques();
