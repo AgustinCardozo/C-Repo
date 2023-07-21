@@ -267,6 +267,7 @@ void* atender_cpu(void){
 								break;
 							case CREAR_ARCHIVO:
 								//enviar para crear el archivo
+								log_info(logger, "Paso por Crear_Archivo");
 								crear_archivo(pcb->arch_a_abrir);
 								pcb->dat_tamanio=0;
 								enviar_pcb_a(pcb,conexion_filesystem,CREAR_ARCHIVO);

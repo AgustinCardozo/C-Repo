@@ -36,12 +36,12 @@
 #define FS_CONFIG "fileSystem.config"
 #define FS_NAME "File_System"
 #define PATH "/home/utnso/fs" //TODO: cambiar las direcciones (/home/utnso/tp-2023-1c-EstaEsLaVencida/files)
-#define PATH_FCB "/home/utnso/fs/FCB" //TODO: cambiar las direcciones (/home/utnso/tp-2023-1c-EstaEsLaVencida/files/FCB)
+#define PATH_FCB "/home/utnso/fs/fcb" //TODO: cambiar las direcciones (/home/utnso/tp-2023-1c-EstaEsLaVencida/files/FCB)
 #define TAMANIO_DE_PUNTERO 4
 
 const char *contenido_superbloque[] = {
 	"BLOCK_SIZE=64",
-	"BLOCK_COUNT=65536"
+	"BLOCK_COUNT=1024"
 };
 
 typedef struct{
@@ -91,6 +91,8 @@ t_list* lista_fcb;
 
 t_list* lista_bloques;
 
+int fid_generator = 0;
+
 // ------------------------CONEXIONES------------------------ //
 t_log* logger;
 
@@ -110,7 +112,7 @@ pthread_t hilo_conexion_memoria;
 // ------------------------FUNCIONES------------------------ //
 void* atender_kernel(void);
 void* atender_memoria(void);
-void enviar_respuesta_kernel(op_code);
+void enviar_respuesta_kernel(int*, op_code);
 
 
 char* abrir_archivo_fcb(char*, char*);
@@ -149,5 +151,7 @@ t_config* iniciar_config_fs(char*);
 void iterator(char*);
 void reemplazar_y_concatenar_palabra(char*, const char*, const char*, const char*);
 void set_tamanio_archivo(FILE*, int);
+int tamanio_maximo_real_archivo();
+int leer_bloques_disponibles_bitmap();
 
 #endif /* FILESYSTEM_H_ */
