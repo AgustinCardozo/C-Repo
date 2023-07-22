@@ -431,6 +431,8 @@ void* atender_kernel(void){
 	t_buffer* buffer;
 
 	t_fcb* fcb;
+	PATH_FCB = strcat(datos.path_fcb, "/");
+
 	while(1){
 		int cod_op = recibir_operacion(*cliente_fd);
 		switch (cod_op) {
@@ -457,7 +459,7 @@ void* atender_kernel(void){
 					if(buscar_fcb(pcb->arch_a_abrir)==0){
 					   log_info(logger, "Se agrega a la lista de F_FCB");
 
-					   crear_fcb(pcb->arch_a_abrir);
+					   crear_fcb(pcb);
 					}
 
 					enviar_respuesta_kernel(cliente_fd, EXISTE_ARCHIVO);
@@ -531,16 +533,10 @@ void* atender_kernel(void){
 }
 
 void enviar_respuesta_kernel(int *cliente_fd, op_code msj){
-	//void* response = malloc(sizeof(op_code));
-	//op_code value = msj;
-
-	//memcpy(response, &value, sizeof(op_code));
-
 	send(*cliente_fd,&msj,sizeof(op_code),0);
-
-	//free(response);
 }
 
+//Obtiene el fcb asociado al pcb
 t_fcb* obtener_fcb(t_pcb* pcb){
 	int i=1;
 	while(i<list_size(lista_fcb)){
@@ -571,6 +567,7 @@ void actualizar_lista_fcb(t_fcb* fcb){
 
 // ------------------------- BUSCAR FCB --------------------------- //
 
+//Obtiene el puntero de la lista de fcbs del fcb buscado
 int buscar_fcb(char* nombre_archivo){
 	int i=1;
 	while(i<list_size(lista_fcb)){
@@ -584,10 +581,10 @@ int buscar_fcb(char* nombre_archivo){
 }
 
 int buscar_archivo_fcb(char* nombre_archivo){
-    DIR* dir = opendir(PATH_FCB);
+    DIR* dir = opendir(datos.path_fcb);
 
     if (dir == NULL) {
-        log_error(logger, "No se pudo abrir el directorio: %s", PATH_FCB);
+        log_error(logger, "No se pudo abrir el directorio: %s", datos.path_fcb);
         return 0;
     }
 
@@ -607,7 +604,7 @@ int buscar_archivo_fcb(char* nombre_archivo){
 // ------------------------- MODIFICAR TAMANIO ---------------------- //
 //TODO: revisar (generado con IA)
 void agrandar_archivo(t_fcb* fcb, int tamanio){
-	FILE* archivo = fopen(fcb->nombre_archivo, "r+");
+	//FILE* archivo = fopen(fcb->nombre_archivo, "r+");
 	/*fseek(archivo, 0, SEEK_END);
 	int tamanio_actual = ftell(archivo);
 	int diferencia = tamanio - tamanio_actual;
@@ -617,11 +614,12 @@ void agrandar_archivo(t_fcb* fcb, int tamanio){
 	fclose(archivo);
 	free(buffer);
 	*/
+    int diferencia;
+    int cant_bloques_nuevos;
 
 
-
-	int diferencia = tamanio - fcb->tamanio_archivo;
-	int cant_bloques_nuevos = ceil(diferencia/superbloque.block_size);
+	diferencia = tamanio - fcb->tamanio_archivo;
+    cant_bloques_nuevos = ceil(diferencia/superbloque.block_size);
 
 
 
@@ -753,10 +751,8 @@ FILE* obtener_archivo(char* nombreArchivo){
 	return archivo;
 }
 
-void crear_archivo_fcb(char* nombreArchivo){
+void crear_archivo_fcb(char* path_archivo){
 	FILE *archivo;
-
-	char* path_archivo = "/home/utnso/fs/fcb/HIELOJADE.dat";
 
 	log_info(logger, "Crear Archivo por FCB: %s", path_archivo);
 
@@ -783,15 +779,17 @@ void crear_archivo_fcb(char* nombreArchivo){
 t_fcb* crear_fcb(t_pcb* pcb){
 	t_fcb* fcb = malloc(sizeof(t_fcb*));
 
+	char* pf = strcat(PATH_FCB, pcb->arch_a_abrir);
+	char* path_archivo = strcat(pf, ".dat");
+
 	if(buscar_archivo_fcb(pcb->arch_a_abrir)==0){
-	   crear_archivo_fcb(pcb->arch_a_abrir);
+	   crear_archivo_fcb(path_archivo);
 	}
 
-
-
-	FILE* archivo = obtener_archivo("/home/utnso/fs/fcb/HIELOJADE.dat");
+	FILE* archivo = obtener_archivo(path_archivo);
 
 	fcb->archivo=archivo;
+	fcb->path_archivo=path_archivo;
 	fcb->nombre_archivo=pcb->arch_a_abrir;
 	fcb->tamanio_archivo=pcb->dat_tamanio;
     set_tamanio_archivo(fcb->archivo, pcb->dat_tamanio);

@@ -36,7 +36,7 @@
 #define FS_CONFIG "fileSystem.config"
 #define FS_NAME "File_System"
 #define PATH "/home/utnso/fs" //TODO: cambiar las direcciones (/home/utnso/tp-2023-1c-EstaEsLaVencida/files)
-#define PATH_FCB "/home/utnso/fs/fcb" //TODO: cambiar las direcciones (/home/utnso/tp-2023-1c-EstaEsLaVencida/files/FCB)
+//#define PATH_FCB "/home/utnso/fs/fcb" //TODO: cambiar las direcciones (/home/utnso/tp-2023-1c-EstaEsLaVencida/files/FCB)
 #define TAMANIO_DE_PUNTERO 4
 
 const char *contenido_superbloque[] = {
@@ -63,6 +63,7 @@ typedef struct{
 // ------------------------ESTRUCTURAS------------------------ //
 typedef struct{
 	FILE* archivo;
+	char* path_archivo;
 	char* nombre_archivo; 
 	int tamanio_archivo; //expresado en Bytes
 	uint32_t puntero_directo; //Lista de uint32_t
@@ -86,12 +87,14 @@ FILE* F_FCB;
 // ------------------------VARIABLES GLOBALES------------------------ //
 t_bitarray* bitmap;
 size_t TAM_BITMAP;
-
 t_list* lista_fcb;
-
 t_list* lista_bloques;
 
+char* PATH_FCB;
+
 int fid_generator = 0;
+
+
 
 // ------------------------CONEXIONES------------------------ //
 t_log* logger;
