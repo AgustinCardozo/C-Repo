@@ -152,7 +152,9 @@ void crear_estructura_fs(const char *contenidos[]);
 t_config* iniciar_config_fs(char*);
 void iterator(char*);
 void set_tamanio_archivo(FILE*, int);
-int tamanio_maximo_real_archivo(t_fcb*);
+int tamanio_maximo_real_archivo();
+//int tamanio_maximo_real_archivo(t_fcb*);
 int leer_bloques_disponibles_bitmap();
+char* concatenar_path(char*);
 
 #endif /* FILESYSTEM_H_ */

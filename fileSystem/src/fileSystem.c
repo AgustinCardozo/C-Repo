@@ -27,7 +27,8 @@ int main(void) {
 	//prueba();
 
 	diretorio_FCB = opendir(datos.path_fcb);
-	crear_archivo_fcb("test");
+
+
 
 	pthread_create(&hilo_conexion_kernel,NULL,(void*) atender_kernel,NULL);
 	pthread_create(&hilo_conexion_memoria,NULL,(void*) atender_memoria,NULL);
@@ -66,7 +67,7 @@ void crear_estructura_fs(const char *contenidos[]){
 	
 	valor = mkdir(datos.path_fcb, 0777);
 	if(valor < 0){
-		log_warning(logger, "Ya existe el directorio: (%s)", datos.path_fcb);
+		log_warning(logger, "Ya existe el directorio: %s", datos.path_fcb);
 	}
 	inicializar_superbloque();
 	crear_archivo_bloques();
@@ -80,28 +81,28 @@ void crear_archivo(const char *nombre_archivo, const char *contenidos[], int num
     log_info(logger, "Paso por crear archivo: %s", nombre_archivo);
 
     if (archivo == NULL) {
-    	log_info(logger, "Entro por NULL: %s", nombre_archivo);
+    	//log_info(logger, "Entro por NULL: %s", nombre_archivo);
         archivo = fopen(nombre_archivo, "w");
         if (archivo != NULL) {
             for (int i = 0; i < num_contenidos; i++) {
                 fprintf(archivo, "%s\n", contenidos[i]);
             }
             fclose(archivo);
-            log_info(logger, "Archivo creado exitosamente.");
+            log_info(logger, "Archivo creado exitosamente: %s", nombre_archivo);
         } else {
-            log_error(logger,"No se pudo crear el archivo.");
+            log_error(logger,"No se pudo crear el archivo: %s", nombre_archivo);
         }
     } else {
-        log_warning(logger, "El archivo ya existe.");
+        log_warning(logger, "El archivo ya existe: %s", nombre_archivo);
         fclose(archivo);
     }
 }
 
-t_config* iniciar_config_fs(char * path) {
-	t_config* config = iniciar_config(path);
+t_config* iniciar_config_fs(char * path_config) {
+	t_config* config = iniciar_config(path_config);
 	
 	if(config == NULL) {
-		log_error(logger, "No se pudo leer el path (%s)", path);
+		log_error(logger, "No se pudo leer el path %s", path_config);
 	}
 
 	return config;
@@ -371,6 +372,16 @@ void finalizar_fs(){
 
 // ----------------------------------- ADICIONALES ----------------------------------- //
 
+char* concatenar_path(char* nombre_archivo){
+	char *unaPalabra = string_new();
+	string_append(&unaPalabra, datos.path_fcb);
+	string_append(&unaPalabra, "/");
+	string_append(&unaPalabra, nombre_archivo);
+	string_append(&unaPalabra, ".dat");
+
+    return unaPalabra;
+}
+
 void limpiar_bitarray(t_bitarray* bitarray){
  	for(int i = 0; i < bitarray_get_max_bit(bitarray); i++){
  		bitarray_clean_bit(bitarray, i);
@@ -409,6 +420,7 @@ void actualizar_lista_fcb(t_fcb* fcb){
 		list_remove(lista_fcb, fcb);
 	}
 }
+
 
 // ------------------------- MODIFICAR TAMANIO ---------------------- //
 //TODO: revisar (generado con IA)
@@ -450,27 +462,32 @@ int leer_bloques_disponibles_bitmap(){
 //----------------------------------- AUXILIARES -----------------------------------//
 
 FILE* obtener_archivo(char* nombreArchivo){
+
+	char *path_archivo_completo = concatenar_path(nombreArchivo);
+
 	log_info(logger, "Entro en obtener_archivo");
-	FILE* archivo = fopen(nombreArchivo, "r");
+	FILE* archivo = fopen(path_archivo_completo, "r");
 	if(archivo==NULL){
 		log_warning(logger, "Tenes un archivo en NULL");
 	}
 	return archivo;
 }
 
-void crear_archivo_fcb(char* path_archivo){
+void crear_archivo_fcb(char* nombreArchivo){
 	FILE *archivo;
 
-	log_info(logger, "Crear Archivo por FCB: %s", path_archivo);
+	char *path_archivo_completo = concatenar_path(nombreArchivo);
 
-	archivo = fopen(path_archivo, "r");
+	log_info(logger, "Crear Archivo por FCB: %s", path_archivo_completo);
+
+	archivo = fopen(path_archivo_completo, "r");
 	// log_info(logger, "Se creo el archivo");
 
 	if (archivo == NULL) {
 		log_info(logger, "Entro en NULL");
-		archivo = fopen(path_archivo, "w");
+		archivo = fopen(path_archivo_completo, "w");
 		if (archivo != NULL) {
-			leer_archivo(archivo, ftell(archivo), path_archivo);
+			leer_archivo(archivo, ftell(archivo), path_archivo_completo);
 			log_info(logger, "Archivo creado exitosamente.");
 		} else {
 			log_error(logger,"No se pudo crear el archivo.");
@@ -545,8 +562,12 @@ int buscar_fcb(char* nombre_archivo){
 }
 
 //Tamanio maximo que puede ocupar el archivo (Tam.PD + Tam.PD*PI)  PD: Puntero DIrecto; PI Puntero Indirecto
-int tamanio_maximo_real_archivo(t_fcb* fcb){
-	return ((superbloque.block_size/4) + 1)* superbloque.block_size;
+//int tamanio_maximo_real_archivo(t_fcb* fcb){
+//	return ((superbloque.block_size/4) + 1)* superbloque.block_size;
+//}
+
+int tamanio_maximo_real_archivo(){
+	return 0;
 }
 
 //TODO: revisar (generado con IA)
