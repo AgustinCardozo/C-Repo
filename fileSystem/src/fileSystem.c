@@ -13,10 +13,12 @@
 
 char* str1 = "/";
 char* path_bitmap = "/home/utnso/fs/BITMAPA.dat";
+DIR* dir;
 
 int main(void) {
 	logger = iniciar_logger(FS_LOG, FS_NAME);;
 	config = iniciar_config(FS_CONFIG);
+	lista_fcb = list_create();
 
 	inicializar_config();
 	iniciar_estructura_fs(contenido_superbloque);
@@ -46,6 +48,8 @@ int main(void) {
 	log_info(logger, "%s", resultado);
 	log_info(logger,"PATH_FCB: %s", datos.path_fcb);
     //--------------------------------------------//
+
+	dir = opendir(datos.path_fcb);
 
 	pthread_create(&hilo_conexion_kernel,NULL,(void*) atender_kernel,NULL);
 	pthread_create(&hilo_conexion_memoria,NULL,(void*) atender_memoria,NULL);
@@ -292,10 +296,11 @@ void leer_archivo(FILE* archivo, size_t tamArchivo, char* path){
 }
 
 void set_tamanio_archivo(FILE* archivo, int tamanioArchivo){
-	if (ftruncate(fileno(archivo), tamanioArchivo) == -1) {
+	int a = fileno(archivo);
+	/*if (ftruncate(fileno(archivo), (off_t)tamanioArchivo) == -1) {
         perror("Error al establecer el tamaño del archivo");
         exit(EXIT_FAILURE);
-    }
+    }*/
 
 	ftruncate(fileno(archivo), tamanioArchivo);
 }
@@ -462,10 +467,12 @@ void* atender_kernel(void){
 					   crear_fcb(pcb);
 					}
 
-					enviar_respuesta_kernel(cliente_fd, EXISTE_ARCHIVO);
+					//enviar_pcb_a(pcb,*cliente_fd, EXISTE_ARCHIVO);
+					enviar_respuesta_kernel(cliente_fd, ARCHIVO_CREADO);
 				}else{
 					log_info(logger,"El archivo no existe");
-					enviar_respuesta_kernel(cliente_fd, CREAR_ARCHIVO);
+					//enviar_pcb_a(pcb,*cliente_fd, CREAR_ARCHIVO);
+					enviar_respuesta_kernel(cliente_fd, ARCHIVO_CREADO);
 				}
 				break;
 			case CREAR_ARCHIVO:
@@ -477,7 +484,9 @@ void* atender_kernel(void){
 			    
 				fcb = crear_fcb(pcb);
 
-				enviar_respuesta_kernel(cliente_fd, OK);
+				enviar_respuesta_kernel(cliente_fd, ARCHIVO_CREADO);
+
+				//enviar_pcb_a(pcb,*cliente_fd,ARCHIVO_CREADO);
 
 				break;
 			case MODIFICAR_TAMANIO:
@@ -581,7 +590,7 @@ int buscar_fcb(char* nombre_archivo){
 }
 
 int buscar_archivo_fcb(char* nombre_archivo){
-    DIR* dir = opendir(datos.path_fcb);
+    //DIR* dir = opendir(datos.path_fcb);
 
     if (dir == NULL) {
         log_error(logger, "No se pudo abrir el directorio: %s", datos.path_fcb);
@@ -792,14 +801,14 @@ t_fcb* crear_fcb(t_pcb* pcb){
 	fcb->path_archivo=path_archivo;
 	fcb->nombre_archivo=pcb->arch_a_abrir;
 	fcb->tamanio_archivo=pcb->dat_tamanio;
-    set_tamanio_archivo(fcb->archivo, pcb->dat_tamanio);
-    log_info(logger, "la cosa va por aca");
+    //set_tamanio_archivo(fcb->archivo, pcb->dat_tamanio);
+    //log_info(logger, "la cosa va por aca");
 	fcb->puntero_directo=0;
 	fcb->puntero_indirecto=0;
 
     list_add(lista_fcb, fcb);
 
-    log_info(logger, "Se agregó el fcb a la lista de fcbs");
+    //log_info(logger, "Se agregó el fcb a la lista de fcbs");
 
 	return fcb;
 }

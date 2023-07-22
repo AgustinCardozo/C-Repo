@@ -277,7 +277,9 @@ void* atender_cpu(void){
 									break;
 								case ARCHIVO_CREADO:
 									log_info(logger,"El archivo se creo");
-									enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
+									//enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
+									op_code cod = CONTINUAR;
+									send(conexion_cpu,&cod,sizeof(op_code),0);
 									ciclo = 0;
 									break;
 								default:

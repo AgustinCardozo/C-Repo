@@ -266,8 +266,8 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 
 			switch(cod_op){
 				case CONTINUAR:
-					buffer = desempaquetar(paquete,conexion_kernel);
-					pcb = deserializar_pcb(buffer);
+					//buffer = desempaquetar(paquete,conexion_kernel);
+					//pcb = deserializar_pcb(buffer);
 					log_info(logger, "Sigue el programa");
 					break;
 				case DETENER:
