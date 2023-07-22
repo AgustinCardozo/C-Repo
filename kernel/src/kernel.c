@@ -257,28 +257,38 @@ void* atender_cpu(void){
 					} else {
 						//enviar mensaje al filesystem a ber si existe el archivo
 						enviar_pcb_a(pcb,conexion_filesystem,ABRIR_ARCHIVO);
+						int ciclo = 1;
+						while(ciclo){
+							int cod_op = recibir_operacion(conexion_filesystem);
 
-						int cod_op = recibir_operacion(conexion_filesystem);
+							switch(cod_op){
+								case EXISTE_ARCHIVO:
+									log_info(logger,"El archivo ya existe");
+									enviar_pcb_a(pcb,conexion_cpu,DETENER);
+									ciclo = 0;
+									break;
+								case CREAR_ARCHIVO:
+									//enviar para crear el archivo
+									log_info(logger, "Paso por Crear_Archivo");
+									crear_archivo(pcb->arch_a_abrir);
+									pcb->dat_tamanio=0;
+									enviar_pcb_a(pcb,conexion_filesystem,CREAR_ARCHIVO);
 
-						switch(cod_op){
-							case EXISTE_ARCHIVO:
-								log_info(logger,"El archivo ya existe");
-								
-								break;
-							case CREAR_ARCHIVO:
-								//enviar para crear el archivo
-								log_info(logger, "Paso por Crear_Archivo");
-								crear_archivo(pcb->arch_a_abrir);
-								pcb->dat_tamanio=0;
-								enviar_pcb_a(pcb,conexion_filesystem,CREAR_ARCHIVO);
-								log_info(logger,"El archivo se creo");
-								break;
-							default:
-								log_info(logger,"Error en algun lado");
-								break;
+									break;
+								case ARCHIVO_CREADO:
+									log_info(logger,"El archivo se creo");
+									enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
+									ciclo = 0;
+									break;
+								default:
+									log_info(logger,"Error en algun lado");
+									ciclo = 0;
+									break;
+							}
+
+
+
 						}
-
-						enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
 
 					}
 
