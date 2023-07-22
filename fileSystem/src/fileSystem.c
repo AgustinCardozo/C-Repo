@@ -31,7 +31,7 @@ int main(void) {
 
 	crear_archivo_bitmap();
 
-	prueba();
+	//prueba();
 
     //---------------------------------------------//
     char* nombre_archivo = "test_fcb";    
@@ -341,7 +341,7 @@ void liberar_lista_bloques(){
 }
 
 // ---------------------------------------------------------------------------------------- //
-
+/*
 void prueba(){
 	t_list* pos_bloques = malloc(sizeof(int)*4);//Posiblemente sea este el problema que lea mal los datos cuando escribe
 	list_add(pos_bloques, "0");
@@ -364,7 +364,7 @@ void prueba(){
 
 	free(pos_bloques);
 }
-
+*/
 /*
 int* transf_list_a_ptr(t_list* lista){
 	int* ptr = malloc(list_size(lista)*sizeof(int));
@@ -387,7 +387,7 @@ void finalizar_fs(){
 }
 
 // ----------------------------------- ADICIONALES ----------------------------------- //
-char* concatenar_path(char* nombre_archivo){
+/*char* concatenar_path(char* nombre_archivo){
 	char* str1 = "/";
     char resultado[50];
 	char directorio[100];
@@ -398,7 +398,7 @@ char* concatenar_path(char* nombre_archivo){
 	strcpy(resultado, strcat(directorio, resultado));
 
 	return resultado;
-}
+}*/
 
 void limpiar_bitarray(t_bitarray* bitarray){
  	for(int i = 0; i < bitarray_get_max_bit(bitarray); i++){
@@ -593,12 +593,12 @@ int buscar_archivo_fcb(char* nombre_archivo){
     while ((entry = readdir(dir)) != NULL) {
         if (strcmp(entry->d_name, nombre_archivo) == 0) {
             return 1;
-            closedir(dir);
+            //closedir(dir);
         }
     }
 	log_info(logger,"No se encontro el archivo: %s",nombre_archivo);
     return 0;
-	closedir(dir);
+	//closedir(dir);
 }
 
 // ------------------------- MODIFICAR TAMANIO ---------------------- //
