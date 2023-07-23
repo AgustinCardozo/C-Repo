@@ -296,8 +296,8 @@ void* atender_cpu(void){
 
 					break;
 				
-				case CERRAR_ARCHIVO:
-					log_info(logger, "Paso por Abrir_Archivo");
+				case CERRAR_ARCHIVO://TODO: implementar las funciones de cerrar archivo en fileSystem
+					log_info(logger, "Paso por CERRAR_ARCHIVO");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 

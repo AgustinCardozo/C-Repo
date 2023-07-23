@@ -253,7 +253,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			}
 			break;
 		case F_OPEN:
-			log_info(logger,"Paso por f_open");
+			log_info(logger,"Paso por F_OPEN");
 			
 			pcb->arch_a_abrir=list_get(instruccion->parametros, 0);
 			//instrAEnviar.datos_aux=0;

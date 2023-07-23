@@ -22,7 +22,7 @@ int main(void) {
 	log_info(logger,"PATH_SUPERBLOQUE: %s", datos.path_superbloque);
 	log_info(logger,"PATH_BITMAP: %s", datos.path_bitmap);
 	log_info(logger,"PATH_BLOQUES: %s", datos.path_bloques);
-	log_info(logger,"PATH_FCB: %s", datos.path_fcb);
+	log_info(logger,"PATH_FCB: %s\n", datos.path_fcb);
 
 	//prueba();
 
@@ -88,7 +88,7 @@ void crear_archivo(const char *nombre_archivo, const char *contenidos[], int num
                 fprintf(archivo, "%s\n", contenidos[i]);
             }
             fclose(archivo);
-            log_info(logger, "Archivo creado exitosamente: %s", nombre_archivo);
+            log_info(logger, "Archivo creado exitosamente: %s\n", nombre_archivo);
         } else {
             log_error(logger,"No se pudo crear el archivo: %s", nombre_archivo);
         }
@@ -484,17 +484,17 @@ void crear_archivo_fcb(char* nombreArchivo){
 	// log_info(logger, "Se creo el archivo");
 
 	if (archivo == NULL) {
-		log_info(logger, "Entro en NULL");
+		//log_info(logger, "Entro en NULL");
 		archivo = fopen(path_archivo_completo, "w");
 		if (archivo != NULL) {
 			leer_archivo(archivo, ftell(archivo), path_archivo_completo);
-			log_info(logger, "Archivo creado exitosamente.");
+			log_info(logger, "Archivo creado %s exitosamente.", nombreArchivo);
 		} else {
-			log_error(logger,"No se pudo crear el archivo.");
+			log_error(logger,"No se pudo crear el archivo: %s", nombreArchivo);
 		}
 	} 
 	else {
-		log_warning(logger, "El archivo ya existe.");
+		log_warning(logger, "El archivo %s ya existe.", nombreArchivo);
 		fclose(archivo);
 	}
 }
@@ -617,7 +617,7 @@ void* atender_kernel(void){
 				pcb = deserializar_pcb(buffer);
 				
 				log_info(logger, "Abrir Archivo: %s", pcb->arch_a_abrir);
-				log_info(logger,"El id es %d", pcb->pid);
+				//log_info(logger,"El id es %d", pcb->pid);
 
 				if(buscar_archivo_fcb(pcb->arch_a_abrir)){
 					//Encontro el archivo en el directorio
@@ -633,9 +633,9 @@ void* atender_kernel(void){
 					//enviar_pcb_a(pcb,*cliente_fd, EXISTE_ARCHIVO);
 					enviar_respuesta_kernel(cliente_fd, ARCHIVO_CREADO);
 				}else{
-					log_info(logger,"El archivo no existe");
+					//log_info(logger,"El archivo %s no existe", pcb->arch_a_abrir);
 					//enviar_pcb_a(pcb,*cliente_fd, CREAR_ARCHIVO);
-					enviar_respuesta_kernel(cliente_fd, ARCHIVO_CREADO);
+					enviar_respuesta_kernel(cliente_fd, CREAR_ARCHIVO);
 				}
 				break;
 			case CREAR_ARCHIVO:
@@ -643,9 +643,11 @@ void* atender_kernel(void){
 				pcb = deserializar_pcb(buffer);
 
 				log_info(logger, "Crear Archivo: %s", pcb->arch_a_abrir);
-				log_info(logger, "El id es %d", pcb->pid);
+				//log_info(logger, "El id es %d", pcb->pid);
 			    
-				fcb = crear_fcb(pcb);
+				crear_archivo_fcb(pcb->arch_a_abrir);
+
+				//fcb = crear_fcb(pcb);
 
 				enviar_respuesta_kernel(cliente_fd, ARCHIVO_CREADO);
 
