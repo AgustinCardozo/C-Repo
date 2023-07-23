@@ -8,6 +8,7 @@
  ============================================================================
  */
 #include <stdio.h>
+#include <math.h>
 #include <stdlib.h>
 #include "fileSystem.h"
 
@@ -27,8 +28,9 @@ int main(void) {
 	//prueba();
 
 	diretorio_FCB = opendir(datos.path_fcb);
-
-
+//	crear_archivo_fcb("nombreArchivo");
+//
+//	agrandar_archivo("nombreArchivo", 256);
 
 	pthread_create(&hilo_conexion_kernel,NULL,(void*) atender_kernel,NULL);
 	pthread_create(&hilo_conexion_memoria,NULL,(void*) atender_memoria,NULL);
@@ -62,8 +64,8 @@ void crear_estructura_fs(const char *contenidos[]){
 	}
 	int num_contenidos = sizeof(contenido_superbloque) / sizeof(contenido_superbloque[0]);
 	crear_archivo(datos.path_superbloque, contenido_superbloque, num_contenidos);
-	config_superbloque = iniciar_config_fs(datos.path_superbloque);
-	// config_fcb = iniciar_config_fs(datos.path_fcb);
+	config_superbloque = iniciar_config_test(datos.path_superbloque);
+	// config_fcb = iniciar_config_test(datos.path_fcb);
 	
 	valor = mkdir(datos.path_fcb, 0777);
 	if(valor < 0){
@@ -98,7 +100,20 @@ void crear_archivo(const char *nombre_archivo, const char *contenidos[], int num
     }
 }
 
-t_config* iniciar_config_fs(char * path_config) {
+void crear_archivo_fcb(char* nombreArchivo){
+
+	char *path_archivo_completo = concatenar_path(nombreArchivo);
+
+	int num_contenidos = sizeof(contenido_fcb) / sizeof(contenido_fcb[0]);
+	crear_archivo(path_archivo_completo, contenido_fcb, num_contenidos);
+	t_config* config_nuevo_fcb = iniciar_config_test(path_archivo_completo);
+
+	config_set_value(config_nuevo_fcb, "NOMBRE_ARCHIVO", nombreArchivo);
+	config_save_in_file(config_nuevo_fcb, path_archivo_completo);
+}
+
+
+t_config* iniciar_config_test(char * path_config) {
 	t_config* config = iniciar_config(path_config);
 	
 	if(config == NULL) {
@@ -341,7 +356,7 @@ void prueba(){
 
 	log_info(logger, "Tamanio Maximo Real: %i", tamanio);
 
-	int count = leer_bloques_disponibles_bitmap();
+	int count = cant_bloques_disponibles_bitmap();
 
 	log_info(logger, "Cant. de BLoques Disponibles: %i", count);
 
@@ -424,29 +439,35 @@ void actualizar_lista_fcb(t_fcb* fcb){
 
 // ------------------------- MODIFICAR TAMANIO ---------------------- //
 //TODO: revisar (generado con IA)
-void agrandar_archivo(t_fcb* fcb, int tamanio){
-	//FILE* archivo = fopen(fcb->nombre_archivo, "r+");
-	/*fseek(archivo, 0, SEEK_END);
-	int tamanio_actual = ftell(archivo);
-	int diferencia = tamanio - tamanio_actual;
-	char* buffer = malloc(diferencia);
-	memset(buffer, '\0', diferencia);
-	fwrite(buffer, diferencia, 1, archivo);
-	fclose(archivo);
-	free(buffer);
-	*/
-    int diferencia;
-    int cant_bloques_nuevos;
+void agrandar_archivo(char* nombreArchivo, int tamanio_pedido){//TODO: Queda pendiente agregar los bloques en los punteros hasta tener las funciones LEER  y ESCRIBIR
 
+	char *path_archivo_completo = concatenar_path(nombreArchivo);
+	t_config* config_fcb = iniciar_config_test(path_archivo_completo);
 
-	diferencia = tamanio - fcb->tamanio_archivo;
-    cant_bloques_nuevos = ceil(diferencia/superbloque.block_size);
+    int tamanio_archivo = config_get_int_value(config_fcb,"TAMANIO_ARCHIVO");
 
+    int diferencia = tamanio_pedido - tamanio_archivo;
 
+    double num = ((double) diferencia / superbloque.block_size);
+    log_info(logger,"diferencia es %f",num);
+
+	int cant_bloques_a_asignar = ceil(num);
+	int cant_bloques_actual = ceil((double) tamanio_archivo/superbloque.block_size);
+
+    if(cant_bloques_a_asignar<=cant_bloques_disponibles_bitmap()){
+    	config_set_value(config_fcb, "TAMANIO_ARCHIVO", tamanio_pedido);
+    	config_save_in_file(config_fcb, path_archivo_completo);
+    	for(int i = cant_bloques_actual; i<cant_bloques_a_asignar; i++){
+    		asignar_bloque_a_archivo(nombreArchivo, config_fcb);
+    	}
+
+    }else{
+    	log_warning(logger, "Se piden %i bloques para asignarle a %s, pero solo hay %i disponibles \n",cant_bloques_a_asignar,nombreArchivo,cant_bloques_actual);
+    }
 
 }
 
-int leer_bloques_disponibles_bitmap(){
+int cant_bloques_disponibles_bitmap(){
 	int count = -1;
 	int j = bitarray_get_max_bit(bitmap);
 
@@ -459,6 +480,9 @@ int leer_bloques_disponibles_bitmap(){
 	return count;
 }
 
+void asignar_bloque_a_archivo(char* nombreArchivo, t_config* config_fcb){
+
+}
 //----------------------------------- AUXILIARES -----------------------------------//
 
 FILE* obtener_archivo(char* nombreArchivo){
@@ -473,47 +497,23 @@ FILE* obtener_archivo(char* nombreArchivo){
 	return archivo;
 }
 
-void crear_archivo_fcb(char* nombreArchivo){
-	FILE *archivo;
-
-	char *path_archivo_completo = concatenar_path(nombreArchivo);
-
-	log_info(logger, "Crear Archivo por FCB: %s", path_archivo_completo);
-
-	archivo = fopen(path_archivo_completo, "r");
-	// log_info(logger, "Se creo el archivo");
-
-	if (archivo == NULL) {
-		//log_info(logger, "Entro en NULL");
-		archivo = fopen(path_archivo_completo, "w");
-		if (archivo != NULL) {
-			leer_archivo(archivo, ftell(archivo), path_archivo_completo);
-			log_info(logger, "Archivo creado %s exitosamente.", nombreArchivo);
-		} else {
-			log_error(logger,"No se pudo crear el archivo: %s", nombreArchivo);
-		}
-	} 
-	else {
-		log_warning(logger, "El archivo %s ya existe.", nombreArchivo);
-		fclose(archivo);
-	}
-}
-
 //TODO: revisar
 t_fcb* crear_fcb(t_pcb* pcb){
 	t_fcb* fcb = malloc(sizeof(t_fcb*));
 
-	char* pf = strcat(PATH_FCB, pcb->arch_a_abrir);
-	char* path_archivo = strcat(pf, ".dat");
+	char *path_archivo_completo = concatenar_path(pcb->arch_a_abrir);
+
+//	char* pf = strcat(PATH_FCB, pcb->arch_a_abrir);
+//	char* path_archivo = strcat(pf, ".dat");
 
 	if(buscar_archivo_fcb(pcb->arch_a_abrir)==0){
-	   crear_archivo_fcb(path_archivo);
+	   crear_archivo_fcb(pcb->arch_a_abrir);
 	}
 
-	FILE* archivo = obtener_archivo(path_archivo);
+	FILE* archivo = obtener_archivo(pcb->arch_a_abrir);
 
 	fcb->archivo=archivo;
-	fcb->path_archivo=path_archivo;
+	fcb->path_archivo=path_archivo_completo;
 	fcb->nombre_archivo=pcb->arch_a_abrir;
 	fcb->tamanio_archivo=pcb->dat_tamanio;
     //set_tamanio_archivo(fcb->archivo, pcb->dat_tamanio);
@@ -537,13 +537,13 @@ int buscar_archivo_fcb(char* nombre_archivo){
         return 0;
     }
 
-    struct dirent* entry;
+    FILE* archivo = fopen(concatenar_path(nombre_archivo), "r+");
 
-    while ((entry = readdir(diretorio_FCB)) != NULL) {
-        if (strcmp(entry->d_name, nombre_archivo) == 0) {
-            return 1;
-        }
+    if(archivo!=NULL){
+    	log_info(logger,"Se encontro el archivo: %s",nombre_archivo);
+    	return 1;
     }
+
 	log_info(logger,"No se encontro el archivo: %s",nombre_archivo);
     return 0;
 }
@@ -561,13 +561,8 @@ int buscar_fcb(char* nombre_archivo){
 	return 0;
 }
 
-//Tamanio maximo que puede ocupar el archivo (Tam.PD + Tam.PD*PI)  PD: Puntero DIrecto; PI Puntero Indirecto
-//int tamanio_maximo_real_archivo(t_fcb* fcb){
-//	return ((superbloque.block_size/4) + 1)* superbloque.block_size;
-//}
-
 int tamanio_maximo_real_archivo(){
-	return 0;
+	return ((superbloque.block_size/4) + 1)* superbloque.block_size;;
 }
 
 //TODO: revisar (generado con IA)
@@ -647,7 +642,7 @@ void* atender_kernel(void){
 			    
 				crear_archivo_fcb(pcb->arch_a_abrir);
 
-				//fcb = crear_fcb(pcb);
+				fcb = crear_fcb(pcb);
 
 				enviar_respuesta_kernel(cliente_fd, ARCHIVO_CREADO);
 
@@ -660,20 +655,34 @@ void* atender_kernel(void){
 
 				log_info(logger, "Truncar Archivo: %s - Tamaño: %i", pcb->arch_a_abrir, pcb->dat_tamanio);
 
-				fcb = obtener_fcb(pcb);
+				char *path_archivo_completo = concatenar_path(pcb->arch_a_abrir);
+				t_config* config_fcb = iniciar_config_test(path_archivo_completo);
+			    int tamanio_archivo = config_get_int_value(config_fcb,"TAMANIO_ARCHIVO");
 
-				if(fcb->tamanio_archivo < pcb->dat_tamanio){
-					if(pcb->dat_tamanio <= tamanio_maximo_real_archivo()){
-						log_warning(logger, "Tamanio pedido: %i - Tamanio Max: %i", pcb->dat_tamanio, tamanio_maximo_real_archivo());
-						//log_info(logger, "Agrandar archivo: %s", pcb->arch_a_abrir);
-					    //agrandar_archivo(fcb, pcb->dat_tamanio);
-						//log_warning(logger, "Tamanio pedido: %i - Tamanio Max: %i", pcb->dat_tamanio, tamanio_maximo_real_archivo());
+//				fcb = obtener_fcb(pcb);
+
+				if(buscar_archivo_fcb(pcb->arch_a_abrir)!=0){
+
+					if(tamanio_archivo < pcb->dat_tamanio){
+						//Si el tamanio del archivo es menor al solicitado...
+
+						if(pcb->dat_tamanio > tamanio_maximo_real_archivo()){
+							log_warning(logger, "Tamanio pedido: %i es mayor que Tamanio Max: %i", pcb->dat_tamanio, tamanio_maximo_real_archivo());
+						}
+
+						log_info(logger, "Agrandar archivo: %s", pcb->arch_a_abrir);
+						agrandar_archivo(pcb->arch_a_abrir, pcb->dat_tamanio);
+
+					}else if(fcb->tamanio_archivo > pcb->dat_tamanio){
+						//Si el tamanio del archivo es mayor al solicitado...
+
+						log_info(logger, "Achica archivo: %s", pcb->arch_a_abrir);
+						achicar_archivo(fcb, pcb->dat_tamanio);
+
+					}else{
+						log_info(logger, "Tiene el mismo tamanio: %s", fcb->nombre_archivo);
 					}
-				}else if(fcb->tamanio_archivo > pcb->dat_tamanio){
-					log_info(logger, "Achica archivo: %s", pcb->arch_a_abrir);
-					achicar_archivo(fcb, pcb->dat_tamanio);
-				}else{
-					log_info(logger, "Tiene el mismo tamanio: %s", fcb->nombre_archivo);
+
 				}
 
 		        enviar_respuesta_kernel(cliente_fd, OK);

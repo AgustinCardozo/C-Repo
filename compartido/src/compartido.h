@@ -17,6 +17,7 @@
 #include<time.h>
 #include<unistd.h>
 #include<netdb.h>
+#include <math.h>
 
 typedef enum
 {

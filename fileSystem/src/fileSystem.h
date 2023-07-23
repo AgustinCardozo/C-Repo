@@ -28,6 +28,7 @@
 #include <assert.h>
 #include <dirent.h>
 #include <errno.h>
+#include <math.h>
 //------------------ FUNC-DEFINIDAS ------------------//
 #define ARRAY_SIZE(arr) (sizeof(arr)/sizeof((arr)[0]))
 //----------------------------------------------------//
@@ -42,6 +43,13 @@
 const char *contenido_superbloque[] = {
 	"BLOCK_SIZE=64",
 	"BLOCK_COUNT=1024"
+};
+
+const char *contenido_fcb[] = {
+	"NOMBRE_ARCHIVO=",
+	"TAMANIO_ARCHIVO=0",
+	"PUNTERO_DIRECTO=",
+	"PUNTERO_INDIRECTO="
 };
 
 char* str1 = "/";
@@ -131,7 +139,7 @@ int buscar_archivo_fcb(char*);
 t_fcb* obtener_fcb(t_pcb*);
 FILE* obtener_archivo(char*);
 void actualizar_lista_fcb(t_fcb*);
-void agrandar_archivo(t_fcb*, int);
+void agrandar_archivo(char*, int);
 void achicar_archivo(t_fcb*, int);
 int convertir_byte_a_bit(int);
 
@@ -149,12 +157,13 @@ void finalizar_fs();
 void inicializar_superbloque();
 void inicializar_config();
 void crear_estructura_fs(const char *contenidos[]);
-t_config* iniciar_config_fs(char*);
+t_config* iniciar_config_test(char*);
 void iterator(char*);
 void set_tamanio_archivo(FILE*, int);
 int tamanio_maximo_real_archivo();
 //int tamanio_maximo_real_archivo(t_fcb*);
-int leer_bloques_disponibles_bitmap();
+int cant_bloques_disponibles_bitmap();
 char* concatenar_path(char*);
+void asignar_bloque_a_archivo(char* , t_config*);
 
 #endif /* FILESYSTEM_H_ */
