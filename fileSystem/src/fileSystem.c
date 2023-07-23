@@ -109,6 +109,9 @@ void crear_archivo_fcb(char* nombreArchivo){
 	t_config* config_nuevo_fcb = iniciar_config_test(path_archivo_completo);
 
 	config_set_value(config_nuevo_fcb, "NOMBRE_ARCHIVO", nombreArchivo);
+	config_set_value(config_nuevo_fcb, "PUNTERO_DIRECTO", "0");
+	config_set_value(config_nuevo_fcb, "PUNTERO_INDIRECTO", "0");
+
 	config_save_in_file(config_nuevo_fcb, path_archivo_completo);
 }
 
@@ -439,9 +442,9 @@ void actualizar_lista_fcb(t_fcb* fcb){
 
 // ------------------------- MODIFICAR TAMANIO ---------------------- //
 //TODO: revisar (generado con IA)
-void agrandar_archivo(char* nombreArchivo, int tamanio_pedido){//TODO: Queda pendiente agregar los bloques en los punteros hasta tener las funciones LEER  y ESCRIBIR
+void agrandar_archivo(char* nombre_archivo, int tamanio_pedido){//TODO: Queda pendiente agregar los bloques en los punteros hasta tener las funciones LEER  y ESCRIBIR
 
-	char *path_archivo_completo = concatenar_path(nombreArchivo);
+	char *path_archivo_completo = concatenar_path(nombre_archivo);
 	t_config* config_fcb = iniciar_config_test(path_archivo_completo);
 
     int tamanio_archivo = config_get_int_value(config_fcb,"TAMANIO_ARCHIVO");
@@ -449,20 +452,29 @@ void agrandar_archivo(char* nombreArchivo, int tamanio_pedido){//TODO: Queda pen
     int diferencia = tamanio_pedido - tamanio_archivo;
 
     double num = ((double) diferencia / superbloque.block_size);
-    log_info(logger,"diferencia es %f",num);
+    // log_info(logger,"diferencia es %f",num);
 
 	int cant_bloques_a_asignar = ceil(num);
+	// log_info(logger,"diferencia es %f",cant_bloques_a_asignar);
+
 	int cant_bloques_actual = ceil((double) tamanio_archivo/superbloque.block_size);
+	// log_info(logger,"diferencia es %f",cant_bloques_actual);
 
     if(cant_bloques_a_asignar<=cant_bloques_disponibles_bitmap()){
-    	config_set_value(config_fcb, "TAMANIO_ARCHIVO", tamanio_pedido);
+		char* tamanio_pedido_str;
+    	sprintf(tamanio_pedido_str, "%d", tamanio_pedido);
+
+    	config_set_value(config_fcb, "TAMANIO_ARCHIVO", tamanio_pedido_str);
     	config_save_in_file(config_fcb, path_archivo_completo);
+		set_tamanio_archivo(nombre_archivo, tamanio_pedido); //TODO: verificar el 2do parametro
+
     	for(int i = cant_bloques_actual; i<cant_bloques_a_asignar; i++){
-    		asignar_bloque_a_archivo(nombreArchivo, config_fcb);
+			log_info(logger, "FOR...");
+    		asignar_bloque_a_archivo(nombre_archivo, config_fcb);
     	}
 
     }else{
-    	log_warning(logger, "Se piden %i bloques para asignarle a %s, pero solo hay %i disponibles \n",cant_bloques_a_asignar,nombreArchivo,cant_bloques_actual);
+    	log_warning(logger, "Se piden %i bloques para asignarle a %s, pero solo hay %i disponibles \n",cant_bloques_a_asignar,nombre_archivo,cant_bloques_actual);
     }
 
 }
