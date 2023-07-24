@@ -109,9 +109,6 @@ void crear_archivo_fcb(char* nombreArchivo){
 	t_config* config_nuevo_fcb = iniciar_config_test(path_archivo_completo);
 
 	config_set_value(config_nuevo_fcb, "NOMBRE_ARCHIVO", nombreArchivo);
-	config_set_value(config_nuevo_fcb, "PUNTERO_DIRECTO", "0");
-	config_set_value(config_nuevo_fcb, "PUNTERO_INDIRECTO", "0");
-
 	config_save_in_file(config_nuevo_fcb, path_archivo_completo);
 }
 
@@ -451,14 +448,8 @@ void agrandar_archivo(char* nombre_archivo, int tamanio_pedido){//TODO: Queda pe
 
     int diferencia = tamanio_pedido - tamanio_archivo;
 
-    double num = ((double) diferencia / superbloque.block_size);
-    // log_info(logger,"diferencia es %f",num);
-
-	int cant_bloques_a_asignar = ceil(num);
-	// log_info(logger,"diferencia es %f",cant_bloques_a_asignar);
-
+	int cant_bloques_a_asignar = ceil((double) diferencia / superbloque.block_size);
 	int cant_bloques_actual = ceil((double) tamanio_archivo/superbloque.block_size);
-	// log_info(logger,"diferencia es %f",cant_bloques_actual);
 
     if(cant_bloques_a_asignar<=cant_bloques_disponibles_bitmap()){
 		char* tamanio_pedido_str;
@@ -642,7 +633,8 @@ void* atender_kernel(void){
 				}else{
 					//log_info(logger,"El archivo %s no existe", pcb->arch_a_abrir);
 					//enviar_pcb_a(pcb,*cliente_fd, CREAR_ARCHIVO);
-					enviar_respuesta_kernel(cliente_fd, CREAR_ARCHIVO);
+
+					enviar_respuesta_kernel(cliente_fd, CREAR_ARCHIVO);//TODO: SI NO EXISTE DEBERIA DEVOLVER QUE NO SE PUDE CREAR
 				}
 				break;
 			case CREAR_ARCHIVO:
@@ -703,6 +695,11 @@ void* atender_kernel(void){
 			case LEER_ARCHIVO:
 				buffer=desempaquetar(paquete,*cliente_fd);
 				pcb = deserializar_pcb(buffer);
+
+				log_info(logger, "paso por LEER_ARCHIVO");
+
+				//TODO:LEER_ARCHIVO
+
 				break;
 			case ESCRIBIR_ARCHIVO:
 				buffer=desempaquetar(paquete,*cliente_fd);

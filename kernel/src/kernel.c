@@ -319,18 +319,18 @@ void* atender_cpu(void){
 					break;
 				
 				case LEER_ARCHIVO:
-					log_info(logger, "Paso por leer_Archivo");
+					log_info(logger, "Paso por LEER_ARCHIVO");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 					enviar_pcb_a(pcb,conexion_cpu,DETENER);
 					break;
 				
 				case ESCRIBIR_ARCHIVO:
-					log_info(logger, "Paso por escribir_Archivo");
+					log_info(logger, "Paso por ESCRIBIR_ARCHIVO");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 
-
+					enviar_pcb_a(pcb,conexion_filesystem,LEER_ARCHIVO);
 
 					enviar_pcb_a(pcb,conexion_cpu,DETENER);
 					break;

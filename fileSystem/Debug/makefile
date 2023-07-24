@@ -40,7 +40,7 @@ main-build: fileSystem
 fileSystem: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc -L"/home/utnso/tp-2023-1c-EstaEsLaVencida/compartido/Debug" -o "fileSystem" $(OBJS) $(USER_OBJS) $(LIBS) -lcompartido -lcommons -lreadline
+	gcc -L"/home/utnso/tp-2023-1c-EstaEsLaVencida/compartido/Debug" -o "fileSystem" $(OBJS) $(USER_OBJS) $(LIBS) -lcompartido -lcommons -lreadline -lm
 	@echo 'Finished building target: $@'
 	@echo ' '
 
