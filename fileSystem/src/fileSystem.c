@@ -33,11 +33,11 @@ int main(void) {
 
 	void* dato1="Console";
 	log_info(logger, "El dato1 es %s", dato1);
-	escribir_dato_en_bloque(dato1,0,sizeof(char)*8);
+	escribir_dato_en_bloque(dato1,3000,80);
 
-	void* dato = leer_dato_del_bloque(32,80);
+	void* dato = leer_dato_del_bloque(3000,80);
 
-	log_info(logger, "El dato es %p", dato);
+	log_info(logger, "El dato es %s", dato);
 
 	pthread_create(&hilo_conexion_kernel,NULL,(void*) atender_kernel,NULL);
 	pthread_create(&hilo_conexion_memoria,NULL,(void*) atender_memoria,NULL);
@@ -136,16 +136,14 @@ void inicializar_superbloque(){
 }
 
 void crear_archivo_bloques(){
-	
+	F_BLOCKS = fopen(datos.path_bloques,"a");
+
 	int f_bloques;
 	f_bloques = open(datos.path_bloques, O_RDWR);
-	ftruncate(f_bloques,tam_fs);
-
-//    F_BLOCKS = fopen(datos.path_bloques,"a");
 
 	tam_fs = superbloque.block_count * superbloque.block_size;
-	set_tamanio_archivo(F_BLOCKS, tam_fs);
-
+//	set_tamanio_archivo(F_BLOCKS, tam_fs);
+	ftruncate(f_bloques,tam_fs);
 	memoria_file_system = mmap(NULL,tam_fs, PROT_READ | PROT_WRITE, MAP_SHARED, f_bloques, 0);
 
 	// crear_lista_bloques(tam_fs);
@@ -339,9 +337,9 @@ void* leer_dato_del_bloque(int offset, int size){
 
 void escribir_dato_en_bloque(void* dato, int offset, int size){
 	log_info(logger, "El el Tam en ESCRIBIR es %i", tam_fs);
-	memoria_file_system = mmap(NULL,tam_fs, PROT_READ | PROT_WRITE, MAP_SHARED, F_BLOCKS, 0);
+//	memoria_file_system = mmap(NULL,tam_fs, PROT_READ | PROT_WRITE, MAP_SHARED, f_bloques, 0);
 	log_info(logger, "El el Tam en ESCRIBIR es %i", tam_fs);
-	memcpy(memoria_file_system,dato, size);
+	memcpy(memoria_file_system + offset,dato, size);
 	log_info(logger, "El el Tam en ESCRIBIR es %i", tam_fs);
 	log_info(logger, "El dato en ESCRIBIR es %s", dato);
 	log_info(logger, "El el Tam en ESCRIBIR es %i", tam_fs);

@@ -58,6 +58,7 @@ char* path_bitmap = "/home/utnso/fs/BITMAPA.dat";
 DIR* diretorio_FCB;
 void* memoria_file_system;
 int tam_fs;
+int f_bloques;
 
 typedef struct{
 	char* ip_memoria;
