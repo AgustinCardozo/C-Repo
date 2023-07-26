@@ -29,6 +29,7 @@
 #include <dirent.h>
 #include <errno.h>
 #include <math.h>
+#include <fcntl.h>
 //------------------ FUNC-DEFINIDAS ------------------//
 #define ARRAY_SIZE(arr) (sizeof(arr)/sizeof((arr)[0]))
 //----------------------------------------------------//
@@ -55,6 +56,8 @@ const char *contenido_fcb[] = {
 char* str1 = "/";
 char* path_bitmap = "/home/utnso/fs/BITMAPA.dat";
 DIR* diretorio_FCB;
+void* memoria_file_system;
+int tam_fs;
 
 typedef struct{
 	char* ip_memoria;
@@ -165,5 +168,7 @@ int tamanio_maximo_real_archivo();
 int cant_bloques_disponibles_bitmap();
 char* concatenar_path(char*);
 void asignar_bloque_a_archivo(char* , t_config*);
+void* leer_dato_del_bloque(int, int);
+void escribir_dato_en_bloque(void*, int, int);
 
 #endif /* FILESYSTEM_H_ */

@@ -25,12 +25,19 @@ int main(void) {
 	log_info(logger,"PATH_BLOQUES: %s", datos.path_bloques);
 	log_info(logger,"PATH_FCB: %s\n", datos.path_fcb);
 
+
+
 	//prueba();
 
 	diretorio_FCB = opendir(datos.path_fcb);
-//	crear_archivo_fcb("nombreArchivo");
-//
-//	agrandar_archivo("nombreArchivo", 256);
+
+	void* dato1="Console";
+	log_info(logger, "El dato1 es %s", dato1);
+	escribir_dato_en_bloque(dato1,0,sizeof(char)*8);
+
+	void* dato = leer_dato_del_bloque(32,80);
+
+	log_info(logger, "El dato es %p", dato);
 
 	pthread_create(&hilo_conexion_kernel,NULL,(void*) atender_kernel,NULL);
 	pthread_create(&hilo_conexion_memoria,NULL,(void*) atender_memoria,NULL);
@@ -129,12 +136,19 @@ void inicializar_superbloque(){
 }
 
 void crear_archivo_bloques(){
-    F_BLOCKS = fopen(datos.path_bloques,"a");
 	
-	int tamanioArchivo = superbloque.block_count * superbloque.block_size;
-	set_tamanio_archivo(F_BLOCKS, tamanioArchivo);
+	int f_bloques;
+	f_bloques = open(datos.path_bloques, "a");
+	ftruncate(f_bloques,tam_fs);
 
-	// crear_lista_bloques(tamanioArchivo);
+//    F_BLOCKS = fopen(datos.path_bloques,"a");
+
+	tam_fs = superbloque.block_count * superbloque.block_size;
+	set_tamanio_archivo(F_BLOCKS, tam_fs);
+
+	memoria_file_system = mmap(NULL,tam_fs, PROT_READ | PROT_WRITE, MAP_SHARED, f_bloques, 0);
+
+	// crear_lista_bloques(tam_fs);
 }
 
 void set_tamanio_archivo(FILE* archivo, int tamanioArchivo){
@@ -311,6 +325,28 @@ void leer_archivo(FILE* archivo, size_t tamArchivo, char* path){
 
 	free(buffer);
 	close(fd);
+}
+
+void* leer_dato_del_bloque(int offset, int size){
+	void* dato = malloc(size);
+	log_info(logger, "Paso por leer");
+	memcpy(dato,memoria_file_system + offset, size);
+	msync(memoria_file_system,tam_fs,MS_SYNC);
+	//sleep();
+
+	return dato;
+}
+
+void escribir_dato_en_bloque(void* dato, int offset, int size){
+	log_info(logger, "El el Tam en ESCRIBIR es %i", tam_fs);
+	memoria_file_system = mmap(NULL,tam_fs, PROT_READ | PROT_WRITE, MAP_SHARED, F_BLOCKS, 0);
+	log_info(logger, "El el Tam en ESCRIBIR es %i", tam_fs);
+	memcpy(memoria_file_system,dato, size);
+	log_info(logger, "El el Tam en ESCRIBIR es %i", tam_fs);
+	log_info(logger, "El dato en ESCRIBIR es %s", dato);
+	log_info(logger, "El el Tam en ESCRIBIR es %i", tam_fs);
+	msync(memoria_file_system,tam_fs,MS_SYNC);
+	//sleep();
 }
 
 //--------------------------- FUNCIONES - ARCHIVO DE BLOQUES ----------------------------- //
