@@ -66,6 +66,7 @@ sem_t mutex_cola_new;
 sem_t mutex_cola_ready;
 sem_t sem_multiprogramacion;
 sem_t sem_nuevo;
+sem_t sem_ready;
 sem_t sem_habilitar_exec;
 
 pthread_t thread_nuevo_a_ready;
@@ -143,6 +144,7 @@ int main(void) {
 	sem_init(&mutex_cola_ready,0,1);
 	sem_init(&sem_multiprogramacion,0,datos.multiprogramacion);
 	sem_init(&sem_nuevo,0,0);
+	sem_init(&sem_ready,0,0);
 	sem_init(&sem_habilitar_exec,0,1);
 	log_info(logger,"El alfa es %f ",datos.alfa);
 	int i = 0;
@@ -557,7 +559,8 @@ void agregar_a_cola_ready(t_pcb* pcb){
 	log_info(logger,"Llego en ready en %i",pcb->llegadaReady);
 	queue_push(cola.cola_ready_fifo,pcb);
 	sem_post(&mutex_cola_ready);
-	sem_post(&sem_habilitar_exec);
+	sem_post(&sem_ready);
+	//sem_post(&sem_habilitar_exec);
 	//sem_post(&sem_exec);
 	//mostrar_cola(cola.cola_ready);
 }
@@ -615,9 +618,10 @@ void de_ready_a_ejecutar_fifo(void){
 	while(1){
 		//sem_wait(&sem_habilitar_exec);
 		log_info(logger,"HOLAAAAA");
-		sem_wait(&sem_habilitar_exec);
+		//sem_wait(&sem_ready);
+		sem_wait(&sem_ready);
 		while(!queue_is_empty(cola.cola_ready_fifo)){
-
+			sem_wait(&sem_habilitar_exec);
 			t_pcb* pcb = quitar_de_cola_ready();
 			pcb = actualizar_de_la_tabla_general(pcb);
 			log_info(logger,"“PID: %d - Estado Anterior: READY - Estado Actual: EXEC”",pcb->pid);
@@ -772,20 +776,21 @@ void ejecutar_wait(t_pcb* pcb){
 			recu->instancias--;
 			encontroResultado = 0;
 			list_replace(lista_recursos,j,recu);
-			uint32_t resultOk;
+			//uint32_t resultOk;
+			op_code resultOk;
 			if(recu->instancias < 0){
 				pcb->real_ant = time(NULL) - pcb->llegadaExec;
 				pcb->estimacion = datos.alfa*pcb->real_ant + (1 - datos.alfa)*pcb->estimacion;
 				log_info(logger,"PID: <%d> - Estado Anterior: <EXEC> - Estado Actual: <BLOCK>",pcb->pid);
 				queue_push(recu->cola_recurso,pcb);
-				resultOk = 0;
-				send(conexion_cpu, &resultOk, sizeof(uint32_t), 0);
+				resultOk = DETENER;
+				send(conexion_cpu, &resultOk, sizeof(op_code), 0);
 				sem_post(&sem_habilitar_exec);
 				log_info(logger,"El recurso [%s] se bloqueo",recu->nombre);
 				break;
 			} else {
-				uint32_t resultOk = 1;
-				send(conexion_cpu, &resultOk, sizeof(uint32_t), 0);
+				uint32_t resultOk = CONTINUAR;
+				send(conexion_cpu, &resultOk, sizeof(op_code), 0);
 				log_info(logger,"El recurso [%s] sigue",recu->nombre);
 				break;
 
@@ -824,7 +829,7 @@ void ejecutar_signal(t_pcb* pcb){
 			list_replace(lista_recursos,j,recu);
 			if(!queue_is_empty(recu->cola_recurso)){
 				sem_post(&recu->sem_recurso);
-				break;
+				//break;
 			}
 			uint32_t resultOk = 1;
 			send(conexion_cpu, &resultOk, sizeof(uint32_t), 0);

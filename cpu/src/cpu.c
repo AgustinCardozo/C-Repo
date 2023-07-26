@@ -216,7 +216,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			registros_pos pos = devolver_registro(reg_des);
 			insertar(pcb,pos,caracteres);
 			log_info(logger,"En %s esta %s",reg_des,caracteres);
-			mostrar_registro(pcb);
+			//mostrar_registro(pcb);
 			break;
 		case MOV_IN:
 			//sleep(2);
@@ -228,6 +228,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			char* valor = malloc(size_registro(registro)+1);
 			recv(conexion_memoria, valor, size_registro(registro), MSG_WAITALL);
 			insertar(pcb,registro,valor);
+			log_info(logger,"Se ingreso el valor %s",valor);
 			//log_info(logger,"Se leyo el valor %s",pcb->registro.AX);
 			/*if(result == 0){
 				log_info(logger,"Algo salio mal");
@@ -423,19 +424,34 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 		case WAIT:
 			log_info(logger,"Pasa por Wait");
 			enviar_pcb_a(pcb,conexion_kernel,EJECUTAR_WAIT);
-			recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
-			if(result == 0){
+			//recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
+			/*if(result == 0){
 				log_info(logger,"El proceso se bloqueo o no existe");
 				band_ejecutar = 1;
 			} else {
 				log_info(logger,"El programa sigue");
+			}*/
+
+			cod_op = recibir_operacion(conexion_kernel);
+
+			switch(cod_op){
+				case CONTINUAR:
+					log_info(logger, "Sigue el programa");
+					break;
+				case DETENER:
+					log_info(logger,"No se pudo abrir el archivo");
+					band_ejecutar = 1;
+					break;
+				default:
+					break;
 			}
 			break;
 		case SIGNAL:
 			log_info(logger,"Pasa por Signal");
 			enviar_pcb_a(pcb,conexion_kernel,EJECUTAR_SIGNAL);
-			recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
-			if(result == 0){
+			uint32_t a;
+			recv(conexion_kernel, &a, sizeof(uint32_t), MSG_WAITALL);
+			if(a == 0){
 				log_info(logger,"El proceso se bloqueo o no existe");
 				band_ejecutar = 1;
 			} else {
@@ -456,16 +472,18 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			switch(cod_op){
 			case EJECUTAR:
 				log_info(logger,"SIGA siga");
+				buffer = desempaquetar(paquete,conexion_kernel);
+				t_pcb* pcb2 = deserializar_pcb(buffer);
+				pcb->tabla_segmentos = pcb2->tabla_segmentos;
+
+				log_info(logger,"Volvio el pcb %i ", pcb->pid);
 				break;
 			default:
 				log_info(logger,"Se acabo el proceso");
 				band_ejecutar = 1;
 				break;
 			}
-			buffer = desempaquetar(paquete,conexion_kernel);
-			pcb = deserializar_pcb(buffer);
 
-			log_info(logger,"Volvio el pcb %i ", pcb->pid);
 			//recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
 			//enviar_crear_segmento(id_seg,tamanio_seg,conexion_kernel);
 			break;
