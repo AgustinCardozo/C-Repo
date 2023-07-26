@@ -138,7 +138,7 @@ void inicializar_superbloque(){
 void crear_archivo_bloques(){
 	
 	int f_bloques;
-	f_bloques = open(datos.path_bloques, "a");
+	f_bloques = open(datos.path_bloques, O_RDWR);
 	ftruncate(f_bloques,tam_fs);
 
 //    F_BLOCKS = fopen(datos.path_bloques,"a");
