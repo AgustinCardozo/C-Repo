@@ -224,6 +224,7 @@ void atender_modulos(void* data){
 				//sleep(5);
 				mostrar_tabla_huecos_libres();
 				mostrar_tablas_de_segmentos();
+				usleep(datos.ret_compactacion*1000);
 				//op_code codigo = COMPACTAR;
 				//send(cliente_fd,&codigo,sizeof(op_code),0);
 				enviar_tabla_general(cliente_fd);
@@ -571,18 +572,18 @@ seg_aux deserializar_segmento_a_eliminar(t_buffer* buffer){
 }
 
 char* leer_valor_de_memoria(int df,int tamanio){
-	char* valor = malloc(tamanio+1);
+	char* valor = malloc(tamanio);
 	//Copio el valor de la df a la variable valor
 	memcpy(valor,memoria_usuario+df,tamanio);
-
 	log_info(logger,"El valor leyo %s",valor);
-
+	usleep(datos.ret_memoria*1000);
 	return valor;
 }
 
 void escribir_valor_de_memoria(char* valor,int df, int tamanio){
 	log_info(logger,"Se escribio el valor %s", valor);
 	memcpy(memoria_usuario+df,valor,tamanio);
+	usleep(datos.ret_memoria*1000);
 }
 
 void enviar_tabla_actualizada(t_list* resultado,int cliente_fd){
