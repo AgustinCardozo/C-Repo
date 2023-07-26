@@ -200,6 +200,7 @@ void* atender_cpu(void){
 	paquete->buffer = malloc(sizeof(t_buffer));
 	t_pcb* pcb;
 	t_buffer* buffer;
+	op_code c;
 	//int result;
 
 	//t_cola proc_bloqueados=queue_create();
@@ -382,7 +383,23 @@ void* atender_cpu(void){
 					log_info(logger,"Finaliza el proceso <%d> - Motivo: <SUCCESS>",pcb->pid);
 					//enviar_mensaje("Tu proceso ha finalizado",pcb->conexion_consola);
 					enviar_eliminar_proceso(pcb->pid);
-					op_code c = FINALIZAR;
+					c = FINALIZAR;
+					send(pcb->conexion_consola,&c,sizeof(op_code),0);
+
+					break;
+				case SEG_FAULT:
+					log_info(logger,"Paso por finzalizar");
+					sem_post(&sem_habilitar_exec);
+					sem_post(&sem_multiprogramacion);
+					buffer = desempaquetar(paquete,conexion_cpu);
+					pcb = deserializar_pcb(buffer);
+					log_info(logger,"PID: <%d> - Estado Anterior: <EXEC> - Estado Actual: <EXIT>",pcb->pid);
+					//log_info(logger,"El pcb [%i] ha sido finalizado",pcb->pid);
+					//mostrar_registro(pcb);
+					log_info(logger,"Finaliza el proceso <%d> - Motivo: <SEG_FAULT>",pcb->pid);
+					//enviar_mensaje("Tu proceso ha finalizado",pcb->conexion_consola);
+					enviar_eliminar_proceso(pcb->pid);
+					c = FINALIZAR;
 					send(pcb->conexion_consola,&c,sizeof(op_code),0);
 
 					break;
@@ -789,7 +806,7 @@ void ejecutar_wait(t_pcb* pcb){
 				log_info(logger,"El recurso [%s] se bloqueo",recu->nombre);
 				break;
 			} else {
-				uint32_t resultOk = CONTINUAR;
+				op_code resultOk = CONTINUAR;
 				send(conexion_cpu, &resultOk, sizeof(op_code), 0);
 				log_info(logger,"El recurso [%s] sigue",recu->nombre);
 				break;
@@ -804,9 +821,9 @@ void ejecutar_wait(t_pcb* pcb){
 	if(encontroResultado == 1){
 		log_info(logger,"El recurso no existe, el proceso finaliza");
 		//Liberar datso en memoria
-		uint32_t resultOk = 0;
-		send(conexion_cpu, &resultOk, sizeof(uint32_t), 0);
-		log_info(logger,"Finaliza el proceso <%d> - Motivo: <SUCCESS>",pcb->pid);
+		op_code resultOk = CONTINUAR;
+		send(conexion_cpu, &resultOk, sizeof(op_code), 0);
+		log_info(logger,"Finaliza el proceso <%d> - Motivo: <SIN_RECURSOS>",pcb->pid);
 		enviar_mensaje("Tu proceso ha finalizado por que no existe el recurso",pcb->conexion_consola);
 		sem_post(&sem_habilitar_exec);
 	}
@@ -844,7 +861,9 @@ void ejecutar_signal(t_pcb* pcb){
 		//Liberar datso en memoria
 		uint32_t resultOk = 0;
 		send(conexion_cpu, &resultOk, sizeof(uint32_t), 0);
-		log_info(logger,"El pcb [%i] ha sido finalizado",pcb->pid);
+		//log_info(logger,"El pcb [%i] ha sido finalizado",pcb->pid);
+		log_info(logger,"Finaliza el proceso <%d> - Motivo: <SIN_RECURSOS>",pcb->pid);
+		//enviar_mensaje("Tu proceso ha finalizado por que no existe el recurso",pcb->conexion_consola);
 		enviar_mensaje("Tu proceso ha finalizado por que no existe el recurso",pcb->conexion_consola);
 		sem_post(&sem_habilitar_exec);
 	}
@@ -1030,10 +1049,19 @@ void analizar_resultado(t_pcb* pcb,t_paquete* paquete,t_buffer* buffer){
 				break;
 			case SIN_MEMORIA:
 				log_info(logger,"No hay mas espacio en memoria, se termina el proceso");
+
+				log_info(logger,"PID: <%d> - Estado Anterior: <EXEC> - Estado Actual: <EXIT>",pcb->pid);
+
+				log_info(logger,"Finaliza el proceso <%d> - Motivo: <OUT_OF_MEMORY>",pcb->pid);
+
+
+				enviar_eliminar_proceso(pcb->pid);
 				op_code c = FINALIZAR;
 				send(conexion_cpu,&c,sizeof(op_code),0);
 				seguir = 0;
 				send(pcb->conexion_consola,&c,sizeof(op_code),0);
+				sem_post(&sem_habilitar_exec);
+				sem_post(&sem_multiprogramacion);
 				break;
 			}
 	}

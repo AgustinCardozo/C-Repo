@@ -224,11 +224,18 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			registro = devolver_registro(list_get(instruccion->parametros,0));
 			dl=atoi(list_get(instruccion->parametros,1));
 			df=obtener_direccion_fisica(dl,pcb,size_registro(registro));
-			enviar_datos_para_lectura(df,size_registro(registro));
-			char* valor = malloc(size_registro(registro)+1);
-			recv(conexion_memoria, valor, size_registro(registro), MSG_WAITALL);
-			insertar(pcb,registro,valor);
-			log_info(logger,"Se ingreso el valor %s",valor);
+
+			if(df < 0){
+				enviar_pcb_a(pcb,conexion_kernel,SEG_FAULT);
+				band_ejecutar = 1;
+			} else {
+				enviar_datos_para_lectura(df,size_registro(registro));
+				char* valor = malloc(size_registro(registro)+1);
+				recv(conexion_memoria, valor, size_registro(registro), MSG_WAITALL);
+				insertar(pcb,registro,valor);
+				log_info(logger,"Se ingreso el valor %s",valor);
+			}
+
 			//log_info(logger,"Se leyo el valor %s",pcb->registro.AX);
 			/*if(result == 0){
 				log_info(logger,"Algo salio mal");
@@ -244,14 +251,24 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			char *dato= devolver_dato(pcb,registro);
 
 			df=obtener_direccion_fisica(dl,pcb,size_registro(registro));
-			enviar_datos_para_escritura(df,dato,size_registro(registro));
-			recv(conexion_memoria, &result, sizeof(int), MSG_WAITALL);
-			if(result == 0){
-				log_info(logger,"Algo salio bien");
 
+			if(df < 0) {
+				enviar_pcb_a(pcb,conexion_kernel,SEG_FAULT);
+				band_ejecutar = 1;
 			} else {
-				log_info(logger,"El programa sigue");
+				enviar_datos_para_escritura(df,dato,size_registro(registro));
+
+
+				recv(conexion_memoria, &result, sizeof(int), MSG_WAITALL);
+				if(result == 0){
+					log_info(logger,"Algo salio bien");
+
+				} else {
+					log_info(logger,"El programa sigue");
+				}
 			}
+
+
 			break;
 		case F_OPEN:
 			log_info(logger,"Paso por F_OPEN");
@@ -478,6 +495,10 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 
 				log_info(logger,"Volvio el pcb %i ", pcb->pid);
 				break;
+			case FINALIZAR:
+				log_info(logger,"Se acabo el proceso");
+				band_ejecutar = 1;
+				break;
 			default:
 				log_info(logger,"Se acabo el proceso");
 				band_ejecutar = 1;
@@ -648,7 +669,7 @@ int obtener_direccion_fisica(uint32_t dir_logica,t_pcb*pcb,int tam_dato){
 
 	log_info(logger,"El segmento es %i con offset %i",DL->num_segmento,DL->offset);
 
-	int df;
+	int df = -1;
 
 	for(int i = 0; i < list_size(pcb->tabla_segmentos); i++){
 		segmento* seg = list_get(pcb->tabla_segmentos,i);

@@ -217,6 +217,7 @@ void atender_modulos(void* data){
 
 				eliminar_proceso(pid);
 				break;
+
 			case REALIZAR_COMPACTACION:
 				log_info(logger,"Empezando a compactar");
 				compactar_tabla_general();
