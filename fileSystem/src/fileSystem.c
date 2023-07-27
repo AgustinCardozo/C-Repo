@@ -15,11 +15,15 @@
 void enviar_datos_para_lectura(int dir, int tamanio);
 char* deserializar_valor(t_buffer* buffer);
 void enviar_datos_para_escritura(int dir, char* valor, int tamanio);
+void escribir_datos(void* datos, t_list* lista_offsets);
+void* leer_datos(t_list* lista_offsets);
+void* leer_dato_del_bloque(int offset, int size);
 
 int main(void) {
 	logger = iniciar_logger(FS_LOG, FS_NAME);;
 	config = iniciar_config(FS_CONFIG);
 	lista_fcb = list_create();
+	//lista_global_fcb->lista_fcb = list_create();
 
 	inicializar_config();
 	crear_estructura_fs(contenido_superbloque);
@@ -33,13 +37,13 @@ int main(void) {
 
 	diretorio_FCB = opendir(datos.path_fcb);
 
-	void* dato1="Console";
-	log_info(logger, "El dato1 es %s", dato1);
-	escribir_dato_en_bloque(dato1,3000,80);
+	//void* dato1="Console";
+	//log_info(logger, "El dato1 es %s", dato1);
+	//escribir_dato_en_bloque(dato1,3000,80);
 
-	void* dato = leer_dato_del_bloque(3000,80);
+	//void* dato = leer_dato_del_bloque(3000,80);
 
-	log_info(logger, "El dato es %s", dato);
+	//log_info(logger, "El dato es %s", dato);
 
 	pthread_create(&hilo_conexion_kernel,NULL,(void*) atender_kernel,NULL);
 	pthread_create(&hilo_conexion_memoria,NULL,(void*) atender_memoria,NULL);
@@ -144,10 +148,10 @@ void crear_archivo_bloques(){
 int crear_archivo_fcb(char* nombreArchivo){
 	int resultado = -1;
 
-	if(buscar_fcb(nombreArchivo) != -1){
-		log_error(logger,"Ya existe un FCB con ese nombre");
-		return resultado;
-	}
+	//if(buscar_fcb(nombreArchivo) != -1){
+		//log_error(logger,"Ya existe un FCB con ese nombre");
+		//return resultado;
+	//}
 
 	char *path_archivo_completo = concatenar_path(nombreArchivo);
 
@@ -171,7 +175,7 @@ int crear_archivo_fcb(char* nombreArchivo){
 	string_append(&fcb_fisico->path,path_archivo_completo);
 	char* nombre_duplicado = string_duplicate(nombreArchivo);
 
-	list_add(lista_global_fcb->lista_fcb,nuevo_fcb);
+	list_add(lista_fcb,nuevo_fcb);
 	dictionary_destroy(fcb_fisico->properties);
 	free(nombre_duplicado);
 	free(fcb_fisico->path);
@@ -183,10 +187,10 @@ int crear_archivo_fcb(char* nombreArchivo){
 
 int buscar_fcb(char* nombre_fcb){
 	int resultado = -1;
-	int size = list_size(lista_global_fcb->lista_fcb);
+	int size = list_size(lista_fcb);
 
 	for(int i = 0; i<size; i++){
-		fcb_t* fcb = list_get(lista_global_fcb->lista_fcb,i);
+		fcb_t* fcb = list_get(lista_fcb,i);
 
 		if(strcmp(fcb->nombre_archivo,nombre_fcb) == 0){
 			resultado = fcb->id;
@@ -199,10 +203,10 @@ int buscar_fcb(char* nombre_fcb){
 
 int buscar_fcb_id(int id){
 	int resultado = -1;
-	int size = list_size(lista_global_fcb->lista_fcb);
+	int size = list_size(lista_fcb);
 
 	for(int i = 0; i<size; i++){
-		fcb_t* fcb = list_get(lista_global_fcb->lista_fcb,i);
+		fcb_t* fcb = list_get(lista_fcb,i);
 
 		if(fcb->id == id){
 			resultado = fcb->id;
@@ -222,7 +226,7 @@ void set_tamanio_archivo(FILE* archivo, int tamanioArchivo){
 }
 
 void crear_archivo_bitmap(){
-	F_BITMAP = fopen(datos.path_bitmap, "a"); //TODO: revisar el modo, no deberia de ser "a+"?
+	F_BITMAP = fopen(datos.path_bitmap, "a");
 
 	int tam_bits_bloque = convertir_byte_a_bit(superbloque.block_count);
 	TAM_BITMAP = tam_bits_bloque;
@@ -395,22 +399,51 @@ void leer_archivo(FILE* archivo, size_t tamArchivo, char* path){
 
 void* leer_dato_del_bloque(int offset, int size){
 	void* dato = malloc(size);
-	log_info(logger, "Paso por leer");
+	//log_info(logger, "Paso por leer");
 	memcpy(dato,memoria_file_system + offset, size);
 	msync(memoria_file_system,tam_fs,MS_SYNC);
-	//sleep();
+	usleep(datos.ret_acceso_bloque);
 
 	return dato;
 }
 
+void* leer_datos(t_list* lista_offsets){
+	int cant_bloques = list_size(lista_offsets);
+	int offset = 0;
+	offset_fcb_t* bloque_inicial = list_get(lista_offsets,0);
+
+	void* dato = leer_dato_del_bloque(bloque_inicial->offset,bloque_inicial->tamanio);
+
+	void* datos = malloc(bloque_inicial->tamanio);
+
+	memcpy(datos,dato,bloque_inicial->tamanio);
+	offset += bloque_inicial->tamanio;
+
+	free(dato);
+
+	for(int i = 1; i < cant_bloques; i++){
+		offset_fcb_t* bloque = list_get(lista_offsets,i);
+
+		log_info(logger,"Acceso Bloque - Archivo: %s - Bloque File System: %d",nombreArchivo, bloque->id_bloque);
+		void* dato2 = leer_dato_del_bloque(bloque->offset,bloque->tamanio);
+
+		datos = realloc(datos,offset + bloque->tamanio);
+		memcpy(datos+offset,dato,bloque->tamanio);
+		offset += bloque->tamanio;
+		free(dato2);
+	}
+
+	return datos;
+}
+
 uint32_t leer_fcb_por_key(char* nombreArchivo,char* key){
-	char path_archivo_completo = concatenar_path(nombreArchivo);
+	char* path_archivo_completo = concatenar_path(nombreArchivo);
 	t_config* config_fcb = iniciar_config_test(path_archivo_completo);
 
-	if(key!="TAMANIO_ARCHIVO" || key!="PUNTERO_DIRECTO" || key!="PUNTERO_INDIRECTO"){
+	//if(key!="TAMANIO_ARCHIVO" || key!="PUNTERO_DIRECTO" || key!="PUNTERO_INDIRECTO"){
 		//Si se le pasa un parametro invalido...
-		log_warning(logger, "En leer_fcb_por_key se ingerso la key %s", key);
-	}
+		//log_warning(logger, "En leer_fcb_por_key se ingerso la key %s", key);
+	//}
 	//Parametro valido
 	return (uint32_t) config_get_int_value(config_fcb, key);
 }
@@ -419,7 +452,7 @@ void escribir_dato_en_bloque(void* dato, int offset, int size){
 //	memoria_file_system = mmap(NULL,tam_fs, PROT_READ | PROT_WRITE, MAP_SHARED, f_bloques, 0);
 	memcpy(memoria_file_system + offset,dato, size);
 	msync(memoria_file_system,tam_fs,MS_SYNC);
-	//sleep();
+	usleep(datos.ret_acceso_bloque*1000);
 }
 
 //--------------------------- FUNCIONES - ARCHIVO DE BLOQUES ----------------------------- //
@@ -562,7 +595,7 @@ fcb_t* inicializar_fcb(){
 
 
 // ------------------------- MODIFICAR TAMANIO ---------------------- //
-//TODO: revisar (generado con IA)
+
 void agrandar_archivo(char* nombre_archivo, int tamanio_pedido){//TODO: Queda pendiente agregar los bloques en los punteros hasta tener las funciones LEER  y ESCRIBIR
 
 	char *path_archivo_completo = concatenar_path(nombre_archivo);
@@ -624,7 +657,7 @@ FILE* obtener_archivo(char* nombreArchivo){
 	return archivo;
 }
 
-//TODO: revisar
+
 //fcb_t* crear_fcb(t_pcb* pcb){
 //	fcb_t* fcb = malloc(sizeof(t_fcb*));
 //
@@ -667,12 +700,25 @@ int buscar_archivo_fcb(char* nombre_archivo){
     FILE* archivo = fopen(concatenar_path(nombre_archivo), "r+");
 
     if(archivo!=NULL){
+    	fcb_t* fcb = malloc(sizeof(fcb_t));
+    	fcb->id = fcb_id++;
+    	fcb->nombre_archivo = nombre_archivo;
+    	fcb->ruta_archivo = concatenar_path(nombre_archivo);
     	log_info(logger,"Se encontro el archivo: %s",nombre_archivo);
+    	fcb->puntero_directo = leer_fcb_por_key(nombre_archivo,"PUNTERO_DIRECTO");
+    	fcb->tamanio_archivo = leer_fcb_por_key(nombre_archivo,"TAMANIO_ARCHIVO");
+    	fcb->puntero_indirecto = leer_fcb_por_key(nombre_archivo,"PUNTERO_INDIRECTO");
+    	fcb->puntero_archivo = 0;
+
+    	list_add(lista_fcb,fcb);
+
     	return 1;
+    } else {
+    	log_info(logger,"No se encontro el archivo: %s",nombre_archivo);
+        return 0;
     }
 
-	log_info(logger,"No se encontro el archivo: %s",nombre_archivo);
-    return 0;
+
 }
 
 //Obtiene el puntero de la lista de fcbs del fcb buscado
@@ -770,9 +816,14 @@ void* atender_kernel(void){
 	int *cliente_fd = esperar_cliente(logger,server_fd);
 	t_pcb* pcb;
 	t_buffer* buffer;
+	uint32_t puntero;
+	char* nombreArchivo;
+	int id_fcb;
+	int tamanio;
+	t_list* lista_de_bloques;
 
 	fcb_t* fcb;
-	PATH_FCB = strcat(datos.path_fcb, "/"); //TODO: revisar
+	//PATH_FCB = strcat(datos.path_fcb, "/");
 
 	while(1){
 		int cod_op = recibir_operacion(*cliente_fd);
@@ -791,11 +842,14 @@ void* atender_kernel(void){
 				
 				log_info(logger, "Abrir Archivo: %s", pcb->arch_a_abrir);
 				//log_info(logger,"El id es %d", pcb->pid);
+				//uint32_t punteroDirecto = leer_fcb_por_key(pcb->arch_a_abrir,"PUNTERO_DIRECTO");
+				//log_info(logger,"El puntero es : %d",punteroDirecto);
+				//sleep(100);
 
-				if(buscar_fcb(pcb->arch_a_abrir)!=-1){//buscar_archivo_fcb(pcb->arch_a_abrir)
+				if(buscar_archivo_fcb(pcb->arch_a_abrir)){//buscar_archivo_fcb(pcb->arch_a_abrir)
 					//log_info(logger,"PID: %d - F_OPEN: %s",nueva_instruccion->pid,nueva_instruccion->param1);
 					log_info(logger,"Abrir Archivo: %s", pcb->arch_a_abrir);
-					enviar_respuesta_kernel(cliente_fd, ARCHIVO_CREADO);
+					enviar_respuesta_kernel(cliente_fd, EXISTE_ARCHIVO);
 				}
 				else {
 					//log_info(logger,"PID: %d - F_OPEN: %s - NO EXISTE",nueva_instruccion->pid,nueva_instruccion->param1);
@@ -862,43 +916,57 @@ void* atender_kernel(void){
 
 				log_info(logger, "paso por LEER_ARCHIVO");
 
-				uint32_t puntero = (uint32_t) pcb->posicion;
-				char* memoria = "80";
-				char* tam = "64";
-				log_info(logger,"Leer Archivo: %s - Puntero: %d - Memoria: %s - Tamaño: %s",pcb->arch_a_abrir, puntero, memoria, tam);
-//				realizar_f_read(nueva_instruccion);
+				puntero = (uint32_t) pcb->posicion;
+				nombreArchivo = pcb->arch_a_abrir;
+				id_fcb = buscar_fcb(pcb->arch_a_abrir);
+				tamanio = pcb->dat_tamanio;
 
-				//enviar_datos_para_escritura(DIRECION FISICA, VALOR A ESCRIBIR, TAMANIO)
-				//TODO:LEER_ARCHIVO
-				//recv(conexion_memoria, &result, sizeof(int), MSG_WAITALL);
-				/*if(result == 0){
+				lista_de_bloques = armar_lista_offsets(nombreArchivo,id_fcb, tamanio, puntero);
+
+				void* datos = leer_datos(lista_de_bloques);
+
+				enviar_datos_para_escritura(pcb->df_fs, datos, tamanio);
+				int result;
+				recv(conexion_memoria, &result, sizeof(int), MSG_WAITALL);
+
+				if(result == 0){
 					log_info(logger,"Algo salio bien");
 
 				} else {
 					log_info(logger,"El programa sigue");
-				}*/
+				}
+
+				enviar_pcb_a(pcb,*cliente_fd,DESBLOQUEADO);
+
+				list_destroy_and_destroy_elements(lista_de_bloques,free);
+				//char* memoria = "80";
+				//char* tam = "64";
+				//log_info(logger,"Leer Archivo: %s - Puntero: %d - Memoria: %s - Tamaño: %s",pcb->arch_a_abrir, puntero, memoria, tam);
+//				realizar_f_read(nueva_instruccion);
+
 				break;
 			case ESCRIBIR_ARCHIVO:
 				buffer=desempaquetar(paquete,*cliente_fd);
 				pcb = deserializar_pcb(buffer);
-				//void enviar_datos_para_lectura(DIRECION FISICA, TAMANIO DEL VALOR)
-				//char* valor = malloc(TMANIO DEL VALOR);
-				//recv(conexion_memoria, valor, TAMANIO DEL VALOR, MSG_WAITALL);
-				//log_info(logger,"Se ingreso el valor %s",valor);
+				enviar_datos_para_lectura(pcb->df_fs,pcb->dat_tamanio);
+				char* valor = malloc(pcb->dat_tamanio);
+				recv(conexion_memoria, valor, pcb->dat_tamanio, MSG_WAITALL);
+				log_info(logger,"Se ingreso el valor %s",valor);
 
-				//TODO: PREGUNTAR POR ESTRUCTURAS
-				void* datos = "DATO";
-				char* nombreArchivo = pcb->arch_a_abrir;
-				int id_fcb = pcb->pid;
-				int tamanio = pcb->dat_tamanio;//TODO:H
-				int puntero_archivo = pcb->posicion;//TODO:H
+				//void* datos = "DATO";
+				nombreArchivo = pcb->arch_a_abrir;
+				id_fcb = buscar_fcb(pcb->arch_a_abrir);
+				tamanio = pcb->dat_tamanio;
+				puntero = (uint32_t) pcb->posicion;
 
-				t_list* lista_de_bloques = armar_lista_offsets(nombreArchivo,id_fcb, tamanio, puntero_archivo);
+				lista_de_bloques = armar_lista_offsets(nombreArchivo,id_fcb, tamanio, puntero);
 
-				escribir_datos(datos, lista_de_bloques);
+				escribir_datos(valor, lista_de_bloques);
+
+				enviar_pcb_a(pcb,*cliente_fd,DESBLOQUEADO);
 
 				list_destroy_and_destroy_elements(lista_de_bloques,free);
-				free(datos);
+				//free(datos);
 
 				break;
 			case -1:

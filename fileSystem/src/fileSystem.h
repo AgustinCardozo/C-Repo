@@ -49,8 +49,8 @@ const char *contenido_superbloque[] = {
 const char *contenido_fcb[] = {
 	"NOMBRE_ARCHIVO=",
 	"TAMANIO_ARCHIVO=0",
-	"PUNTERO_DIRECTO=",
-	"PUNTERO_INDIRECTO="
+	"PUNTERO_DIRECTO=0",
+	"PUNTERO_INDIRECTO=0"
 };
 
 char* str1 = "/";
@@ -164,7 +164,7 @@ int convertir_byte_a_bit(int);
 
 
 int fcb_id;
-fcb_list_t* lista_global_fcb;
+//fcb_list_t* lista_global_fcb;
 
 
 void escribir_bitmap(t_list*, int);

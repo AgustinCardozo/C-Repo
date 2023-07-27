@@ -95,6 +95,7 @@ void crear_archivo(char* nombreArchivo);
 void cerrar_archivo(t_pcb* pcb);
 void modificar_tamanio(t_pcb* pcb);
 void actualizar_puntero(t_pcb* pcb);
+int buscar_puntero(t_pcb* pcb);
 //int enviar_datos_a_memoria(t_pcb* pcb, int conexion, op_code codigo);
 //void enviar_segmento_con_cod(seg_aux* segmento, int conexion, op_code codigo);
 int pid;
@@ -223,6 +224,14 @@ void* atender_cpu(void){
 					agregar_a_cola_ready(pcb);
 					sem_post(&sem_habilitar_exec);
 					break;
+				case DESBLOQUEADO:
+					log_info(logger,"Paso por desbloqueado");
+
+					buffer = desempaquetar(paquete,conexion_cpu);
+					pcb = deserializar_pcb(buffer);
+					log_info(logger,"PID: <%d> - Estado Anterior: <BLOCK> - Estado Actual: <READY>",pcb->pid);
+					agregar_a_cola_ready(pcb);
+					break;
 				case EJECUTAR_WAIT:
 					log_info(logger,"Paso por WAIT");
 					buffer = desempaquetar(paquete,conexion_cpu);
@@ -263,17 +272,25 @@ void* atender_cpu(void){
 						int ciclo = 1;
 						while(ciclo){
 							int cod_op = recibir_operacion(conexion_filesystem);
-
+							//op_code cod;
+							info_arch* arch_proc;
 							switch(cod_op){
 								case EXISTE_ARCHIVO:
 									log_info(logger,"El archivo ya existe");
-									enviar_pcb_a(pcb,conexion_cpu,DETENER);
+									//enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
+									//ciclo = 0;
+									crear_archivo(pcb->arch_a_abrir);
+									//cod = CONTINUAR;
+									arch_proc = malloc(sizeof(info_arch));
+									arch_proc->dir = pcb->arch_a_abrir;
+									arch_proc->punt = 0;
+									list_add(pcb->archivos_abiertos,arch_proc);
+									enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
 									ciclo = 0;
 									break;
 								case CREAR_ARCHIVO:
 									//enviar para crear el archivo
 									log_info(logger, "Paso por Crear_Archivo");
-									crear_archivo(pcb->arch_a_abrir);
 									pcb->dat_tamanio=0;
 									enviar_pcb_a(pcb,conexion_filesystem,CREAR_ARCHIVO);
 
@@ -281,8 +298,12 @@ void* atender_cpu(void){
 								case ARCHIVO_CREADO:
 									log_info(logger,"El archivo se creo");
 									//enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
-									op_code cod = CONTINUAR;
-									send(conexion_cpu,&cod,sizeof(op_code),0);
+									crear_archivo(pcb->arch_a_abrir);
+									arch_proc = malloc(sizeof(info_arch));
+									arch_proc->dir = pcb->arch_a_abrir;
+									arch_proc->punt = 0;
+									list_add(pcb->archivos_abiertos,arch_proc);
+									enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
 									ciclo = 0;
 									break;
 								default:
@@ -325,6 +346,8 @@ void* atender_cpu(void){
 					log_info(logger, "Paso por LEER_ARCHIVO");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
+					pcb->posicion = buscar_puntero(pcb);
+					enviar_pcb_a(pcb,conexion_filesystem,LEER_ARCHIVO);
 					enviar_pcb_a(pcb,conexion_cpu,DETENER);
 					break;
 				
@@ -332,6 +355,7 @@ void* atender_cpu(void){
 					log_info(logger, "Paso por ESCRIBIR_ARCHIVO");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
+					pcb->posicion = buscar_puntero(pcb);
 
 					enviar_pcb_a(pcb,conexion_filesystem,LEER_ARCHIVO);
 
@@ -1176,7 +1200,6 @@ char* deserializar_nombreArchivo(t_buffer* buffer){
 }
 //-------------------------------------ADICIONALES----------------------------------//
 int contiene_archivo(t_pcb* pcb, char* nombreArchivo){
-	//TODO implementar la condicion cuando este resuelto la tabla de archivos abiertos
 	int band = 0;
 	for(int i = 0; i < list_size(lista_archivos_abiertos); i++){
 		t_archivo* archi = list_get(lista_archivos_abiertos,i);
@@ -1240,6 +1263,24 @@ void actualizar_puntero(t_pcb* pcb){
 		}
 
 	}
+}
+
+int buscar_puntero(t_pcb* pcb){
+	int puntero;
+	char* nombreArchivo = pcb->arch_a_abrir;
+		for(int i = 0; i < list_size(pcb->archivos_abiertos);i++){
+			info_arch* archi = list_get(pcb->archivos_abiertos,i);
+
+			if(strcmp(archi->dir,nombreArchivo)==0){
+				puntero = archi->punt;
+				break;
+			}
+
+		}
+	return puntero;
+
+
+
 }
 
 void modificar_tamanio(t_pcb* pcb){

@@ -284,13 +284,10 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 
 			switch(cod_op){
 				case CONTINUAR:
-					//buffer = desempaquetar(paquete,conexion_kernel);
-					//pcb = deserializar_pcb(buffer);
+					buffer = desempaquetar(paquete,conexion_kernel);
+					t_pcb* pcb2 = deserializar_pcb(buffer);
+					pcb->archivos_abiertos = pcb2->archivos_abiertos;
 					log_info(logger, "Sigue el programa");
-					break;
-				case DETENER:
-					log_info(logger,"No se pudo abrir el archivo");
-					band_ejecutar = 1;
 					break;
 				default:
 					break;
@@ -375,7 +372,9 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 					log_info(logger, "Sigue el programa");
 					break;
 				case DETENER:
-					log_info(logger,"No se pudo abrir el archivo");
+					buffer = desempaquetar(paquete,conexion_kernel);
+					pcb = deserializar_pcb(buffer);
+					log_info(logger,"El proceso se bloqueo");
 					band_ejecutar = 1;
 					break;
 				default:
@@ -402,6 +401,8 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 					log_info(logger, "Sigue el programa");
 					break;
 				case DETENER:
+					buffer = desempaquetar(paquete,conexion_kernel);
+					pcb = deserializar_pcb(buffer);
 					log_info(logger,"No se pudo abrir el archivo");
 					band_ejecutar = 1;
 					break;

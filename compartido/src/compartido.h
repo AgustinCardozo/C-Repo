@@ -56,7 +56,8 @@ typedef enum
 	CON_PARAMETRO,
 	OK,
 	ERROR,
-	SEG_FAULT
+	SEG_FAULT,
+	DESBLOQUEADO
 }op_code;
 
 typedef struct{
