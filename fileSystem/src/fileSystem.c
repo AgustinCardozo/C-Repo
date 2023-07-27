@@ -26,7 +26,7 @@ int main(void) {
 	logger = iniciar_logger(FS_LOG, FS_NAME);;
 	config = iniciar_config(FS_CONFIG);
 	lista_fcb = list_create();
-	//lista_global_fcb->lista_fcb = list_create();
+	//lista_fcb = list_create();
 
 	inicializar_config();
 	crear_estructura_fs(contenido_superbloque);
@@ -955,7 +955,7 @@ void* atender_kernel(void){
 						//Si el tamanio del archivo es mayor al solicitado...
 
 						log_info(logger, "Achica archivo: %s", pcb->arch_a_abrir);
-//						achicar_archivo(fcb, pcb->dat_tamanio);
+						achicar_archivo(pcb->arch_a_abrir, pcb->dat_tamanio);
 
 					}else{
 						log_info(logger, "Tiene el mismo tamanio: %s", fcb->nombre_archivo);
@@ -1138,3 +1138,133 @@ void enviar_datos_para_escritura(int dir, char* valor, int tamanio){
 	enviar_paquete(paquete,conexion_memoria);
 }
 
+fcb_t* get_fcb(char* nombre){
+	int id = buscar_fcb(nombre); 
+	fcb_t* resultado;
+	int size = list_size(lista_fcb);
+
+	for(int i = 0; i<size; i++){
+		fcb_t* fcb = list_get(lista_fcb,i);
+
+		if(fcb->id == id){
+			resultado = fcb;
+			break;
+		}
+	}
+
+	return resultado;
+}
+
+uint32_t valor_fcb(int id_fcb, fcb_enum llave){
+	fcb_t* fcb = get_fcb(id_fcb);
+	uint32_t valor = 0;
+
+	switch(llave){
+		case TAMANIO_ARCHIVO:
+			valor = fcb->tamanio_archivo;
+			break;
+		case PUNTERO_DIRECTO:
+			valor = fcb->puntero_directo;
+			break;
+		case PUNTERO_INDIRECTO:
+			valor = fcb->puntero_indirecto;
+			break;
+		default:
+			break;
+	}
+
+	return valor;
+}
+
+int modificar_fcb(int id,fcb_enum llave, uint32_t valor){
+	fcb_t* fcb = get_fcb(id);
+	int resultado = 1;
+	t_config* fcb_fisico = config_create(fcb->ruta_archivo);
+	char* valor_string = string_itoa(valor);
+
+	switch(llave){
+		case TAMANIO_ARCHIVO:
+			fcb->tamanio_archivo = valor;
+			config_set_value(fcb_fisico, "TAMANIO_ARCHIVO", valor_string);
+			break;
+		case PUNTERO_DIRECTO:
+			fcb->puntero_directo = valor;
+			config_set_value(fcb_fisico, "PUNTERO_DIRECTO", valor_string);
+			break;
+		case PUNTERO_INDIRECTO:
+			fcb->puntero_indirecto = valor;
+			config_set_value(fcb_fisico, "PUNTERO_INDIRECTO", valor_string);
+			break;
+		default:
+			resultado = -1;
+			break;
+	}
+
+	config_save(fcb_fisico);
+	config_destroy(fcb_fisico);
+	free(valor_string);
+
+	return resultado;
+}
+
+t_list* obtener_lista_total_de_bloques(char* nombre_archivo, int id_fcb){
+	t_list *lista_de_bloques = list_create();
+	int tamanio_archivo = leer_fcb_por_key(nombre_archivo, "TAMANIO_ARCHIVO");
+
+	if (tamanio_archivo == 0){
+	 	return lista_de_bloques;
+	}
+
+	int offset_fcb = 0;
+	int cant_bloques_fcb = ceil((double)tamanio_archivo / superbloque.block_size);
+	int size_final = cant_bloques_fcb * superbloque.block_size;
+
+	offset_fcb_t *bloque_directo = malloc(sizeof(offset_fcb_t));
+	bloque_directo->id_bloque = leer_fcb_por_key(nombre_archivo, "PUNTERO_DIRECTO");
+	bloque_directo->offset = bloque_directo->id_bloque * superbloque.block_size;
+	cant_bloques_fcb--;
+	offset_fcb += superbloque.block_size;
+
+	list_add(lista_de_bloques, bloque_directo);
+
+	if (cant_bloques_fcb >= 1)
+	{
+		offset_fcb_t *bloque_indirecto = malloc(sizeof(offset_fcb_t));
+		bloque_indirecto->id_bloque = leer_fcb_por_key(nombre_archivo, "PUNTERO_DIRECTO");
+		bloque_indirecto->offset = bloque_indirecto->id_bloque * superbloque.block_size;
+
+		list_add(lista_de_bloques, bloque_indirecto);
+
+		leer_bloques_indirectos(id_fcb,lista_de_bloques,offset_fcb,size_final);
+	}
+
+	return lista_de_bloques;
+}
+
+void achicar_archivo(char* nombre_archivo, int nuevo_tamanio)
+{
+	int id_fcb = buscar_fcb(nombre_archivo);
+	t_list *lista_de_bloques = obtener_lista_total_de_bloques(nombre_archivo, id_fcb);
+	int tamanio_archivo = leer_fcb_por_key(nombre_archivo, "TAMANIO_ARCHIVO");
+	int cant_bloques_a_desasignar = ceil(((double)(tamanio_archivo - nuevo_tamanio) / superbloque.block_size));
+
+	int i = 0;
+	int puntero_indirecto = 0;
+	if(nuevo_tamanio <= superbloque.block_size && tamanio_archivo > superbloque.block_size){
+		cant_bloques_a_desasignar++;
+		puntero_indirecto = valor_fcb(id_fcb, PUNTERO_INDIRECTO);
+	}
+
+	while (i < cant_bloques_a_desasignar)
+	{
+		int last_element_index = (lista_de_bloques->elements_count - 1);
+		offset_fcb_t *bloque = list_remove(lista_de_bloques, last_element_index);
+		if(bloque->id_bloque == puntero_indirecto) modificar_fcb(id_fcb, PUNTERO_INDIRECTO, 0);
+		escribir_bitmap(bloque, 0); //limpiar_bit_en_bitmap(bloque->id_bloque); TODO: implementa
+		i++;
+	}
+
+	list_destroy_and_destroy_elements(lista_de_bloques,free);
+
+	modificar_fcb(id_fcb, TAMANIO_ARCHIVO, nuevo_tamanio);
+}

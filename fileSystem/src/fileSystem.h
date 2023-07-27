@@ -97,9 +97,6 @@ typedef struct{
 	uint32_t tamanio;
 } offset_fcb_t;
 
-
-
-
 typedef struct{
 	int fid; //Identificador del bloque
 	void* dato;
@@ -199,4 +196,16 @@ int buscar_fcb(char*);
 t_list* armar_lista_offsets(char*, int, int, int);
 t_list* obtener_lista_de_bloques(char*,int, int);
 
+typedef enum
+{
+	TAMANIO_ARCHIVO,
+	PUNTERO_INDIRECTO,
+	PUNTERO_DIRECTO
+} fcb_enum;
+
+fcb_t* get_fcb_id(char*);
+uint32_t valor_fcb(int, fcb_enum);
+int modificar_fcb(int, fcb_enum, uint32_t);
+t_list* obtener_lista_total_de_bloques(char*, int);
+void achicar_archivo(char*, int);
 #endif /* FILESYSTEM_H_ */
