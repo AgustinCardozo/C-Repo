@@ -18,6 +18,9 @@ void enviar_datos_para_escritura(int dir, char* valor, int tamanio);
 void escribir_datos(void* datos, t_list* lista_offsets);
 void* leer_datos(t_list* lista_offsets);
 void* leer_dato_del_bloque(int offset, int size);
+void leer_bloques_indirectos(char*nombre,t_list* lista_de_bloques, int offset_inicial, int offset_final);
+uint32_t leer_acceso(int offset, int size);
+t_list* obtener_lista_de_bloques(char* nombreArchivo,int offset_inicial, int size);
 
 int main(void) {
 	logger = iniciar_logger(FS_LOG, FS_NAME);;
@@ -146,7 +149,7 @@ void crear_archivo_bloques(){
 
 
 int crear_archivo_fcb(char* nombreArchivo){
-	int resultado = -1;
+	//int resultado = -1;
 
 	//if(buscar_fcb(nombreArchivo) != -1){
 		//log_error(logger,"Ya existe un FCB con ese nombre");
@@ -792,6 +795,59 @@ t_list* obtener_lista_de_bloques(char* nombreArchivo,int offset_inicial, int siz
 		log_error(logger,"El tamanio a leer es mayor al tamanio del archivo seleccionado");
 		return lista_de_bloques;
 	}
+
+	int cant_bloques = ceil(tamanio_archivo / superbloque.block_size);
+
+	if(size == 0) size = cant_bloques * superbloque.block_size;
+	int offset_fcb = offset_inicial;
+
+	if (offset_inicial < superbloque.block_size){
+		offset_fcb_t *bloque_directo = malloc(sizeof(offset_fcb_t));
+		bloque_directo->id_bloque = leer_fcb_por_key(nombreArchivo, "PUNTERO_DIRECTO");
+		bloque_directo->offset = bloque_directo->id_bloque * superbloque.block_size;
+		cant_bloques--;
+		offset_fcb += superbloque.block_size - offset_inicial;
+
+		list_add(lista_de_bloques, bloque_directo);
+	}
+
+	if (cant_bloques >= 1)
+	{
+		leer_bloques_indirectos(nombreArchivo,lista_de_bloques,offset_fcb,size + offset_inicial);
+	}
+
+	return lista_de_bloques;
+}
+
+void leer_bloques_indirectos(char* nombre,t_list* lista_de_bloques, int offset_inicial, int offset_final){
+	int offset_fcb = offset_inicial;
+	uint32_t bloque_indirecto = leer_fcb_por_key(nombre,"PUNTERO_INDIRECTO");
+	int offset = floor(((double)offset_fcb / superbloque.block_size) - 1) * sizeof(uint32_t);
+
+	while(offset_fcb < offset_final){
+		offset_fcb_t *bloque = malloc(sizeof(offset_fcb_t));
+		uint32_t dato = leer_acceso((bloque_indirecto * superbloque.block_size) + offset, sizeof(uint32_t));
+		memcpy(&bloque->id_bloque, &dato , sizeof(uint32_t));
+		bloque->offset = bloque->id_bloque * superbloque.block_size;
+		list_add(lista_de_bloques, bloque);
+		offset += sizeof(uint32_t);
+		offset_fcb += superbloque.block_size;
+	}
+
+	//usleep(datos.ret_acceso_bloque*1000);
+}
+
+uint32_t leer_acceso(int offset, int size){
+	uint32_t dato = 0;
+	memcpy(&dato,memoria_file_system + offset, size);
+	msync(memoria_file_system,tam_fs,MS_SYNC);
+	//usleep(datos.ret_acceso_bloque*1000);
+	return dato;
+}
+
+int cantidad_de_bloques(int tamanio){
+	int cant_bloques = ceil(tamanio / superbloque.block_size);
+	return cant_bloques;
 }
 
 void escribir_datos(void* datos, t_list* lista_offsets){
