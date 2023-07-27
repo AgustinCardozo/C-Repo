@@ -12,6 +12,10 @@
 #include <stdlib.h>
 #include "fileSystem.h"
 
+void enviar_datos_para_lectura(int dir, int tamanio);
+char* deserializar_valor(t_buffer* buffer);
+void enviar_datos_para_escritura(int dir, char* valor, int tamanio);
+
 int main(void) {
 	logger = iniciar_logger(FS_LOG, FS_NAME);;
 	config = iniciar_config(FS_CONFIG);
@@ -738,13 +742,23 @@ void* atender_kernel(void){
 				pcb = deserializar_pcb(buffer);
 
 				log_info(logger, "paso por LEER_ARCHIVO");
-
+				//enviar_datos_para_escritura(DIRECION FISICA, VALOR A ESCRIBIR, TAMANIO)
 				//TODO:LEER_ARCHIVO
+				//recv(conexion_memoria, &result, sizeof(int), MSG_WAITALL);
+				/*if(result == 0){
+					log_info(logger,"Algo salio bien");
 
+				} else {
+					log_info(logger,"El programa sigue");
+				}*/
 				break;
 			case ESCRIBIR_ARCHIVO:
 				buffer=desempaquetar(paquete,*cliente_fd);
 				pcb = deserializar_pcb(buffer);
+				//void enviar_datos_para_lectura(DIRECION FISICA, TAMANIO DEL VALOR)
+				//char* valor = malloc(TMANIO DEL VALOR);
+				//recv(conexion_memoria, valor, TAMANIO DEL VALOR, MSG_WAITALL);
+				//log_info(logger,"Se ingreso el valor %s",valor);
 				break;
 			case -1:
 				log_error(logger, "el cliente se desconecto. Terminando servidor");
@@ -798,3 +812,64 @@ void* atender_memoria(void){
 		}
 	}
 }
+
+void enviar_datos_para_lectura(int dir, int tamanio){
+	t_paquete* paquete = malloc(sizeof(t_paquete));
+	paquete->codigo_operacion = ACCEDER_PARA_LECTURA;
+	t_buffer* buffer = malloc(sizeof(t_buffer));
+	int offset = 0;
+	buffer->size = sizeof(int)*2;
+	buffer->stream = malloc(buffer->size);
+
+	memcpy(buffer->stream + offset, &dir, sizeof(int));
+	offset += sizeof(int);
+
+	memcpy(buffer->stream + offset, &tamanio, sizeof(int));
+	offset += sizeof(int);
+
+	paquete->buffer = buffer;
+
+	enviar_paquete(paquete,conexion_memoria);
+
+	//free(paquete->buffer->stream);
+	//free(paquete->buffer);
+	//free(paquete);
+}
+
+char* deserializar_valor(t_buffer* buffer){
+	char* valor;
+
+	int offset = 0;
+
+	memcpy(&valor,buffer->stream + offset,sizeof(char*));
+	offset += sizeof(char*);
+
+	return valor;
+}
+
+void enviar_datos_para_escritura(int dir, char* valor, int tamanio){
+	t_paquete* paquete = malloc(sizeof(t_paquete));
+	paquete->codigo_operacion = ACCEDER_PARA_ESCRITURA;
+	t_buffer* buffer = malloc(sizeof(t_buffer));
+	int offset = 0;
+	buffer->size = sizeof(int)*3 + tamanio;
+	buffer->stream = malloc(buffer->size);
+
+	memcpy(buffer->stream + offset, &dir, sizeof(int));
+	offset += sizeof(int);
+
+	memcpy(buffer->stream + offset, &tamanio, sizeof(int));
+	offset += sizeof(int);
+
+	memcpy(buffer->stream + offset, valor, tamanio);
+	offset += tamanio;
+
+	log_info(logger,"La df es %i con tamanio %i se envio %s",dir,tamanio,valor);
+	if(offset != buffer->size){
+		log_warning(logger,"No son iguales offset %i buffer %i",offset,buffer->size);
+	}
+	paquete->buffer = buffer;
+
+	enviar_paquete(paquete,conexion_memoria);
+}
+

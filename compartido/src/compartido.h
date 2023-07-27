@@ -55,7 +55,8 @@ typedef enum
 	SIN_PARAMETRO,
 	CON_PARAMETRO,
 	OK,
-	ERROR
+	ERROR,
+	SEG_FAULT
 }op_code;
 
 typedef struct{
