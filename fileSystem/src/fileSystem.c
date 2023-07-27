@@ -335,14 +335,21 @@ void* leer_dato_del_bloque(int offset, int size){
 	return dato;
 }
 
+uint32_t leer_fcb_por_key(char* nombreArchivo,char* key){
+	char path_archivo_completo = concatenar_path(nombreArchivo);
+	t_config* config_fcb = iniciar_config_test(path_archivo_completo);
+
+	if(key!="TAMANIO_ARCHIVO" || key!="PUNTERO_DIRECTO" || key!="PUNTERO_INDIRECTO"){
+		//Si se le pasa un parametro invalido...
+		log_warning(logger, "En leer_fcb_por_key se ingerso la key %s", key);
+	}
+	//Parametro valido
+	return (uint32_t) config_get_int_value(config_fcb, key);
+}
+
 void escribir_dato_en_bloque(void* dato, int offset, int size){
-	log_info(logger, "El el Tam en ESCRIBIR es %i", tam_fs);
 //	memoria_file_system = mmap(NULL,tam_fs, PROT_READ | PROT_WRITE, MAP_SHARED, f_bloques, 0);
-	log_info(logger, "El el Tam en ESCRIBIR es %i", tam_fs);
 	memcpy(memoria_file_system + offset,dato, size);
-	log_info(logger, "El el Tam en ESCRIBIR es %i", tam_fs);
-	log_info(logger, "El dato en ESCRIBIR es %s", dato);
-	log_info(logger, "El el Tam en ESCRIBIR es %i", tam_fs);
 	msync(memoria_file_system,tam_fs,MS_SYNC);
 	//sleep();
 }
