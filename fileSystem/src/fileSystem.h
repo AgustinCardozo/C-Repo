@@ -78,13 +78,27 @@ typedef struct{
 
 // ------------------------ESTRUCTURAS------------------------ //
 typedef struct{
-	FILE* archivo;
-	char* path_archivo;
-	char* nombre_archivo; 
-	int tamanio_archivo; //expresado en Bytes
-	uint32_t puntero_directo; //Lista de uint32_t
-	uint32_t puntero_indirecto; //Lista de uint32_t
-}t_fcb; 
+	uint32_t id;
+	char* nombre_archivo;
+	char* ruta_archivo;
+	uint32_t tamanio_archivo;
+	uint32_t puntero_directo;
+	uint32_t puntero_indirecto;
+	uint32_t puntero_archivo;
+} fcb_t;
+
+typedef struct{
+	t_list* lista_fcb;
+} fcb_list_t;
+
+typedef struct{
+	uint32_t id_bloque;
+	uint32_t offset;
+	uint32_t tamanio;
+} offset_fcb_t;
+
+
+
 
 typedef struct{
 	int fid; //Identificador del bloque
@@ -109,6 +123,7 @@ t_list* lista_bloques;
 char* PATH_FCB;
 
 int fid_generator = 0;
+char* nombreArchivo;
 
 
 
@@ -134,18 +149,23 @@ void* atender_memoria(void);
 void enviar_respuesta_kernel(int*, op_code);
 
 void crear_archivo(const char*, const char *contenidos[], int); //solo crea el archivo de superbloque? 
-void crear_archivo_fcb(char*);
-t_fcb* crear_fcb(t_pcb* pcb);
+int crear_archivo_fcb(char*);
+//fcb_t* crear_fcb(t_pcb* pcb);
 void crear_archivo_bloques();
 
 int buscar_fcb(char*);
 int buscar_archivo_fcb(char*);
-t_fcb* obtener_fcb(t_pcb*);
+//fcb_t* obtener_fcb(t_pcb*);
 FILE* obtener_archivo(char*);
-void actualizar_lista_fcb(t_fcb*);
+//void actualizar_lista_fcb(fcb_t*);
 void agrandar_archivo(char*, int);
-void achicar_archivo(t_fcb*, int);
+//void achicar_archivo(fcb_t*, int);
 int convertir_byte_a_bit(int);
+
+
+int fcb_id;
+fcb_list_t* lista_global_fcb;
+
 
 void escribir_bitmap(t_list*, int);
 void leer_bitmap();
@@ -171,5 +191,12 @@ char* concatenar_path(char*);
 void asignar_bloque_a_archivo(char* , t_config*);
 void* leer_dato_del_bloque(int, int);
 void escribir_dato_en_bloque(void*, int, int);
+uint32_t leer_fcb_por_key(char*,char*);
+
+fcb_t* inicializar_fcb();
+int buscar_fcb_id(int );
+int buscar_fcb(char*);
+t_list* armar_lista_offsets(char*, int, int, int);
+t_list* obtener_lista_de_bloques(char*,int, int);
 
 #endif /* FILESYSTEM_H_ */
