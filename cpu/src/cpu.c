@@ -289,6 +289,12 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 					pcb->archivos_abiertos = pcb2->archivos_abiertos;
 					log_info(logger, "Sigue el programa");
 					break;
+				case DETENER:
+					buffer = desempaquetar(paquete,conexion_kernel);
+					pcb = deserializar_pcb(buffer);
+					log_info(logger,"No se pudo abrir el archivo");
+					band_ejecutar = 1;
+					break;
 				default:
 					break;
 			}
@@ -315,6 +321,8 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 					log_info(logger, "Sigue el programa");
 					break;
 				case DETENER:
+					buffer = desempaquetar(paquete,conexion_kernel);
+					pcb = deserializar_pcb(buffer);
 					log_info(logger,"No se pudo abrir el archivo");
 					band_ejecutar = 1;
 					break;
@@ -426,6 +434,8 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 					log_info(logger, "Sigue el programa");
 					break;
 				case DETENER:
+					buffer = desempaquetar(paquete,conexion_kernel);
+					pcb = deserializar_pcb(buffer);
 					log_info(logger,"No se pudo abrir el archivo");
 					band_ejecutar = 1;
 					break;
@@ -581,30 +591,30 @@ registros_pos devolver_registro(char* registro){
 
 void insertar(t_pcb* pcb, registros_pos pos,char* caracteres){
 	switch(pos){
-		case AX: memcpy(pcb->registro.AX,caracteres,5);
-			break;
-		case BX: memcpy(pcb->registro.BX,caracteres,5);
-			break;
-		case CX: memcpy(pcb->registro.CX,caracteres,5);
-			break;
-		case DX: memcpy(pcb->registro.DX,caracteres,5);
-			break;
-		case EAX: memcpy(pcb->registro.EAX,caracteres,9);
-			break;
-		case EBX: memcpy(pcb->registro.EBX,caracteres,9);
-			break;
-		case ECX: memcpy(pcb->registro.ECX,caracteres,9);
-			break;
-		case EDX: memcpy(pcb->registro.EDX,caracteres,9);
-			break;
-		case RAX: memcpy(pcb->registro.RAX,caracteres,17);
-			break;
-		case RBX: memcpy(pcb->registro.RBX,caracteres,17);
-			break;
-		case RCX: memcpy(pcb->registro.RCX,caracteres,17);
-			break;
-		case RDX: memcpy(pcb->registro.RDX,caracteres,17);
-			break;
+	case AX: memcpy(pcb->registro.AX,caracteres,5);
+		break;
+	case BX: memcpy(pcb->registro.BX,caracteres,5);
+		break;
+	case CX: memcpy(pcb->registro.CX,caracteres,5);
+		break;
+	case DX: memcpy(pcb->registro.DX,caracteres,5);
+		break;
+	case EAX: memcpy(pcb->registro.EAX,caracteres,9);
+		break;
+	case EBX: memcpy(pcb->registro.EBX,caracteres,9);
+		break;
+	case ECX: memcpy(pcb->registro.ECX,caracteres,9);
+		break;
+	case EDX: memcpy(pcb->registro.EDX,caracteres,9);
+		break;
+	case RAX: memcpy(pcb->registro.RAX,caracteres,17);
+		break;
+	case RBX: memcpy(pcb->registro.RBX,caracteres,17);
+		break;
+	case RCX: memcpy(pcb->registro.RCX,caracteres,17);
+		break;
+	case RDX: memcpy(pcb->registro.RDX,caracteres,17);
+		break;
 	}
 
 }

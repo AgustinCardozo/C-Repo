@@ -576,6 +576,8 @@ char* leer_valor_de_memoria(int df,int tamanio){
 	char* valor = malloc(tamanio);
 	//Copio el valor de la df a la variable valor
 	memcpy(valor,memoria_usuario+df,tamanio);
+	//memcpy(valor+tamanio,&final,sizeof(char));
+	//valor[tamanio] = '\0';
 	log_info(logger,"El valor leyo %s",valor);
 	usleep(datos.ret_memoria*1000);
 	return valor;
@@ -678,9 +680,9 @@ void compactar_tabla_general(){
 	//ahora hay que ver q hay contiguo.
 	list_iterate(tabla_aux,(void*) mostrar_tabla_aux);
 	int base_minima = datos.tam_segmento;
-	for(int i = 1; i < list_size(tabla_aux); i++){
+	for(int i = list_size(tabla_general); i < list_size(tabla_aux); i++){
 		segm_y_pid* seg = list_get(tabla_aux,i);
-
+		memcpy(memoria_usuario + base_minima,memoria_usuario+seg->segm->direccion_base,seg->segm->tamanio);
 		seg->segm->direccion_base = base_minima;
 		base_minima = seg->segm->direccion_base + seg->segm->tamanio;
 
@@ -707,9 +709,9 @@ void compactar_tabla_general(){
 
 	}*/
 
-	void* memoria_aux = malloc(datos.tam_memoria);
+	//void* memoria_aux = malloc(datos.tam_memoria);
 
-	memcpy(memoria_aux,memoria_usuario,datos.tam_memoria);
+	//memcpy(memoria_aux,memoria_usuario,datos.tam_memoria);
 
 	for(int i = 0; i < list_size(tabla_general); i++){
 		tabla_de_proceso* tabla = list_get(tabla_general,i);
@@ -719,8 +721,10 @@ void compactar_tabla_general(){
 				for(int g = 1; g < list_size(tabla->segments);g++){
 					segmento* seg = list_get(tabla->segments,g);
 					if(seg->id == info->segm->id){
-						int tamanio = info->segm->tamanio;
-						memcpy(memoria_usuario + info->segm->direccion_base,memoria_aux + seg->direccion_base,tamanio);
+						//int tamanio = info->segm->tamanio;
+						//char* dato = malloc(tamanio);
+						//memcpy(dato,memoria_usuario + seg->direccion_base,tamanio);
+						//memcpy(memoria_usuario + info->segm->direccion_base,dato,tamanio);
 						seg->direccion_base = info->segm->direccion_base;
 						list_replace(tabla->segments,g,seg);
 
@@ -730,7 +734,7 @@ void compactar_tabla_general(){
 		}
 	}
 
-	free(memoria_aux);
+	//free(memoria_aux);
 
 /*
 	t_list* tabla_gen_aux=list_create();

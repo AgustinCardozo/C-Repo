@@ -154,7 +154,7 @@ int buscar_archivo_fcb(char*);
 //fcb_t* obtener_fcb(t_pcb*);
 FILE* obtener_archivo(char*);
 //void actualizar_lista_fcb(fcb_t*);
-void agrandar_archivo(char*, int);
+void agrandar_archivo(char*, int,fcb_t*);
 //void achicar_archivo(fcb_t*, int);
 int convertir_byte_a_bit(int);
 
@@ -204,7 +204,7 @@ typedef enum
 
 fcb_t* get_fcb_id(char*);
 uint32_t valor_fcb(int, fcb_enum);
-int modificar_fcb(int, fcb_enum, uint32_t);
+int modificar_fcb(fcb_t*, fcb_enum, uint32_t);
 t_list* obtener_lista_total_de_bloques(char*, int);
-void achicar_archivo(char*, int);
+void achicar_archivo(char*, int, fcb_t* fcb);
 #endif /* FILESYSTEM_H_ */

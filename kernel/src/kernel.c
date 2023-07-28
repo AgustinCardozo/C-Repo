@@ -53,6 +53,7 @@ void de_ready_a_ejecutar_hrrn(void);
 void ejecutar_wait(t_pcb* pcb);
 bool comparador_hrrn(void* data1,void* data2);
 void mostrar_registro(t_pcb* pcb);
+void* atender_fileSystem(void);
 
 //SERIALIZACION
 int deserializar_df(t_buffer* buffer);
@@ -68,6 +69,7 @@ sem_t sem_multiprogramacion;
 sem_t sem_nuevo;
 sem_t sem_ready;
 sem_t sem_habilitar_exec;
+sem_t mutex_compresion;
 
 pthread_t thread_nuevo_a_ready;
 pthread_t thread_atender_cpu;
@@ -76,6 +78,7 @@ pthread_t thread_ejecutar;
 pthread_t thread_recurso;
 pthread_t thread_bloqueo_IO;
 pthread_t thread_archivo_abiertos;
+pthread_t thread_atender_fileSystem;
 
 t_list* lista_recursos;
 t_list* lista_archivos_abiertos;
@@ -143,6 +146,7 @@ int main(void) {
     sem_init(&mutex_fs,0,1);
 	sem_init(&mutex_cola_new,0,1);
 	sem_init(&mutex_cola_ready,0,1);
+	sem_init(&mutex_compresion,0,1);
 	sem_init(&sem_multiprogramacion,0,datos.multiprogramacion);
 	sem_init(&sem_nuevo,0,0);
 	sem_init(&sem_ready,0,0);
@@ -168,6 +172,7 @@ int main(void) {
 	conexion_memoria = crear_conexion(datos.ip_memoria,datos.puerto_memoria);
 	conexion_filesystem = crear_conexion(datos.ip_filesystem,datos.puerto_filesystem);
 
+
 	enviar_mensaje("Hola te estoy hablando desde el kernel",conexion_cpu);
 	enviar_mensaje("Hola te estoy hablando desde el kernel",conexion_memoria);
 	enviar_mensaje("Hola te estoy hablando desde el kernel",conexion_filesystem);
@@ -175,6 +180,8 @@ int main(void) {
 	pthread_create(&thread_atender_cpu,NULL,(void*) atender_cpu,NULL);
 	pthread_create(&thread_nuevo_a_ready,NULL,(void*) de_new_a_ready,NULL);
 	pthread_create(&thread_ejecutar,NULL,(void*) de_ready_a_ejecutar,NULL);
+	pthread_create(&thread_atender_fileSystem,NULL,(void*) atender_fileSystem,NULL);
+
 	server_fd = iniciar_servidor(logger,datos.puerto_escucha);
 	log_info(logger, "KERNEL listo para recibir a las consolas");
 
@@ -189,6 +196,7 @@ int main(void) {
 	pthread_join(thread_atender_cpu,NULL);
 	pthread_join(thread_nuevo_a_ready,NULL);
 	pthread_join(thread_ejecutar,NULL);
+	pthread_join(thread_atender_fileSystem,NULL);
 
 	log_destroy(logger);
 	config_destroy(config);
@@ -224,14 +232,6 @@ void* atender_cpu(void){
 					agregar_a_cola_ready(pcb);
 					sem_post(&sem_habilitar_exec);
 					break;
-				case DESBLOQUEADO:
-					log_info(logger,"Paso por desbloqueado");
-
-					buffer = desempaquetar(paquete,conexion_cpu);
-					pcb = deserializar_pcb(buffer);
-					log_info(logger,"PID: <%d> - Estado Anterior: <BLOCK> - Estado Actual: <READY>",pcb->pid);
-					agregar_a_cola_ready(pcb);
-					break;
 				case EJECUTAR_WAIT:
 					log_info(logger,"Paso por WAIT");
 					buffer = desempaquetar(paquete,conexion_cpu);
@@ -266,61 +266,16 @@ void* atender_cpu(void){
 					if(contiene_archivo(pcb,pcb->arch_a_abrir)){
 						//enviar mensaje al cpu que debe continuar por que se bloqueo
 						enviar_pcb_a(pcb,conexion_cpu,DETENER);
+						sem_post(&sem_habilitar_exec);
 					} else {
 						//enviar mensaje al filesystem a ber si existe el archivo
 						enviar_pcb_a(pcb,conexion_filesystem,ABRIR_ARCHIVO);
-						int ciclo = 1;
-						while(ciclo){
-							int cod_op = recibir_operacion(conexion_filesystem);
-							//op_code cod;
-							info_arch* arch_proc;
-							switch(cod_op){
-								case EXISTE_ARCHIVO:
-									log_info(logger,"El archivo ya existe");
-									//enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
-									//ciclo = 0;
-									crear_archivo(pcb->arch_a_abrir);
-									//cod = CONTINUAR;
-									arch_proc = malloc(sizeof(info_arch));
-									arch_proc->dir = pcb->arch_a_abrir;
-									arch_proc->punt = 0;
-									list_add(pcb->archivos_abiertos,arch_proc);
-									enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
-									ciclo = 0;
-									break;
-								case CREAR_ARCHIVO:
-									//enviar para crear el archivo
-									log_info(logger, "Paso por Crear_Archivo");
-									pcb->dat_tamanio=0;
-									enviar_pcb_a(pcb,conexion_filesystem,CREAR_ARCHIVO);
-
-									break;
-								case ARCHIVO_CREADO:
-									log_info(logger,"El archivo se creo");
-									//enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
-									crear_archivo(pcb->arch_a_abrir);
-									arch_proc = malloc(sizeof(info_arch));
-									arch_proc->dir = pcb->arch_a_abrir;
-									arch_proc->punt = 0;
-									list_add(pcb->archivos_abiertos,arch_proc);
-									enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
-									ciclo = 0;
-									break;
-								default:
-									log_info(logger,"Error en algun lado");
-									ciclo = 0;
-									break;
-							}
-
-
-
-						}
 
 					}
 
 					break;
 				
-				case CERRAR_ARCHIVO://TODO: implementar las funciones de cerrar archivo en fileSystem
+				case CERRAR_ARCHIVO:
 					log_info(logger, "Paso por CERRAR_ARCHIVO");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
@@ -340,6 +295,7 @@ void* atender_cpu(void){
 
 					enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
 
+
 					break;
 				
 				case LEER_ARCHIVO:
@@ -347,8 +303,10 @@ void* atender_cpu(void){
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 					pcb->posicion = buscar_puntero(pcb);
+					sem_wait(&mutex_compresion);
 					enviar_pcb_a(pcb,conexion_filesystem,LEER_ARCHIVO);
 					enviar_pcb_a(pcb,conexion_cpu,DETENER);
+					sem_post(&sem_habilitar_exec);
 					break;
 				
 				case ESCRIBIR_ARCHIVO:
@@ -356,20 +314,24 @@ void* atender_cpu(void){
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 					pcb->posicion = buscar_puntero(pcb);
-
-					enviar_pcb_a(pcb,conexion_filesystem,LEER_ARCHIVO);
+					sem_wait(&mutex_compresion);
+					enviar_pcb_a(pcb,conexion_filesystem,ESCRIBIR_ARCHIVO);
 
 					enviar_pcb_a(pcb,conexion_cpu,DETENER);
+
+					sem_post(&sem_habilitar_exec);
 					break;
 				
 				case MODIFICAR_TAMANIO:
 					log_info(logger, "Paso por modificar_Archivo");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
-
-					modificar_tamanio(pcb);
+					sem_wait(&mutex_compresion);
+					//modificar_tamanio(pcb);
+					enviar_pcb_a(pcb, conexion_filesystem, MODIFICAR_TAMANIO);
 					
-					enviar_pcb_a(pcb, conexion_cpu, CONTINUAR);
+					enviar_pcb_a(pcb, conexion_cpu, DETENER);
+					sem_post(&sem_habilitar_exec);
 					//enviar_pcb_a(pcb,conexion_cpu,DETENER);
 					break;
 
@@ -451,6 +413,93 @@ void* atender_cpu(void){
 	}
 	free(paquete);
 	free(paquete->buffer);
+}
+
+void* atender_fileSystem(void){
+	t_paquete* paquete = malloc(sizeof(t_paquete));
+	paquete->buffer = malloc(sizeof(t_buffer));
+	t_pcb* pcb;
+	t_buffer* buffer;
+	info_arch* arch_proc;
+	//int result;
+
+	//t_cola proc_bloqueados=queue_create();
+    //int df;
+	while(1){
+		int cod_op = recibir_operacion(conexion_filesystem);
+			switch (cod_op) {
+				case DESBLOQUEADO:
+					log_info(logger,"Paso por desbloqueado");
+
+					buffer = desempaquetar(paquete,conexion_filesystem);
+					pcb = deserializar_pcb(buffer);
+					sem_post(&mutex_compresion);
+					log_info(logger,"PID: <%d> - Estado Anterior: <BLOCK> - Estado Actual: <READY>",pcb->pid);
+					agregar_a_cola_ready(pcb);
+					break;
+				case EXISTE_ARCHIVO:
+					log_info(logger,"El archivo ya existe");
+					//enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
+					buffer = desempaquetar(paquete,conexion_filesystem);
+					pcb = deserializar_pcb(buffer);
+					//ciclo = 0;
+					crear_archivo(pcb->arch_a_abrir);
+					//cod = CONTINUAR;
+					arch_proc = malloc(sizeof(info_arch));
+					arch_proc->dir = pcb->arch_a_abrir;
+					arch_proc->punt = 0;
+					list_add(pcb->archivos_abiertos,arch_proc);
+					enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
+					break;
+				case CREAR_ARCHIVO:
+					//enviar para crear el archivo
+					log_info(logger, "Paso por Crear_Archivo");
+					buffer = desempaquetar(paquete,conexion_filesystem);
+					pcb = deserializar_pcb(buffer);
+					pcb->dat_tamanio=0;
+					enviar_pcb_a(pcb,conexion_filesystem,CREAR_ARCHIVO);
+
+					break;
+				case ARCHIVO_CREADO:
+					log_info(logger,"El archivo se creo");
+					//enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
+					buffer = desempaquetar(paquete,conexion_filesystem);
+					pcb = deserializar_pcb(buffer);
+					crear_archivo(pcb->arch_a_abrir);
+					arch_proc = malloc(sizeof(info_arch));
+					arch_proc->dir = pcb->arch_a_abrir;
+					arch_proc->punt = 0;
+					list_add(pcb->archivos_abiertos,arch_proc);
+					enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
+
+					break;
+				case -1:
+					log_error(logger, "el cliente se desconecto. Terminando servidor");
+					log_destroy(logger);
+					config_destroy(config);
+					close(conexion_cpu);
+					close(server_fd);
+
+					//return EXIT_FAILURE;
+					exit(1);
+				default:
+					log_warning(logger,"Operacion desconocida. No quieras meter la pata");
+					log_error(logger, "el cliente se desconecto. Terminando servidor");
+					log_destroy(logger);
+					config_destroy(config);
+					close(conexion_cpu);
+					close(server_fd);
+
+					//return EXIT_FAILURE;
+					exit(1);
+					break;
+			}
+	}
+
+	free(paquete);
+	free(paquete->buffer);
+
+	return NULL;
 }
 
 void atender_consolas(void* data){
@@ -1058,6 +1107,7 @@ void analizar_resultado(t_pcb* pcb,t_paquete* paquete,t_buffer* buffer){
 				seguir = 0;
 				break;
 			case REALIZAR_COMPACTACION:
+				sem_wait(&mutex_compresion);
 				log_info(logger,"Necesidad de Compactar");
 				op_code codigo = REALIZAR_COMPACTACION;
 				send(conexion_memoria,&codigo,sizeof(op_code),0);
@@ -1070,6 +1120,7 @@ void analizar_resultado(t_pcb* pcb,t_paquete* paquete,t_buffer* buffer){
 				mostrar_tablas_de_segmentos();
 				pcb = actualizar_de_la_tabla_general(pcb);
 				enviar_crear_segmento(pcb->pid,pcb->dat_seg,pcb->dat_tamanio);
+				sem_post(&mutex_compresion);
 				break;
 			case SIN_MEMORIA:
 				log_info(logger,"No hay mas espacio en memoria, se termina el proceso");
@@ -1108,7 +1159,7 @@ t_list* deserializar_tabla_actualizada(t_buffer* buffer){
 		memcpy(&(seg->tamanio),buffer->stream + offset,sizeof(int));
 		offset += sizeof(int);
 		list_add(lista,seg);
-		log_info(logger,"Segmento ID %i BASE %i TAMANIO %i",seg->id,seg->direccion_base,seg->tamanio);
+		//log_info(logger,"Segmento ID %i BASE %i TAMANIO %i",seg->id,seg->direccion_base,seg->tamanio);
 	}
 
 	return lista;
