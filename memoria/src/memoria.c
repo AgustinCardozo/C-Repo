@@ -183,8 +183,8 @@ void atender_modulos(void* data){
 				datos_aux = deserializar_segmento_auxiliar(buffer);
 
 				if(hay_espacio(datos_aux.segmento.tamanio) == 0){
-					log_info(logger,"Crear segmento con pid: %i id: %i con tamanio: %i ",
-							datos_aux.pid,datos_aux.segmento.id,datos_aux.segmento.tamanio);
+					log_info(logger,"Crear segmento con pid: %i id: %i con base: %i con tamanio: %i ",
+							datos_aux.pid,datos_aux.segmento.id,datos_aux.segmento.direccion_base,datos_aux.segmento.tamanio);
 					//En esta funcion se crea el segmento
 
 					resultado = crear_segmento(datos_aux.pid, datos_aux.segmento.id, datos_aux.segmento.tamanio);
@@ -208,7 +208,8 @@ void atender_modulos(void* data){
 				buffer = desempaquetar(paquete, cliente_fd);
 				datos_aux = deserializar_segmento_auxiliar(buffer);
 
-				log_info(logger,"Eliminar segmento con pid: %i id: %i", datos_aux.pid, datos_aux.segmento.id);
+				log_info(logger,"Eliminar segmento con pid: %i id: %i con base: %i con tamanio: %i ", datos_aux.pid, datos_aux.segmento.id
+						,datos_aux.segmento.direccion_base,datos_aux.segmento.tamanio);
 				eliminar_segmento(datos_aux.pid,datos_aux.segmento.id);
 				resultado = buscar_lista_segmentos(datos_aux.pid);
 				enviar_tabla_actualizada(resultado,cliente_fd);
