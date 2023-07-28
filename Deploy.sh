@@ -1,15 +1,9 @@
 #!/bin/bash
 
-git_USUARIO = "USUARIO"
-git_PASSWORD = "TOKEN"
+git_USUARIO = "Juan-Polito"
+git_PASSWORD = "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"
 
 testfunction(){
-
-   echo "Ingresa USUARIO:"
-   read git_USUARIO
-
-   echo "Ingresa PASSWORD/TOKEN:"
-   read git_PASSWORD
 
    cd $1
    git clone https://github.com/sisoputnfrba/so-commons-library.git $1
