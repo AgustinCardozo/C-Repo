@@ -114,7 +114,11 @@ void mostrar_tablas_de_segmentos();
 t_pcb* actualizar_de_la_tabla_general(t_pcb* pcb);
 int hayQueActualizar;
 
-int main(void) {
+int main(int argc, char** argv) {
+	if (argc < 2) {
+		printf ("se deben especificar la ruta del archivo de pseudocodigo");
+		return EXIT_FAILURE;
+	}
 	pid=0;
 
 	lista_recursos = list_create();
@@ -128,7 +132,7 @@ int main(void) {
 	cola.cola_ready_hrrn=queue_create();
 
 	logger = iniciar_logger("kernel.log","Kernel");;
-	config = iniciar_config("kernel.config");
+	config = iniciar_config(argv[1]);
 	datos.ip_memoria = config_get_string_value(config,"IP_MEMORIA");
 	datos.puerto_memoria = config_get_string_value(config,"PUERTO_MEMORIA");
 	datos.ip_filesystem = config_get_string_value(config,"IP_FILESYSTEM");

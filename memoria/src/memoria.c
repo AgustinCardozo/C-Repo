@@ -83,14 +83,19 @@ t_buffer* serializar_tabla_general();
 int hay_espacio(int tamanio_segmento);
 
 int pid;
-int main(void) {
+int main(int argc, char** argv) {
+	if (argc < 2) {
+		printf ("se deben especificar la ruta del archivo de pseudocodigo");
+		return EXIT_FAILURE;
+	}
 	pthread_t hilo_atender_modulos;
 	sem_init(&mutex_modulos,0,1);
 	tabla_huecos_libres = list_create();
 	tabla_general = list_create();
 	pid = 0;
 	logger = iniciar_logger(MEMORIA_LOG, MEMORIA_NAME);
-	config = iniciar_config(MEMORIA_CONFIG);
+	config = iniciar_config(argv[1]);
+	//config = iniciar_config(MEMORIA_CONFIG);
 
 	iniciar_config_memoria();
 	//Aqui le reservo la memoria al espacio de usuario contiguo

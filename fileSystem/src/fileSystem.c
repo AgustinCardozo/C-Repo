@@ -29,9 +29,13 @@ void setear_bit_en_bitmap(uint32_t id_bloque);
 void escribir_bloques_indirectos(t_list* lista_bloques, int indice_inicial, int offset_indirecto);
 void _escribir_int(uint32_t dato, int offset);
 
-int main(void) {
+int main(int argc, char** argv) {
+	if (argc < 2) {
+		printf ("se deben especificar la ruta del archivo de pseudocodigo");
+		return EXIT_FAILURE;
+	}
 	logger = iniciar_logger(FS_LOG, FS_NAME);;
-	config = iniciar_config(FS_CONFIG);
+	config = iniciar_config(argv[1]);
 	lista_fcb = list_create();
 
 	inicializar_config();

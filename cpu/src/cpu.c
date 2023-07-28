@@ -40,9 +40,13 @@ void enviar_datos_para_lectura(int dir,int tamanio);
 //t_df* traducirDLaDF(t_dl* dl,t_pcb* pcb,char*accion);
 void enviar_datos_para_op_fs(t_pcb* pcb, envio_instr instrAEnviar, op_code codigo, int conexion);
 
-int main(void) {
+int main(int argc, char** argv) {
+	if (argc < 2) {
+		printf ("se deben especificar la ruta del archivo de pseudocodigo");
+		return EXIT_FAILURE;
+	}
 	logger = iniciar_logger("cpu.log","CPU");;
-	config = iniciar_config("cpu.config");
+	config = iniciar_config(argv[1]);
 
 	datos.ip_memoria = config_get_string_value(config,"IP_MEMORIA");
 	datos.puerto_memoria = config_get_string_value(config,"PUERTO_MEMORIA");
