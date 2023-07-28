@@ -335,6 +335,7 @@ void* atender_cpu(void){
 					enviar_pcb_a(pcb, conexion_filesystem, MODIFICAR_TAMANIO);
 					
 					enviar_pcb_a(pcb, conexion_cpu, DETENER);
+					log_info(logger,"PID: <%d> - Bloqueado por:<%s>",pcb->pid,pcb->arch_a_abrir);
 					sem_post(&sem_habilitar_exec);
 					//enviar_pcb_a(pcb,conexion_cpu,DETENER);
 					break;
@@ -656,7 +657,7 @@ void agregar_a_cola_ready(t_pcb* pcb){
 	sem_post(&sem_ready);
 	//sem_post(&sem_habilitar_exec);
 	//sem_post(&sem_exec);
-	//mostrar_cola(cola.cola_ready);
+	mostrar_cola(cola.cola_ready_fifo);
 }
 
 t_pcb* quitar_de_cola_ready(){
@@ -825,7 +826,8 @@ algoritmo devolver_algoritmo(char*nombre){
 void mostrar_cola(t_queue*cola){
 	for(int i=0;i<queue_size(cola);i++){
 		int*id=list_get(cola->elements,i);
-		log_info(logger,"%d PID: %d",i+1,*id);
+		log_info(logger,"Cola Ready: ");
+		log_info(logger,"%d - ",*id);
 	}
 	log_info(logger,"-----------------------");
 }
@@ -864,7 +866,8 @@ void ejecutar_wait(t_pcb* pcb){
 	int encontroResultado = 1;
 	while(list_iterator_has_next(iterador)){
 		t_recurso* recu = (t_recurso*)list_iterator_next(iterador);
-		log_info(logger,"Pasa por [%s] con [%i] instancias y el recurso del pcb es %s",recu->nombre,recu->instancias,nombre);
+		
+		log_info(logger,"PID: <%d> ,Pasa por [%s] con [%i] instancias y el recurso del pcb es %s",pcb->pid,recu->nombre,recu->instancias,nombre);
 
 		if(strcmp(nombre,recu->nombre) == 0){
 			recu->instancias--;
@@ -916,7 +919,7 @@ void ejecutar_signal(t_pcb* pcb){
 
 	while(list_iterator_has_next(iterador)){
 		t_recurso* recu = (t_recurso*)list_iterator_next(iterador);
-		log_info(logger,"Pasa por [%s] con [%i] instancias",recu->nombre,recu->instancias);
+		log_info(logger,"PID: <%d> ,Pasa por [%s] con [%i] instancias",pcb->pid,recu->nombre,recu->instancias);
 		if(strcmp(nombre,recu->nombre) == 0){
 			recu->instancias++;
 			encontroResultado = 0;
