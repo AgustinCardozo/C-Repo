@@ -238,6 +238,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 				recv(conexion_memoria, valor, size_registro(registro), MSG_WAITALL);
 				insertar(pcb,registro,valor);
 				log_info(logger,"Se ingreso el valor %s",valor);
+				log_info(logger,"Accion: <LEER>, La df es %i ,con tamanio %i ,VALOR %s",df,size_registro(registro),valor);
 			}
 
 			//log_info(logger,"Se leyo el valor %s",pcb->registro.AX);
@@ -786,8 +787,8 @@ void enviar_datos_para_escritura(int dir, char* valor, int tamanio){
 
 	memcpy(buffer->stream + offset, valor, tamanio);
 	offset += tamanio;
+	log_info(logger,"Accion: <ESCRIBIR>, La df es %i ,con tamanio %i ,VALOR %s",dir,tamanio,valor);
 
-	log_info(logger,"La df es %i con tamanio %i se envio %s",dir,tamanio,valor);
 	if(offset != buffer->size){
 		log_warning(logger,"No son iguales offset %i buffer %i",offset,buffer->size);
 	}
