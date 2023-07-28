@@ -54,7 +54,7 @@ const char *contenido_fcb[] = {
 };
 
 char* str1 = "/";
-char* path_bitmap = "/home/utnso/fs/BITMAPA.dat";
+//char* path_bitmap = "/home/utnso/fs/BITMAPA.dat";
 DIR* diretorio_FCB;
 void* memoria_file_system;
 int tam_fs;

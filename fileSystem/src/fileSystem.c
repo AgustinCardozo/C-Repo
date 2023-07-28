@@ -30,12 +30,12 @@ void escribir_bloques_indirectos(t_list* lista_bloques, int indice_inicial, int 
 void _escribir_int(uint32_t dato, int offset);
 
 int main(int argc, char** argv) {
-	if (argc < 2) {
-		printf ("se deben especificar la ruta del archivo de pseudocodigo");
-		return EXIT_FAILURE;
-	}
+	//if (argc < 2) {
+		//printf ("se deben especificar la ruta del archivo de pseudocodigo");
+		//return EXIT_FAILURE;
+	//}
 	logger = iniciar_logger(FS_LOG, FS_NAME);;
-	config = iniciar_config(argv[1]);
+	config = iniciar_config("fileSystem.config");
 	lista_fcb = list_create();
 
 	inicializar_config();
@@ -240,11 +240,11 @@ void set_tamanio_archivo(FILE* archivo, int tamanioArchivo){
 }
 
 void crear_archivo_bitmap(){
-	F_BITMAP = fopen(datos.path_bitmap, "a");
+	//F_BITMAP = fopen(datos.path_bitmap, "a");
 
 	int tam_bits_bloque = convertir_byte_a_bit(superbloque.block_count);
 	TAM_BITMAP = tam_bits_bloque;
-	set_tamanio_archivo(F_BITMAP, TAM_BITMAP);
+	//set_tamanio_archivo(F_BITMAP, TAM_BITMAP);
 
 	crear_bitmap();
 }
@@ -257,9 +257,9 @@ void crear_bitmap(){
 	int fd;
 
     /* Abrimos el archivo en la direccion pasada por parametro y ajustamos el tamanio del mismo */
-	fd = open(path_bitmap, O_RDWR | O_CREAT , S_IRUSR | S_IWUSR);
+	fd = open(datos.path_bitmap, O_RDWR | O_CREAT , S_IRUSR | S_IWUSR);
     if(fd==EXIT_FAILURE){
-	    log_error(logger, "No se pudo abrir el archivo: %s", path_bitmap);
+	    log_error(logger, "No se pudo abrir el archivo: %s", datos.path_bitmap);
 		// exit(EXIT_FAILURE);
 	}
 
@@ -274,11 +274,11 @@ void crear_bitmap(){
 
 	bitmap = bitarray_create_with_mode(datos_memoria, TAM_BITMAP, LSB_FIRST);
 
-	for(int i = 0; i<bitmap->size; i++){
+	for(int i = 0; i<=bitmap->size; i++){
 	   bitarray_clean_bit(bitmap, i);
 	}
 
-	//leer_bitmap();
+	leer_bitarray(bitmap);
 
 	close(fd);
 }
@@ -359,7 +359,7 @@ void leer_bitmap(){
 	void *buffer = malloc(TAM_BITMAP);
 	int fd;
 
-	fd = open(path_bitmap, O_RDWR | O_CREAT , S_IRUSR | S_IWUSR);
+	fd = open(datos.path_bitmap, O_RDWR | O_CREAT , S_IRUSR | S_IWUSR);
 	if (!fd){
         log_error(logger, "No se pudo abrir el archivo");
     }
@@ -625,23 +625,6 @@ void agrandar_archivo(char* nombre_archivo, int tamanio_pedido, fcb_t* fcb){
 	int cant_bloques_a_asignar = ceil((double) diferencia / superbloque.block_size);
 	int cant_bloques_actual = ceil((double) tamanio_archivo/superbloque.block_size);
 
-    /*if(cant_bloques_a_asignar<=cant_bloques_disponibles_bitmap()){
-		char* tamanio_pedido_str;
-    	sprintf(tamanio_pedido_str, "%d", tamanio_pedido);
-
-    	config_set_value(config_fcb, "TAMANIO_ARCHIVO", tamanio_pedido_str);
-    	config_save_in_file(config_fcb, path_archivo_completo);
-		set_tamanio_archivo(nombre_archivo, tamanio_pedido); //
-
-    	for(int i = cant_bloques_actual; i<cant_bloques_a_asignar; i++){
-			log_info(logger, "FOR...");
-    		asignar_bloque_a_archivo(nombre_archivo, config_fcb);
-    	}
-
-    }else{
-    	log_warning(logger, "Se piden %i bloques para asignarle a %s, pero solo hay %i disponibles \n",cant_bloques_a_asignar,nombre_archivo,cant_bloques_actual);
-    }*/
-
 	for(int i = cant_bloques_actual; i<cant_bloques_a_asignar; i++){
 		int id_bloque = obtener_primer_bloque_libre();
 		offset_fcb_t *bloque = malloc(sizeof(offset_fcb_t));
@@ -711,6 +694,7 @@ void escribir_bloques_indirectos(t_list* lista_bloques, int indice_inicial, int 
 }
 
 void setear_bit_en_bitmap(uint32_t id_bloque){
+	//off_t offset = (off_t)id_bloque;
 	bitarray_set_bit(bitmap, id_bloque);
 	msync(bitmap->bitarray,bitmap->size,MS_SYNC);
 	log_info(logger,"Acceso a Bitmap - Bloque: %d - Estado: 1", id_bloque);
@@ -1111,7 +1095,7 @@ void* atender_kernel(void){
 				void* valor = malloc(pcb->cant_bytes);
 				recv(conexion_memoria, valor, pcb->cant_bytes, MSG_WAITALL);
 				log_info(logger, "paso por ESCRIBIR_ARCHIVO");
-				log_info(logger,"Se ingreso el valor %s",valor);
+				//log_info(logger,"Se ingreso el valor %s",valor);
 
 				//void* datos = "DATO";
 				nombreArchivo = pcb->arch_a_abrir;
