@@ -6,7 +6,7 @@ git_PASSWORD = "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"
 testfunction(){
 
    cd $1
-   git clone https://github.com/sisoputnfrba/so-commons-library.git $1
+   git clone https://github.com/sisoputnfrba/so-commons-library.git$1
    git_USUARIO $1
    git_PASSWORD $1
    echo "Se instalaron las commons"
