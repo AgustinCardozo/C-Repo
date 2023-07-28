@@ -142,7 +142,6 @@ pthread_t hilo_conexion_memoria;
 
 // ------------------------FUNCIONES------------------------ //
 void* atender_kernel(void);
-void* atender_memoria(void);
 void enviar_respuesta_kernel(int*, op_code);
 
 void crear_archivo(const char*, const char *contenidos[], int); //solo crea el archivo de superbloque? 

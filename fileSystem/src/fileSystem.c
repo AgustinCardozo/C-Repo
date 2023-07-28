@@ -49,7 +49,6 @@ int main(void) {
 	//log_info(logger, "El dato es %s", dato);
 
 	pthread_create(&hilo_conexion_kernel,NULL,(void*) atender_kernel,NULL);
-	pthread_create(&hilo_conexion_memoria,NULL,(void*) atender_memoria,NULL);
 
 	pthread_join(hilo_conexion_kernel,NULL);
 	pthread_join(hilo_conexion_memoria,NULL);
@@ -1045,38 +1044,6 @@ void enviar_respuesta_kernel(int *cliente_fd, op_code msj){
 }
 
 //----------------------------------- MEMORIA -----------------------------------//
-
-
-void* atender_memoria(void){
-	conexion_memoria = crear_conexion(datos.ip_memoria,datos.puerto_memoria);
-	enviar_mensaje("Hola te saludo desde el Fyle System",conexion_memoria);
-	while(1){
-		t_list* lista;
-		while(1){
-			int cod_op = recibir_operacion(conexion_memoria);
-			switch (cod_op) {
-				case MENSAJE:
-					recibir_mensaje(logger,conexion_memoria);
-					break;
-				case PAQUETE:
-					lista = recibir_paquete(conexion_memoria);
-					log_info(logger, "Me llegaron los siguientes valores:\n");
-					list_iterate(lista, (void*) iterator);
-					break;
-				case -1:
-					log_error(logger, "el cliente se desconecto. Terminando servidor");
-					log_destroy(logger);
-					config_destroy(config);
-					close(conexion_memoria);
-					//return EXIT_FAILURE;
-					exit(1);
-				default:
-					log_warning(logger,"Operacion desconocida. No quieras meter la pata");
-					break;
-			}
-		}
-	}
-}
 
 void enviar_datos_para_lectura(int dir, int tamanio){
 	t_paquete* paquete = malloc(sizeof(t_paquete));
