@@ -34,6 +34,8 @@ char*devolver_dato(t_pcb* pcb,registros_pos registro);
 void enviar_datos_para_escritura(int dir, char* valor,int tamanio);
 int size_registro(registros_pos registro);
 void enviar_datos_para_lectura(int dir,int tamanio);
+char* devolver_parametros(t_list* lista);
+char* op_instruct_to_string(op_instruct instr);
 //void enviar_crear_segmento(int id_seg,int tamanio_seg,int conexion);
 //mmu
 //t_dl* obtenerDL(uint32_t dir_logica,t_pcb*pcb);
@@ -212,19 +214,20 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 	t_paquete* paquete = malloc(sizeof(t_paquete));
 	paquete->buffer = malloc(sizeof(t_buffer));
 	t_buffer* buffer;
+	log_info(logger,"PID: <%d> - Ejecutando: %s - Parametros: %s",pcb->pid,op_instruct_to_string(instruccion->nombre),devolver_parametros(instruccion->parametros));
 	switch(instruccion->nombre){
 		case SET:
-			log_info(logger,"Paso por Set");
+			//log_info(logger,"PID: <%d> - Ejecutando: <%d> - <%s>",pcb->pid,instruccion->nombre,devolver_parametros(instruccion->parametros));
 			char* reg_des = list_get(instruccion->parametros,0);
 			char* caracteres = list_get(instruccion->parametros,1);
 			registros_pos pos = devolver_registro(reg_des);
 			insertar(pcb,pos,caracteres);
-			log_info(logger,"En %s esta %s",reg_des,caracteres);
+			//log_info(logger,"En %s esta %s",reg_des,caracteres);
 			//mostrar_registro(pcb);
 			break;
 		case MOV_IN:
 			//sleep(2);
-			log_info(logger,"Paso por mov_in");
+			//log_info(logger,"Paso por mov_in");
 			registro = devolver_registro(list_get(instruccion->parametros,0));
 			dl=atoi(list_get(instruccion->parametros,1));
 			df=obtener_direccion_fisica(dl,pcb,size_registro(registro));
@@ -237,9 +240,10 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 				char* valor = malloc(size_registro(registro)+1);
 				recv(conexion_memoria, valor, size_registro(registro), MSG_WAITALL);
 				insertar(pcb,registro,valor);
-				log_info(logger,"Se ingreso el valor %s",valor);
-				log_info(logger, "Accion: <LEER>, La df es %i, con tamanio %i, VALOR %s", df, size_registro(registro), valor);//TODO
-				free(valor);
+				//log_info(logger,"Se ingreso el valor %s",valor);
+				int seg = floor(dl / datos.tam_max_segmento);
+				log_info(logger, "PID: <%d> - Acción: <LEER> - Segmento: <%d> - Dirección Física: <%d> - Valor: <%s>",pcb->pid,seg, df, valor);//TODO
+				//free(valor);
 			}
 
 			//log_info(logger,"Se leyo el valor %s",pcb->registro.AX);
@@ -251,7 +255,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			}*/
 			break;
 		case MOV_OUT:
-			log_info(logger,"Paso por mov_out");
+			//log_info(logger,"Paso por mov_out");
 			registro = devolver_registro(list_get(instruccion->parametros,1));
 			dl=atoi(list_get(instruccion->parametros,0));
 			char *dato= devolver_dato(pcb,registro);//TODO: memoryLeak
@@ -263,7 +267,8 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 				band_ejecutar = 1;
 			} else {
 				enviar_datos_para_escritura(df,dato,size_registro(registro));
-
+				int seg = floor(dl / datos.tam_max_segmento);
+				log_info(logger, "PID: <%d> - Acción: <ESCRIBIR> - Segmento: <%d> - Dirección Física: <%d> - Valor: <%s>",pcb->pid,seg, df, dato);
 
 				recv(conexion_memoria, &result, sizeof(int), MSG_WAITALL);
 				if(result == 0){
@@ -274,10 +279,10 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 				}
 			}
 
-			free(dato);
+			//free(dato);
 			break;
 		case F_OPEN:
-			log_info(logger,"Paso por F_OPEN");
+			//log_info(logger,"Paso por F_OPEN");
 			
 			pcb->arch_a_abrir=list_get(instruccion->parametros, 0);
 			//instrAEnviar.datos_aux=0;
@@ -312,7 +317,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			}*/
 			break;
 		case F_CLOSE:
-			log_info(logger,"Paso por f_close");
+			//log_info(logger,"Paso por f_close");
 			
 			pcb->arch_a_abrir=list_get(instruccion->parametros,0);
 			//instrAEnviar.datos_aux=atoi(list_get(instruccion->parametros,1));
@@ -345,7 +350,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			}*/
 			break;
 		case F_SEEK:
-			log_info(logger,"Paso por f_seek");
+			//log_info(logger,"Paso por f_seek");
 			
 			pcb->arch_a_abrir=list_get(instruccion->parametros,0);
 		    pcb->posicion=atoi(list_get(instruccion->parametros,1)); //Es la posicion
@@ -369,7 +374,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 		    //enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;
 		case F_READ:
-			log_info(logger,"Paso por f_read");
+			//log_info(logger,"Paso por f_read");
 
 			dl=atoi(list_get(instruccion->parametros, 1));
 		    pcb->cant_bytes = atoi(list_get(instruccion->parametros, 2));
@@ -398,7 +403,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 		    //enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;
 		case F_WRITE:
-			log_info(logger,"Paso por f_write");
+			//log_info(logger,"Paso por f_write");
 			
 			dl=atoi(list_get(instruccion->parametros, 1));
 			pcb->cant_bytes=atoi(list_get(instruccion->parametros, 2));
@@ -427,7 +432,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 		    //enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;
 		case F_TRUNCATE:
-			log_info(logger,"Paso por f_truncate");
+			//log_info(logger,"Paso por f_truncate");
 			
 			//TODO: memoryLeak
 			pcb->arch_a_abrir=list_get(instruccion->parametros,0);
@@ -453,12 +458,12 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 		    //enviar_datos_para_op_fs(pcb,instrAEnviar,CON_PARAMETRO,conexion_kernel);
 			break;
 		case IO:
-			log_info(logger,"Pasa por I/O");
+			//log_info(logger,"Pasa por I/O");
 			enviar_pcb_a(pcb,conexion_kernel,EJECUTAR_IO);
 			band_ejecutar = 1;
 			break;
 		case WAIT:
-			log_info(logger,"Pasa por Wait");
+			//log_info(logger,"Pasa por Wait");
 			enviar_pcb_a(pcb,conexion_kernel,EJECUTAR_WAIT);
 			//recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
 			/*if(result == 0){
@@ -483,7 +488,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			}
 			break;
 		case SIGNAL:
-			log_info(logger,"Pasa por Signal");
+			//log_info(logger,"Pasa por Signal");
 			enviar_pcb_a(pcb,conexion_kernel,EJECUTAR_SIGNAL);
 			uint32_t a;
 			recv(conexion_kernel, &a, sizeof(uint32_t), MSG_WAITALL);
@@ -495,7 +500,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			}
 			break;
 		case CREATE_SEGMENT:
-			log_info(logger,"Paso por create_segment");
+			//log_info(logger,"Paso por create_segment");
 
 			pcb->dat_seg = atoi(list_get(instruccion->parametros,0));
 			pcb->dat_tamanio = atoi(list_get(instruccion->parametros,1));
@@ -528,11 +533,11 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			//enviar_crear_segmento(id_seg,tamanio_seg,conexion_kernel);
 			break;
 		case DELETE_SEGMENT:
-			log_info(logger,"Paso por delete_segment");
+			//log_info(logger,"Paso por delete_segment");
 			pcb->dat_seg = 0;
 			pcb->dat_seg = atoi(list_get(instruccion->parametros,0));//TODO: memoryLeak
 
-			log_info(logger,"Eliminar segmento %i",pcb->dat_seg);
+			//log_info(logger,"Eliminar segmento %i",pcb->dat_seg);
 			//Hay que devolverle el pdb al kernel para que despues el mismo se lo envie a memoria como explica en el enuncuad
 			enviar_pcb_a(pcb, conexion_kernel, ELIMINAR_SEGMENTO);
 			cod_op = recibir_operacion(conexion_kernel);
@@ -551,7 +556,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			//recv(conexion_kernel, &result, sizeof(uint32_t), MSG_WAITALL);
 			break;
 		case YIELD:
-			log_info(logger,"Paso por YIELD");
+			//log_info(logger,"Paso por YIELD");
 			band_ejecutar = 1;
 			enviar_pcb_a(pcb,conexion_kernel,DESALOJADO);
 			break;
@@ -564,6 +569,18 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			log_info(logger,"Otra cosa");
 			break;
 	}
+}
+
+char* devolver_parametros(t_list* lista){
+	char* ins = string_new();
+
+	for(int i = 0; i<list_size(lista);i++){
+		char *p = list_get(lista,i);
+		string_append(&ins, p);
+		string_append(&ins, " ");
+	}
+
+	return ins;
 }
 
 registros_pos devolver_registro(char* registro){
@@ -696,8 +713,8 @@ int obtener_direccion_fisica(uint32_t dir_logica,t_pcb*pcb,int tam_dato){
 		if(seg->id == DL->num_segmento){
 			if(DL->offset+tam_dato > seg->tamanio){
 
-				log_info(logger,"SEGMENTATION_FAULT: desplazamiento %d tamanio: %d",
-				DL->offset,seg->tamanio);
+				log_info(logger,"PID: <%d> - Error SEG_FAULT- Segmento: <%d> - Offset: <%d> - Tamaño: <%d>",
+				pcb->pid,DL->num_segmento,DL->offset,seg->tamanio);
 				DL->segfault=true;
 			} else {
 				df = DL->offset + seg->direccion_base;
@@ -873,5 +890,44 @@ void enviar_datos_para_op_fs(t_pcb* pcb, envio_instr instrAEnviar, op_code codig
 	paquete->buffer = buffer;
 
 	enviar_paquete(paquete, conexion);
+}
+
+char* op_instruct_to_string(op_instruct instr) {
+    switch (instr) {
+        case SET:
+            return "SET";
+        case MOV_IN:
+            return "MOV_IN";
+        case MOV_OUT:
+            return "MOV_OUT";
+        case IO:
+            return "IO";
+        case F_OPEN:
+            return "F_OPEN";
+        case F_CLOSE:
+            return "F_CLOSE";
+        case F_SEEK:
+            return "F_SEEK";
+        case F_READ:
+            return "F_READ";
+        case F_WRITE:
+            return "F_WRITE";
+        case F_TRUNCATE:
+            return "F_TRUNCATE";
+        case WAIT:
+            return "WAIT";
+        case SIGNAL:
+            return "SIGNAL";
+        case CREATE_SEGMENT:
+            return "CREATE_SEGMENT";
+        case DELETE_SEGMENT:
+            return "DELETE_SEGMENT";
+        case YIELD:
+            return "YIELD";
+        case EXIT:
+            return "EXIT";
+        default:
+            return "UNKNOWN";
+    }
 }
 

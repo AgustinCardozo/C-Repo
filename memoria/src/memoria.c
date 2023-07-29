@@ -154,12 +154,14 @@ void atender_modulos(void* data){
 				list_iterate(lista, (void*) iterator);
 				break;
 			case INICIALIZAR_ESTRUCTURA:
-				log_info(logger,"Paso por INICIALIZAR_ESTRUCTURA");
+
 				pid++;
 				/*Cuando le llega un proceso se le envia nomas el tamanio del segmentoa
 				  ya que se da por sentado que todos van a empezar con ese segmento
 				  asi que solo se le envia el tamanio del segmento 0 para simplificar
 				*/
+
+				log_info(logger,"Creación de Proceso PID: <%d>",pid);
 				segmento * seg = malloc(sizeof(segmento));
 				seg->id = 0;
 				seg->direccion_base = 0;
@@ -183,14 +185,16 @@ void atender_modulos(void* data){
 				datos_aux = deserializar_segmento_auxiliar(buffer);
 
 				if(hay_espacio(datos_aux.segmento.tamanio) == 0){
-					log_info(logger,"Crear segmento con pid: %i id: %i con base: %i con tamanio: %i ",
-							datos_aux.pid,datos_aux.segmento.id,datos_aux.segmento.tamanio);
+					/*log_info(logger,"Crear segmento con pid: %i id: %i con base: %i con tamanio: %i ",
+							datos_aux.pid,datos_aux.segmento.id,datos_aux.segmento.tamanio);*/
 					//En esta funcion se crea el segmento
-
-					resultado = crear_segmento(datos_aux.pid, datos_aux.segmento.id,datos_aux.segmento.direccion_base,datos_aux.segmento.tamanio);
+					log_info(logger,"PID: <%d> - Crear Segmento: <%d> - Base: <%d> - TAMAÑO: <%d>",datos_aux.pid,datos_aux.segmento.id,datos_aux.segmento.direccion_base,datos_aux.segmento.tamanio);
+					resultado = crear_segmento(datos_aux.pid, datos_aux.segmento.id,datos_aux.segmento.tamanio);
 
 					if(list_size(resultado) == 0){
 						op_code codigo = REALIZAR_COMPACTACION;
+
+						log_info(logger,"Solicitud de Compactación");
 
 						send(cliente_fd,&codigo,sizeof(op_code),0);
 					} else {
@@ -208,7 +212,7 @@ void atender_modulos(void* data){
 				buffer = desempaquetar(paquete, cliente_fd);
 				datos_aux = deserializar_segmento_auxiliar(buffer);
 
-				log_info(logger,"Eliminar segmento con pid: %i id: %i con base: %i con tamanio: %i",
+				log_info(logger,"PID: <%d> - Eliminar Segmento: <%d> - Base: <%d> - TAMAÑO: <%d>",
 						datos_aux.pid, datos_aux.segmento.id,datos_aux.segmento.direccion_base,datos_aux.segmento.tamanio);
 				eliminar_segmento(datos_aux.pid,datos_aux.segmento.id);
 				resultado = buscar_lista_segmentos(datos_aux.pid);
@@ -217,9 +221,10 @@ void atender_modulos(void* data){
 				break;
 			case FINALIZAR:
 				buffer = desempaquetar(paquete, cliente_fd);
-				log_info(logger,"Liberando recursos");
 				int pid;
 				memcpy(&pid,buffer->stream,sizeof(int));
+
+				log_info(logger,"Eliminación de Proceso PID: <%d>",pid);
 
 				eliminar_proceso(pid);
 				break;
@@ -247,6 +252,7 @@ void atender_modulos(void* data){
 
 				//Leo en memoria elvalor del df que pide
 				valor = leer_valor_de_memoria(df,tamanio);
+				log_info(logger,"Acción: <LEER> - Dirección física: <%d> - Tamaño: <%d> - Origen: <CPU/FS>",df,tamanio);
 
 				send(cliente_fd, valor, tamanio, 0);
 				//Ejemplo de lectura
@@ -256,7 +262,8 @@ void atender_modulos(void* data){
 
 				t_df* df = deserializar_df(buffer);
 
-				log_info(logger,"El df es %i, con tamanio %i, el valor es %s",df->df,df->tamanio,df->dato); //TODO: memoryLeak
+				//log_info(logger,"El df es %i, con tamanio %i, el valor es %s",df->df,df->tamanio,df->dato); //TODO: memoryLeak
+				log_info(logger,"Acción: <ESCRIBIR> - Dirección física: <%d> - Tamaño: <%d> - Origen: <CPU/FS>",df->df,df->tamanio);
 				//Le agrego en memoria el valor del string
 				escribir_valor_de_memoria(df->dato,df->df,df->tamanio);
 				int a = 0;
@@ -584,10 +591,10 @@ char* leer_valor_de_memoria(int df,int tamanio){
 	memcpy(valor,memoria_usuario+df,tamanio);
 	//memcpy(valor+tamanio,&final,sizeof(char));
 	//valor[tamanio] = '\0';
-	log_info(logger,"El valor leyo %s",valor);
+
 	usleep(datos.ret_memoria*1000);
 	return valor;
-	free(valor); //TODO: memoryLeak
+	//free(valor); //TODO: memoryLeak
 }
 
 void escribir_valor_de_memoria(char* valor,int df, int tamanio){

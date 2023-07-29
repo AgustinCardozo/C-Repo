@@ -30,5 +30,6 @@ t_buffer* desempaquetar(t_paquete* paquete, int cliente_fd);
 t_pcb* deserializar_pcb(t_buffer* buffer);
 t_buffer* serializar_segmento(segmento* seg);
 t_paquete* crear_paquete_segmento(segmento* seg, op_code codigo);
+void liberar_pcb(t_pcb* pcb);
 
 #endif /* SRC_SERIALIZACION_H_ */

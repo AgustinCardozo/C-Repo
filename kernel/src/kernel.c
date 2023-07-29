@@ -28,6 +28,7 @@ void mostrar_parametro(char* value);
 void mostrar_cola(t_queue*cola);
 t_pcb* crear_pcb(t_buffer* buffer, int conexion_consola);
 
+
 void* atender_cpu(void);
 void* de_new_a_ready(void);
 void de_ready_a_ejecutar_fifo(void);
@@ -43,7 +44,7 @@ t_cola cola;
 void agregar_a_cola_new(t_pcb*pcb);
 void agregar_a_cola_ready(t_pcb*pcb);
 //void agregar_a_cola_hrrn(t_pcb*pcb);
-void finalizar_proceso(t_pcb*pcb);
+//void finalizar_proceso(t_pcb*pcb);
 t_pcb* quitar_de_cola_new();
 t_pcb* quitar_de_cola_ready();
 algoritmo devolver_algoritmo(char*nombre);
@@ -99,6 +100,7 @@ void cerrar_archivo(t_pcb* pcb);
 void modificar_tamanio(t_pcb* pcb);
 void actualizar_puntero(t_pcb* pcb);
 int buscar_puntero(t_pcb* pcb);
+void mostrar_list_ready();
 //int enviar_datos_a_memoria(t_pcb* pcb, int conexion, op_code codigo);
 //void enviar_segmento_con_cod(seg_aux* segmento, int conexion, op_code codigo);
 int pid;
@@ -115,10 +117,10 @@ t_pcb* actualizar_de_la_tabla_general(t_pcb* pcb);
 int hayQueActualizar;
 
 int main(int argc, char** argv) {
-	//if (argc < 2) {
-		//printf ("se deben especificar la ruta del archivo de pseudocodigo");
-		//return EXIT_FAILURE;
-	//}
+	if (argc < 2) {
+		printf ("se deben especificar la ruta del archivo de pseudocodigo");
+		return EXIT_FAILURE;
+	}
 	pid=0;
 
 	lista_recursos = list_create();
@@ -132,7 +134,7 @@ int main(int argc, char** argv) {
 	cola.cola_ready_hrrn=queue_create();
 
 	logger = iniciar_logger("kernel.log","Kernel");;
-	config = iniciar_config("kernelFS.config");
+	config = iniciar_config(argv[1]);
 	datos.ip_memoria = config_get_string_value(config,"IP_MEMORIA");
 	datos.puerto_memoria = config_get_string_value(config,"PUERTO_MEMORIA");
 	datos.ip_filesystem = config_get_string_value(config,"IP_FILESYSTEM");
@@ -280,10 +282,10 @@ void* atender_cpu(void){
 					break;
 				
 				case CERRAR_ARCHIVO:
-					log_info(logger, "Paso por CERRAR_ARCHIVO");
+
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
-
+					log_info(logger, "PID: <%d> - Cerrar Archivo: <%s>",pcb->pid,pcb->arch_a_abrir);
 					cerrar_archivo(pcb);
 
 					enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
@@ -291,11 +293,12 @@ void* atender_cpu(void){
 				    break;
 
 				case ACTUALIZAR_PUNTERO:
-					log_info(logger, "Paso por Actualizar_Archivo");
+
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 
 					actualizar_puntero(pcb);
+					log_info(logger, "PID: <%d> - Actualizar puntero Archivo: <%s> - Puntero <%d>",pcb->pid,pcb->arch_a_abrir,pcb->posicion);
 
 					enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);//TODO: memoryLeak
 
@@ -303,11 +306,13 @@ void* atender_cpu(void){
 					break;
 				
 				case LEER_ARCHIVO:
-					log_info(logger, "Paso por LEER_ARCHIVO");
+
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 					pcb->posicion = buscar_puntero(pcb);
 					sem_wait(&mutex_compresion);
+					log_info(logger, "PID: <%d> - Leer Archivo: <%s> - Puntero <%d> - Dirección Memoria <%d> - Tamaño <%d>",pcb->pid,pcb->arch_a_abrir,pcb->posicion,pcb->df_fs,pcb->cant_bytes);
+					log_info(logger,"PID: <%d> - Estado Anterior: <EXEC> - Estado Actual: <BLOCK>",pcb->pid);
 					enviar_pcb_a(pcb,conexion_filesystem,LEER_ARCHIVO);
 					enviar_pcb_a(pcb,conexion_cpu,DETENER);
 					sem_post(&sem_habilitar_exec);
@@ -319,6 +324,8 @@ void* atender_cpu(void){
 					pcb = deserializar_pcb(buffer);
 					pcb->posicion = buscar_puntero(pcb);
 					sem_wait(&mutex_compresion);
+					log_info(logger, "PID: <%d> - Escribir Archivo: <%s> - Puntero <%d> - Dirección Memoria <%d> - Tamaño <%d>",pcb->pid,pcb->arch_a_abrir,pcb->posicion,pcb->df_fs,pcb->cant_bytes);
+					log_info(logger,"PID: <%d> - Estado Anterior: <EXEC> - Estado Actual: <BLOCK>",pcb->pid);
 					enviar_pcb_a(pcb,conexion_filesystem,ESCRIBIR_ARCHIVO);//TODO: memoryLeak
 
 					enviar_pcb_a(pcb,conexion_cpu,DETENER);//TODO: memoryLeak
@@ -327,7 +334,7 @@ void* atender_cpu(void){
 					break;
 				
 				case MODIFICAR_TAMANIO:
-					log_info(logger, "Paso por modificar_Archivo");
+					//log_info(logger, "Paso por modificar_Archivo");
 					buffer=desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 					sem_wait(&mutex_compresion);
@@ -335,7 +342,9 @@ void* atender_cpu(void){
 					enviar_pcb_a(pcb, conexion_filesystem, MODIFICAR_TAMANIO);//TODO: memoryLeak
 					
 					enviar_pcb_a(pcb, conexion_cpu, DETENER);//TODO:memoryLeak
-					log_info(logger, "PID: <%d> - Bloqueado por:<%s>",pcb->pid,pcb->arch_a_abrir);
+					//log_info(logger, "PID: <%d> - Bloqueado por:<%s>",pcb->pid,pcb->arch_a_abrir);
+					log_info(logger, "PID: <%d> - Archivo: <%s> - Tamaño: <%d>",pcb->pid,pcb->arch_a_abrir,pcb->dat_tamanio);
+					log_info(logger,"PID: <%d> - Estado Anterior: <EXEC> - Estado Actual: <BLOCK>",pcb->pid);
 					sem_post(&sem_habilitar_exec);
 					//enviar_pcb_a(pcb,conexion_cpu,DETENER);
 					break;
@@ -344,7 +353,7 @@ void* atender_cpu(void){
 					buffer = desempaquetar(paquete,conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 
-					log_info(logger,"Crear segmento %i de tamanio %i",pcb->dat_seg,pcb->dat_tamanio);
+					log_info(logger,"PID: <%d> - Crear Segmento - Id: <%d> - Tamaño: <%d>",pcb->pid,pcb->dat_seg,pcb->dat_tamanio);
 
 					enviar_crear_segmento(pcb->pid,pcb->dat_seg,pcb->dat_tamanio);
 
@@ -355,7 +364,7 @@ void* atender_cpu(void){
 					buffer = desempaquetar(paquete, conexion_cpu);
 					pcb = deserializar_pcb(buffer);
 
-					log_info(logger, "Eliminar segmento %i", pcb->dat_seg);
+					log_info(logger, "PID: <%d> - Eliminar Segmento - Id Segmento: <%d>",pcb->pid, pcb->dat_seg);
 					enviar_eliminar_segmento(pcb->pid,pcb->dat_seg,pcb->dat_tamanio);
 					//recv(conexion_memoria, &result, sizeof(uint32_t), MSG_WAITALL);
 
@@ -435,7 +444,7 @@ void* atender_fileSystem(void){
 		int cod_op = recibir_operacion(conexion_filesystem);
 			switch (cod_op) {
 				case DESBLOQUEADO:
-					log_info(logger,"Paso por desbloqueado");
+					//log_info(logger,"Paso por desbloqueado");
 
 					buffer = desempaquetar(paquete,conexion_filesystem);
 					pcb = deserializar_pcb(buffer);
@@ -654,6 +663,7 @@ t_pcb* quitar_de_cola_new(){
 
 void agregar_a_cola_ready(t_pcb* pcb){
 	log_info(logger,"El proceso [%d] fue agregado a la cola ready",pcb->pid);
+	mostrar_list_ready();
 	sem_wait(&mutex_cola_ready);
 	pcb->llegadaReady = time(NULL);
 	log_info(logger,"Llego en ready en %i",pcb->llegadaReady);
@@ -663,6 +673,15 @@ void agregar_a_cola_ready(t_pcb* pcb){
 	//sem_post(&sem_habilitar_exec);
 	//sem_post(&sem_exec);
 	mostrar_cola(cola.cola_ready_fifo);
+}
+
+void mostrar_list_ready(){
+	log_info(logger,"----------LISTA READY------------------");
+	for(int i = 0; i < list_size(cola.cola_ready_fifo->elements);i++){
+		t_pcb* pcb = list_get(cola.cola_ready_fifo->elements,i);
+		log_info(logger,"[%d]",pcb->pid);
+	}
+	log_info(logger,"------------------------------------");
 }
 
 t_pcb* quitar_de_cola_ready(){
@@ -676,11 +695,11 @@ t_pcb* quitar_de_cola_ready(){
 
 void* de_new_a_ready(void){
 
-	log_info(logger,"nuevo a ready");
+	//log_info(logger,"nuevo a ready");
 
 	while(1){
 		//sem_wait(&sem_avisar);
-		log_info(logger,"HOLAAAA");
+		//log_info(logger,"HOLAAAA");
 		sem_wait(&sem_nuevo);
 		while(!queue_is_empty(cola.cola_new)){
 			sem_wait(&sem_multiprogramacion);
@@ -717,7 +736,7 @@ void* de_ready_a_ejecutar(void){
 void de_ready_a_ejecutar_fifo(void){
 	while(1){
 		//sem_wait(&sem_habilitar_exec);
-		log_info(logger,"HOLAAAAA");
+		//log_info(logger,"HOLAAAAA");
 		//sem_wait(&sem_ready);
 		sem_wait(&sem_ready);
 		while(!queue_is_empty(cola.cola_ready_fifo)){
@@ -735,9 +754,9 @@ void de_ready_a_ejecutar_fifo(void){
 
 void de_ready_a_ejecutar_hrrn(void){
 	while(1){
-		sem_wait(&sem_habilitar_exec);
-		while(!queue_is_empty(cola.cola_ready_fifo)){
-
+		sem_wait(&sem_ready);
+			while(!queue_is_empty(cola.cola_ready_fifo)){
+			sem_wait(&sem_habilitar_exec);
 			//replanificar();
 			t_ahora = time(NULL);
 			list_sort(cola.cola_ready_fifo->elements,comparador_hrrn);
@@ -850,6 +869,10 @@ void* iniciar_recurso(void* data){
 	}
 }
 
+void mostrar_lista_ready(){
+
+}
+
 
 
 void ejecutar_wait(t_pcb* pcb){
@@ -861,10 +884,11 @@ void ejecutar_wait(t_pcb* pcb){
 	int encontroResultado = 1;
 	while(list_iterator_has_next(iterador)){
 		t_recurso* recu = (t_recurso*)list_iterator_next(iterador);
-		log_info(logger,"PID: <%d>, Pasa por [%s] con [%i] instancias y el recurso del pcb es %s", pcb->pid,recu->instancias,nombre);
+		//log_info(logger,"PID: <%d>, Pasa por [%s] con [%i] instancias y el recurso del pcb es %s", pcb->pid,recu->instancias,nombre);
 
 		if(strcmp(nombre,recu->nombre) == 0){
 			recu->instancias--;
+			log_info(logger,"PID: <%d> - Wait: [%s] con [%i] instancias",pcb->pid,recu->nombre,recu->instancias);
 			encontroResultado = 0;
 			list_replace(lista_recursos,j,recu);
 			//uint32_t resultOk;
@@ -890,7 +914,7 @@ void ejecutar_wait(t_pcb* pcb){
 		j++;
 	}
 
-	list_iterate(lista_recursos, (void*) mostrar_recurso);
+	//list_iterate(lista_recursos, (void*) mostrar_recurso);
 
 	if(encontroResultado == 1){
 		log_info(logger,"El recurso no existe, el proceso finaliza");
@@ -904,7 +928,7 @@ void ejecutar_wait(t_pcb* pcb){
 
 	//free(recu); TODO: nose si liberarlo
 	free(nombre);
-	list_destroy(iterador);
+	list_iterator_destroy(iterador);
 }
 
 void ejecutar_signal(t_pcb* pcb){
@@ -917,10 +941,11 @@ void ejecutar_signal(t_pcb* pcb){
 
 	while(list_iterator_has_next(iterador)){
 		t_recurso* recu = (t_recurso*)list_iterator_next(iterador);
-		log_info(logger,"PID: <%d>, Pasa por [%s] con [%i] instancias",pcb->pid,recu->nombre,recu->instancias);
+
 		if(strcmp(nombre,recu->nombre) == 0){
 			recu->instancias++;
 			encontroResultado = 0;
+			log_info(logger,"PID: <%d> - Signal: [%s] con [%i] instancias",pcb->pid,recu->nombre,recu->instancias);
 			list_replace(lista_recursos,j,recu);
 			if(!queue_is_empty(recu->cola_recurso)){
 				sem_post(&recu->sem_recurso);
@@ -933,7 +958,7 @@ void ejecutar_signal(t_pcb* pcb){
 		j++;
 	}
 
-	list_iterate(lista_recursos, (void*) mostrar_recurso);
+	//list_iterate(lista_recursos, (void*) mostrar_recurso);
 	if(encontroResultado == 1){
 		log_info(logger,"El recurso no existe, el proceso finaliza");
 		//Liberar datso en memoria
@@ -949,7 +974,7 @@ void ejecutar_signal(t_pcb* pcb){
 	//free(recu); TODO: ver si liberar
 	free(instruccion);
 	free(nombre);
-	list_destroy(iterador);
+	list_iterator_destroy(iterador);
 }
 
 void* ejecutar_IO(void* dato){
@@ -1074,8 +1099,10 @@ void analizar_resultado(t_pcb* pcb,t_paquete* paquete,t_buffer* buffer){
 				free(lista);
 				break;
 			case REALIZAR_COMPACTACION:
+				log_info(logger,"Compactación: <Se solicitó compactación>");
+				log_info(logger,"Compactación: <Esperando Fin de Operaciones de FS>");
 				sem_wait(&mutex_compresion);
-				log_info(logger,"Necesidad de Compactar");
+
 				op_code codigo = REALIZAR_COMPACTACION;
 				send(conexion_memoria,&codigo,sizeof(op_code),0);
 				break;
@@ -1084,7 +1111,8 @@ void analizar_resultado(t_pcb* pcb,t_paquete* paquete,t_buffer* buffer){
 				buffer = desempaquetar(paquete,conexion_memoria);
 				deserializar_tabla_general_actualizada(buffer);
 				hayQueActualizar = 1;
-				mostrar_tablas_de_segmentos();
+				//mostrar_tablas_de_segmentos();
+				log_info(logger,"Se finalizó el proceso de compactación");
 				pcb = actualizar_de_la_tabla_general(pcb);
 				enviar_crear_segmento(pcb->pid,pcb->dat_seg,pcb->dat_tamanio);
 				sem_post(&mutex_compresion);
@@ -1230,6 +1258,7 @@ int contiene_archivo(t_pcb* pcb, char* nombreArchivo){
 			arch_proc->punt = 0;
 			list_add(pcb->archivos_abiertos,arch_proc);
 			queue_push(archi->cola_archivo,pcb);
+			log_info(logger,"PID: <%d> - Estado Anterior: <EXEC> - Estado Actual: <BLOCK>",pcb->pid);
 			band = 1;
 		}
 	}

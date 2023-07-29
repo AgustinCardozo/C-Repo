@@ -15,6 +15,50 @@ t_paquete* crear_paquete_pcb(t_pcb* pcb, op_code codigo){
 	return paquete;
 }
 
+void liberar_pcb(t_pcb* pcb){
+    // Liberar la lista de instrucciones
+
+    int tam = list_size(pcb->lista_instrucciones);
+
+    for(int i = 0; i < tam; i++){
+    	t_instruccion* ins = list_get(pcb->lista_instrucciones,i);
+    	for(int j = 0; j < list_size(ins->parametros); j++){
+    		char* a = list_get(ins->parametros,j);
+    		free(a);
+    	}
+    	list_destroy(ins->parametros);
+    	free(ins);
+    }
+
+    list_destroy(pcb->lista_instrucciones);
+
+    // Liberar la lista de tabla de segmentos
+    tam = list_size(pcb->tabla_segmentos);
+    for(int i = 0; i < tam; i++){
+    	segmento* seg = list_get(pcb->tabla_segmentos,i);
+    	free(seg);
+    }
+
+    list_destroy(pcb->tabla_segmentos);
+    // Liberar la lista de archivos abiertos
+
+    tam = list_size(pcb->archivos_abiertos);
+    for(int i = 0; i < tam; i++){
+    	info_arch* a = list_get(pcb->archivos_abiertos,i);
+    	free(a->dir);
+    	free(a);
+    }
+    list_destroy(pcb->archivos_abiertos);
+
+    // Liberar el nombre del archivo a abrir
+    if (pcb->arch_a_abrir != NULL) {
+        free(pcb->arch_a_abrir);
+    }
+
+    // Finalmente, liberar el pcb en sí
+    free(pcb);
+}
+
 
 t_buffer* serializar_pcb(t_pcb* pcb){
 	t_buffer* buffer = malloc(sizeof(t_buffer));
@@ -327,6 +371,8 @@ void enviar_pcb_a(t_pcb* pcb,int conexion, op_code codigo){
 	t_paquete* paquete = crear_paquete_pcb(pcb,codigo);
 
 	enviar_paquete_a(paquete,conexion);
+
+	//liberar_pcb(pcb);
 }
 
 t_buffer* desempaquetar(t_paquete* paquete, int cliente_fd){
