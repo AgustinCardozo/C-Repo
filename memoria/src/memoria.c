@@ -183,11 +183,11 @@ void atender_modulos(void* data){
 				datos_aux = deserializar_segmento_auxiliar(buffer);
 
 				if(hay_espacio(datos_aux.segmento.tamanio) == 0){
-					log_info(logger,"Crear segmento con pid: %i id: %i con tamanio: %i ",
+					log_info(logger,"Crear segmento con pid: %i id: %i con base: %i con tamanio: %i ",
 							datos_aux.pid,datos_aux.segmento.id,datos_aux.segmento.tamanio);
 					//En esta funcion se crea el segmento
 
-					resultado = crear_segmento(datos_aux.pid, datos_aux.segmento.id, datos_aux.segmento.tamanio);
+					resultado = crear_segmento(datos_aux.pid, datos_aux.segmento.id,datos_aux.segmento.direccion_base,datos_aux.segmento.tamanio);
 
 					if(list_size(resultado) == 0){
 						op_code codigo = REALIZAR_COMPACTACION;
@@ -208,7 +208,8 @@ void atender_modulos(void* data){
 				buffer = desempaquetar(paquete, cliente_fd);
 				datos_aux = deserializar_segmento_auxiliar(buffer);
 
-				log_info(logger,"Eliminar segmento con pid: %i id: %i", datos_aux.pid, datos_aux.segmento.id);
+				log_info(logger,"Eliminar segmento con pid: %i id: %i con base: %i con tamanio: %i",
+						datos_aux.pid, datos_aux.segmento.id,datos_aux.segmento.direccion_base,datos_aux.segmento.tamanio);
 				eliminar_segmento(datos_aux.pid,datos_aux.segmento.id);
 				resultado = buscar_lista_segmentos(datos_aux.pid);
 				enviar_tabla_actualizada(resultado,cliente_fd);
@@ -255,7 +256,7 @@ void atender_modulos(void* data){
 
 				t_df* df = deserializar_df(buffer);
 
-				log_info(logger,"El df es %i, con tamanio %i, el valor es %s",df->df,df->tamanio,df->dato);
+				log_info(logger,"El df es %i, con tamanio %i, el valor es %s",df->df,df->tamanio,df->dato); //TODO: memoryLeak
 				//Le agrego en memoria el valor del string
 				escribir_valor_de_memoria(df->dato,df->df,df->tamanio);
 				int a = 0;
@@ -550,7 +551,7 @@ seg_aux deserializar_segmento_auxiliar(t_buffer* buffer){
 	offset+=sizeof(int);
 	memcpy(&seg_id,buffer->stream + offset, sizeof(int));
 	offset+=sizeof(int);
-	memcpy(&seg_tam, buffer->stream + offset, sizeof(int));
+	memcpy(&seg_tam, buffer->stream + offset, sizeof(int));//TODO:memoryLeak
 	offset+=sizeof(int);
 
 	segmento_auxiliar.pid=pid;
@@ -578,7 +579,7 @@ seg_aux deserializar_segmento_a_eliminar(t_buffer* buffer){
 }
 
 char* leer_valor_de_memoria(int df,int tamanio){
-	char* valor = malloc(tamanio);
+	char* valor = malloc(tamanio);//TODO: esta bien el tamanioa  reservar memoria?
 	//Copio el valor de la df a la variable valor
 	memcpy(valor,memoria_usuario+df,tamanio);
 	//memcpy(valor+tamanio,&final,sizeof(char));
@@ -586,6 +587,7 @@ char* leer_valor_de_memoria(int df,int tamanio){
 	log_info(logger,"El valor leyo %s",valor);
 	usleep(datos.ret_memoria*1000);
 	return valor;
+	free(valor); //TODO: memoryLeak
 }
 
 void escribir_valor_de_memoria(char* valor,int df, int tamanio){

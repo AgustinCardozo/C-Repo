@@ -273,7 +273,7 @@ void* atender_cpu(void){
 						sem_post(&sem_habilitar_exec);
 					} else {
 						//enviar mensaje al filesystem a ber si existe el archivo
-						enviar_pcb_a(pcb,conexion_filesystem,ABRIR_ARCHIVO);
+						enviar_pcb_a(pcb,conexion_filesystem,ABRIR_ARCHIVO);//TODO: memoryLeak
 
 					}
 
@@ -297,7 +297,7 @@ void* atender_cpu(void){
 
 					actualizar_puntero(pcb);
 
-					enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
+					enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);//TODO: memoryLeak
 
 
 					break;
@@ -319,9 +319,9 @@ void* atender_cpu(void){
 					pcb = deserializar_pcb(buffer);
 					pcb->posicion = buscar_puntero(pcb);
 					sem_wait(&mutex_compresion);
-					enviar_pcb_a(pcb,conexion_filesystem,ESCRIBIR_ARCHIVO);
+					enviar_pcb_a(pcb,conexion_filesystem,ESCRIBIR_ARCHIVO);//TODO: memoryLeak
 
-					enviar_pcb_a(pcb,conexion_cpu,DETENER);
+					enviar_pcb_a(pcb,conexion_cpu,DETENER);//TODO: memoryLeak
 
 					sem_post(&sem_habilitar_exec);
 					break;
@@ -332,9 +332,10 @@ void* atender_cpu(void){
 					pcb = deserializar_pcb(buffer);
 					sem_wait(&mutex_compresion);
 					//modificar_tamanio(pcb);
-					enviar_pcb_a(pcb, conexion_filesystem, MODIFICAR_TAMANIO);
+					enviar_pcb_a(pcb, conexion_filesystem, MODIFICAR_TAMANIO);//TODO: memoryLeak
 					
-					enviar_pcb_a(pcb, conexion_cpu, DETENER);
+					enviar_pcb_a(pcb, conexion_cpu, DETENER);//TODO:memoryLeak
+					log_info(logger, "PID: <%d> - Bloqueado por:<%s>",pcb->pid,pcb->arch_a_abrir);
 					sem_post(&sem_habilitar_exec);
 					//enviar_pcb_a(pcb,conexion_cpu,DETENER);
 					break;
@@ -417,6 +418,7 @@ void* atender_cpu(void){
 	}
 	free(paquete);
 	free(paquete->buffer);
+	free(buffer);
 }
 
 void* atender_fileSystem(void){
@@ -449,11 +451,12 @@ void* atender_fileSystem(void){
 					//ciclo = 0;
 					crear_archivo(pcb->arch_a_abrir);
 					//cod = CONTINUAR;
-					arch_proc = malloc(sizeof(info_arch));
+					arch_proc = malloc(sizeof(info_arch));//TODO: memoryLeak
 					arch_proc->dir = pcb->arch_a_abrir;
 					arch_proc->punt = 0;
 					list_add(pcb->archivos_abiertos,arch_proc);
 					enviar_pcb_a(pcb,conexion_cpu,CONTINUAR);
+
 					break;
 				case CREAR_ARCHIVO:
 					//enviar para crear el archivo
@@ -470,7 +473,7 @@ void* atender_fileSystem(void){
 					buffer = desempaquetar(paquete,conexion_filesystem);
 					pcb = deserializar_pcb(buffer);
 					crear_archivo(pcb->arch_a_abrir);
-					arch_proc = malloc(sizeof(info_arch));
+					arch_proc = malloc(sizeof(info_arch));//TODO: memoryLeak
 					arch_proc->dir = pcb->arch_a_abrir;
 					arch_proc->punt = 0;
 					list_add(pcb->archivos_abiertos,arch_proc);
@@ -502,7 +505,7 @@ void* atender_fileSystem(void){
 
 	free(paquete);
 	free(paquete->buffer);
-
+	free(buffer);
 	return NULL;
 }
 
@@ -528,9 +531,9 @@ void atender_consolas(void* data){
 			case INSTRUCCIONES:
 				buffer = desempaquetar(paquete,cliente_fd);
 
-				t_pcb* pcb= crear_pcb(buffer,cliente_fd);
+				t_pcb* pcb = crear_pcb(buffer,cliente_fd);
 
-				log_info(logger,"EL PID QUE ME LLEGO ES %i",pcb->pid);
+				log_info(logger,"EL PID QUE ME LLEGO ES %i",pcb->pid);//TODO: memoryLeak
 
 				agregar_a_cola_new(pcb);
 
@@ -558,6 +561,10 @@ void atender_consolas(void* data){
 		}
 	}
 
+	list_destroy(lista);
+	free(paquete->buffer);
+	free(paquete);
+	free(buffer);
 }
 
 void iterator(char* value) {
@@ -637,7 +644,6 @@ void agregar_a_cola_new(t_pcb*pcb){
 }
 
 t_pcb* quitar_de_cola_new(){
-	//t_pcb* pcb = malloc(sizeof(t_pcb));
 	sem_wait(&mutex_cola_new);
 	t_pcb* pcb = queue_pop(cola.cola_new);
 	sem_post(&mutex_cola_new);
@@ -656,7 +662,7 @@ void agregar_a_cola_ready(t_pcb* pcb){
 	sem_post(&sem_ready);
 	//sem_post(&sem_habilitar_exec);
 	//sem_post(&sem_exec);
-	//mostrar_cola(cola.cola_ready);
+	mostrar_cola(cola.cola_ready_fifo);
 }
 
 t_pcb* quitar_de_cola_ready(){
@@ -720,7 +726,7 @@ void de_ready_a_ejecutar_fifo(void){
 			pcb = actualizar_de_la_tabla_general(pcb);
 			log_info(logger,"“PID: %d - Estado Anterior: READY - Estado Actual: EXEC”",pcb->pid);
 			pcb->llegadaExec = time(NULL);
-			enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
+			enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);//TODO: memoryLeak
 
 			//liberar_pcb(pcb);
 		}
@@ -787,6 +793,8 @@ bool comparador_hrrn(void* data1,void* data2){
 		flag = false;
 	}
 	return flag;
+	//free(pcb1);
+	//free(pcb2);
 }
 
 /*
@@ -818,25 +826,14 @@ algoritmo devolver_algoritmo(char*nombre){
 	return alg;
 }
 
-//void agregar_a_cola_hrrn(t_pcb*pcb){
-
-//}
-
 void mostrar_cola(t_queue*cola){
 	for(int i=0;i<queue_size(cola);i++){
 		int*id=list_get(cola->elements,i);
-		log_info(logger,"%d PID: %d",i+1,*id);
+		//log_info(logger,"%d PID: %d",i+1,*id);
+		log_info(logger,"Cola Ready: ");
+		log_info(logger, "%d - ",*id);
 	}
 	log_info(logger,"-----------------------");
-}
-
-/*
-void quitar_de_ready_fifo(t_pcb*pcb){
-	queue_pop(cola->cola_new_fifo,pcb);
-}
-*/
-void finalizar_proceso(t_pcb*pcb){
-
 }
 
 //------------------Encarse de los recursos compartidos-------
@@ -864,7 +861,7 @@ void ejecutar_wait(t_pcb* pcb){
 	int encontroResultado = 1;
 	while(list_iterator_has_next(iterador)){
 		t_recurso* recu = (t_recurso*)list_iterator_next(iterador);
-		log_info(logger,"Pasa por [%s] con [%i] instancias y el recurso del pcb es %s",recu->nombre,recu->instancias,nombre);
+		log_info(logger,"PID: <%d>, Pasa por [%s] con [%i] instancias y el recurso del pcb es %s", pcb->pid,recu->instancias,nombre);
 
 		if(strcmp(nombre,recu->nombre) == 0){
 			recu->instancias--;
@@ -904,6 +901,10 @@ void ejecutar_wait(t_pcb* pcb){
 		enviar_mensaje("Tu proceso ha finalizado por que no existe el recurso",pcb->conexion_consola);
 		sem_post(&sem_habilitar_exec);
 	}
+
+	//free(recu); TODO: nose si liberarlo
+	free(nombre);
+	list_destroy(iterador);
 }
 
 void ejecutar_signal(t_pcb* pcb){
@@ -916,7 +917,7 @@ void ejecutar_signal(t_pcb* pcb){
 
 	while(list_iterator_has_next(iterador)){
 		t_recurso* recu = (t_recurso*)list_iterator_next(iterador);
-		log_info(logger,"Pasa por [%s] con [%i] instancias",recu->nombre,recu->instancias);
+		log_info(logger,"PID: <%d>, Pasa por [%s] con [%i] instancias",pcb->pid,recu->nombre,recu->instancias);
 		if(strcmp(nombre,recu->nombre) == 0){
 			recu->instancias++;
 			encontroResultado = 0;
@@ -945,6 +946,10 @@ void ejecutar_signal(t_pcb* pcb){
 		sem_post(&sem_habilitar_exec);
 	}
 
+	//free(recu); TODO: ver si liberar
+	free(instruccion);
+	free(nombre);
+	list_destroy(iterador);
 }
 
 void* ejecutar_IO(void* dato){
@@ -961,9 +966,8 @@ void* ejecutar_IO(void* dato){
 	agregar_a_cola_ready(pcb);
 	pthread_cancel(pthread_self());
 
-
-
 	return NULL;
+	free(instruccion);
 }
 
 void mostrar_registro(t_pcb* pcb){
@@ -984,64 +988,9 @@ void mostrar_registro(t_pcb* pcb){
 
 }
 
-// Envia los datos para la creacion del segmento a memoria (con el pid), y le devuelve el resultado
-/*int enviar_datos_a_memoria(t_pcb* pcb, int conexion, op_code codigo){
-	int result;
-
-	seg_aux* seg_aux = malloc(sizeof(seg_aux));
-	seg_aux->pid=pcb->pid;
-	seg_aux->segmento.id=pcb->dat_seg;
-	seg_aux->segmento.tamanio=pcb->dat_tamanio;
-
-	enviar_segmento_con_cod(seg_aux, conexion, codigo);
-	recv(conexion, &result, sizeof(uint32_t), MSG_WAITALL);
-
-	free(seg_aux);
-
-	return result;
-}*/
-/*
-void enviar_segmento_con_cod(seg_aux* seg_aux, int conexion, op_code codigo){
-	t_paquete* paquete = malloc(sizeof(t_paquete));
-    paquete->codigo_operacion = codigo;
-
-    t_buffer* buffer = malloc(sizeof(t_buffer));
-    int offset = 0;
-    buffer->size = sizeof(seg_aux);
-    buffer->stream = malloc(buffer->size);
-
-    switch(codigo){
-     case CREAR_SEGMENTO:
-    	 memcpy(buffer->stream + offset, seg_aux->pid, sizeof(int));
-    	 offset +=sizeof(int);
-
-    	 memcpy(buffer->stream + offset, seg_aux->segmento.id, sizeof(int));
-    	 offset += sizeof(int);
-
-    	 memcpy(buffer->stream + offset, seg_aux->segmento.tamanio, sizeof(int));
-    	 offset += sizeof(int);
-    	 break;
-     case ELIMINAR_SEGMENTO:
-    	 memcpy(buffer->stream + offset, seg_aux->pid, sizeof(int));
-    	 offset+=sizeof(int);
-
-    	 memcpy(buffer->stream + offset, seg_aux->segmento.id, sizeof(int));
-    	 offset+=sizeof(int);
-    	 break;
-     default:
-	    log_info(logger, "Codigo de operacion desconocido en enviar datos a memoria");
-	    break;
-    }
-
-    paquete->buffer = buffer;
-
-    enviar_paquete(paquete,conexion);
-}
-*/
-
 //--------------------------------- SERIALIZACION --------------------------------------//
 void enviar_crear_segmento(int pid, int id_seg,int tamanio_seg){
-	t_paquete* paquete = malloc(sizeof(t_paquete));
+	t_paquete* paquete = malloc(sizeof(t_paquete)); //TODO: memoryLeak
 	paquete->codigo_operacion = CREAR_SEGMENTO;
 	t_buffer* buffer = malloc(sizeof(t_buffer));
 	int offset = 0;
@@ -1060,10 +1009,14 @@ void enviar_crear_segmento(int pid, int id_seg,int tamanio_seg){
 	paquete->buffer = buffer;
 
 	enviar_paquete(paquete,conexion_memoria);
+
+	free(buffer->stream);
+	free(buffer);
+	free(paquete);
 }
 
 void enviar_eliminar_segmento(int pid, int id_seg,int tamanio_seg){
-	t_paquete* paquete = malloc(sizeof(t_paquete));
+	t_paquete* paquete = malloc(sizeof(t_paquete)); //TODO: memoryLeak
 	paquete->codigo_operacion = ELIMINAR_SEGMENTO;
 	t_buffer* buffer = malloc(sizeof(t_buffer));
 	int offset = 0;
@@ -1079,10 +1032,14 @@ void enviar_eliminar_segmento(int pid, int id_seg,int tamanio_seg){
 	paquete->buffer = buffer;
 
 	enviar_paquete(paquete,conexion_memoria);
+
+	free(paquete);
+	free(buffer->stream);
+	free(buffer);
 }
 
 void enviar_eliminar_proceso(int pid){
-	t_paquete* paquete = malloc(sizeof(t_paquete));
+	t_paquete* paquete = malloc(sizeof(t_paquete));//TODO: memoryLeak
 	paquete->codigo_operacion = FINALIZAR;
 	t_buffer* buffer = malloc(sizeof(t_buffer));
 	int offset = 0;
@@ -1095,6 +1052,10 @@ void enviar_eliminar_proceso(int pid){
 	paquete->buffer = buffer;
 
 	enviar_paquete(paquete,conexion_memoria);
+
+	free(paquete);
+	free(buffer->stream);
+	free(buffer);
 }
 
 void analizar_resultado(t_pcb* pcb,t_paquete* paquete,t_buffer* buffer){
@@ -1105,10 +1066,12 @@ void analizar_resultado(t_pcb* pcb,t_paquete* paquete,t_buffer* buffer){
 			case CREACION_EXITOSA:
 				log_info(logger,"Creacion exitosa");
 				buffer = desempaquetar(paquete,conexion_memoria);
-				t_list* lista = deserializar_tabla_actualizada(buffer);
+				t_list* lista = deserializar_tabla_actualizada(buffer);//TODO:memoryLeak
 				pcb->tabla_segmentos = lista;
 				enviar_pcb_a(pcb,conexion_cpu,EJECUTAR);
 				seguir = 0;
+
+				free(lista);
 				break;
 			case REALIZAR_COMPACTACION:
 				sem_wait(&mutex_compresion);
@@ -1148,14 +1111,14 @@ void analizar_resultado(t_pcb* pcb,t_paquete* paquete,t_buffer* buffer){
 }
 
 t_list* deserializar_tabla_actualizada(t_buffer* buffer){
-	int tamanio_tabla;
+	int tamanio_tabla = 0;
 	int offset = 0;
 	memcpy(&tamanio_tabla,buffer->stream + offset,sizeof(int));
 	offset += sizeof(int);
 	t_list* lista = list_create();
 	for(int i = 0; i < tamanio_tabla; i++){
 
-		segmento* seg = malloc(sizeof(segmento));
+		segmento* seg = malloc(sizeof(segmento));//TODO: memoryLeak
 		memcpy(&(seg->id),buffer->stream + offset,sizeof(int));
 		offset += sizeof(int);
 		memcpy(&(seg->direccion_base),buffer->stream + offset,sizeof(int));
@@ -1176,7 +1139,7 @@ void deserializar_tabla_general_actualizada(t_buffer* buffer){
 	offset += sizeof(int);
 	//t_list* lista = list_create();
 	for(int i = 0; i < tamanio_tabla; i++){
-		tabla_de_proceso* proc = malloc(sizeof(tabla_de_proceso));
+		tabla_de_proceso* proc = malloc(sizeof(tabla_de_proceso));//TODO: memoryLeak
 		memcpy(&proc->pid,buffer->stream + offset,sizeof(int));
 		offset += sizeof(int);
 		proc->segments = list_create();
@@ -1187,7 +1150,7 @@ void deserializar_tabla_general_actualizada(t_buffer* buffer){
 		offset += sizeof(int);
 
 		for(int j = 0; j < tam_seg;j++){
-			segmento* seg = malloc(sizeof(segmento));
+			segmento* seg = malloc(sizeof(segmento));//TODO: memoryLeak
 			memcpy(&(seg->id),buffer->stream + offset,sizeof(int));
 			offset += sizeof(int);
 			memcpy(&(seg->direccion_base),buffer->stream + offset,sizeof(int));
@@ -1203,6 +1166,7 @@ void deserializar_tabla_general_actualizada(t_buffer* buffer){
 		//list_add(lista,seg);
 		//log_info(logger,"Segmento ID %i BASE %i TAMANIO %i",seg->id,seg->direccion_base,seg->tamanio);
 	}
+
 
 }
 
@@ -1252,6 +1216,7 @@ char* deserializar_nombreArchivo(t_buffer* buffer){
 	memcpy(&nombreArchivo, buffer->stream + offset, strlen(nombreArchivo) + 1);
 
 	return nombreArchivo;
+	free(nombreArchivo);
 }
 //-------------------------------------ADICIONALES----------------------------------//
 int contiene_archivo(t_pcb* pcb, char* nombreArchivo){
@@ -1260,7 +1225,7 @@ int contiene_archivo(t_pcb* pcb, char* nombreArchivo){
 		t_archivo* archi = list_get(lista_archivos_abiertos,i);
 
 		if(strcmp(nombreArchivo,archi->directorio) == 0){
-			info_arch* arch_proc = malloc(sizeof(info_arch));
+			info_arch* arch_proc = malloc(sizeof(info_arch));//TODO: memoryLeak
 			arch_proc->dir = nombreArchivo;
 			arch_proc->punt = 0;
 			list_add(pcb->archivos_abiertos,arch_proc);
@@ -1272,7 +1237,7 @@ int contiene_archivo(t_pcb* pcb, char* nombreArchivo){
 }
 
 void crear_archivo(char* nombreArchivo){
-	t_archivo* archi = malloc(sizeof(t_archivo));
+	t_archivo* archi = malloc(sizeof(t_archivo));//TODO: memoryLeak
 	archi->directorio = nombreArchivo;
 	archi->cola_archivo = queue_create();
 	sem_init(&archi->sem_archivo,0,0);
@@ -1298,33 +1263,35 @@ void cerrar_archivo(t_pcb* pcb){
 		t_archivo* archi = list_get(lista_archivos_abiertos,i);
 		if(strcmp(archi->directorio,nombreArchivo) == 0){
 			if(queue_size(archi->cola_archivo) == 0){
+				free(archi);//TODO: ver si esta bien
 				list_remove(lista_archivos_abiertos,i);
 			} else {
 				sem_post(&archi->sem_archivo);
 			}
 		}
 	}
+	free(nombreArchivo);
 }
 
 void actualizar_puntero(t_pcb* pcb){
 	char* nombreArchivo = pcb->arch_a_abrir;
 	for(int i = 0; i < list_size(pcb->archivos_abiertos);i++){
-		info_arch* archi = list_get(pcb->archivos_abiertos,i);
+		info_arch* archi = list_get(pcb->archivos_abiertos,i); //TODO: memoryLeak
 
 		if(strcmp(archi->dir,nombreArchivo)==0){
 			archi->punt = pcb->posicion;
 			list_replace(pcb->archivos_abiertos,i,archi);
 			break;
 		}
-
 	}
+	free(nombreArchivo);
 }
 
 int buscar_puntero(t_pcb* pcb){
 	int puntero;
 	char* nombreArchivo = pcb->arch_a_abrir;
 		for(int i = 0; i < list_size(pcb->archivos_abiertos);i++){
-			info_arch* archi = list_get(pcb->archivos_abiertos,i);
+			info_arch* archi = list_get(pcb->archivos_abiertos,i);//TODO: memoryLeak
 
 			if(strcmp(archi->dir,nombreArchivo)==0){
 				puntero = archi->punt;
@@ -1333,9 +1300,7 @@ int buscar_puntero(t_pcb* pcb){
 
 		}
 	return puntero;
-
-
-
+	free(nombreArchivo);
 }
 
 void modificar_tamanio(t_pcb* pcb){

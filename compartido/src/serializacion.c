@@ -304,7 +304,7 @@ t_list* deserializar_lista_instrucciones(t_buffer* buffer){
 }
 
 void enviar_paquete_a(t_paquete* paquete,int conexion){
-	void* a_enviar = malloc(paquete->buffer->size + sizeof(op_code) + sizeof(uint32_t));
+	void* a_enviar = malloc(paquete->buffer->size + sizeof(op_code) + sizeof(uint32_t));//TODO: memoryLeak
 	int offset = 0;
 
 	memcpy(a_enviar + offset, &(paquete->codigo_operacion), sizeof(op_code));
@@ -331,10 +331,11 @@ void enviar_pcb_a(t_pcb* pcb,int conexion, op_code codigo){
 
 t_buffer* desempaquetar(t_paquete* paquete, int cliente_fd){
 	recv(cliente_fd, &(paquete->buffer->size), sizeof(uint32_t), 0);
-	paquete->buffer->stream = malloc(paquete->buffer->size);
+	paquete->buffer->stream = malloc(paquete->buffer->size);//TODO: memoryLeak
 	recv(cliente_fd, paquete->buffer->stream, paquete->buffer->size, 0);
 
 	return paquete->buffer;
+	//free(paquete->buffer->stream);
 }
 
 

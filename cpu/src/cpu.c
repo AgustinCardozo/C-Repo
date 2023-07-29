@@ -238,6 +238,8 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 				recv(conexion_memoria, valor, size_registro(registro), MSG_WAITALL);
 				insertar(pcb,registro,valor);
 				log_info(logger,"Se ingreso el valor %s",valor);
+				log_info(logger, "Accion: <LEER>, La df es %i, con tamanio %i, VALOR %s", df, size_registro(registro), valor);//TODO
+				free(valor);
 			}
 
 			//log_info(logger,"Se leyo el valor %s",pcb->registro.AX);
@@ -252,7 +254,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			log_info(logger,"Paso por mov_out");
 			registro = devolver_registro(list_get(instruccion->parametros,1));
 			dl=atoi(list_get(instruccion->parametros,0));
-			char *dato= devolver_dato(pcb,registro);
+			char *dato= devolver_dato(pcb,registro);//TODO: memoryLeak
 
 			df=obtener_direccion_fisica(dl,pcb,size_registro(registro));
 
@@ -272,7 +274,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 				}
 			}
 
-
+			free(dato);
 			break;
 		case F_OPEN:
 			log_info(logger,"Paso por F_OPEN");
@@ -427,6 +429,7 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 		case F_TRUNCATE:
 			log_info(logger,"Paso por f_truncate");
 			
+			//TODO: memoryLeak
 			pcb->arch_a_abrir=list_get(instruccion->parametros,0);
 			pcb->dat_tamanio=atoi(list_get(instruccion->parametros,1)); //Es el tamanio
 			enviar_pcb_a(pcb,conexion_kernel,MODIFICAR_TAMANIO);
@@ -526,7 +529,8 @@ void execute(t_instruccion* instruccion,t_pcb* pcb,int conexion_kernel){
 			break;
 		case DELETE_SEGMENT:
 			log_info(logger,"Paso por delete_segment");
-			pcb->dat_seg = atoi(list_get(instruccion->parametros,0));
+			pcb->dat_seg = 0;
+			pcb->dat_seg = atoi(list_get(instruccion->parametros,0));//TODO: memoryLeak
 
 			log_info(logger,"Eliminar segmento %i",pcb->dat_seg);
 			//Hay que devolverle el pdb al kernel para que despues el mismo se lo envie a memoria como explica en el enuncuad
@@ -785,14 +789,15 @@ void enviar_datos_para_escritura(int dir, char* valor, int tamanio){
 	memcpy(buffer->stream + offset, &tamanio, sizeof(int));
 	offset += sizeof(int);
 
+	log_info(logger, "Acción: <ESCRIBIR>, La df es %i, con tamanio %i, VALOR %s",dir,tamanio,valor);
+
 	memcpy(buffer->stream + offset, valor, tamanio);
 	offset += tamanio;
 
-	log_info(logger,"La df es %i con tamanio %i se envio %s",dir,tamanio,valor);
 	if(offset != buffer->size){
 		log_warning(logger,"No son iguales offset %i buffer %i",offset,buffer->size);
 	}
-	paquete->buffer = buffer;
+	paquete->buffer = buffer; //TODO: memoryLeak (librear buffer)
 
 	enviar_paquete(paquete,conexion_memoria);
 }
